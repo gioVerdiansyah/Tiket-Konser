@@ -25,3 +25,6 @@ Route::get('/jualtiket', function () {
 Route::get('/profile', function () {
     return view('profile');
 });
+Route::get('/history', function () {
+    return view('history');
+});
