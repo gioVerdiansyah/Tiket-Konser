@@ -15,14 +15,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/login', [SesiController::class, 'login'])->name('index');
+
+Route::post('/login', [SesiController::class, 'login']);
+
 Route::get('/cart', function () {
     return view('cart');
 });
+
 Route::get('/jualtiket', function () {
     return view('jual_tiket');
 });
+
 Route::get('/profile', function () {
     return view('profile');
 });

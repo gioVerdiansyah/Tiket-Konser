@@ -9,6 +9,7 @@
 <body>
     <h1>HAIIIIIIIII</h1>
     <h1>Kerjakan Dengan Benar!</h1>
+    <a href="{{ route('index') }}">logen</a>
 </body>
 </html>
 
