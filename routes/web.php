@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SesiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/login', [SesiController::class, 'login'])->name('index');
+
+Route::post('/login', [SesiController::class, 'login']);
 
 Route::get('/cart', function () {
     return view('cart');
