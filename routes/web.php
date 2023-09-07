@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/login', [SesiController::class, 'login'])->name('index');
+Route::post('/login', [SesiController::class, 'login']);
 Route::get('/cart', function () {
     return view('cart');
 });
