@@ -32,12 +32,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     {{-- End --}}
 
-    {{-- JS Initialize AOS --}}
-    <script>
-        AOS.init();
-    </script>
-    {{-- End --}}
-    
   </head>
   <body>
 
@@ -139,5 +133,13 @@
 
     {{-- bootstrap js --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    {{-- End --}}
+
+    {{-- JS Initialize AOS --}}
+    <script>
+        AOS.init();
+    </script>
+    {{-- End --}}
+
     </body>
 </html>
