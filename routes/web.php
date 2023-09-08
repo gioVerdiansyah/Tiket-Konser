@@ -18,8 +18,13 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/login', [SesiController::class, 'login'])->name('login');
-Route::post('/login', [SesiController::class, 'login'])->name('login');
+Route::get('/detail-tiket', function () {
+    return view('detail-tiket');
+});
+
+// Route::get('/login', [SesiController::class, 'login'])->name('index');
+
+Route::post('/login', [SesiController::class, 'login']);
 
 Route::get('/cart', function () {
     return view('cart');
