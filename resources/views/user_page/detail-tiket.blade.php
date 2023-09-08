@@ -22,21 +22,6 @@
     text-align: center;
     font-weight: bold;
     }
-
-    #container {
-        text-align: center;
-    }
-    #row {
-        display: flex;
-        justify-content: space-between;
-    }
-    .divider {
-        width: 50%;
-        height: 3px;
-        background-color: #000; /* Warna garis */
-        transition: width 0.3s ease; /* Animasi perubahan lebar */
-    }
-
 </style>
 {{-- End --}}
 
@@ -44,7 +29,7 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-6 text-center">
-            <img src="{{asset('images/homepage/card.jpg')}}" class="img-fluid rounded-4" style="width: 300px" alt="">
+            <img src="{{asset('images/homepage/card.jpg')}}" class="img-fluid rounded-4 shadow-lg" style="width: 300px" alt="">
         </div>
         <div class="col-6 text-left mt-5">
             <h3 class="fw-bold">Currents</h3>
@@ -67,7 +52,7 @@
                     <button id="plus" class="plus"><i class="bi bi-plus-lg"></i></button>
                 </div>
                 <div class="pesan col-9 mx-4">
-                    <a href="#" class="btn btn-dark d-flex justify-content-center align-items-center rounded-3" style="height: 60px;">
+                    <a href="/cart" class="btn btn-dark d-flex justify-content-center align-items-center rounded-3" style="height: 60px;">
                         <span>Pesan Sekarang</span>
                     </a>
                 </div>
@@ -77,19 +62,38 @@
 </div>
 {{-- Content End --}}
 
-{{-- Detail Tiket or Ulasan Tiket Start --}}
-<div id="detail_ulasan" class="container text-center">
+{{-- Anchor Detail Konser dan Ulasan Start --}}
+<div id="" class="container text-center py-3">
     <div id="#row" class="row">
-        <div class="col-6" id="detailKonser">
-            <a href="#" class="text-dark" onclick="toggleDivider()" style="text-decoration: none">Detail Konser</a>
+        <div class="col-6" id="">
+            <a href="#" class="text-dark"  style="text-decoration: none">Detail Konser</a>
         </div>
-        <div class="col-6" id="ulasan" onclick="toggleDividerAndMoveBelow()">
+        <div class="col-6" id="" >
             <a href="#" class="text-dark" style="text-decoration: none">Ulasan</a>
         </div>
     </div>
-    <div class="divider" id="divider"></div>
 </div>
-{{-- Detail Tiket or Ulasan Tiket Start --}}
+{{-- Anchor Detail Konser dan Ulasan End --}}
+
+{{-- Detail Konser Start --}}
+<div class="container py-5">
+    <div class="detail_konser my-5">
+        <h4 class="fw-bold">DETAIL KONSER</h4>
+        <p>Tame Impala Concert</p>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus tempore vitae dolore labore nemo repellat ea impedit eligendi, quisquam aspernatur ad alias. Aspernatur deleniti velit accusamus aperiam, voluptatem beatae perferendis ad, iste corrupti hic earum, modi eius repellendus. Autem, quisquam.</p>
+        <hr>
+        <div class="lok d-flex justify-content-center gap-5">
+            <p><i class="bi bi-geo-alt-fill"></i> Jakarta, Jl. Panglima Sudirman, Stadion Pangsud</p>
+            <p><i class="bi bi-calendar"></i> 1 Oktober 2023 Pukul 18:00</p>
+            <p><i class="bi bi-person"></i> Diselenggarakan Oleh <span class="fw-bold">Otello Asia</span></p>
+        </div>
+        <hr>
+    </div>
+    <div class="denah_konser mt-5">
+        <a href="" class="btn btn-outline-dark btn-lg">Denah Konser</a>
+    </div>
+</div>
+{{-- Detail Konser End --}}
 
 {{-- Custom JS for Counter--}}
 <script>
@@ -137,42 +141,6 @@
     // Fungsi untuk memperbarui tampilan jumlah tiket
     function updateTicketCount() {
         document.getElementById('count').textContent = ticketCount;
-    }
-</script>
-{{-- End --}}
-
-{{-- Custom JS for Divider --}}
-<script>
-    function toggleDivider() {
-        const divider = document.getElementById('divider');
-        const detailKonser = document.getElementById('detailKonser');
-        const ulasan = document.getElementById('ulasan');
-
-        if (divider.style.width === '0%') {
-            divider.style.width = '50%';
-            detailKonser.style.display = 'block';
-            ulasan.style.display = 'block';
-        } else {
-            divider.style.width = '0%';
-            detailKonser.style.display = 'block';
-            ulasan.style.display = 'block';
-        }
-    }
-
-    function toggleDividerAndMoveBelow() {
-        const divider = document.getElementById('divider');
-        const detailKonser = document.getElementById('detailKonser');
-        const ulasan = document.getElementById('ulasan');
-
-        if (divider.style.width === '0%') {
-            divider.style.width = '50%';
-            detailKonser.style.display = 'none';
-            ulasan.style.display = 'block';
-        } else {
-            divider.style.width = '0%';
-            detailKonser.style.display = 'block';
-            ulasan.style.display = 'block';
-        }
     }
 </script>
 {{-- End --}}

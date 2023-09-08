@@ -38,7 +38,7 @@
     {{-- Nav Start --}}
     <nav class="navbar navbar-expand-lg bg-body-tertiary py-4">
         <div class="container">
-          <a class="navbar-brand fw-bold" href="#">Ticket.</a>
+          <a class="navbar-brand fw-bold" href="/">Ticket.</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -51,7 +51,7 @@
                 <a class="nav-link" href="#">Konser</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Jual Tiket</a>
+                <a class="nav-link" href="/jualtiket">Jual Tiket</a>
               </li>
             </div>
             <div class="navbar-nav ml-auto">
