@@ -32,19 +32,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     {{-- End --}}
 
-    {{-- JS Initialize AOS --}}
-    <script>
-        AOS.init();
-    </script>
-    {{-- End --}}
-    
   </head>
   <body>
 
     {{-- Nav Start --}}
     <nav class="navbar navbar-expand-lg bg-body-tertiary py-4">
         <div class="container">
-          <a class="navbar-brand fw-bold" href="#">Ticket.</a>
+          <a class="navbar-brand fw-bold" href="/">Ticket.</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -57,7 +51,7 @@
                 <a class="nav-link" href="#">Konser</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Jual Tiket</a>
+                <a class="nav-link" href="/jualtiket">Jual Tiket</a>
               </li>
             </div>
             <div class="navbar-nav ml-auto">
@@ -139,5 +133,13 @@
 
     {{-- bootstrap js --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    {{-- End --}}
+
+    {{-- JS Initialize AOS --}}
+    <script>
+        AOS.init();
+    </script>
+    {{-- End --}}
+
     </body>
 </html>
