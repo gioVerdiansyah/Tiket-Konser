@@ -15,16 +15,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('login');
 });
 
 Route::get('/detail-tiket', function () {
     return view('detail-tiket');
 });
 
-// Route::get('/login', [SesiController::class, 'login'])->name('index');
+Route::get('/loginview', function () {
+    return view('login');
+})->name('loginview');
 
-Route::post('/login', [SesiController::class, 'login']);
+// Define the route for the 'login' action from the controller
+Route::get('/', [SesiController::class, 'login'])->name('login');
+
 
 Route::get('/cart', function () {
     return view('cart');

@@ -50,7 +50,7 @@
                 <form action="{{ route('login') }}" method="POST" class="login100-form validate-form">
                 @csrf
                     <span class="login100-form-title p-b-5">
-                        Sign In
+                        Sign Indonesia
                         <p class="mt-4" style="color: #fff;font-size:20px">Belum  punya akun?</p>
                         <p class="mt-4" style="color: #fff;font-size:20px">Belum punya akun?</p>
                         <p style="color: #fff;font-size:20px">Silahkan <a href="#" style="color: #C10C99;font-size:20px;">Register Disini!</a></p>
