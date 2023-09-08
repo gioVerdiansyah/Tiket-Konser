@@ -70,6 +70,7 @@
                     <div class="left-right">
                         <h5 class="card-title">Lokasi</h5>
                         <p class="card-text">Pilih lokasi</p>
+                        <p class="card-text">Nama</p>
                     </div>
                 </div>
             </div>
