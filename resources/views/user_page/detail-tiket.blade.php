@@ -66,34 +66,57 @@
 <div id="" class="container text-center py-3">
     <div id="#row" class="row">
         <div class="col-6" id="">
-            <a href="#" class="text-dark"  style="text-decoration: none">Detail Konser</a>
+            <a href="#" class="text-dark text-decoration-none">Detail Konser</a>
         </div>
         <div class="col-6" id="" >
-            <a href="#" class="text-dark" style="text-decoration: none">Ulasan</a>
+            <a href="#" class="text-dark text-decoration-none">Ulasan</a>
         </div>
     </div>
 </div>
 {{-- Anchor Detail Konser dan Ulasan End --}}
 
 {{-- Detail Konser Start --}}
-<div class="container py-5">
+<div class="container py-5 d-none">
     <div class="detail_konser my-5">
         <h4 class="fw-bold">DETAIL KONSER</h4>
         <p>Tame Impala Concert</p>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus tempore vitae dolore labore nemo repellat ea impedit eligendi, quisquam aspernatur ad alias. Aspernatur deleniti velit accusamus aperiam, voluptatem beatae perferendis ad, iste corrupti hic earum, modi eius repellendus. Autem, quisquam.</p>
         <hr>
-        <div class="lok d-flex justify-content-center gap-5">
+        <div class="lok d-flex justify-content-center text-center gap-5 py-2">
+            <a href="" class="fw-bold text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#denahKonserModal"><i class="bi bi-map"></i> Denah Konser</a>
             <p><i class="bi bi-geo-alt-fill"></i> Jakarta, Jl. Panglima Sudirman, Stadion Pangsud</p>
             <p><i class="bi bi-calendar"></i> 1 Oktober 2023 Pukul 18:00</p>
             <p><i class="bi bi-person"></i> Diselenggarakan Oleh <span class="fw-bold">Otello Asia</span></p>
         </div>
         <hr>
     </div>
-    <div class="denah_konser mt-5">
-        <a href="" class="btn btn-outline-dark btn-lg">Denah Konser</a>
-    </div>
 </div>
 {{-- Detail Konser End --}}
+
+{{-- Ulasan Start--}}
+<div class="container py-5">
+    <div class="title d-flex">
+        <h3>Komentar <span>(2)</span></h3>
+        <a href="" class="btn btn-dark ml-auto">Beri Ulasan</a>
+    </div>
+</div>
+{{-- Ulasan End--}}
+
+{{-- Modal Denah Konser Start --}}
+<div class="modal fade" id="denahKonserModal" tabindex="-1" aria-labelledby="denahKonserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title fw-semibold" id="denahKonserModalLabel">Denah Konser</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{{asset('images/detail-tiket/denah-konser.jpg')}}" alt="Denah Konser" class="img-fluid" width="%">
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Modal Denah Konser End --}}
 
 {{-- Custom JS for Counter--}}
 <script>

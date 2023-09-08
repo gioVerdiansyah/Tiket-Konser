@@ -15,32 +15,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('user_page.home');
 });
 
 Route::get('/detail-tiket', function () {
-    return view('detail-tiket');
+    return view('user_page.detail-tiket');
 });
 
-Route::get('/loginview', function () {
-    return view('login');
-})->name('loginview');
+// Route::get('/loginview', function () {
+//     return view('login');
+// })->name('loginview');
 
-// Define the route for the 'login' action from the controller
-Route::get('/', [SesiController::class, 'login'])->name('login');
+// // Define the route for the 'login' action from the controller
+// Route::get('/', [SesiController::class, 'login'])->name('login');
 
 
 Route::get('/cart', function () {
-    return view('cart');
+    return view('user_page.cart');
 });
 
 Route::get('/jualtiket', function () {
-    return view('jual_tiket');
+    return view('user_page.jual_tiket');
 });
 
 Route::get('/profile', function () {
-    return view('profile');
+    return view('user_page.profile');
 });
 Route::get('/history', function () {
-    return view('history');
+    return view('user_page.history');
 });
