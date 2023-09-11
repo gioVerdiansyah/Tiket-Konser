@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('user_page.home');
 });
 
+Route::get('/profile', function () {
+    return view('user_page.profile');
+});
+
 Route::get('/detail-tiket', function () {
     return view('user_page.detail-tiket');
 });
