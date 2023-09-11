@@ -48,7 +48,7 @@
                 <a class="nav-link" href="#">Beranda</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Konser</a>
+                <a class="nav-link" href="/konser">Konser</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/jualtiket">Jual Tiket</a>

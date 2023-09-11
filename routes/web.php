@@ -38,6 +38,12 @@ Route::get('/jualtiket', function () {
     return view('user_page.jual_tiket');
 });
 
+
+Route::get('/konser', function() {
+    return view('user_page.konser');
+});
+
+
 Route::get('/profile', function () {
     return view('user_page.profile');
 });
