@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from adminlte.io/themes/v3/pages/examples/profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 12 Sep 2023 03:25:15 GMT -->
+<!-- Mirrored from adminlte.io/themes/v3/pages/examples/faq.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 12 Sep 2023 03:25:18 GMT -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AdminLTE 3 | User Profile</title>
+<title>AdminLTE 3 | FAQ</title>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
 
-<link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
+<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
 
-<link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min2167.css?v=3.2.0') }}">
-<script nonce="7a456668-47e8-44f2-a4dc-924356d400f4">(function(w,d){!function(bg,bh,bi,bj){bg[bi]=bg[bi]||{};bg[bi].executed=[];bg.zaraz={deferred:[],listeners:[]};bg.zaraz.q=[];bg.zaraz._f=function(bk){return async function(){var bl=Array.prototype.slice.call(arguments);bg.zaraz.q.push({m:bk,a:bl})}};for(const bm of["track","set","debug"])bg.zaraz[bm]=bg.zaraz._f(bm);bg.zaraz.init=()=>{var bn=bh.getElementsByTagName(bj)[0],bo=bh.createElement(bj),bp=bh.getElementsByTagName("title")[0];bp&&(bg[bi].t=bh.getElementsByTagName("title")[0].text);bg[bi].x=Math.random();bg[bi].w=bg.screen.width;bg[bi].h=bg.screen.height;bg[bi].j=bg.innerHeight;bg[bi].e=bg.innerWidth;bg[bi].l=bg.location.href;bg[bi].r=bh.referrer;bg[bi].k=bg.screen.colorDepth;bg[bi].n=bh.characterSet;bg[bi].o=(new Date).getTimezoneOffset();if(bg.dataLayer)for(const bt of Object.entries(Object.entries(dataLayer).reduce(((bu,bv)=>({...bu[1],...bv[1]})),{})))zaraz.set(bt[0],bt[1],{scope:"page"});bg[bi].q=[];for(;bg.zaraz.q.length;){const bw=bg.zaraz.q.shift();bg[bi].q.push(bw)}bo.defer=!0;for(const bx of[localStorage,sessionStorage])Object.keys(bx||{}).filter((bz=>bz.startsWith("_zaraz_"))).forEach((by=>{try{bg[bi]["z_"+by.slice(7)]=JSON.parse(bx.getItem(by))}catch{bg[bi]["z_"+by.slice(7)]=bx.getItem(by)}}));bo.referrerPolicy="origin";bo.src="../../../../cdn-cgi/zaraz/sd0d9.js?z="+btoa(encodeURIComponent(JSON.stringify(bg[bi])));bn.parentNode.insertBefore(bo,bn)};["complete","interactive"].includes(bh.readyState)?zaraz.init():bg.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document);</script></head>
+<link rel="stylesheet" href="../../dist/css/adminlte.min2167.css?v=3.2.0">
+<script nonce="8c1116fd-b4f9-4d52-896a-e4890c2f38b7">(function(w,d){!function(bg,bh,bi,bj){bg[bi]=bg[bi]||{};bg[bi].executed=[];bg.zaraz={deferred:[],listeners:[]};bg.zaraz.q=[];bg.zaraz._f=function(bk){return async function(){var bl=Array.prototype.slice.call(arguments);bg.zaraz.q.push({m:bk,a:bl})}};for(const bm of["track","set","debug"])bg.zaraz[bm]=bg.zaraz._f(bm);bg.zaraz.init=()=>{var bn=bh.getElementsByTagName(bj)[0],bo=bh.createElement(bj),bp=bh.getElementsByTagName("title")[0];bp&&(bg[bi].t=bh.getElementsByTagName("title")[0].text);bg[bi].x=Math.random();bg[bi].w=bg.screen.width;bg[bi].h=bg.screen.height;bg[bi].j=bg.innerHeight;bg[bi].e=bg.innerWidth;bg[bi].l=bg.location.href;bg[bi].r=bh.referrer;bg[bi].k=bg.screen.colorDepth;bg[bi].n=bh.characterSet;bg[bi].o=(new Date).getTimezoneOffset();if(bg.dataLayer)for(const bt of Object.entries(Object.entries(dataLayer).reduce(((bu,bv)=>({...bu[1],...bv[1]})),{})))zaraz.set(bt[0],bt[1],{scope:"page"});bg[bi].q=[];for(;bg.zaraz.q.length;){const bw=bg.zaraz.q.shift();bg[bi].q.push(bw)}bo.defer=!0;for(const bx of[localStorage,sessionStorage])Object.keys(bx||{}).filter((bz=>bz.startsWith("_zaraz_"))).forEach((by=>{try{bg[bi]["z_"+by.slice(7)]=JSON.parse(bx.getItem(by))}catch{bg[bi]["z_"+by.slice(7)]=bx.getItem(by)}}));bo.referrerPolicy="origin";bo.src="../../../../cdn-cgi/zaraz/sd0d9.js?z="+btoa(encodeURIComponent(JSON.stringify(bg[bi])));bn.parentNode.insertBefore(bo,bn)};["complete","interactive"].includes(bh.readyState)?zaraz.init():bg.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document);</script></head>
 <body class="hold-transition sidebar-mini">
+
 <div class="wrapper">
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -510,7 +511,7 @@ Pages
 </a>
 </li>
 <li class="nav-item">
-<a href="profile.html" class="nav-link active">
+<a href="profile.html" class="nav-link">
 <i class="far fa-circle nav-icon"></i>
 <p>Profile</p>
 </a>
@@ -552,7 +553,7 @@ Pages
 </a>
 </li>
 <li class="nav-item">
-<a href="faq.html" class="nav-link">
+<a href="faq.html" class="nav-link active">
 <i class="far fa-circle nav-icon"></i>
 <p>FAQ</p>
 </a>
@@ -681,7 +682,7 @@ Login & Register v2
 </a>
 </li>
 <li class="nav-item">
-<a href="blank.html" class="nav-link">
+<a href="blank.html" class="nav-link active">
 <i class="far fa-circle nav-icon"></i>
 <p>Blank Page</p>
 </a>
@@ -827,12 +828,12 @@ Level 2
 <div class="container-fluid">
 <div class="row mb-2">
 <div class="col-sm-6">
-<h1>Profile</h1>
+<h1>FAQ</h1>
 </div>
 <div class="col-sm-6">
 <ol class="breadcrumb float-sm-right">
 <li class="breadcrumb-item"><a href="#">Home</a></li>
-<li class="breadcrumb-item active">User Profile</li>
+<li class="breadcrumb-item active">FAQ</li>
 </ol>
 </div>
 </div>
@@ -840,325 +841,143 @@ Level 2
 </section>
 
 <section class="content">
-<div class="container-fluid">
 <div class="row">
-<div class="col-md-3">
-
+<div class="col-12" id="accordion">
 <div class="card card-primary card-outline">
-<div class="card-body box-profile">
-<div class="text-center">
-<img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
-</div>
-<h3 class="profile-username text-center">Nina Mcintire</h3>
-<p class="text-muted text-center">Software Engineer</p>
-<ul class="list-group list-group-unbordered mb-3">
-<li class="list-group-item">
-<b>Followers</b> <a class="float-right">1,322</a>
-</li>
-<li class="list-group-item">
-<b>Following</b> <a class="float-right">543</a>
-</li>
-<li class="list-group-item">
-<b>Friends</b> <a class="float-right">13,287</a>
-</li>
-</ul>
-<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
-</div>
-
-</div>
-
-
-<div class="card card-primary">
+<a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
 <div class="card-header">
-<h3 class="card-title">About Me</h3>
+<h4 class="card-title w-100">
+1. Lorem ipsum dolor sit amet
+</h4>
 </div>
-
-<div class="card-body">
-<strong><i class="fas fa-book mr-1"></i> Education</strong>
-<p class="text-muted">
-B.S. in Computer Science from the University of Tennessee at Knoxville
-</p>
-<hr>
-<strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-<p class="text-muted">Malibu, California</p>
-<hr>
-<strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-<p class="text-muted">
-<span class="tag tag-danger">UI Design</span>
-<span class="tag tag-success">Coding</span>
-<span class="tag tag-info">Javascript</span>
-<span class="tag tag-warning">PHP</span>
-<span class="tag tag-primary">Node.js</span>
-</p>
-<hr>
-<strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-9">
-<div class="card">
-<div class="card-header p-2">
-<ul class="nav nav-pills">
-<li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
-<li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-<li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
-</ul>
-</div>
-<div class="card-body">
-<div class="tab-content">
-<div class="active tab-pane" id="activity">
-
-<div class="post">
-<div class="user-block">
-<img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
-<span class="username">
-<a href="#">Jonathan Burke Jr.</a>
-<a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-</span>
-<span class="description">Shared publicly - 7:30 PM today</span>
-</div>
-
-<p>
-Lorem ipsum represents a long-held tradition for designers,
-typographers and the like. Some people hate it and argue for
-its demise, but others ignore the hate as they create awesome
-tools to help create filler text for everyone from bacon lovers
-to Charlie Sheen fans.
-</p>
-<p>
-<a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-<a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-<span class="float-right">
-<a href="#" class="link-black text-sm">
-<i class="far fa-comments mr-1"></i> Comments (5)
 </a>
-</span>
-</p>
-<input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-</div>
-
-
-<div class="post clearfix">
-<div class="user-block">
-<img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
-<span class="username">
-<a href="#">Sarah Ross</a>
-<a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-</span>
-<span class="description">Sent you a message - 3 days ago</span>
-</div>
-
-<p>
-Lorem ipsum represents a long-held tradition for designers,
-typographers and the like. Some people hate it and argue for
-its demise, but others ignore the hate as they create awesome
-tools to help create filler text for everyone from bacon lovers
-to Charlie Sheen fans.
-</p>
-<form class="form-horizontal">
-<div class="input-group input-group-sm mb-0">
-<input class="form-control form-control-sm" placeholder="Response">
-<div class="input-group-append">
-<button type="submit" class="btn btn-danger">Send</button>
+<div id="collapseOne" class="collapse show" data-parent="#accordion">
+<div class="card-body">
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
 </div>
 </div>
-</form>
 </div>
-
-
-<div class="post">
-<div class="user-block">
-<img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg" alt="User Image">
-<span class="username">
-<a href="#">Adam Jones</a>
-<a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-</span>
-<span class="description">Posted 5 photos - 5 days ago</span>
+<div class="card card-primary card-outline">
+<a class="d-block w-100" data-toggle="collapse" href="#collapseTwo">
+<div class="card-header">
+<h4 class="card-title w-100">
+2. Aenean massa
+</h4>
 </div>
-
-<div class="row mb-3">
-<div class="col-sm-6">
-<img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
+</a>
+<div id="collapseTwo" class="collapse" data-parent="#accordion">
+<div class="card-body">
+Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 </div>
-
-<div class="col-sm-6">
+</div>
+</div>
+<div class="card card-primary card-outline">
+<a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
+<div class="card-header">
+<h4 class="card-title w-100">
+3. Donec quam felis
+</h4>
+</div>
+</a>
+<div id="collapseThree" class="collapse" data-parent="#accordion">
+<div class="card-body">
+Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+</div>
+</div>
+</div>
+<div class="card card-warning card-outline">
+<a class="d-block w-100" data-toggle="collapse" href="#collapseFour">
+<div class="card-header">
+<h4 class="card-title w-100">
+4. Donec pede justo
+</h4>
+</div>
+</a>
+<div id="collapseFour" class="collapse" data-parent="#accordion">
+<div class="card-body">
+Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+</div>
+</div>
+</div>
+<div class="card card-warning card-outline">
+<a class="d-block w-100" data-toggle="collapse" href="#collapseFive">
+<div class="card-header">
+<h4 class="card-title w-100">
+5. In enim justo
+</h4>
+</div>
+</a>
+<div id="collapseFive" class="collapse" data-parent="#accordion">
+<div class="card-body">
+In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+</div>
+</div>
+</div>
+<div class="card card-warning card-outline">
+<a class="d-block w-100" data-toggle="collapse" href="#collapseSix">
+<div class="card-header">
+<h4 class="card-title w-100">
+6. Integer tincidunt
+</h4>
+</div>
+</a>
+<div id="collapseSix" class="collapse" data-parent="#accordion">
+<div class="card-body">
+Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.
+</div>
+</div>
+</div>
+<div class="card card-danger card-outline">
+<a class="d-block w-100" data-toggle="collapse" href="#collapseSeven">
+<div class="card-header">
+<h4 class="card-title w-100">
+7. Aenean leo ligula
+</h4>
+</div>
+</a>
+<div id="collapseSeven" class="collapse" data-parent="#accordion">
+<div class="card-body">
+Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
+</div>
+</div>
+</div>
+<div class="card card-danger card-outline">
+<a class="d-block w-100" data-toggle="collapse" href="#collapseEight">
+<div class="card-header">
+<h4 class="card-title w-100">
+8. Aliquam lorem ante
+</h4>
+</div>
+</a>
+<div id="collapseEight" class="collapse" data-parent="#accordion">
+<div class="card-body">
+Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.
+</div>
+</div>
+</div>
+<div class="card card-danger card-outline">
+<a class="d-block w-100" data-toggle="collapse" href="#collapseNine">
+<div class="card-header">
+<h4 class="card-title w-100">
+9. Quisque rutrum
+</h4>
+</div>
+</a>
+<div id="collapseNine" class="collapse" data-parent="#accordion">
+<div class="card-body">
+Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="row">
-<div class="col-sm-6">
-<img class="img-fluid mb-3" src="../../dist/img/photo2.png" alt="Photo">
-<img class="img-fluid" src="../../dist/img/photo3.jpg" alt="Photo">
-</div>
-
-<div class="col-sm-6">
-<img class="img-fluid mb-3" src="../../dist/img/photo4.jpg" alt="Photo">
-<img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<p>
-<a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-<a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-<span class="float-right">
-<a href="#" class="link-black text-sm">
-<i class="far fa-comments mr-1"></i> Comments (5)
-</a>
-</span>
+<div class="col-12 mt-3 text-center">
+<p class="lead">
+<a href="contact-us.html">Contact us</a>,
+if you found not the right anwser or you have a other question?<br/>
 </p>
-<input class="form-control form-control-sm" type="text" placeholder="Type a comment">
 </div>
-
-</div>
-
-<div class="tab-pane" id="timeline">
-
-<div class="timeline timeline-inverse">
-
-<div class="time-label">
-<span class="bg-danger">
-10 Feb. 2014
-</span>
-</div>
-
-
-<div>
-<i class="fas fa-envelope bg-primary"></i>
-<div class="timeline-item">
-<span class="time"><i class="far fa-clock"></i> 12:05</span>
-<h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-<div class="timeline-body">
-Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-weebly ning heekya handango imeem plugg dopplr jibjab, movity
-jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-quora plaxo ideeli hulu weebly balihoo...
-</div>
-<div class="timeline-footer">
-<a href="#" class="btn btn-primary btn-sm">Read more</a>
-<a href="#" class="btn btn-danger btn-sm">Delete</a>
-</div>
-</div>
-</div>
-
-
-<div>
-<i class="fas fa-user bg-info"></i>
-<div class="timeline-item">
-<span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-<h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-</h3>
-</div>
-</div>
-
-
-<div>
-<i class="fas fa-comments bg-warning"></i>
-<div class="timeline-item">
-<span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-<h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-<div class="timeline-body">
-Take me to your leader!
-Switzerland is small and neutral!
-We are more like Germany, ambitious and misunderstood!
-</div>
-<div class="timeline-footer">
-<a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-</div>
-</div>
-</div>
-
-
-<div class="time-label">
-<span class="bg-success">
-3 Jan. 2014
-</span>
-</div>
-
-
-<div>
-<i class="fas fa-camera bg-purple"></i>
-<div class="timeline-item">
-<span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-<h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-<div class="timeline-body">
-<img src="https://placehold.it/150x100" alt="...">
-<img src="https://placehold.it/150x100" alt="...">
-<img src="https://placehold.it/150x100" alt="...">
-<img src="https://placehold.it/150x100" alt="...">
-</div>
-</div>
-</div>
-
-<div>
-<i class="far fa-clock bg-gray"></i>
-</div>
-</div>
-</div>
-
-<div class="tab-pane" id="settings">
-<form class="form-horizontal">
-<div class="form-group row">
-<label for="inputName" class="col-sm-2 col-form-label">Name</label>
-<div class="col-sm-10">
-<input type="email" class="form-control" id="inputName" placeholder="Name">
-</div>
-</div>
-<div class="form-group row">
-<label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-<div class="col-sm-10">
-<input type="email" class="form-control" id="inputEmail" placeholder="Email">
-</div>
-</div>
-<div class="form-group row">
-<label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-<div class="col-sm-10">
-<input type="text" class="form-control" id="inputName2" placeholder="Name">
-</div>
-</div>
-<div class="form-group row">
-<label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-<div class="col-sm-10">
-<textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-</div>
-</div>
-<div class="form-group row">
-<label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-<div class="col-sm-10">
-<input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-</div>
-</div>
-<div class="form-group row">
-<div class="offset-sm-2 col-sm-10">
-<div class="checkbox">
-<label>
-<input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-</label>
-</div>
-</div>
-</div>
-<div class="form-group row">
-<div class="offset-sm-2 col-sm-10">
-<button type="submit" class="btn btn-danger">Submit</button>
-</div>
-</div>
-</form>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div>
 </section>
 
@@ -1178,14 +997,14 @@ We are more like Germany, ambitious and misunderstood!
 </div>
 
 
-<script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
+<script src="../../plugins/jquery/jquery.min.js"></script>
 
-<script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<script src="{{ asset('admin/dist/js/adminlte.min2167.js?v=3.2.0') }}"></script>
+<script src="../../dist/js/adminlte.min2167.js?v=3.2.0"></script>
 
-<script src="{{ asset('admin/dist/js/demo.js') }}"></script>
+<script src="../../dist/js/demo.js"></script>
 </body>
 
-<!-- Mirrored from adminlte.io/themes/v3/pages/examples/profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 12 Sep 2023 03:25:15 GMT -->
+<!-- Mirrored from adminlte.io/themes/v3/pages/examples/faq.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 12 Sep 2023 03:25:18 GMT -->
 </html>
