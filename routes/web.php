@@ -51,6 +51,11 @@ Route::get('/konser', function() {
 Route::get('/profile', function () {
     return view('user_page.profile');
 });
+
 Route::get('/history', function () {
     return view('user_page.history');
+});
+
+Route::get('/admin', function () {
+    return view('user_page.admin');
 });

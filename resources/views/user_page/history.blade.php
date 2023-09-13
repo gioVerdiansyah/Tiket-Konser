@@ -28,8 +28,8 @@
         <br>
         <div class="card">
             <div class="row no-gutters">
-                <div class="col-md-3"> <!-- Mengubah ukuran kolom gambar -->
-                    <img src="{{ asset('foto/ooh.jpg') }}" class="card-img custom-img" alt="Placeholder Image" width="150">
+                <div class="col-md-3 d-flex align-items-center justify-content-start"> <!-- Mengubah ukuran kolom gambar -->
+                    <img src="{{ asset('foto/sekolah.jpg') }}" class="card-img custom-img w-75" style="border: 0; border-radius:1em;" alt="Placeholder Image">
                 </div>
                 <div class="col-md-9">
                     <div class="card-body">
