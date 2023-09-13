@@ -30,7 +30,7 @@
         <div class="card">
             <div class="row no-gutters">
                 <div class="col-md-3"> <!-- Mengubah ukuran kolom gambar -->
-                    <img src="{{ asset('foto/ooh.jpg') }}" class="card-img custom-img" alt="Placeholder Image" width="150">
+                    <img src=" {{ asset('images/history/Tame.jpeg') }} " class="card-img custom-img" alt="Placeholder Image" width="150">
                 </div>
                 <div class="col-md-9">
                     <div class="card-body">
