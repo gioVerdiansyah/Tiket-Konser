@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="zxx">
+@extends('layouts.master')
+
+@section('content')
 
 <!-- Mirrored from preview.colorlib.com/theme/malefashion/shopping-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 08 Sep 2023 07:48:04 GMT -->
 <head>
@@ -47,7 +48,7 @@
 <a href="#" class="search-switch"><img src="img/icon/search.png" alt></a>
 <a href="#"><img src="img/icon/heart.png" alt></a>
 <a href="#"><img src="img/icon/cart.png" alt> <span>0</span></a>
-<div class="price">$0.00</div>
+<div class="price">RP 0.00</div>
 </div>
 <div id="mobile-menu-wrap"></div>
 <div class="offcanvas__text">
@@ -115,7 +116,7 @@
 <a href="#" class="search-switch"><img src="img/icon/search.png" alt></a>
 <a href="#"><img src="img/icon/heart.png" alt></a>
 <a href="#"><img src="img/icon/cart.png" alt> <span>0</span></a>
-<div class="price">$0.00</div>
+<div class="price">Rp 0.00</div>
 </div>
 </div>
 </div>
@@ -129,11 +130,10 @@
 <div class="row">
 <div class="col-lg-12">
 <div class="breadcrumb__text">
-<h4>Shopping Cart</h4>
+<h4>Pesanan Anda</h4>
 <div class="breadcrumb__links">
 <a href="index.html">Home</a>
-<a href="shop.html">Shop</a>
-<span>Shopping Cart</span>
+<a href="shop.html">Cart</a>
 </div>
 </div>
 </div>
@@ -152,8 +152,6 @@
 <tr>
 <th>Product</th>
 <th>Quantity</th>
-<th>Total</th>
-<th></th>
 </tr>
 </thead>
 <tbody>
@@ -163,8 +161,10 @@
 <img src="img/shopping-cart/cart-1.jpg" alt>
 </div>
 <div class="product__cart__item__text">
-<h6>T-shirt Contrast Pocket</h6>
-<h5>$98.49</h5>
+<h4>T-shirt Contrast Pocket</h4>
+<h6>Kota: Jakarta</h6>
+<h6>Kategori: VIP</h6>
+<h5>Rp 98.49</h5>
 </div>
 </td>
 <td class="quantity__item">
@@ -174,8 +174,8 @@
 </div>
 </div>
 </td>
-<td class="cart__price">$ 30.00</td>
-<td class="cart__close"><i class="fa fa-close"></i></td>
+{{-- <td class="cart__price">Rp 30.00</td>
+<td class="cart__close"><i class="fa fa-close"></i></td> --}}
 </tr>
 <tr>
 <td class="product__cart__item">
@@ -184,7 +184,7 @@
 </div>
 <div class="product__cart__item__text">
 <h6>Diagonal Textured Cap</h6>
-<h5>$98.49</h5>
+<h5>Rp 98.49</h5>
 </div>
 </td>
 <td class="quantity__item">
@@ -194,8 +194,8 @@
 </div>
 </div>
 </td>
-<td class="cart__price">Rp 32.50</td>
-<td class="cart__close"><i class="fa fa-close"></i></td>
+{{-- <td class="cart__price">Rp 32.50</td>
+<td class="cart__close"><i class="fa fa-close"></i></td> --}}
 </tr>
 <tr>
 <td class="product__cart__item">
@@ -204,7 +204,7 @@
 </div>
 <div class="product__cart__item__text">
 <h6>Basic Flowing Scarf</h6>
-<h5>Rp. 98.49</h5>
+<h5>Rp 98.49</h5>
 </div>
 </td>
 <td class="quantity__item">
@@ -214,8 +214,8 @@
 </div>
 </div>
 </td>
-<td class="cart__price">Rp 47.00</td>
-<td class="cart__close"><i class="fa fa-close"></i></td>
+{{-- <td class="cart__price">Rp 47.00</td>
+<td class="cart__close"><i class="fa fa-close"></i></td> --}}
 </tr>
 <tr>
 <td class="product__cart__item">
@@ -234,8 +234,8 @@
 </div>
 </div>
 </td>
-<td class="cart__price">Rp 30.00</td>
-<td class="cart__close"><i class="fa fa-close"></i></td>
+{{-- <td class="cart__price">Rp 30.00</td>
+<td class="cart__close"><i class="fa fa-close"></i></td> --}}
 </tr>
 </tbody>
 </table>
@@ -243,111 +243,27 @@
 <div class="row">
 <div class="col-lg-6 col-md-6 col-sm-6">
 <div class="continue__btn">
-<a href="#">Continue Shopping</a>
+{{-- <a href="#">Continue Shopping</a> --}}
 </div>
 </div>
 <div class="col-lg-6 col-md-6 col-sm-6">
 <div class="continue__btn update__btn">
-<a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+{{-- <a href="#"><i class="fa fa-spinner"></i> Update cart</a> --}}
 </div>
 </div>
 </div>
 </div>
-<div class="col-lg-4">
-<div class="cart__discount">
-<h6>Discount codes</h6>
-<form action="#">
-<input type="text" placeholder="Coupon code">
-<button type="submit">Apply</button>
-</form>
-</div>
+
 <div class="cart__total">
-<h6>Cart total</h6>
+<h6>Order Summary</h6>
 <ul>
-<li>Subtotal <span>Rp 169.50</span></li>
-<li>Total <span>Rp 169.50</span></li>
+<li>Subtotal <span>Rp 160.000</span></li>
+<li>Admin Fee <span>Rp 5.000</span></li>
+<li>Total <span>Rp 165.000</span></li>
 </ul>
-<a href="#" class="primary-btn">Proceed to checkout</a>
-</div>
-</div>
-</div>
-</div>
-</section>
+<a href="#" class="primary-btn">Menuju ke pembayaran</a>
 
 
-<footer class="footer">
-<div class="container">
-<div class="row">
-<div class="col-lg-3 col-md-6 col-sm-6">
-<div class="footer__about">
-<div class="footer__logo">
-<a href="#"><img src="img/footer-logo.png" alt></a>
-</div>
-<p>The customer is at the heart of our unique business model, which includes design.</p>
-<a href="#"><img src="img/payment.png" alt></a>
-</div>
-</div>
-<div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
-<div class="footer__widget">
-<h6>Shopping</h6>
-<ul>
-<li><a href="#">Clothing Store</a></li>
-<li><a href="#">Trending Shoes</a></li>
-<li><a href="#">Accessories</a></li>
-<li><a href="#">Sale</a></li>
-</ul>
-</div>
-</div>
-<div class="col-lg-2 col-md-3 col-sm-6">
-<div class="footer__widget">
-<h6>Shopping</h6>
-<ul>
-<li><a href="#">Contact Us</a></li>
-<li><a href="#">Payment Methods</a></li>
-<li><a href="#">Delivary</a></li>
-<li><a href="#">Return & Exchanges</a></li>
-</ul>
-</div>
-</div>
-<div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
-<div class="footer__widget">
-<h6>NewLetter</h6>
-<div class="footer__newslatter">
-<p>Be the first to know about new arrivals, look books, sales & promos!</p>
-<form action="#">
-<input type="text" placeholder="Your email">
-<button type="submit"><span class="icon_mail_alt"></span></button>
-</form>
-</div>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-lg-12 text-center">
-<div class="footer__copyright__text">
-
-<p>Copyright ©
-<script>
-                                document.write(new Date().getFullYear());
-                            </script>2020
-All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com/" target="_blank">Colorlib</a>
-</p>
-
-</div>
-</div>
-</div>
-</div>
-</footer>
-
-
-<div class="search-model">
-<div class="h-100 d-flex align-items-center justify-content-center">
-<div class="search-close-switch">+</div>
-<form class="search-model-form">
-<input type="text" id="search-input" placeholder="Search here.....">
-</form>
-</div>
-</div>
 
 
 <script src="{{ asset('malefashion') }}/js/jquery-3.3.1.min.js"></script>
@@ -374,3 +290,5 @@ All rights reserved | This template is made with <i class="fa fa-heart-o" aria-h
 
 <!-- Mirrored from preview.colorlib.com/theme/malefashion/shopping-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 08 Sep 2023 07:48:26 GMT -->
 </html>
+
+@endsection

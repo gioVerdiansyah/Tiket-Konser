@@ -37,13 +37,13 @@
             <p>Saksikan keseruan konser yang mempesona.</p>
             <p>Stok : 5</p>
             <input type="checkbox" class="btn-check" id="VVIP" autocomplete="off">
-            <label class="btn btn-outline-dark rounded-3" for="VVIP">VVIP</label>
+            <label class="btn btn-outline-dark rounded-5" for="VVIP">VVIP</label>
 
             <input type="checkbox" class="btn-check" id="VIP" autocomplete="off">
-            <label class="btn btn-outline-dark ms-2 rounded-3" for="VIP">VIP</label>
+            <label class="btn btn-outline-dark ms-2 rounded-5" for="VIP">VIP</label>
 
             <input type="checkbox" class="btn-check" id="Reguler" autocomplete="off">
-            <label class="btn btn-outline-dark ms-2 rounded-3" for="Reguler">Reguler</label>
+            <label class="btn btn-outline-dark ms-2 rounded-5" for="Reguler">Reguler</label>
             <hr>
             <div class="button d-flex">
                 <div class="counter btn btn-light text-center rounded-3"">
@@ -52,7 +52,7 @@
                     <button id="plus" class="plus"><i class="bi bi-plus-lg"></i></button>
                 </div>
                 <div class="pesan col-9 mx-4">
-                    <a href="/cart" class="btn btn-dark d-flex justify-content-center align-items-center rounded-3" style="height: 60px;">
+                    <a href="/cart" class="btn btn-dark d-flex justify-content-center align-items-center rounded-5" style="height: 60px;">
                         <span>Pesan Sekarang</span>
                     </a>
                 </div>
@@ -97,7 +97,7 @@
 <div class="container py-5">
     <div class="title d-flex">
         <h3>Komentar <span>(2)</span></h3>
-        <a href="" class="btn btn-dark ml-auto">Beri Ulasan</a>
+        <a href="" class="btn btn-dark ml-auto rounded-5">Beri Ulasan</a>
     </div>
 </div>
 {{-- Ulasan End--}}
