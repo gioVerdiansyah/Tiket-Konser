@@ -56,6 +56,3 @@ Route::get('/history', function () {
     return view('user_page.history');
 });
 
-Route::get('/admin', function () {
-    return view('user_page.admin');
-});

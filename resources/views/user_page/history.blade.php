@@ -29,7 +29,7 @@
         <div class="card">
             <div class="row no-gutters">
                 <div class="col-md-3 d-flex align-items-center justify-content-start"> <!-- Mengubah ukuran kolom gambar -->
-                    <img src="{{ asset('foto/sekolah.jpg') }}" class="card-img custom-img w-75" style="border: 0; border-radius:1em;" alt="Placeholder Image">
+                    <img src="{{ asset('foto/yuu.jpg') }}" class="card-img custom-img w-75" style="border: 0; border-radius:1em;" alt="Placeholder Image">
                 </div>
                 <div class="col-md-9">
                     <div class="card-body">
@@ -42,7 +42,7 @@
                             <div>
                                 <p class="m-0 p-0">1 barang x Rp 500.000</p>
                                 <p class="m-0 p-0" style="color: green;">
-                                    <strong>Status :</strong> menunggu konfirmasi
+                                    <strong> Status :</strong> menunggu konfirmasi
                                 </p>
                                 <p class="m-0 p-0">
                                     <strong style="color: red;">Lihat Detail Transaksi</strong>
