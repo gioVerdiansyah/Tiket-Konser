@@ -56,8 +56,8 @@
             </div>
             <div class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i>
+                    <a class="nav-link" href="#" id="profileDropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-2"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                         <li><a class="dropdown-item" href="#">Profil Saya</a></li>
@@ -65,6 +65,8 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Keluar</a></li>
                     </ul>
+
+
                 </li>
             </div>
             </div>
@@ -83,7 +85,7 @@
             <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 pt-5">
                 <div class="col mb-3">
                 <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-                    <h1 class="fw-bold">Ticket.</h1>
+                    <h3 class="fw-bold">Ticket.</h3>
                 </a>
                 <p>Kami menyediakan tiket konser mancanegara dengan harga yang relatif terjangkau.</p>
                 <p class="text-body-secondary">&copy; 2023</p>
