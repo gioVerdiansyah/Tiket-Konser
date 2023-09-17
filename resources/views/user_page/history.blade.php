@@ -31,9 +31,10 @@
         <br>
         <div class="card">
             <div class="row no-gutters">
-                <div class="col-md-3">
-                    <img src=" {{ asset('images/history/Tame.jpeg') }} " class="card-img custom-img"
-                        alt="Placeholder Image" width="150">
+                <div class="col-md-3 d-flex align-items-center justify-content-start"> <!-- Mengubah ukuran kolom gambar -->
+                    <img src="{{ asset('foto/yuu.jpg') }}" class="card-img custom-img w-75" style="border: 0; border-radius:1em;" alt="Placeholder Image">
+                <div class="col-md-3"> <!-- Mengubah ukuran kolom gambar -->
+                    <img src=" {{ asset('images/history/Tame.jpeg') }} " class="card-img custom-img" alt="Placeholder Image" width="150">
                 </div>
                 <div class="col-md-9">
                     <div class="card-body">
@@ -46,6 +47,8 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <p class="m-0 p-0">1 barang x Rp 500.000</p>
+                                <p class="m-0 p-0" style="color: green;">
+                                    <strong> Status :</strong> menunggu konfirmasi
                                 <p class="m-0 p-0" style="color: rgb(162, 170, 162);">
                                     <strong>Status :</strong> menunggu konfirmasi
                                 </p>
