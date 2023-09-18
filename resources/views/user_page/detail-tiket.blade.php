@@ -8,6 +8,7 @@
             align-items: center;
             gap: 10px;
             font-size: 24px;
+
         }
 
         button {
@@ -15,17 +16,19 @@
             border: none;
             cursor: pointer;
         }
-        .nav-tabs .nav-link {
-    border-bottom: 1px solid transparent;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    transition: border-bottom-color 0.3s ease-in-out;
-}
 
-.nav-tabs .nav-link.active {
-    border-bottom-color: #1170ff;
-}
+        .nav-tabs .nav-link {
+            border-bottom: 1px solid transparent;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            transition: border-bottom-color 0.3s ease-in-out;
+        }
+
+        .nav-tabs .nav-link.active {
+            border-bottom-color: #1170ff;
+        }
+
         .count {
             width: 30px;
             text-align: center;
@@ -51,6 +54,15 @@
         #lang-3:checked~.label-3 {
             background-color: #000000;
             color: #F0F0F0;
+        }
+
+
+        .left-align {
+            text-align: left;
+        }
+
+        .container {
+            margin-top: -10px;
         }
     </style>
     {{-- End --}}
@@ -110,10 +122,12 @@
             <div id="tab1" class="tab-pane fade show active">
                 <div class="container">
                     <div class="detail_konser my-5">
-                        <h4 class="fw-bold">DETAIL KONSER</h4>
-                        <p>Tame Impala Concert</p>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus tempore vitae dolore labore nemo repellat
-                            ea impedit eligendi, quisquam aspernatur ad alias. Aspernatur deleniti velit accusamus aperiam, voluptatem
+                        <h4 class="fw-bold left-align">DETAIL KONSER</h4>
+                        <p class="left-align">Tame Impala Concert</p>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus tempore vitae dolore labore
+                            nemo repellat
+                            eaimpedit eligendi, quisquam aspernatur ad alias. Aspernatur deleniti velit accusamus aperiam,
+                            voluptatem
                             beatae perferendis ad, iste corrupti hic earum, modi eius repellendus. Autem, quisquam.</p>
                         <hr>
                         <div class="lok d-flex justify-content-start text-start gap-5 py-2">
@@ -121,7 +135,8 @@
                                 data-bs-target="#denahKonserModal"><i class="bi bi-map"></i> Denah Konser</a>
                             <p><i class="bi bi-geo-alt-fill"></i>Jakarta, Jl. Panglima Sudirman, Stadion Pangsud</p>
                             <p><i class="bi bi-calendar"></i> 1 Oktober 2023 Pukul 18:00</p>
-                            <p><i class="bi bi-person"></i> Diselenggarakan Oleh <span class="fw-bold">Otello Asia</span></p>
+                            <p><i class="bi bi-person"></i> Diselenggarakan Oleh <span class="fw-bold">Otello Asia</span>
+                            </p>
                         </div>
                         <hr>
                     </div>
@@ -129,25 +144,21 @@
             </div>
             <div id="tab2" class="tab-pane fade">
                 <div class="container py-5">
-                    <div class="detail_konser ">
-                        <h4 class="fw-bold">Ulasan KONSER</h4>
-                        <p>Tame Impala Concert</p>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus tempore vitae dolore labore nemo repellat
-                            ea impedit eligendi, quisquam aspernatur ad alias. Aspernatur deleniti velit accusamus aperiam, voluptatem
-                            beatae perferendis ad, iste corrupti hic earum, modi eius repellendus. Autem, quisquam.</p>
-                        <hr>
-                        <div class="lok d-flex justify-content-start text-start gap-5 py-2">
-                            <a href="" class="fw-bold text-dark text-decoration-none" data-bs-toggle="modal"
-                                data-bs-target="#denahKonserModal"><i class="bi bi-map"></i> Denah Konser</a>
-                            <p><i class="bi bi-geo-alt-fill"></i>Jakarta, Jl. Panglima Sudirman, Stadion Pangsud</p>
-                            <p><i class="bi bi-calendar"></i> 1 Oktober 2023 Pukul 18:00</p>
-                            <p><i class="bi bi-person"></i> Diselenggarakan Oleh <span class="fw-bold">Otello Asia</span></p>
-                        </div>
-                        <hr>
+                    <div class="title d-flex">
+                        <h4 class="">KOMENTAR<span>(2)</span></h4>
+                    </div>
+                    <div class="review-button d-flex">
+                        <a href="" class="btn btn-dark rounded-5">Beri Ulasan</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
 
     <!-- Memuat jQuery dan script Bootstrap -->
@@ -157,15 +168,6 @@
     {{-- Detail Konser Start --}}
 
     {{-- Detail Konser End --}}
-
-    {{-- Ulasan Start --}}
-    <div class="container py-5">
-        <div class="title d-flex">
-            <h3>Komentar <span>(2)</span></h3>
-            <a href="" class="btn btn-dark ml-auto rounded-5">Beri Ulasan</a>
-        </div>
-    </div>
-    {{-- Ulasan End --}}
 
     {{-- Modal Denah Konser Start --}}
     <div class="modal fade" id="denahKonserModal" tabindex="-1" aria-labelledby="denahKonserModalLabel" aria-hidden="true">
