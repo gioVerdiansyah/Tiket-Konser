@@ -10,7 +10,7 @@
                     alt="">
                 <div class="carousel-caption" style="top: 20%; left: 100px; right: auto; text-align: left;">
                     <h1 class="text-black fw-bold" style="max-width: 600px">Temukan Keseruan dengan menonton konser!</h1>
-                    <a href="#" class="btn btn-dark ">Pesan Sekarang</a>
+                    <a href="#" class="btn btn-dark rounded-5">Pesan Sekarang</a>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
                 <p class="fw-bold">Rp. 300.000</p>
             </div>
             <div class="container">
-                <a href="#" class="btn btn-outline-dark mt-5">Tampilkan Lebih</a>
+                <a href="#" class="btn btn-outline-dark mt-5 rounded-5">Tampilkan Lebih</a>
             </div>
         </div>
     </div>
@@ -121,7 +121,7 @@
                 <p class="fw-bold">Rp. 300.000</p>
             </div>
             <div class="container">
-                <a href="#" class="btn btn-outline-dark mt-5">Tampilkan Lebih</a>
+                <a href="#" class="btn btn-outline-dark mt-5 rounded-5">Tampilkan Lebih</a>
             </div>
         </div>
     </div>

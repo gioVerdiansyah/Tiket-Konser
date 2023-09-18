@@ -100,7 +100,7 @@
             <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 pt-5">
                 <div class="col mb-3">
                 <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-                    <h1 class="fw-bold">Ticket.</h1>
+                    <h3 class="fw-bold">Ticket.</h3>
                 </a>
                 <p>Kami menyediakan tiket konser mancanegara dengan harga yang relatif terjangkau.</p>
                 <p class="text-body-secondary">&copy; 2023</p>
