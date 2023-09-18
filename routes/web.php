@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KonserController;
 use App\Http\Controllers\SesiController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,10 +44,9 @@ Route::get('/jualtiket', function () {
 });
 
 
-Route::get('/konser', function() {
-    return view('user_page.konser');
-});
-
+Route::get('/konser', [KonserController::class, 'index']);
+Route::get('/konser', [KonserController::class, 'search'])->name('konser.search');
+Route::get('/konser/kategori/{id}', 'KonserController@kategori');
 
 Route::get('/profile', function () {
     return view('user_page.profile');

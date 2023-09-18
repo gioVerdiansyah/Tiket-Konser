@@ -1,12 +1,14 @@
+{{--  @extends('layouts.master')
+@section('content')  --}}
 <!DOCTYPE html>
-<html lang="id">
+<html lang="zxx">
 
 <head>
-    <meta charset="UTF-8">
+    {{--  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">  --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Tiket</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,12 +19,24 @@
             height: 100vh;
             margin: 0;
         }
+        input.no-border {
+            border: none;
+        }
+        input.no-border:focus {
+            outline: none;
+        }
+        .kartu-keluarga{
+            font-size: 15px;
+        }
+        .kartu-keluarga{
+            font:900;
+        }
 
         .card {
             width: 60rem;
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: none;
+            {{--  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  --}}
         }
 
         .card-img-top {
@@ -33,14 +47,26 @@
         }
 
         .card-body {
-            padding: 1rem;
+
         }
 
         .card-text {
             font-size: 20px;
             color: #333;
         }
+        .card-judul {
+            font-size: 20px;
+            color: #494A4A;
+        }
 
+        .card-body-1 {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 30px;
+            padding-top: 20px;
+            padding-bottom: ;
+
+        }
         .card-body {
             display: flex;
             justify-content: space-between;
@@ -86,24 +112,32 @@
                 }
             });
         </script>
+
+                <div class="card-body-1">
+                    <div class="left-column">
+                        {{--  <h5 class="card-title">Diselenggarakan oleh</h5>  --}}
+                        <input type="text"  class="no-border" style="font-size: 25px; " placeholder="Nama Konser*">
+                    </div>
+                </div>
+
         <div class="card-body">
             <div class="card" style="width: 920px">
-                <div class="card-body">
+                <div class="card-body ">
                     <div class="left-column">
-                        <h5 class="card-title">Diselenggarakan oleh</h5>
-                        <p class="m-0 p-0" style="font-size: 15px;">Deni Sumargo</p>
+                        <h5 class="kartu-keluarga" >Diselenggarakan oleh</h5>
+                        <input type="text"  class="no-border" style="font-size: 15px; " placeholder="nama">
+
                     </div>
 
                     <div class="left-center">
-                        <h5 class="card-title">Tanggal dan Waktu</h5>
+                        <h5 class="kartu-keluarga">Tanggal dan Waktu</h5>
                         {{-- <p class="m-0 p-0" style="font-size: 15px;">Pilih Tanggal</p> --}}
                         <!-- Button trigger modal -->
-                        <div class="py-3">
-                            <button type="button" class="btn btn-light border; none;" style="width: 120px; font-size: 16px; border: none;" data-bs-toggle="modal" data-bs-target="#pilihtanggal">Pilih Tanggal</button>
-
+                        <div class="py-1">
+                            <button type="button" class="btn btn-light" style="width: 120px; font-size: 16px; border: none;" data-bs-toggle="modal" data-bs-target="#pilihtanggal">Pilih Tanggal</button>
                         </div>
+                            <button type="button" class="btn btn-light" style="width: 120px; font-size: 16px; border: none;" data-bs-toggle="modal" data-bs-target="#pilihtanggal" data-bs-whatever="@fat"> Pilih Waktu </button
 
-                        <button type="button" class="btn btn-light border; none;" style="width: 120px; font-size: 16px; border: none;" data-bs-toggle="modal" data-bs-target="#pilihtanggal" data-bs-whatever="@fat"> Pilih Waktu </button
 
                         <!-- Modal -->
                         <div class="modal fade" id="pilihtanggal" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -135,15 +169,16 @@
                         {{-- <p class="m-0 p-0"style="font-size: 15px;">Pilih Waktu</p> --}}
                     </div>
                     <div class="left-right">
-                        <h5 class="card-title">Lokasi</h5>
+                        <h5 class="kartu-keluarga">Lokasi</h5>
                         {{-- <p class="m-0 p-0" style="font-size: 15px;">Pilih Lokasi</p> --}}
-                        <button type="button" class="btn btn-light border; none;" style="width: 120px; font-size: 16px; border: none;" data-bs-toggle="modal" data-bs-target="#pilihtanggal" data-bs-whatever="@fat"> Pilih lokasi </button>
+                        <button type="button" class="btn btn-light " style="width: 120px; font-size: 16px; border: none; background:none;" data-bs-toggle="modal" data-bs-target="#pilihtanggal" data-bs-whatever="@fat"> Pilih lokasi </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script>
+          {{--  @endsection  --}}
     $("#kt_datepicker_3").flatpickr({
         enableTime: true,
         dateFormat: "Y-m-d H:i",
