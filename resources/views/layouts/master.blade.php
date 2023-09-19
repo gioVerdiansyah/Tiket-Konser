@@ -77,8 +77,7 @@
                                 <i class="bi bi-person-circle"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                                <li><a class="dropdown-item" href="#">Profil Saya</a></li>
-                                <li><a class="dropdown-item" href="#">Pengaturan</a></li>
+                                <li><a class="dropdown-item" href="{{ route('profileUser') }}">Profil Saya</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -150,8 +149,7 @@
                                     class="nav-link p-0 text-body-secondary">Customer Support</a></li>
                             <li class="nav-item mb-2"><a href="#"
                                     class="nav-link p-0 text-body-secondary">Delivery Details</a></li>
-                            <li class="nav-item mb-2"><a href="#"
-                                    class="nav-link p-0 text-body-secondary">Terms
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Terms
                                     & Conditions</a></li>
                             <li class="nav-item mb-2"><a href="#"
                                     class="nav-link p-0 text-body-secondary">Privacy Policy</a></li>
@@ -187,7 +185,7 @@
                     title: "{{ session('message')['title'] }}",
                     text: "{{ session('message')['text'] }}",
                     timer: 5000,
-                    allowOutsideClick: false,
+                    allowOutsideClick: true,
                     allowEscapeKey: false,
                 });
             </script>

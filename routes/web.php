@@ -4,6 +4,7 @@ use App\Http\Controllers\KonserController;
 use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\UpdateProfileController;
 use App\Http\Controllers\SesiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -21,8 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('user_page.home');
-
-});
+})->middleware('CekAdmin')->name('index');
 
 Auth::routes();
 
@@ -32,21 +32,12 @@ Route::post('/login', [SesiController::class, 'login']);
 
 
 
-// Admin ini
-
-Route::get('/admin', [LoginAdminController::class, 'login']);
-
-
 Route::get('/cart', function () {
     return view('cart');
 });
 
 Route::get('/jualtiket', function () {
     return view('jual_tiket');
-});
-
-Route::get('/profile', function () {
-    return view('user_page.profile');
 });
 
 Route::get('/detail-tiket', function () {
@@ -74,12 +65,15 @@ Route::get('/konser', [KonserController::class, 'index'])->name('konser')->middl
 Route::get('/konser', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
 Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori'])->middleware('CekLogin');
 
+// Profile User
+Route::middleware('CekLogin')->group(function () {
+    Route::get('/profile', [UpdateProfileController::class, 'index'])->name('profileUser');
 
-Route::get('/profile', function () {
-    return view('user_page.profile');
-});
-Route::get('/history', function () {
-    return view('user_page.history');
+    Route::put('/profile/{user}', [UpdateProfileController::class, 'update'])->name('updateProfile');
+
+    Route::get('/history', function () {
+        return view('user_page.history');
+    })->name('history');
 });
 // Route::get('/homeAdmin', function () {
 //     return view('admin_page.homeAdmin');
@@ -105,4 +99,8 @@ Route::middleware(['CekRole:user,admin'])->group(function () {
 
 Auth::routes();
 
+<<<<<<< Updated upstream
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+=======
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+>>>>>>> Stashed changes
