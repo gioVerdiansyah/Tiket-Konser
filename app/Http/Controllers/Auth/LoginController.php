@@ -28,6 +28,16 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    protected function redirectTo()
+    {
+
+        if (auth()->user()->role == 'admin') {
+            return '/homeAdmin'; // Ganti '/admin' dengan URL halaman admin.
+        } else {
+            return '/'; // Ganti '/user' dengan URL halaman pengguna.
+        }
+    }
+
     /**
      * Create a new controller instance.
      *

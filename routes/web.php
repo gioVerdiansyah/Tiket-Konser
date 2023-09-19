@@ -1,5 +1,6 @@
 <?php
-use App\Http\Controllers\KonserController;
+
+use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SesiController;
@@ -18,12 +19,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user_page.home');
+
 });
+
+Auth::routes();
 
 Route::get('/login', [SesiController::class, 'login'])->name('index');
 
 Route::post('/login', [SesiController::class, 'login']);
+
+
+
+// Admin ini
+
+Route::get('/admin', [LoginAdminController::class, 'login']);
+
 
 Route::get('/cart', function () {
     return view('cart');
@@ -51,17 +62,17 @@ Route::get('/detail-tiket', function () {
 
 Route::get('/cart', function () {
     return view('user_page.cart');
-});
+})->name('cart');
 
 Route::get('/jualtiket', function () {
     return view('user_page.jual_tiket');
-});
+})->name("jualtiket");
 
 
 
-Route::get('/konser', [KonserController::class, 'index'])->middleware('CekLogin');
-Route::get('/konser', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
-Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori'])->middleware('CekLogin');
+Route::get('/konser', function () {
+    return view('user_page.konser');
+})->name('konser')->middleware('CekLogin');
 
 
 Route::get('/profile', function () {
@@ -78,8 +89,6 @@ Route::get('/penjualan', function () {
     return view('admin_page.penjualan');
 })->name('penjualan');
 
-
-Auth::routes();
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
