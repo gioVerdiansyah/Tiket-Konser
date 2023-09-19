@@ -1,294 +1,368 @@
 @extends('layouts.master')
 
 @section('content')
+    <!-- Mirrored from preview.colorlib.com/theme/malefashion/shopping-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 08 Sep 2023 07:48:04 GMT -->
 
-<!-- Mirrored from preview.colorlib.com/theme/malefashion/shopping-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 08 Sep 2023 07:48:04 GMT -->
-<head>
-<meta charset="UTF-8">
-<meta name="description" content="Male_Fashion Template">
-<meta name="keywords" content="Male_Fashion, unica, creative, html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Ticket</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Male_Fashion Template">
+        <meta name="keywords" content="Male_Fashion, unica, creative, html">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Ticket</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
+            rel="stylesheet">
 
-<link rel="stylesheet" href="{{ asset('malefashion') }}/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="{{ asset('malefashion') }}/css/font-awesome.min.css" type="text/css">
-<link rel="stylesheet" href="{{ asset('malefashion') }}/css/elegant-icons.css" type="text/css">
-<link rel="stylesheet" href="{{ asset('malefashion') }}/css/magnific-popup.css" type="text/css">
-<link rel="stylesheet" href="{{ asset('malefashion') }}/css/nice-select.css" type="text/css">
-<link rel="stylesheet" href="{{ asset('malefashion') }}/css/owl.carousel.min.css" type="text/css">
-<link rel="stylesheet" href="{{ asset('malefashion') }}/css/slicknav.min.css" type="text/css">
-<link rel="stylesheet" href="{{ asset('malefashion') }}/css/style.css" type="text/css">
-<script nonce="9aabcf69-9bc4-42e6-bc14-21c6b817e0b8">(function(w,d){!function(bg,bh,bi,bj){bg[bi]=bg[bi]||{};bg[bi].executed=[];bg.zaraz={deferred:[],listeners:[]};bg.zaraz.q=[];bg.zaraz._f=function(bk){return async function(){var bl=Array.prototype.slice.call(arguments);bg.zaraz.q.push({m:bk,a:bl})}};for(const bm of["track","set","debug"])bg.zaraz[bm]=bg.zaraz._f(bm);bg.zaraz.init=()=>{var bn=bh.getElementsByTagName(bj)[0],bo=bh.createElement(bj),bp=bh.getElementsByTagName("title")[0];bp&&(bg[bi].t=bh.getElementsByTagName("title")[0].text);bg[bi].x=Math.random();bg[bi].w=bg.screen.width;bg[bi].h=bg.screen.height;bg[bi].j=bg.innerHeight;bg[bi].e=bg.innerWidth;bg[bi].l=bg.location.href;bg[bi].r=bh.referrer;bg[bi].k=bg.screen.colorDepth;bg[bi].n=bh.characterSet;bg[bi].o=(new Date).getTimezoneOffset();if(bg.dataLayer)for(const bt of Object.entries(Object.entries(dataLayer).reduce(((bu,bv)=>({...bu[1],...bv[1]})),{})))zaraz.set(bt[0],bt[1],{scope:"page"});bg[bi].q=[];for(;bg.zaraz.q.length;){const bw=bg.zaraz.q.shift();bg[bi].q.push(bw)}bo.defer=!0;for(const bx of[localStorage,sessionStorage])Object.keys(bx||{}).filter((bz=>bz.startsWith("_zaraz_"))).forEach((by=>{try{bg[bi]["z_"+by.slice(7)]=JSON.parse(bx.getItem(by))}catch{bg[bi]["z_"+by.slice(7)]=bx.getItem(by)}}));bo.referrerPolicy="origin";bo.src="../../cdn-cgi/zaraz/sd0d9.js?z="+btoa(encodeURIComponent(JSON.stringify(bg[bi])));bn.parentNode.insertBefore(bo,bn)};["complete","interactive"].includes(bh.readyState)?zaraz.init():bg.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document);</script></head>
-<body>
+        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/magnific-popup.css" type="text/css">
+        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/nice-select.css" type="text/css">
+        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/slicknav.min.css" type="text/css">
+        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/style.css" type="text/css">
+        <script nonce="9aabcf69-9bc4-42e6-bc14-21c6b817e0b8">
+            (function(w, d) {
+                ! function(bg, bh, bi, bj) {
+                    bg[bi] = bg[bi] || {};
+                    bg[bi].executed = [];
+                    bg.zaraz = {
+                        deferred: [],
+                        listeners: []
+                    };
+                    bg.zaraz.q = [];
+                    bg.zaraz._f = function(bk) {
+                        return async function() {
+                            var bl = Array.prototype.slice.call(arguments);
+                            bg.zaraz.q.push({
+                                m: bk,
+                                a: bl
+                            })
+                        }
+                    };
+                    for (const bm of ["track", "set", "debug"]) bg.zaraz[bm] = bg.zaraz._f(bm);
+                    bg.zaraz.init = () => {
+                        var bn = bh.getElementsByTagName(bj)[0],
+                            bo = bh.createElement(bj),
+                            bp = bh.getElementsByTagName("title")[0];
+                        bp && (bg[bi].t = bh.getElementsByTagName("title")[0].text);
+                        bg[bi].x = Math.random();
+                        bg[bi].w = bg.screen.width;
+                        bg[bi].h = bg.screen.height;
+                        bg[bi].j = bg.innerHeight;
+                        bg[bi].e = bg.innerWidth;
+                        bg[bi].l = bg.location.href;
+                        bg[bi].r = bh.referrer;
+                        bg[bi].k = bg.screen.colorDepth;
+                        bg[bi].n = bh.characterSet;
+                        bg[bi].o = (new Date).getTimezoneOffset();
+                        if (bg.dataLayer)
+                            for (const bt of Object.entries(Object.entries(dataLayer).reduce(((bu, bv) => ({
+                                    ...bu[1],
+                                    ...bv[1]
+                                })), {}))) zaraz.set(bt[0], bt[1], {
+                                scope: "page"
+                            });
+                        bg[bi].q = [];
+                        for (; bg.zaraz.q.length;) {
+                            const bw = bg.zaraz.q.shift();
+                            bg[bi].q.push(bw)
+                        }
+                        bo.defer = !0;
+                        for (const bx of [localStorage, sessionStorage]) Object.keys(bx || {}).filter((bz => bz
+                            .startsWith("_zaraz_"))).forEach((by => {
+                            try {
+                                bg[bi]["z_" + by.slice(7)] = JSON.parse(bx.getItem(by))
+                            } catch {
+                                bg[bi]["z_" + by.slice(7)] = bx.getItem(by)
+                            }
+                        }));
+                        bo.referrerPolicy = "origin";
+                        bo.src = "../../cdn-cgi/zaraz/sd0d9.js?z=" + btoa(encodeURIComponent(JSON.stringify(bg[bi])));
+                        bn.parentNode.insertBefore(bo, bn)
+                    };
+                    ["complete", "interactive"].includes(bh.readyState) ? zaraz.init() : bg.addEventListener(
+                        "DOMContentLoaded", zaraz.init)
+                }(w, d, "zarazData", "script");
+            })(window, document);
+        </script>
+    </head>
 
-<div id="preloder">
-<div class="loader"></div>
-</div>
+    <body>
 
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-<div class="offcanvas__option">
-<div class="offcanvas__links">
-<a href="#">Sign in</a>
-<a href="#">FAQs</a>
-</div>
-<div class="offcanvas__top__hover">
-<span>Usd <i class="arrow_carrot-down"></i></span>
-<ul>
-<li>USD</li>
-<li>EUR</li>
-<li>USD</li>
-</ul>
-</div>
-</div>
-<div class="offcanvas__nav__option">
-<a href="#" class="search-switch"><img src="img/icon/search.png" alt></a>
-<a href="#"><img src="img/icon/heart.png" alt></a>
-<a href="#"><img src="img/icon/cart.png" alt> <span>0</span></a>
-<div class="price">RP 0.00</div>
-</div>
-<div id="mobile-menu-wrap"></div>
-<div class="offcanvas__text">
-<p>Free shipping, 30-day return or refund guarantee.</p>
-</div>
-</div>
+        <div id="preloder">
+            <div class="loader"></div>
+        </div>
 
-
-<header class="header">
-<div class="header__top">
-<div class="container">
-<div class="row">
-<div class="col-lg-6 col-md-7">
-<div class="header__top__left">
-<p>Free shipping, 30-day return or refund guarantee.</p>
-</div>
-</div>
-<div class="col-lg-6 col-md-5">
-<div class="header__top__right">
-<div class="header__top__links">
-<a href="#">Sign in</a>
-<a href="#">FAQs</a>
-</div>
-<div class="header__top__hover">
-<span>Usd <i class="arrow_carrot-down"></i></span>
-<ul>
-<li>USD</li>
-<li>EUR</li>
-<li>USD</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="container">
-<div class="row">
-<div class="col-lg-3 col-md-3">
-<div class="header__logo">
-<a href="index.html"><img src="img/logo.png" alt></a>
-</div>
-</div>
-<div class="col-lg-6 col-md-6">
-<nav class="header__menu mobile-menu">
-<ul>
-<li><a href="index.html">Home</a></li>
-<li class="active"><a href="shop.html">Shop</a></li>
-<li><a href="#">Pages</a>
-<ul class="dropdown">
-<li><a href="about.html">About Us</a></li>
-<li><a href="shop-details.html">Shop Details</a></li>
-<li><a href="shopping-cart.html">Shopping Cart</a></li>
-<li><a href="checkout.html">Check Out</a></li>
-<li><a href="blog-details.html">Blog Details</a></li>
-</ul>
-</li>
-<li><a href="blog.html">Blog</a></li>
-<li><a href="contact.html">Contacts</a></li>
-</ul>
-</nav>
-</div>
-<div class="col-lg-3 col-md-3">
-<div class="header__nav__option">
-<a href="#" class="search-switch"><img src="img/icon/search.png" alt></a>
-<a href="#"><img src="img/icon/heart.png" alt></a>
-<a href="#"><img src="img/icon/cart.png" alt> <span>0</span></a>
-<div class="price">Rp 0.00</div>
-</div>
-</div>
-</div>
-<div class="canvas__open"><i class="fa fa-bars"></i></div>
-</div>
-</header>
-
-
-<section class="breadcrumb-option">
-<div class="container">
-<div class="row">
-<div class="col-lg-12">
-<div class="breadcrumb__text">
-<h4>Pesanan Anda</h4>
-<div class="breadcrumb__links">
-<a href="index.html">Home</a>
-<a href="shop.html">Cart</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
+        <div class="offcanvas-menu-overlay"></div>
+        <div class="offcanvas-menu-wrapper">
+            <div class="offcanvas__option">
+                <div class="offcanvas__links">
+                    <a href="#">Sign in</a>
+                    <a href="#">FAQs</a>
+                </div>
+                <div class="offcanvas__top__hover">
+                    <span>Usd <i class="arrow_carrot-down"></i></span>
+                    <ul>
+                        <li>USD</li>
+                        <li>EUR</li>
+                        <li>USD</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="offcanvas__nav__option">
+                <a href="#" class="search-switch"><img src="img/icon/search.png" alt></a>
+                <a href="#"><img src="img/icon/heart.png" alt></a>
+                <a href="#"><img src="img/icon/cart.png" alt> <span>0</span></a>
+                <div class="price">RP 0.00</div>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+            <div class="offcanvas__text">
+                <p>Free shipping, 30-day return or refund guarantee.</p>
+            </div>
+        </div>
 
 
-<section class="shopping-cart spad">
-<div class="container">
-<div class="row">
-<div class="col-lg-8">
-<div class="shopping__cart__table">
-<table>
-<thead>
-<tr>
-<th>Product</th>
-<th>Quantity</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="product__cart__item">
-<div class="product__cart__item__pic">
-<img src="img/shopping-cart/cart-1.jpg" alt>
-</div>
-<div class="product__cart__item__text">
-<h4>T-shirt Contrast Pocket</h4>
-<h6>Kota: Jakarta</h6>
-<h6>Kategori: VIP</h6>
-<h5>Rp 98.49</h5>
-</div>
-</td>
-<td class="quantity__item">
-<div class="quantity">
-<div class="pro-qty-2">
-<input type="text" value="1">
-</div>
-</div>
-</td>
-{{-- <td class="cart__price">Rp 30.00</td>
+        <header class="header">
+            <div class="header__top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                            <div class="header__top__left">
+                                <p>Free shipping, 30-day return or refund guarantee.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5">
+                            <div class="header__top__right">
+                                <div class="header__top__links">
+                                    <a href="#">Sign in</a>
+                                    <a href="#">FAQs</a>
+                                </div>
+                                <div class="header__top__hover">
+                                    <span>Usd <i class="arrow_carrot-down"></i></span>
+                                    <ul>
+                                        <li>USD</li>
+                                        <li>EUR</li>
+                                        <li>USD</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="header__logo">
+                            <a href="index.html"><img src="img/logo.png" alt></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li class="active"><a href="shop.html">Shop</a></li>
+                                <li><a href="#">Pages</a>
+                                    <ul class="dropdown">
+                                        <li><a href="about.html">About Us</a></li>
+                                        <li><a href="shop-details.html">Shop Details</a></li>
+                                        <li><a href="shopping-cart.html">Shopping Cart</a></li>
+                                        <li><a href="checkout.html">Check Out</a></li>
+                                        <li><a href="blog-details.html">Blog Details</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="contact.html">Contacts</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="header__nav__option">
+                            <a href="#" class="search-switch"><img src="img/icon/search.png" alt></a>
+                            <a href="#"><img src="img/icon/heart.png" alt></a>
+                            <a href="#"><img src="img/icon/cart.png" alt> <span>0</span></a>
+                            <div class="price">Rp 0.00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canvas__open"><i class="fa fa-bars"></i></div>
+            </div>
+        </header>
+
+
+        <section class="breadcrumb-option">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb__text">
+                            <h4>Pesanan Anda</h4>
+                            <div class="breadcrumb__links">
+                                <a href="index.html">Home</a>
+                                <a href="shop.html">Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="shopping-cart spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="shopping__cart__table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+                                                <img src="img/shopping-cart/cart-1.jpg" alt>
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h4>T-shirt Contrast Pocket</h4>
+                                                <h6>Kota: Jakarta</h6>
+                                                <h6>Kategori: VIP</h6>
+                                                <h5>Rp 98.49</h5>
+                                            </div>
+                                        </td>
+                                        <td class="quantity__item">
+                                            <div class="quantity">
+                                                <div class="pro-qty-2">
+                                                    <input type="text" value="1">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        {{-- <td class="cart__price">Rp 30.00</td>
 <td class="cart__close"><i class="fa fa-close"></i></td> --}}
-</tr>
-<tr>
-<td class="product__cart__item">
-<div class="product__cart__item__pic">
-<img src="img/shopping-cart/cart-2.jpg" alt>
-</div>
-<div class="product__cart__item__text">
-<h6>Diagonal Textured Cap</h6>
-<h5>Rp 98.49</h5>
-</div>
-</td>
-<td class="quantity__item">
-<div class="quantity">
-<div class="pro-qty-2">
-<input type="text" value="1">
-</div>
-</div>
-</td>
-{{-- <td class="cart__price">Rp 32.50</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+                                                <img src="img/shopping-cart/cart-2.jpg" alt>
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>Diagonal Textured Cap</h6>
+                                                <h5>Rp 98.49</h5>
+                                            </div>
+                                        </td>
+                                        <td class="quantity__item">
+                                            <div class="quantity">
+                                                <div class="pro-qty-2">
+                                                    <input type="text" value="1">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        {{-- <td class="cart__price">Rp 32.50</td>
 <td class="cart__close"><i class="fa fa-close"></i></td> --}}
-</tr>
-<tr>
-<td class="product__cart__item">
-<div class="product__cart__item__pic">
-<img src="img/shopping-cart/cart-3.jpg" alt>
-</div>
-<div class="product__cart__item__text">
-<h6>Basic Flowing Scarf</h6>
-<h5>Rp 98.49</h5>
-</div>
-</td>
-<td class="quantity__item">
-<div class="quantity">
-<div class="pro-qty-2">
-<input type="text" value="1">
-</div>
-</div>
-</td>
-{{-- <td class="cart__price">Rp 47.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+                                                <img src="img/shopping-cart/cart-3.jpg" alt>
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>Basic Flowing Scarf</h6>
+                                                <h5>Rp 98.49</h5>
+                                            </div>
+                                        </td>
+                                        <td class="quantity__item">
+                                            <div class="quantity">
+                                                <div class="pro-qty-2">
+                                                    <input type="text" value="1">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        {{-- <td class="cart__price">Rp 47.00</td>
 <td class="cart__close"><i class="fa fa-close"></i></td> --}}
-</tr>
-<tr>
-<td class="product__cart__item">
-<div class="product__cart__item__pic">
-<img src="img/shopping-cart/cart-4.jpg" alt>
-</div>
-<div class="product__cart__item__text">
-<h6>Basic Flowing Scarf</h6>
-<h5>Rp 98.49</h5>
-</div>
-</td>
-<td class="quantity__item">
-<div class="quantity">
-<div class="pro-qty-2">
-<input type="text" value="1">
-</div>
-</div>
-</td>
-{{-- <td class="cart__price">Rp 30.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+                                                <img src="img/shopping-cart/cart-4.jpg" alt>
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>Basic Flowing Scarf</h6>
+                                                <h5>Rp 98.49</h5>
+                                            </div>
+                                        </td>
+                                        <td class="quantity__item">
+                                            <div class="quantity">
+                                                <div class="pro-qty-2">
+                                                    <input type="text" value="1">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        {{-- <td class="cart__price">Rp 30.00</td>
 <td class="cart__close"><i class="fa fa-close"></i></td> --}}
-</tr>
-</tbody>
-</table>
-</div>
-<div class="row">
-<div class="col-lg-6 col-md-6 col-sm-6">
-<div class="continue__btn">
-{{-- <a href="#">Continue Shopping</a> --}}
-</div>
-</div>
-<div class="col-lg-6 col-md-6 col-sm-6">
-<div class="continue__btn update__btn">
-{{-- <a href="#"><i class="fa fa-spinner"></i> Update cart</a> --}}
-</div>
-</div>
-</div>
-</div>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="continue__btn">
+                                    {{-- <a href="#">Continue Shopping</a> --}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="continue__btn update__btn">
+                                    {{-- <a href="#"><i class="fa fa-spinner"></i> Update cart</a> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-<div class="cart__total">
-<h6>Order Summary</h6>
-<ul>
-<li>Subtotal <span>Rp 160.000</span></li>
-<li>Admin Fee <span>Rp 5.000</span></li>
-<li>Total <span>Rp 165.000</span></li>
-</ul>
-<a href="#" class="primary-btn">Menuju ke pembayaran</a>
-
-
+                    <div class="cart__total">
+                        <h6>Order Summary</h6>
+                        <ul>
+                            <li>Subtotal <span>Rp 160.000</span></li>
+                            <li>Admin Fee <span>Rp 5.000</span></li>
+                            <li>Total <span>Rp 165.000</span></li>
+                        </ul>
+                        <a href="#" class="primary-btn">Menuju ke pembayaran</a>
 
 
-<script src="{{ asset('malefashion') }}/js/jquery-3.3.1.min.js"></script>
-<script src="{{ asset('malefashion') }}/js/bootstrap.min.js"></script>
-<script src="{{ asset('malefashion') }}/js/jquery.nice-select.min.js"></script>
-<script src="{{ asset('malefashion') }}/js/jquery.nicescroll.min.js"></script>
-<script src="{{ asset('malefashion') }}/js/jquery.magnific-popup.min.js"></script>
-<script src="{{ asset('malefashion') }}/js/jquery.countdown.min.js"></script>
-<script src="{{ asset('malefashion') }}/js/jquery.slicknav.js"></script>
-<script src="{{ asset('malefashion') }}/js/mixitup.min.js"></script>
-<script src="{{ asset('malefashion') }}/js/owl.carousel.min.js"></script>
-<script src="{{ asset('malefashion') }}/js/main.js"></script>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'UA-23581568-13');
-  </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854" integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg==" data-cf-beacon='{"rayId":"803596413ca54739","version":"2023.8.0","b":1,"token":"cd0b4b3a733644fc843ef0b185f98241","si":100}' crossorigin="anonymous"></script>
-</body>
+                        <script src="{{ asset('malefashion') }}/js/jquery-3.3.1.min.js"></script>
+                        <script src="{{ asset('malefashion') }}/js/bootstrap.min.js"></script>
+                        <script src="{{ asset('malefashion') }}/js/jquery.nice-select.min.js"></script>
+                        <script src="{{ asset('malefashion') }}/js/jquery.nicescroll.min.js"></script>
+                        <script src="{{ asset('malefashion') }}/js/jquery.magnific-popup.min.js"></script>
+                        <script src="{{ asset('malefashion') }}/js/jquery.countdown.min.js"></script>
+                        <script src="{{ asset('malefashion') }}/js/jquery.slicknav.js"></script>
+                        <script src="{{ asset('malefashion') }}/js/mixitup.min.js"></script>
+                        <script src="{{ asset('malefashion') }}/js/owl.carousel.min.js"></script>
+                        <script src="{{ asset('malefashion') }}/js/main.js"></script>
 
-<!-- Mirrored from preview.colorlib.com/theme/malefashion/shopping-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 08 Sep 2023 07:48:26 GMT -->
-</html>
+                        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+                        <script>
+                            window.dataLayer = window.dataLayer || [];
 
+                            function gtag() {
+                                dataLayer.push(arguments);
+                            }
+                            gtag('js', new Date());
+
+                            gtag('config', 'UA-23581568-13');
+                        </script>
+                        <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
+                            integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
+                            data-cf-beacon='{"rayId":"803596413ca54739","version":"2023.8.0","b":1,"token":"cd0b4b3a733644fc843ef0b185f98241","si":100}'
+                            crossorigin="anonymous"></script>
+    </body>
+
+    <!-- Mirrored from preview.colorlib.com/theme/malefashion/shopping-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 08 Sep 2023 07:48:26 GMT -->
+
+    </html>
 @endsection
+ 

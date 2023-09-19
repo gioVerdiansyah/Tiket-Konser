@@ -96,6 +96,7 @@
         {{--  <div id="preloder">
 <div class="loader"></div>
 </div>  --}} <!-- ini untuk waktu loading ada animasinya -->
+</div>  --}} <!-- ini untuk waktu loading ada animasinya -->
 
         {{--  <div class="container">
 <div class="row">

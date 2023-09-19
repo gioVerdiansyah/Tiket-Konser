@@ -89,7 +89,7 @@
     {{-- Card Konser Terbaru End --}}
 
     {{-- Card Sedang Hot Start --}}
-    <div class="container-fluid bg-white text-center" data-aos="fade-up" data-aos-delay="300">
+    <div class="container bg-white text-center" data-aos="fade-up" data-aos-delay="300">
         <h1 class="fw-bold pt-5">Sedang Hot</h1>
         <div class="row py-5">
             <div class="col-3">

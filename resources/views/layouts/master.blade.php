@@ -36,41 +36,59 @@
   <body>
 
     {{-- Nav Start --}}
-    <nav class="navbar navbar-expand-lg bg-body-tertiary py-4">
-        <div class="container">
-          <a class="navbar-brand fw-bold" href="/">Ticket.</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+<nav class="navbar navbar-expand-lg bg-body-tertiary py-4">
+  <div class="container">
+      <a class="navbar-brand fw-bold" href="/">Ticket.</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
               <li class="nav-item">
+                  <a class="nav-link" href="#">Beranda</a>
                 <a class="nav-link" href="/">Beranda</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/konser">Konser</a>
+                  <a class="nav-link" href="/konser">Konser</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/jualtiket">Jual Tiket</a>
+                  <a class="nav-link" href="/jualtiket">Jual Tiket</a>
               </li>
-            </div>
-            <div class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li><a class="dropdown-item" href="#">Profil Saya</a></li>
-                        <li><a class="dropdown-item" href="#">Pengaturan</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Keluar</a></li>
-                    </ul>
-                </li>
-            </div>
-            </div>
-        </div>
-    </nav>
-    {{-- Nav End --}}
+          </div>
+          <div class="navbar-nav ml-auto">
+              @guest
+              {{-- Pengguna belum login, tampilkan tombol login dan register --}}
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('login') }}">Login</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('register') }}">Register</a>
+              </li>
+              @else
+              {{-- Pengguna sudah login, tampilkan dropdown profil --}}
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-person-circle"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                      <li><a class="dropdown-item" href="#">Profil Saya</a></li>
+                      <li><a class="dropdown-item" href="#">Pengaturan</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li>
+                          <form method="POST" action="{{ route('logout') }}">
+                              @csrf
+                              <button type="submit" class="dropdown-item">Keluar</button>
+                          </form>
+                      </li>
+                  </ul>
+              </li>
+              @endguest
+          </div>
+      </div>
+  </div>
+</nav>
+{{-- Nav End --}}
+
 
     {{-- Content Start--}}
     @yield('content')
@@ -83,7 +101,7 @@
             <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 pt-5">
                 <div class="col mb-3">
                 <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-                    <h1 class="fw-bold">Ticket.</h1>
+                    <h3 class="fw-bold">Ticket.</h3>
                 </a>
                 <p>Kami menyediakan tiket konser mancanegara dengan harga yang relatif terjangkau.</p>
                 <p class="text-body-secondary">&copy; 2023</p>
