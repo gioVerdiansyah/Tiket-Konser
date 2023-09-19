@@ -72,7 +72,7 @@
                     @else
                         {{-- Pengguna sudah login, tampilkan dropdown profil --}}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+                            <a class="nav-link" href="#" id="profileDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person-circle"></i>
                             </a>
