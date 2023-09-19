@@ -54,7 +54,7 @@
                             <a class="nav-link" href="#">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('konser') }}">Konser</a>
+                            <a class="nav-link" href="{{ route('konser.search') }}">Konser</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('jualtiket') }}">Jual Tiket</a>

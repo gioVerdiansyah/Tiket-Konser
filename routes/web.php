@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KonserController;
 use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -66,13 +67,12 @@ Route::get('/cart', function () {
 
 Route::get('/jualtiket', function () {
     return view('user_page.jual_tiket');
-})->name("jualtiket");
+})->name('jualtiket');
 
 
-
-Route::get('/konser', function () {
-    return view('user_page.konser');
-})->name('konser')->middleware('CekLogin');
+Route::get('/konser', [KonserController::class, 'index'])->name('konser')->middleware('CekLogin');
+Route::get('/konser', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
+Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori'])->middleware('CekLogin');
 
 
 Route::get('/profile', function () {
