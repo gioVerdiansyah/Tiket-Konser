@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\KonserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SesiController;
@@ -59,9 +59,9 @@ Route::get('/jualtiket', function () {
 
 
 
-Route::get('/konser', function() {
-    return view('user_page.konser');
-})->middleware('CekLogin');
+Route::get('/konser', [KonserController::class, 'index'])->middleware('CekLogin');
+Route::get('/konser', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
+Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori'])->middleware('CekLogin');
 
 
 Route::get('/profile', function () {
@@ -93,3 +93,7 @@ Route::middleware(['CekRole:user,admin'])->group(function () {
         return view('user_page.home');
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

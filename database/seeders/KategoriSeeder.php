@@ -1,7 +1,8 @@
 <?php
 
 namespace Database\Seeders;
-use app\Models\Kategori;
+use App\Models\Kategori;
+use Faker\Factory as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +13,8 @@ class KategoriSeeder extends Seeder
      */
     public function run(): void
     {
-        // fake('id_ID')->randomElement()
+
+
         $sayah = [
             'Hip-Hop',
             'Ludruk',
@@ -20,9 +22,10 @@ class KategoriSeeder extends Seeder
             'Rock',
             'Pop'
         ];
-        for ($i=1;  $i++;) {
+
+        for ($i = 1; $i <= 1; $i++) {
             Kategori::create([
-                'nama_kategori'=>fake()->call($sayah)
+                'nama_kategori' =>'Ludruk'
             ]);
         }
     }

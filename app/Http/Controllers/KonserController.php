@@ -45,7 +45,8 @@ class KonserController extends Controller
 public function kategori($id)
 {
     $kategori = Kategori::all();
-    $konser = Konser::where('kategori_id', $id);
+    $konser = Konser::all();
+    dd($konser);
     return view('user_page.konser', compact('konsers', 'kategoris'));
 }
     /**

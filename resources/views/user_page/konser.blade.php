@@ -96,7 +96,6 @@
         {{--  <div id="preloder">
 <div class="loader"></div>
 </div>  --}} <!-- ini untuk waktu loading ada animasinya -->
-</div>  --}} <!-- ini untuk waktu loading ada animasinya -->
 
         {{--  <div class="container">
 <div class="row">
@@ -170,29 +169,26 @@
                             <div class="shop__sidebar__accordion">
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
+
                                         <div class="card-heading">
                                             <a data-toggle="collapse" data-target="#collapseOne">Kategori</a>
                                         </div>
                                         <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                             <div class="card-body">
+                                                @isset($kategoris)
                                                 <div class="shop__sidebar__categories">
                                                     <ul class="nice-scroll">
-                                                        @foreach ($kategoris as $kategori)
-                                                        <li><a href="/konser/kategori/{{ $kategori->id }}">{{ $kategori->nama_kategori }}</a></li>
-                                                        @endforeach
-
-                                                        {{--  <li><a href="#">Rock (20)</a></li>
-                                                        <li><a href="#">Hip Hop (20)</a></li>
-                                                        <li><a href="#">Dangdut (20)</a></li>
-                                                        <li><a href="#">Rap (20)</a></li>
-                                                        <li><a href="#">Campursari (20)</a></li>
-                                                        <li><a href="#"> CampurKebo(20)</a></li>
-                                                        <li><a href="#">Ludruk (20)</a></li>
-                                                        <li><a href="#">Pop (20)</a></li>  --}}
+                                                        @forelse ($kategoris as $kategori)
+                                                            <li><a href="/konser/kategori/{{ $kategori->id }}">{{ $kategori->nama_kategori }}</a></li>
+                                                        @empty
+                                                            <li>Tidak ada kategori yang tersedia</li>
+                                                        @endforelse
                                                     </ul>
                                                 </div>
+                                                @endisset
                                             </div>
                                         </div>
+
                                     </div>
 
                                     <div class="card">
