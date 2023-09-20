@@ -70,10 +70,10 @@
                                 <div class="col-sm-10">
                                     <textarea class="form-control" name="alamat" id="inputExperience"
                                         placeholder="{{ $data_user->alamat ?? 'Alamat belum ditambahkan' }}">{{ $data_user->alamat ?? '' }}</textarea>
+                                    @error('alamat')
+                                        <p>{{ $message }}</p>
+                                    @enderror
                                 </div>
-                                @error('alamat')
-                                    <p>{{ $message }}</p>
-                                @enderror
                             </div>
                         </div>
                     </div>

@@ -25,8 +25,8 @@ class UpdateProfileRequest extends FormRequest
         return [
             'nama' => "required|string|max:50",
             'email' => ["required", "email", Rule::unique('users', 'email')->ignore($this->user()->id)],
-            'phone' => ['nullable', 'gt:0', 'regex:/^08\d{10,15}$/'],
-            'alamat' => "nullable|string"
+            'phone' => ['nullable', 'gt:0', 'regex:/^08\d{10,15}$/', Rule::unique('users', 'phone')->ignore($this->user()->id)],
+            'alamat' => "nullable|string|max:200"
         ];
     }
 }

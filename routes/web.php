@@ -102,8 +102,4 @@ Route::middleware(['CekRole:user,admin'])->group(function () {
 
 Auth::routes();
 
-<<<<<<< Updated upstream
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-=======
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
->>>>>>> Stashed changes

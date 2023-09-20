@@ -23,6 +23,10 @@
             body {
                 font-family: 'Montserrat', sans-serif;
             }
+
+            #profileDropdown img {
+                width: 45px;
+            }
         </style>
         {{-- Custom CSS End --}}
 
@@ -72,9 +76,10 @@
                     @else
                         {{-- Pengguna sudah login, tampilkan dropdown profil --}}
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" id="profileDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle"></i>
+                            <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}" alt="Photo user"
+                                    srcset="">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                                 <li><a class="dropdown-item" href="{{ route('profileUser') }}">Profil Saya</a></li>
@@ -149,7 +154,8 @@
                                     class="nav-link p-0 text-body-secondary">Customer Support</a></li>
                             <li class="nav-item mb-2"><a href="#"
                                     class="nav-link p-0 text-body-secondary">Delivery Details</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Terms
+                            <li class="nav-item mb-2"><a href="#"
+                                    class="nav-link p-0 text-body-secondary">Terms
                                     & Conditions</a></li>
                             <li class="nav-item mb-2"><a href="#"
                                     class="nav-link p-0 text-body-secondary">Privacy Policy</a></li>
