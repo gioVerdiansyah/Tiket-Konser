@@ -1,11 +1,14 @@
+{{--  @extends('layouts.master')
+@section('content')  --}}
 <!DOCTYPE html>
-<html lang="id">
+<html lang="zxx">
 
 <head>
-    <meta charset="UTF-8">
+    {{--  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">  --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Tiket</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,11 +19,24 @@
             height: 100vh;
             margin: 0;
         }
+        input.no-border {
+            border: none;
+        }
+        input.no-border:focus {
+            outline: none;
+        }
+        .kartu-keluarga{
+            font-size: 15px;
+        }
+        .kartu-keluarga{
+            font:900;
+        }
 
         .card {
             width: 60rem;
             background-color: #fff;
             border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .card-img-top {
@@ -32,14 +48,26 @@
         }
 
         .card-body {
-            padding: 1rem;
+
         }
 
         .card-text {
             font-size: 20px;
             color: #333;
         }
+        .card-judul {
+            font-size: 20px;
+            color: #494A4A;
+        }
 
+        .card-body-1 {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 30px;
+            padding-top: 20px;
+            padding-bottom: ;
+
+        }
         .card-body {
             display: flex;
             justify-content: space-between;
@@ -123,31 +151,32 @@
                 }
             });
         </script>
+
+                <div class="card-body-1">
+                    <div class="left-column">
+                        {{--  <h5 class="card-title">Diselenggarakan oleh</h5>  --}}
+                        <input type="text"  class="no-border" style="font-size: 25px; " placeholder="Nama Konser*">
+                    </div>
+                </div>
+
         <div class="card-body">
             <div class="card" style="width: 920px">
-                <div class="card-body">
+                <div class="card-body ">
                     <div class="left-column">
                         <h5 class="card-title">Diselenggarakan oleh</h5>
-                        <div style="display: flex; align-items: center;margin-top: 25px;">
-                            <!-- Tambahkan elemen input file yang tersembunyi -->
-                            <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
-                            <!-- Tambahkan foto profil yang dapat diklik -->
-                            <img src="{{ asset('images/jual-ticket/logo-upload.png') }}" alt="Gambar Penyelenggara" id="organizerImage" class="organizer-image rounded-circle" onclick="triggerProfileUpload()">
-
-                            <input type="text" class="input100 organizer-input" id="organizerInput" placeholder="Nama Penyelenggara" style="font-size: 16px;margin-bottom: 3px;margin-left: 15px">
-                        </div>
+                        <p class="m-0 p-0" style="font-size: 15px;">Deni Sumargo</p>
                     </div>
                     
                     <div class="left-center">
                         <h5 class="card-title">Tanggal dan Waktu</h5>
+                        {{-- <p class="m-0 p-0" style="font-size: 15px;">Pilih Tanggal</p> --}}
                         <!-- Button trigger modal -->
                         <div class="py-3">
-                            <a id="tanggalAnchor" href="#" class="text-decoration-none" style="font-size: 16px;color: #ADB6C9;" data-bs-toggle="modal" data-bs-target="#pilihtanggal">Pilih Tanggal</a>
+                            <button type="button" class="btn btn-light border; none;" style="width: 120px; font-size: 16px; border: none;" data-bs-toggle="modal" data-bs-target="#pilihtanggal">Pilih Tanggal</button>
+
                         </div>
-                        {{-- <div class="input-container" style="display: none;">
-                            <input type="text" class="input100" placeholder="Tanggal yang Disimpan" id="tanggalDisimpan" style="font-size: 20px;">
-                        </div> --}}
-                        <a id="waktuAnchor" href="#" class="text-decoration-none" style="font-size: 16px;color: #ADB6C9;" data-bs-toggle="modal" data-bs-target="#pilihwaktu" data-bs-whatever="@fat">Pilih Waktu</a>
+
+                        <button type="button" class="btn btn-light border; none;" style="width: 120px; font-size: 16px; border: none;" data-bs-toggle="modal" data-bs-target="#pilihtanggal" data-bs-whatever="@fat"> Pilih Waktu </button
 
                         <!-- Modal tanggal -->
                         <div class="modal fade" id="pilihtanggal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pilihtanggal" aria-hidden="true">
@@ -176,74 +205,15 @@
                     
                     <div class="left-right">
                         <h5 class="card-title">Lokasi</h5>
-                        <button type="button" class="btn btn-light border; none;" style="width: 120px; font-size: 16px; border: none;" data-bs-toggle="modal" data-bs-target="#pilihlokasi" data-bs-whatever="@fat"> Pilih lokasi </button>
+                        {{-- <p class="m-0 p-0" style="font-size: 15px;">Pilih Lokasi</p> --}}
+                        <button type="button" class="btn btn-light border; none;" style="width: 120px; font-size: 16px; border: none;" data-bs-toggle="modal" data-bs-target="#pilihtanggal" data-bs-whatever="@fat"> Pilih lokasi </button>
                     </div>
-                    <!-- Modal lokasi -->
-                    <div class="modal fade" id="pilihlokasi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pilihlokasi" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="pilihlokasi">Lokasi event</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-                                <div class="modal-body">
-                                    <div class="mb-0">
-                                        <label for="" class="form-label">Pilih Lokasi Konser</label>
-                                        <div class="form-group">
-                                            <input type="text" name="autocomplete" id="autocomplete" class="form-control mt-2" placeholder="Masukkan Alamat">
-                                        </div>
-                                        <div class="form-group" id="latitudeArea">
-                                            <label for="">Latitude</label>
-                                            <input type="text" name="latitude" id="latitude" class="form-control">
-                                        </div>
-                                        <div class="form-group" id="longitudeArea">
-                                            <label for="">longitude</label>
-                                            <input type="text" name="longitude" id="longitude" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal waktu -->
-                    <div class="modal fade" id="pilihwaktu" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pilihwaktu" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="pilihwaktu">Waktu event</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-                                <div class="modal-body">
-                                    <div class="mb-0">
-                                        <label for="" class="form-label">Mulai dari</label>
-                                        <input class="form-control form-control-solid" placeholder="Pilih Waktu" id="kt_datepicker_4"/>
-                                    </div>
-                                    <div class="mb-0 mt-3">
-                                        <label for="" class="form-label">Sampai</label>
-                                        <input class="form-control form-control-solid" placeholder="Pilih Waktu" id="kt_datepicker_5"/>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>     
                 </div>
             </div>
         </div>
     </div>
     <script>
+          {{--  @endsection  --}}
     $("#kt_datepicker_3").flatpickr({
         enableTime: true,
         dateFormat: "Y-m-d H:i",

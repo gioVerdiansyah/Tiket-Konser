@@ -51,10 +51,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -62,19 +63,16 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-{
-    // Membuat pengguna baru dengan informasi yang diberikan
-    $user = User::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password' => Hash::make($data['password']),
-    ]);
+    {
+        session()->flash('message', [
+            'title' => "Berhasil",
+            'text' => "Berhasil register"
+        ]);
 
-    // Menyimpan pesan sukses dalam sesi
-    session()->flash('success', 'Anda telah berhasil mendaftar!');
-
-    // Mengembalikan objek pengguna yang baru dibuat
-    return $user;
-}
-
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+    }
 }

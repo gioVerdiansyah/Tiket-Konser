@@ -175,7 +175,6 @@ iframe {
     display: flex;
     /* flex-wrap: wrap; */
     align-items: stretch;
-    flex-wrap: wrap;
 }
 .wrap-login100 {
     width: 843px;
@@ -221,17 +220,18 @@ iframe {
     font-size: 39px;
     color: #fff;
     line-height: 1.2;
-    margin-left: 70px;
-    margin-top: 40px;
+    /* margin-left: 70px;
+    margin-top: 40px; */
 }
 .wrap-input100 {
     width: 100%;
     position: relative;
     border-bottom: 2px solid #dbdbdb;
-    margin-bottom: 45px;
-    margin-left: 70px;
-    margin-right: 70px;
-}   
+    margin-top: 30px;
+    /* margin-bottom: 45px; */
+    /* margin-left: 70px;
+    margin-right: 70px; */
+}
 /* Gaya untuk container input dengan ikon mata */
 .input-container {
     position: relative;
@@ -249,7 +249,7 @@ iframe {
 }
 
 #togglePassword.active {
-    color: #C10C99; /* Warna ikon mata saat password terlihat */
+    color: #c10c99; /* Warna ikon mata saat password terlihat */
 }
 .label-input100 {
     font-family: Poppins-SemiBold;
@@ -357,7 +357,7 @@ iframe {
     z-index: 1;
     border-radius: 25px;
     overflow: hidden;
-    margin-left: 70px;
+    /* margin-left: 70px; */
 }
 .login100-form-bgbtn {
     position: absolute;

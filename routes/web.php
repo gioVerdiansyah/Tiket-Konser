@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\KonserController;
+use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\UpdateProfileController;
+use App\Http\Controllers\SesiController;
 use App\Http\Controllers\GoogleMapController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,12 +22,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('user_page.home');
+})->middleware('CekAdmin')->name('index');
+
+Auth::routes();
 
 Route::get('/login', [SesiController::class, 'login'])->name('index');
 
 Route::post('/login', [SesiController::class, 'login']);
+
+
 
 Route::get('/cart', function () {
     return view('cart');
@@ -31,10 +39,6 @@ Route::get('/cart', function () {
 
 Route::get('/jualtiket', function () {
     return view('jual_tiket');
-});
-
-Route::get('/profile', function () {
-    return view('user_page.profile');
 });
 
 Route::get('/detail-tiket', function () {
@@ -51,24 +55,26 @@ Route::get('/detail-tiket', function () {
 
 Route::get('/cart', function () {
     return view('user_page.cart');
-});
+})->name('cart');
 
 Route::get('/jualtiket', function () {
     return view('user_page.jual_tiket');
-});
+})->name('jualtiket');
 
 
+Route::get('/konser', [KonserController::class, 'index'])->name('konser')->middleware('CekLogin');
+Route::get('/konser', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
+Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori'])->middleware('CekLogin');
 
-Route::get('/konser', function() {
-    return view('user_page.konser');
-})->middleware('CekLogin');
+// Profile User
+Route::middleware('CekLogin')->group(function () {
+    Route::get('/profile', [UpdateProfileController::class, 'index'])->name('profileUser');
 
+    Route::put('/profile/{user}', [UpdateProfileController::class, 'update'])->name('updateProfile');
 
-Route::get('/profile', function () {
-    return view('user_page.profile');
-});
-Route::get('/history', function () {
-    return view('user_page.history');
+    Route::get('/history', function () {
+        return view('user_page.history');
+    })->name('history');
 });
 // Route::get('/homeAdmin', function () {
 //     return view('admin_page.homeAdmin');
@@ -78,7 +84,6 @@ Route::get('/penjualan', function () {
     return view('admin_page.penjualan');
 })->name('penjualan');
 
-Route::get('map',[GoogleMapController::class,'index']);
 
 Auth::routes();
 
@@ -94,3 +99,11 @@ Route::middleware(['CekRole:user,admin'])->group(function () {
         return view('user_page.home');
     });
 });
+
+Auth::routes();
+
+<<<<<<< Updated upstream
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+=======
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+>>>>>>> Stashed changes

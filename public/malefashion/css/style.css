@@ -4,7 +4,7 @@
   Author: Colorib
   Author URI: https://www.colorib.com/
   Version: 1.0
-  Created: Colorib 
+  Created: Colorib
 ******************************************************************/
 
 /*------------------------------------------------------------------
@@ -138,7 +138,7 @@ ol {
 }
 
 .spad {
-	padding-top: 100px;
+	padding-top: 0px;
 	padding-bottom: 100px;
 }
 
@@ -1100,6 +1100,7 @@ ol {
 -----------------------*/
 
 .shop__sidebar {
+    padding-top: 10px;
 	padding-right: 20px;
 }
 
@@ -1116,6 +1117,7 @@ ol {
 	font-size: 15px;
 	color: #b7b7b7;
 	padding-left: 20px;
+    border-radius: 10px;
 	border: 1px solid #e5e5e5;
 	height: 42px;
 }
@@ -1374,6 +1376,12 @@ ol {
 .shop__product__option p {
 	color: #111111;
 	margin-bottom: 0;
+}
+
+.shop__left {
+
+    font-size: 24px;
+    font-weight:700;
 }
 
 .shop__product__option__right {
@@ -2005,8 +2013,8 @@ ol {
 -----------------------*/
 
 .breadcrumb-option {
-	background: #f3f2ee;
-	padding: 40px 0;
+	background: #ffffff;
+	padding: 20px 0;
 }
 
 .breadcrumb__text h4 {
