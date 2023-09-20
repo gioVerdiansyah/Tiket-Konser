@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\SesiController;
+use App\Http\Controllers\GoogleMapController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -78,6 +78,7 @@ Route::get('/penjualan', function () {
     return view('admin_page.penjualan');
 })->name('penjualan');
 
+Route::get('map',[GoogleMapController::class,'index']);
 
 Auth::routes();
 

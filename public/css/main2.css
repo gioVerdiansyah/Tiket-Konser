@@ -173,7 +173,7 @@ iframe {
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: stretch;
     flex-wrap: wrap;
 }

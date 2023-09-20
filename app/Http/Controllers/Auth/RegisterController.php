@@ -62,12 +62,19 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        dd($data);
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
+{
+    // Membuat pengguna baru dengan informasi yang diberikan
+    $user = User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => Hash::make($data['password']),
+    ]);
+
+    // Menyimpan pesan sukses dalam sesi
+    session()->flash('success', 'Anda telah berhasil mendaftar!');
+
+    // Mengembalikan objek pengguna yang baru dibuat
+    return $user;
+}
+
 }
