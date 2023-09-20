@@ -30,6 +30,9 @@
                             autocomplete="email" autofocus placeholder="Masukkan email anda">
                         <span class="focus-input100"></span>
                     </div>
+                    @error('email')
+                        <p style="color:rgb(193,12,153)">{{ $message }}</p>
+                    @enderror
                     <div class="wrap-input100">
                         <label for="password" class="label-input100">{{ __('Password') }}</label>
                         <input class="input100" type="password" name="password" id="password"
@@ -37,6 +40,9 @@
                         <span class="focus-input100"></span>
                         <i class="fa fa-eye-slash" id="togglePassword" style="cursor: pointer"></i>
                     </div>
+                    @error('password')
+                        <p style="color:rgb(193,12,153)">{{ $message }}</p>
+                    @enderror
                     <div class="container-login100-form-btn mt-4">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
