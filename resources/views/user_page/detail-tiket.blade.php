@@ -178,8 +178,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="{{ asset('images/detail-tiket/denah.jpg') }}" alt="Denah Konser" class="img-fluid"
-                        width="%">
+                    <img src="{{ asset('images/detail-tiket/denah.jpg') }}" alt="Denah Konser" class="img-fluid"width="%">
                 </div>
             </div>
         </div>

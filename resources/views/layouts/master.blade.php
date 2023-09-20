@@ -95,7 +95,7 @@
                                           document.getElementById('form-logout').submit();
                                       }
                                       })
-                                    ">
+
                                         @csrf
                                         <button type="submit" class="dropdown-item">Keluar</button>
                                     </form>
