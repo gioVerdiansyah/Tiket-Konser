@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UpdateProfileController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\GoogleMapController;
+use App\Http\Controllers\IndoregionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,11 +58,6 @@ Route::get('/cart', function () {
     return view('user_page.cart');
 })->name('cart');
 
-Route::get('/jualtiket', function () {
-    return view('user_page.jual_tiket');
-})->name('jualtiket');
-
-
 Route::get('/konser', [KonserController::class, 'index'])->name('konser')->middleware('CekLogin');
 Route::get('/konser', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
 Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori'])->middleware('CekLogin');
@@ -75,6 +71,9 @@ Route::middleware('CekLogin')->group(function () {
     Route::get('/history', function () {
         return view('user_page.history');
     })->name('history');
+
+    Route::get('/jualtiket',[IndoregionController::class,'jualtiket'])->name('jualtiket');
+    Route::post('/getkota',[IndoregionController::class,'getkota'])->name('getkota');
 });
 // Route::get('/homeAdmin', function () {
 //     return view('admin_page.homeAdmin');

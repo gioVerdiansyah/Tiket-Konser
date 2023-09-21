@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(DummyUserSeeder::class);
         $this->call(KonserSeeder::class);
-        // $this->call(KategoriSeeder::class);
+        $this->call(KategoriSeeder::class);
     }
 }
