@@ -25,6 +25,7 @@
             }
 
             #profileDropdown img {
+                border-radius: 50px;
                 width: 45px;
             }
         </style>
@@ -98,8 +99,7 @@
                                       if (result.isConfirmed) {
                                           document.getElementById('form-logout').submit();
                                       }
-                                      })
-
+                                      })">
                                         @csrf
                                         <button type="submit" class="dropdown-item">Keluar</button>
                                     </form>
@@ -140,9 +140,10 @@
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2"><a href="#"
                                     class="nav-link p-0 text-body-secondary">Beranda</a></li>
-                            <li class="nav-item mb-2"><a href="#"
+                            <li class="nav-item mb-2"><a href="{{ route('konser.search') }}"
                                     class="nav-link p-0 text-body-secondary">Konser</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Jual
+                            <li class="nav-item mb-2"><a href="{{ route('jualtiket') }}"
+                                    class="nav-link p-0 text-body-secondary">Jual
                                     Tiket</a></li>
                         </ul>
                     </div>

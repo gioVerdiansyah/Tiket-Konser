@@ -26,8 +26,9 @@
                     <div class="wrap-input100 mb-5">
                         <label for="email" class="label-input100">{{ __('Email Address') }}</label>
                         <input class="input100" id="email" type="email"
-                            class="form-control @error('email') is-invalid @enderror" name="email" value="" required
-                            autocomplete="email" autofocus placeholder="Masukkan email anda">
+                            class="form-control @error('email') is-invalid @enderror" name="email"
+                            value="{{ old('email') }}" required autocomplete="email" autofocus
+                            placeholder="Masukkan email anda">
                         <span class="focus-input100"></span>
                     </div>
                     @error('email')

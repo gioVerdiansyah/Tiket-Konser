@@ -12,7 +12,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item @if ($title == 'Dashboard') active @endif">
         <a class="nav-link" href="{{ route('homeAdmin') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -27,12 +27,12 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item @if ($title == 'Pembelian') active @endif">
         <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-shopping-cart"></i>
             <span>Pembelian</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item @if ($title == 'Penjualan') active @endif">
         <a class="nav-link" href="{{ route('penjualan') }}">
             <i class="fas fa-fw fa-check"></i>
             <span>Penjualan</span></a>
@@ -57,7 +57,6 @@
         </div>
     </li> --}}
 
-
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
@@ -65,7 +64,5 @@
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
-    
 
 </ul>

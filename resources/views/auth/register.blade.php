@@ -18,7 +18,7 @@
 
                     <br><br>
                     <div class="wrap-input100">
-                        <label for="name" class="label-input100">{{ __('Email Address') }}</label>
+                        <label for="email" class="label-input100">{{ __('Email Address') }}</label>
                         <input id="email" type="email" class="input100 @error('email') is-invalid @enderror"
                             name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
                             placeholder="Masukkan email anda">
@@ -29,9 +29,10 @@
                     @enderror
 
                     <div class="wrap-input100">
-                        <label for="email" class="label-input100">Nama</label>
+                        <label for="name" class="label-input100">Nama</label>
                         <input id="name" type="text" class="input100 @error('name') is-invalid @enderror"
-                            name="name" value="" required autocomplete="name" placeholder="Masukkan nama anda">
+                            name="name" value="{{ old('name') }}" required autocomplete="name"
+                            placeholder="Masukkan nama anda">
                         <span class="focus-input100"></span>
                     </div>
                     @error('name')

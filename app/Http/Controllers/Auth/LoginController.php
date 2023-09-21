@@ -35,7 +35,6 @@ class LoginController extends Controller
             return '/homeAdmin';
         } else {
             return '/'; // Ganti '/user' dengan URL halaman pengguna.
-            return '/';
         }
     }
 
