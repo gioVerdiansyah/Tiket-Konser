@@ -90,7 +90,7 @@
              /* Sesuaikan ukuran gambar sesuai kebutuhan */
              height: auto;
              /* margin-bottom: 10px;
-                                                                                                                                                                                                                                                                                                                                                                                                                    padding-right: 15px; */
+                                                                                                                                                                                                                                                                                                                                                                                                                                    padding-right: 15px; */
          }
 
          .rounded-circle {
@@ -542,8 +542,19 @@
                                  address += results[0].properties.state || '';
                                  address += results[0].properties.country || '';
 
-                                 document.getElementById('kota').value = results[0].properties.address
-                                     .county;
+                                 var kotaInput = document.getElementById('kota');
+                                 var kota = results[0].properties.address.county;
+                                 var kota2 = results[0].properties.address.city;
+
+                                 if (typeof kota !== 'undefined') {
+                                     kotaInput.value = kota;
+                                 } else if (typeof kota2 !== 'undefined') {
+                                     kotaInput.value = kota2;
+                                 } else {
+                                     kotaInput.value = '';
+                                     kotaInput.placeholder =
+                                         'Kota tidak dikenali dalam peta, coba ketik manual';
+                                 }
                                  document.getElementById('lat').value = results[0].properties.lat;
                                  document.getElementById('lon').value = results[0].properties.lon;
                                  document.getElementById('alamat').value = address;
