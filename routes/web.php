@@ -4,7 +4,11 @@ use App\Http\Controllers\KonserController;
 use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\UpdateProfileController;
 use App\Http\Controllers\SesiController;
+use App\Http\Controllers\GoogleMapController;
+use App\Http\Controllers\IndoregionController;
+use App\Http\Controllers\TiketController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +24,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view ('user_page.home');
-
-});
+    return view('user_page.home');
+})->middleware('CekAdmin')->name('index');
 
 Auth::routes();
 
@@ -32,21 +35,12 @@ Route::post('/login', [SesiController::class, 'login']);
 
 
 
-// Admin ini
-
-Route::get('/admin', [LoginAdminController::class, 'login']);
-
-
 Route::get('/cart', function () {
     return view('cart');
 });
 
 Route::get('/jualtiket', function () {
     return view('jual_tiket');
-});
-
-Route::get('/profile', function () {
-    return view('user_page.profile');
 });
 
 Route::get('/detail-tiket', function () {
@@ -65,22 +59,22 @@ Route::get('/cart', function () {
     return view('user_page.cart');
 })->name('cart');
 
-Route::get('/jualtiket', function () {
-    return view('user_page.jual_tiket');
-})->name('jualtiket');
-
-
 Route::get('/konser', [KonserController::class, 'index'])->name('konser')->middleware('CekLogin');
 Route::get('/konser/search', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
 Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori'])->middleware('CekLogin');
 Route::get('/konser/kota/{id}', [KonserController::class, 'kota'])->middleware('CekLogin');
 
+// Profile User
+Route::middleware('CekLogin')->group(function () {
+    Route::get('/profile', [UpdateProfileController::class, 'index'])->name('profileUser');
 
-Route::get('/profile', function () {
-    return view('user_page.profile');
-});
-Route::get('/history', function () {
-    return view('user_page.history');
+    Route::put('/profile/{user}', [UpdateProfileController::class, 'update'])->name('updateProfile');
+
+    Route::get('/history', function () {
+        return view('user_page.history');
+    })->name('history');
+
+    Route::resource('/jualtiket', TiketController::class);
 });
 // Route::get('/homeAdmin', function () {
 //     return view('admin_page.homeAdmin');
@@ -90,6 +84,8 @@ Route::get('/penjualan', function () {
     return view('admin_page.penjualan');
 })->name('penjualan');
 
+
+Auth::routes();
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

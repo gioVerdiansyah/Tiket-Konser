@@ -23,6 +23,11 @@
             body {
                 font-family: 'Montserrat', sans-serif;
             }
+
+            #profileDropdown img {
+                border-radius: 50px;
+                width: 45px;
+            }
         </style>
         {{-- Custom CSS End --}}
 
@@ -35,7 +40,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         {{-- End --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+        {{-- JQuery --}}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        {{-- JQuery End --}}
     </head>
 
     <body>
@@ -57,7 +64,7 @@
                             <a class="nav-link" href="{{ route('konser') }}">Konser</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('jualtiket') }}">Jual Tiket</a>
+                            <a class="nav-link" href="{{ route('jualtiket.index') }}">Jual Tiket</a>
                         </li>
                 </div>
                 <div class="navbar-nav ml-auto">
@@ -72,13 +79,13 @@
                     @else
                         {{-- Pengguna sudah login, tampilkan dropdown profil --}}
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" id="profileDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle"></i>
+                            <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}" alt="Photo user"
+                                    srcset="">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                                <li><a class="dropdown-item" href="#">Profil Saya</a></li>
-                                <li><a class="dropdown-item" href="#">Pengaturan</a></li>
+                                <li><a class="dropdown-item" href="{{ route('profileUser') }}">Profil Saya</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -94,8 +101,7 @@
                                       if (result.isConfirmed) {
                                           document.getElementById('form-logout').submit();
                                       }
-                                      })
-                                    ">
+                                      })">
                                         @csrf
                                         <button type="submit" class="dropdown-item">Keluar</button>
                                     </form>
@@ -136,9 +142,10 @@
                         <ul class="nav flex-column">
                             <li class="nav-item mb-2"><a href="#"
                                     class="nav-link p-0 text-body-secondary">Beranda</a></li>
-                            <li class="nav-item mb-2"><a href="#"
+                            <li class="nav-item mb-2"><a href="{{ route('konser.search') }}"
                                     class="nav-link p-0 text-body-secondary">Konser</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Jual
+                            <li class="nav-item mb-2"><a href="{{ route('jualtiket.index') }}"
+                                    class="nav-link p-0 text-body-secondary">Jual
                                     Tiket</a></li>
                         </ul>
                     </div>
@@ -175,19 +182,13 @@
             </div>
         </div>
         {{-- Footer End --}}
-
-        {{-- JQuery --}}
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        {{-- JQuery End --}}
-
         @if (session('message'))
             <script>
                 Swal.fire({
                     icon: "{{ session('message')['icon'] ?? 'success' }}",
                     title: "{{ session('message')['title'] }}",
                     text: "{{ session('message')['text'] }}",
-                    timer: 5000,
-                    allowOutsideClick: false,
+                    allowOutsideClick: true,
                     allowEscapeKey: false,
                 });
             </script>

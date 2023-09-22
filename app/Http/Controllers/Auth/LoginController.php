@@ -32,7 +32,7 @@ class LoginController extends Controller
     {
 
         if (auth()->user()->role == 'admin') {
-            return '/homeAdmin'; // Ganti '/admin' dengan URL halaman admin.
+            return '/homeAdmin';
         } else {
             return '/'; // Ganti '/user' dengan URL halaman pengguna.
         }

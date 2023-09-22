@@ -8,7 +8,6 @@
             align-items: center;
             gap: 10px;
             font-size: 24px;
-
         }
 
         button {
@@ -40,7 +39,7 @@
         }
 
         .label {
-            background-color: #F0F0F0;
+            /* background-color: #F0F0F0; */
             color: #1170ff;
             cursor: pointer;
             font-size: 18px;
@@ -55,7 +54,6 @@
             background-color: #000000;
             color: #F0F0F0;
         }
-
 
         .left-align {
             text-align: left;
@@ -75,34 +73,55 @@
                     alt="">
             </div>
             <div class="col-6 text-left mt-5">
-                <h3 class="fw-bold">Currents</h3>
-                <h5 class="fw-bold">Rp. 500.000</h5>
-                <p>Saksikan keseruan konser yang mempesona.</p>
-                <p>Stok : 5</p>
                 <form>
+                    <h3 class="fw-bold">Currents</h3>
+                    <h5 class="fw-bold">Rp. 500.000</h5>
+                    <p>Saksikan keseruan konser yang mempesona.</p>
+                    <p>Stok : 5</p>
                     <input type="radio" id="lang-1" name="lang" value="VVIP" class="radio" checked>
                     <label class="label label-1" for="lang-1">VVIP</label>
 
                     <input type="radio" id="lang-2" name="lang" value="VIP" class="radio">
                     <label class="label label-2" for="lang-2">VIP</label>
 
-                    <input type="radio" id="lang-3" name="lang" value="Regurel" class="radio">
-                    <label class="label label-3" for="lang-3">Regurel</label>
-                </form>
-                <hr>
-                <div class="button d-flex">
-                    <div class="counter btn btn-light text-center rounded-3"">
-                        <button id="minus" class="minus"><i class="bi bi-dash-lg"></i></button>
-                        <span id="count" class="fw-medium">0</span>
-                        <button id="plus" class="plus"><i class="bi bi-plus-lg"></i></button>
-                    </div>
-                    <div class="pesan col-9 mx-4">
-                        <a href="/cart" class="btn btn-dark d-flex justify-content-center align-items-center rounded-5"
+                    <input type="radio" id="lang-3" name="lang" value="Reguler" class="radio">
+                    <label class="label label-3" for="lang-3">Reguler</label>
+                    <hr>
+                    <div class="button d-flex">
+                        <div class="counter btn btn-light text-center rounded-3">
+                            <button type="button" id="minus" class="minus"
+                                onclick="
+                                let i = $('#count').val();
+                                if (i > 1) {
+                                    $('#count').val(--i);
+                                }
+                                ">
+                                <i class="bi bi-dash-lg"></i>
+                            </button>
+                            <input type="number" id="count" class="form-control" max="5" value="1"
+                                style="width: 50px;text-align: end;padding: 10px 5px;">
+                            <button type="button" id="plus" class="plus"
+                                onclick="
+                                let i = parseInt($('#count').val());
+                                let max = parseInt($('#count').attr('max'));
+                                    if (i < max) {
+                                        $('#count').val(i + 1);
+                                    }
+                            ">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                        <div class="pesan col-9 mx-4">
+                            {{-- <a href="/cart" class="btn btn-dark d-flex justify-content-center align-items-center rounded-5"
                             style="height: 60px;">
                             <span>Pesan Sekarang</span>
-                        </a>
+                        </a> --}}
+                            <button type="submit"
+                                class="btn btn-dark d-flex justify-content-center align-items-center rounded-5"
+                                style="height: 60px;">Pesan sekarang</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -178,8 +197,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="{{ asset('images/detail-tiket/denah.jpg') }}" alt="Denah Konser" class="img-fluid"
-                        width="%">
+                    <img src="{{ asset('images/detail-tiket/denah.jpg') }}" alt="Denah Konser" class="img-fluid"width="%">
                 </div>
             </div>
         </div>

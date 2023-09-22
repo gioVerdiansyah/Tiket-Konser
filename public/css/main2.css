@@ -173,6 +173,7 @@ iframe {
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
+    /* flex-wrap: wrap; */
     align-items: stretch;
 }
 .wrap-login100 {
