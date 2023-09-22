@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Kota;
 use App\Models\Konser;
 use App\Models\Kategori;
@@ -54,7 +55,7 @@ class KonserController extends Controller
         $detail_tikets = new Collection([Konser::with('tiket')->where('tiket_id', $id)->get()[0]->tiket]);
         $kategoris = new Collection([Konser::with('kategori')->where('tiket_id', $id)->get()[0]->kategori]);
         $kotas = new Collection([Konser::with('kota')->where('tiket_id', $id)->get()[0]->kota]);
-        return view('user_page.konser', compact('konsers', 'kategoris','kotas','detail_tikets'));
+        return view('user_page.konser', compact('konsers', 'kategoris', 'kotas', 'detail_tikets'));
     }
 
     public function kategori($id)
@@ -63,7 +64,7 @@ class KonserController extends Controller
         $detail_tikets = new Collection([Konser::with('kategori')->where('kategori_id', $id)->get()[0]->detail_tiket]);
         $kategoris = new Collection([Konser::with('kategori')->where('kategori_id', $id)->get()[0]->kategori]);
         $kotas = new Collection([Konser::with('kota')->where('kategori_id', $id)->get()[0]->kota]);
-        return view('user_page.konser', compact('konsers', 'kategoris','kotas' ));
+        return view('user_page.konser', compact('konsers', 'kategoris', 'kotas'));
     }
     /**
      * Display the specified resource.

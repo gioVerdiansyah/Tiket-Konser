@@ -90,7 +90,7 @@
              /* Sesuaikan ukuran gambar sesuai kebutuhan */
              height: auto;
              /* margin-bottom: 10px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                    padding-right: 15px; */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            padding-right: 15px; */
          }
 
          .rounded-circle {
@@ -282,19 +282,19 @@
                                                  <div class="form-group mb-3">
                                                      <label for="alamat">Alamat Konser</label>
                                                      <textarea type="text" name="alamat" id="alamat" class="form-control mt-3"
-                                                     placeholder="Masukan Alamat Konser"></textarea>
-                                                    </div>
-                                                    <div class="form-group mb-0">
-                                                        <input type="hidden" name="lat" id="lat"
-                                                        class="form-control mt-3">
-                                                        <input type="hidden" name="lon" id="lon"
-                                                        class="form-control mt-3">
-                                                    </div>
-                                                    <div class="form-group mb-3">
-                                                        <label for="nama-tempat">Nama Tempat (Cth: Gedung, Taman, DLL)</label>
-                                                        <input type="text" name="tempat" id="nama-tempat"
-                                                            class="form-control mt-3" placeholder="Masukkan Nama Tempat">
-                                                    </div>
+                                                         placeholder="Masukan Alamat Konser"></textarea>
+                                                 </div>
+                                                 <div class="form-group mb-0">
+                                                     <input type="hidden" name="lat" id="lat"
+                                                         class="form-control mt-3">
+                                                     <input type="hidden" name="lon" id="lon"
+                                                         class="form-control mt-3">
+                                                 </div>
+                                                 <div class="form-group mb-3">
+                                                     <label for="nama-tempat">Nama Tempat (Cth: Gedung, Taman, DLL)</label>
+                                                     <input type="text" name="tempat" id="nama-tempat"
+                                                         class="form-control mt-3" placeholder="Masukkan Nama Tempat">
+                                                 </div>
                                              </div>
                                          </div>
                                          <div class="modal-footer">
@@ -336,61 +336,63 @@
                                  </div>
                              </div>
                              <!-- Modal Detail Tiket -->
-                            <div class="modal fade" id="pilihharga" data-bs-backdrop="static" data-bs-keyboard="false"
-                            aria-labelledby="pilihharga" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="pilihharga">Detail Tiket</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
+                             <div class="modal fade" id="pilihharga" data-bs-backdrop="static" data-bs-keyboard="false"
+                                 aria-labelledby="pilihharga" aria-hidden="true">
+                                 <div class="modal-dialog modal-dialog-centered">
+                                     <div class="modal-content">
+                                         <div class="modal-header">
+                                             <h1 class="modal-title fs-5" id="pilihharga">Detail Tiket</h1>
+                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                 aria-label="Close"></button>
+                                         </div>
 
-                                    <div class="modal-body">
-                                
-                                        <button type="button" id="btnTambahKategoriTiket" class="btn btn-secondary mb-3">Tambah Kategori Tiket</button>
-                                        
-                                        <!-- Tempat untuk menambahkan input -->
-                                        <div id="tempatInputKategoriHarga">
-                                            <!-- Input kategori tiket akan ditambahkan di sini -->
-                                            <!-- Input harga akan ditambahkan di sini -->
-                                        </div>
+                                         <div class="modal-body">
 
-                                        <div class="mb-4">
-                                            <label class="form-label">Kategori Konser</label><br>
-                                            <select id="kategori" class="custom-select js-example-basic-single" name="kategori" style="width: 100%;height: 38p%">
-                                                <option selected>Pilih kategori</option>
-                                                <option value="1">POP</option>
-                                                <option value="2">JAZZ</option>
-                                                <option value="3">HIPHOP</option>
-                                                <option value="4">ROCK</option>
-                                            </select>
-                                        </div>                                        
-                                        <div class="mb-4">
-                                            <label class="form-label">Denah Konser (Optional)</label><br>
-                                            <div class="mb-3">
-                                                <input class="form-control" type="file" id="formFile">
-                                              </div>
-                                        </div>                                        
-                                        
-                                        <div class="mb-3">
-                                            <label for="jumlahtiket" class="form-label mb-4">Jumlah Tiket</label>
-                                            <input name="jumlahtiket" id="jumlahtiket"
-                                                class="form-control form-control-solid" placeholder="" />
-                                        </div>
-                                        <div class="mb-0 mt-4">
-                                            <label for="deskripsi" class="form-label mb-4">Deskripsi</label>
-                                            <textarea class="form-control form-control-solid" name="deskripsi" id="deskripsi" cols="20" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer mt-3 mb-2">
-                                        <button type="button" onclick="checkModalHarga()"
-                                            class="btn btn-primary mt-3"
-                                            style="width: 100%;height: 60px;background-color: #000000;border: none;border-radius: 15px;">Simpan</button>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
+                                             <button type="button" id="btnTambahKategoriTiket"
+                                                 class="btn btn-secondary mb-3">Tambah Kategori Tiket</button>
+
+                                             <!-- Tempat untuk menambahkan input -->
+                                             <div id="tempatInputKategoriHarga">
+                                                 <!-- Input kategori tiket akan ditambahkan di sini -->
+                                                 <!-- Input harga akan ditambahkan di sini -->
+                                             </div>
+
+                                             <div class="mb-4">
+                                                 <label class="form-label">Kategori Konser</label><br>
+                                                 <select id="kategori" class="custom-select js-example-basic-single"
+                                                     name="kategori" style="width: 100%;height: 38p%">
+                                                     <option selected>Pilih kategori</option>
+                                                     <option value="1">POP</option>
+                                                     <option value="2">JAZZ</option>
+                                                     <option value="3">HIPHOP</option>
+                                                     <option value="4">ROCK</option>
+                                                 </select>
+                                             </div>
+                                             <div class="mb-4">
+                                                 <label class="form-label">Denah Konser (Optional)</label><br>
+                                                 <div class="mb-3">
+                                                     <input class="form-control" type="file" id="formFile">
+                                                 </div>
+                                             </div>
+
+                                             <div class="mb-3">
+                                                 <label for="jumlahtiket" class="form-label mb-4">Jumlah Tiket</label>
+                                                 <input name="jumlahtiket" id="jumlahtiket"
+                                                     class="form-control form-control-solid" placeholder="" />
+                                             </div>
+                                             <div class="mb-0 mt-4">
+                                                 <label for="deskripsi" class="form-label mb-4">Deskripsi</label>
+                                                 <textarea class="form-control form-control-solid" name="deskripsi" id="deskripsi" cols="20" rows="3"></textarea>
+                                             </div>
+                                         </div>
+                                         <div class="modal-footer mt-3 mb-2">
+                                             <button type="button" onclick="checkModalHarga()"
+                                                 class="btn btn-primary mt-3"
+                                                 style="width: 100%;height: 60px;background-color: #000000;border: none;border-radius: 15px;">Simpan</button>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
                          </div>
                      </div>
                  </div>
@@ -477,9 +479,9 @@
                  alertGagal();
                  return;
              }
-            // Ambil nilai dari input waktu mulai dan waktu selesai yang dipilih
-            var startTime = document.querySelector('#kt_datepicker_4').value;
-            var endTime = document.querySelector('#kt_datepicker_5').value;
+             // Ambil nilai dari input waktu mulai dan waktu selesai yang dipilih
+             var startTime = document.querySelector('#kt_datepicker_4').value;
+             var endTime = document.querySelector('#kt_datepicker_5').value;
 
              // Ganti teks pada elemen anchor dengan output waktu yang dipilih
              document.querySelector('#waktuAnchor').textContent = startTime + ' - ' + endTime;
@@ -700,67 +702,54 @@
              time_24hr: true // Menggunakan format waktu 24 jam
          });
      </script>
-     <!-- MODAL BTN -->
-     
-     <!-- END MODAL BTN -->
-
-     <!-- GOOGLE MAPS API -->
-     
-     <!-- END GOOGLE MAPS API -->
 
      <!-- BTN TAMBAH FORM -->
      <script>
-        var counter = 0; // Untuk membuat ID unik
-        
-        document.getElementById('btnTambahKategoriTiket').addEventListener('click', function () {
-            tambahInputKategoriHarga();
-        });
-    
-        function tambahInputKategoriHarga() {
-            // Buat elemen div untuk mengelompokkan input kategori tiket dan harga
-            var divInput = document.createElement('div');
-            divInput.className = 'mb-3';
-    
-            // Hitung jumlah elemen input yang sudah ada
-            var existingInputs = document.querySelectorAll('input[name^="kategoritiket"]');
-            var inputIndex = existingInputs.length + 1; // Hitung indeks berikutnya
-    
-            // Buat elemen input untuk kategori tiket
-            var inputKategoriTiket = document.createElement('input');
-            inputKategoriTiket.name = 'kategoritiket' + inputIndex + ''; // Nama input akan selalu bertambah 1 dari indeks terakhir
-            inputKategoriTiket.className = 'form-control form-control-solid mb-3';
-            inputKategoriTiket.placeholder = 'Kategori Tiket';
-    
-            // Buat elemen input untuk harga
-            var inputHarga = document.createElement('input');
-            inputHarga.name = 'harga' + inputIndex + ''; // Nama input akan selalu bertambah 1 dari indeks terakhir
-            inputHarga.className = 'form-control form-control-solid mb-1';
-            inputHarga.placeholder = 'Harga';
-    
-            // Buat elemen tombol "Undo" untuk menghapus input yang baru ditambahkan
-            var undoButton = document.createElement('button');
-            undoButton.type = 'button';
-            undoButton.className = 'btn btn-danger btn-sm ml-2';
-            // Ganti teks dengan ikon "trash"
-            undoButton.innerHTML = '<i class="fa fa-trash"></i>';
-            undoButton.addEventListener('click', function () {
-                // Hapus elemen div yang berisi input kategori tiket, harga, dan tombol "Undo"
-                divInput.remove();
-            });
+         $(document).ready(function() {
+             var maxField = 5; //Input fields increment limitation
+             var addButton = $('#btnTambahKategoriTiket'); //Add button selector
+             var wrapper = $('#tempatInputKategoriHarga'); //Input field wrapper
+             var x = 1; //Initial field counter is 1
 
-    
-            // Tambahkan input dan tombol "Undo" ke dalam div input
-            divInput.appendChild(inputKategoriTiket);
-            divInput.appendChild(inputHarga);
-            divInput.appendChild(undoButton);
-    
-            // Dapatkan elemen tempat Anda ingin menambahkan input
-            var tempatInputKategoriHarga = document.getElementById('tempatInputKategoriHarga');
-    
-            // Tambahkan div input ke dalam tempat yang sesuai
-            tempatInputKategoriHarga.appendChild(divInput);
-        }
-    </script>
-       
-    <!-- END BTN TAMBAH FORM -->
+             // Function to renumber input fields
+             function renumberFields() {
+                 $(wrapper).find('input[name^="kategoritiket"]').each(function(index, element) {
+                     $(element).attr('name', 'kategoritiket' + (index + 1));
+                 });
+
+                 $(wrapper).find('input[name^="harga"]').each(function(index, element) {
+                     $(element).attr('name', 'harga' + (index + 1));
+                 });
+             }
+
+             // Once add button is clicked
+             $(addButton).click(function() {
+                 // Check maximum number of input fields
+                 if (x < maxField) {
+                     x++; // Increase field counter
+                     var fieldHTML =
+                         `<div class="mb-3"><input name="kategoritiket${(x - 1)}" class="form-control form-control-solid mb-3" placeholder="Kategori Tiket"><input name="harga${(x - 1)}" class="form-control form-control-solid mb-1" placeholder="Harga"><a href="javascript:void(0);" class="remove_button btn btn-danger btn-sm ml-2"><i class="bi bi-trash"></i></a></div>`;
+                     $(wrapper).append(fieldHTML); // Add field html
+                 } else {
+                     Swal.fire({
+                         icon: "error",
+                         title: "Gagal",
+                         text: "Maksimal kategori tiket adalah 5!",
+                         allowOutsideClick: true,
+                         allowEscapeKey: false,
+                     });
+                 }
+             });
+
+             // Once remove button is clicked
+             $(wrapper).on('click', '.remove_button', function(e) {
+                 e.preventDefault();
+                 $(this).parent('div').remove(); // Remove field html
+                 x--; // Decrease field counter
+                 renumberFields(); // Re-number the fields
+             });
+         });
+     </script>
+
+     <!-- END BTN TAMBAH FORM -->
  @endsection

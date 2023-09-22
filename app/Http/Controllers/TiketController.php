@@ -14,8 +14,7 @@ class TiketController extends Controller
      */
     public function index()
     {
-        $kotas = Kota::all();
-        return view('user_page.jual_tiket', compact('kotas'));
+        return view('user_page.jual_tiket');
     }
 
     /**

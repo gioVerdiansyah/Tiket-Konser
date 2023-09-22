@@ -14,7 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nama_konser');
-            $table->string('nama_penyelenggara');
+            $table->string('banner');
+            $table->string('nama_penyelenggara')->nullable();
+            $table->string('photo_penyelenggara')->nullable();
             $table->string('tanggal_konser');
             $table->string('tempat');
             $table->string('alamat');
@@ -23,11 +25,8 @@ return new class extends Migration {
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
             $table->text('deskripsi');
-            $table->string('banner');
-            $table->string('photo_penyelenggara');
             $table->string('denah');
             $table->foreignId('kategori_id')->constrained()->onDelete('restrict');
-            $table->foreignId('kota_id')->constrained()->onDelete('restrict');
             $table->timestamps();
         });
     }

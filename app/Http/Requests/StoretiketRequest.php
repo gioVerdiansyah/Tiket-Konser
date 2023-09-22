@@ -27,7 +27,6 @@ class StoretiketRequest extends FormRequest
             'tanggal-konser' => 'required|string|size:24',
             'tempat' => 'required|string|min:5|max:255',
             'alamat' => 'required|string|min:5|max:255',
-            'kota' => 'required|string|max:255',
             'lat' => 'required|numeric',
             'lon' => 'required|numeric',
             'waktu-mulai' => 'required|date_format:H:i',
