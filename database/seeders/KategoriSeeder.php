@@ -25,7 +25,7 @@ class KategoriSeeder extends Seeder
 
         for ($i = 1; $i <= 1; $i++) {
             Kategori::create([
-                'nama_kategori' =>'Ludruk'
+                'nama_kategori' =>'Rock'
             ]);
         }
     }

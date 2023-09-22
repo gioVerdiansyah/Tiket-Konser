@@ -14,17 +14,39 @@ class KonserSeeder extends Seeder
     public function run(): void
     {
         $arry = [
-            'public/img/gnr.jpg',
-            'kaka',
-            'jj'
+            'Denny Caknan',
+            'Scorpions',
+            'Guns and Roses'
         ];
 
-        for ($i=1; $i <= 2; $i++) {
+        $sayah = [
+            '12000',
+            '15000',
+            '19999'
+        ];
+
+        $img = [
+            'gnr.jpg',
+            'scorpions.jpg',
+            'denny.jpg'
+        ];
+
+        sort($sayah);
+        sort($img);
+        sort($arry);
+
+
+        for ($i = 0; $i < 3; $i++) {
             Konser::create([
-                'foto_tiket' => 'img/gnr.jpg',
-                'nama' => fake('id_ID')->randomElement($arry),
-                'harga' => '12000'
+
+                'foto_tiket' => $img[$i],
+                'nama' => $arry[$i],
+                'harga' => $sayah[$i],
+                'kategori_id' => 1,
+                'kota_id' => 1,
+
             ]);
         }
+
     }
 }

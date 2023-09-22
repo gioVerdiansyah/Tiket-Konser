@@ -1001,7 +1001,7 @@ ol {
 }
 
 .product__item__text {
-	padding-top: 25px;
+	padding-top: 45px;
 	position: relative;
 }
 
@@ -1009,9 +1009,10 @@ ol {
 	font-size: 15px;
 	color: #e53637;
 	font-weight: 700;
-	position: absolute;
+	position:absolute;
 	left: 0;
 	top: 0;
+    padding-top: 18px;
 	opacity: 0;
 	visibility: hidden;
 	-webkit-transition: all, 0.3s;
@@ -1094,6 +1095,8 @@ ol {
 	position: absolute;
 	visibility: hidden;
 }
+
+
 
 /*---------------------
   Shop
@@ -1420,6 +1423,43 @@ ol {
 .shop__product__option__right .nice-select .list {
 	border-radius: 0;
 }
+
+/* Menggunakan text-overflow untuk menambahkan elipsis (...) */
+
+
+/* Mengubah gaya div dengan kelas "row mt-3" */
+.row.mt-3 {
+    margin-top: 20px; /* Ubah jarak atas sesuai kebutuhan */
+    padding: 10px; /* Tambahkan ruang bingkai jika diperlukan */
+    background-color: none; /* Ganti latar belakang sesuai preferensi Anda */
+    border-top: 1px solid #ccc; /* Tambahkan garis bingkai jika diperlukan */
+    border-radius: 5px; /* Tambahkan sudut bulat jika diperlukan */
+    margin:0 0px; /* Tambahkan jarak antara tautan jika diperlukan */
+    padding-left: 75px;
+    padding-right: 165px;
+
+}
+
+
+
+/* Mengubah gaya tautan di dalam div */
+.row.mt-3 a {
+    color:rgba(0, 0, 0, 0.5) ; /* Ganti warna tautan sesuai preferensi Anda */
+
+    text-decoration: none;   /* Hilangkan garis bawah tautan */
+    font-weight: bold; /* Tambahkan ketebalan huruf jika diperlukan */
+    white-space: nowrap; /* Mencegah teks melintasi batas elemen */
+    overflow: hidden; /* Menyembunyikan teks yang melewati batas elemen */
+    text-overflow: ellipsis; /* Menambahkan elipsis (...) di akhir teks yang terpotong */
+    width: 47px; /* Contoh: lebar elemen */
+
+}
+
+/* Mengubah gaya tautan aktif di dalam div */
+.row.mt-3 a.active {
+    color: #ff0000; /* Ganti warna tautan aktif sesuai preferensi Anda */
+}
+
 
 .product__pagination {
 	padding-top: 25px;

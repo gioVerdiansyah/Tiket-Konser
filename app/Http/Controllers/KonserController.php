@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Kota;
 use App\Models\Konser;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class KonserController extends Controller
 {
@@ -12,9 +14,10 @@ class KonserController extends Controller
      */
     public function index()
     {
+        $kotas = Kota::all();
         $kategoris = Kategori::all();
-        $konsers = Konser::all();
-        return view('user_page.konser', compact('konsers', 'kategoris'));
+        $konsers = Konser::paginate(12);
+        return view('user_page.konser', compact('konsers', 'kategoris', 'kotas'));
     }
 
     /**
@@ -26,13 +29,6 @@ class KonserController extends Controller
     }
 
 
-    public function search(Request $search)
-    {
-        $konsers = Konser::where('nama', 'like', '%' . $search->search . '%')->get();
-
-        // Mengembalikan tampilan dengan hasil pencarian ke view
-        return view('user_page.konser', compact('konsers'));
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -42,16 +38,45 @@ class KonserController extends Controller
     {
         //
     }
-public function kategori($id)
-{
-    $kategori = Kategori::all();
-    $konser = Konser::all();
-    dd($konser);
-    return view('user_page.konser', compact('konsers', 'kategoris'));
-}
+
+    public function search(Request $search)
+    {
+        $konsers = Konser::where('nama', 'like', '%' . $search->search . '%')->paginate(12);
+
+        // Mengembalikan tampilan dengan hasil pencarian ke view
+        return view('user_page.konser', compact('konsers'));
+
+    }
+
+    public function detail_tiket($id)
+    {
+        $konsers = Konser::where('id', $id)->first();
+        $detail_tikets = new Collection([Konser::with('tiket')->where('tiket_id', $id)->get()[0]->tiket]);
+        $kategoris = new Collection([Konser::with('kategori')->where('tiket_id', $id)->get()[0]->kategori]);
+        $kotas = new Collection([Konser::with('kota')->where('tiket_id', $id)->get()[0]->kota]);
+        return view('user_page.konser', compact('konsers', 'kategoris','kotas','detail_tikets'));
+    }
+
+    public function kategori($id)
+    {
+        $konsers = Konser::where('kategori_id', $id)->paginate(12);
+        $detail_tikets = new Collection([Konser::with('kategori')->where('kategori_id', $id)->get()[0]->detail_tiket]);
+        $kategoris = new Collection([Konser::with('kategori')->where('kategori_id', $id)->get()[0]->kategori]);
+        $kotas = new Collection([Konser::with('kota')->where('kategori_id', $id)->get()[0]->kota]);
+        return view('user_page.konser', compact('konsers', 'kategoris','kotas' ));
+    }
     /**
      * Display the specified resource.
      */
+    public function kota($id)
+    {
+        $konsers = Konser::where('kota_id', $id)->paginate(12);
+        $kotas = new Collection([Konser::with('kota')->where('kota_id', $id)->get()[0]->kota]);
+        $kategoris = new Collection([Konser::with('kategori')->where('kota_id', $id)->get()[0]->kategori]);
+        // $kotas = Konser::with(['kota', 'kategori'])->where('kota_id', $id)->get();
+        return view('user_page.konser', compact('konsers', 'kotas', 'kategoris'));
+    }
+
     public function show(string $id)
     {
         //

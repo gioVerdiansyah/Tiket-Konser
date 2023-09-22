@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategoris', function (Blueprint $table) {
+        Schema::create('konsers', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kategori')->unique();
-            $table->integer('jumlah')->default(1);
+            $table->string('foto_tiket');
+            $table->string('nama');
+            $table->bigInteger('harga');
+            $table->foreignId('kategori_id')->constrained();
+            $table->foreignId('kota_id')->constrained();
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategoris');
+        Schema::dropIfExists('konsers');
     }
 };

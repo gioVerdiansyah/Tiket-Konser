@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kategori extends Model
+class Kota extends Model
 {
     use HasFactory;
-    protected $guarded=[
-    ];
+   
+    protected $guarded=[];
     public function konser()
     {
         return $this->hasMany(Konser::class);
     }
-
 }

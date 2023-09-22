@@ -37,11 +37,11 @@
             </div>
         </div>
     </nav>
-      
+
     <div class="col-lg-12">
         <div class="row" style="">
             <div class="col-lg-4">
-                
+
                 <div class="card" style="height: 550px; width: 485px">
                     <div class="card-title text-center mt-3">
                         <h1>Profile</h1>
@@ -50,7 +50,7 @@
                         <div style="border-radius: 5px;">
                             <img src="{{ asset('img/profil.jpeg')}}" alt="profil" style="max-width: 100%; height: auto;">
                         </div>
-                        
+
                         <div class="text-center mt-3">
                             <h4 class="fw-bold">Manula</h4>
                         </div>
@@ -107,8 +107,8 @@
                             </div>
                         </div>
                     </div>
-                </div>                
-        </div>        
+                </div>
+        </div>
 </div>
 
 </div>

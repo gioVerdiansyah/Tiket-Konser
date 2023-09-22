@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('user_page.home');
+    return view ('user_page.home');
 
 });
 
@@ -71,8 +71,9 @@ Route::get('/jualtiket', function () {
 
 
 Route::get('/konser', [KonserController::class, 'index'])->name('konser')->middleware('CekLogin');
-Route::get('/konser', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
+Route::get('/konser/search', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
 Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori'])->middleware('CekLogin');
+Route::get('/konser/kota/{id}', [KonserController::class, 'kota'])->middleware('CekLogin');
 
 
 Route::get('/profile', function () {
