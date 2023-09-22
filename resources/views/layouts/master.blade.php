@@ -40,7 +40,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         {{-- End --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+        {{-- JQuery --}}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        {{-- JQuery End --}}
     </head>
 
     <body>
@@ -62,7 +64,7 @@
                             <a class="nav-link" href="{{ route('konser.search') }}">Konser</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('jualtiket') }}">Jual Tiket</a>
+                            <a class="nav-link" href="{{ route('jualtiket.index') }}">Jual Tiket</a>
                         </li>
                 </div>
                 <div class="navbar-nav ml-auto">
@@ -142,7 +144,7 @@
                                     class="nav-link p-0 text-body-secondary">Beranda</a></li>
                             <li class="nav-item mb-2"><a href="{{ route('konser.search') }}"
                                     class="nav-link p-0 text-body-secondary">Konser</a></li>
-                            <li class="nav-item mb-2"><a href="{{ route('jualtiket') }}"
+                            <li class="nav-item mb-2"><a href="{{ route('jualtiket.index') }}"
                                     class="nav-link p-0 text-body-secondary">Jual
                                     Tiket</a></li>
                         </ul>
@@ -180,11 +182,6 @@
             </div>
         </div>
         {{-- Footer End --}}
-
-        {{-- JQuery --}}
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        {{-- JQuery End --}}
-
         @if (session('message'))
             <script>
                 Swal.fire({
