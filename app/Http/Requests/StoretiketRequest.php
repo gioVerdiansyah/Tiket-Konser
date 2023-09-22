@@ -32,13 +32,21 @@ class StoretiketRequest extends FormRequest
             'lon' => 'required|numeric',
             'waktu-mulai' => 'required|date_format:H:i',
             'waktu-selesai' => 'required|date_format:H:i',
-            'kategori' => 'required|integer|min:1',
+            'kategori1' => 'required|integer|min:1',
+            'kategori2' => 'nullable|integer|min:1',
+            'kategori3' => 'nullable|integer|min:1',
+            'kategori4' => 'nullable|integer|min:1',
+            'kategori5' => 'nullable|integer|min:1',
+            'harga1' => 'required|integer|min:1',
+            'harga2' => 'nullable|integer|min:1',
+            'harga3' => 'nullable|integer|min:1',
+            'harga4' => 'nullable|integer|min:1',
+            'harga5' => 'nullable|integer|min:1',
             'jumlahtiket' => 'required|integer|min:1',
             'harga' => 'required|numeric|min:5000',
             'deskripsi' => 'required|string|min:5',
             'banner' => 'required|image|max:20480',
             'photo-penyelenggara' => 'required|image|max:20480',
-
         ];
     }
 
