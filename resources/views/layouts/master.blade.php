@@ -42,7 +42,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         {{-- JQuery --}}
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous"></script>
+            crossorigin="anonymous"></script>
         {{-- JQuery End --}}
     </head>
 
@@ -65,7 +65,7 @@
                             <a class="nav-link" href="{{ route('konser') }}">Konser</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('jualtiket.index') }}">Jual Tiket</a>
+                            <a class="nav-link" href="{{ route('buatkonser.index') }}">Buat Konser</a>
                         </li>
                 </div>
                 <div class="navbar-nav ml-auto">
@@ -145,9 +145,8 @@
                                     class="nav-link p-0 text-body-secondary">Beranda</a></li>
                             <li class="nav-item mb-2"><a href="{{ route('konser.search') }}"
                                     class="nav-link p-0 text-body-secondary">Konser</a></li>
-                            <li class="nav-item mb-2"><a href="{{ route('jualtiket.index') }}"
-                                    class="nav-link p-0 text-body-secondary">Jual
-                                    Tiket</a></li>
+                            <li class="nav-item mb-2"><a href="{{ route('buatkonser.index') }}"
+                                    class="nav-link p-0 text-body-secondary">Buat Konser</a></li>
                         </ul>
                     </div>
 

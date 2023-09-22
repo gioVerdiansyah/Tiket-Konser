@@ -1,14 +1,12 @@
 <?php
 
 use App\Http\Controllers\KonserController;
+use App\Http\Controllers\BuatKonserController;
 use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UpdateProfileController;
 use App\Http\Controllers\SesiController;
-use App\Http\Controllers\GoogleMapController;
-use App\Http\Controllers\IndoregionController;
-use App\Http\Controllers\TiketController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -39,10 +37,6 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
-Route::get('/jualtiket', function () {
-    return view('jual_tiket');
-});
-
 Route::get('/detail-tiket', function () {
     return view('user_page.detail-tiket');
 })->middleware('CekLogin');
@@ -62,7 +56,6 @@ Route::get('/cart', function () {
 Route::get('/konser', [KonserController::class, 'index'])->name('konser')->middleware('CekLogin');
 Route::get('/konser/search', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
 Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori'])->middleware('CekLogin');
-Route::get('/konser/kota/{id}', [KonserController::class, 'kota'])->middleware('CekLogin');
 
 // Profile User
 Route::middleware('CekLogin')->group(function () {
@@ -74,8 +67,7 @@ Route::middleware('CekLogin')->group(function () {
         return view('user_page.history');
     })->name('history');
 
-    Route::get('/jualtiket', [IndoregionController::class, 'jualtiket'])->name('jualtiket');
-    Route::resource('/jualtiket', TiketController::class);
+    Route::resource('/buatkonser', BuatKonserController::class);
 });
 // Route::get('/homeAdmin', function () {
 //     return view('admin_page.homeAdmin');

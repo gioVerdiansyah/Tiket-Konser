@@ -90,7 +90,7 @@
              /* Sesuaikan ukuran gambar sesuai kebutuhan */
              height: auto;
              /* margin-bottom: 10px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            padding-right: 15px; */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        padding-right: 15px; */
          }
 
          .rounded-circle {
@@ -131,7 +131,7 @@
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
      {{-- <script src="vendor/jquery/jquery-3.2.1.min.js"></script> --}}
      <div class="container py-5">
-         <form id="eventForm" action="{{ route('jualtiket.store') }}" method="POST" enctype="multipart/form-data"
+         <form id="eventForm" action="{{ route('buatkonser.store') }}" method="POST" enctype="multipart/form-data"
              class="d-flex justify-content-center">
              @csrf
              <div class="card">
@@ -348,8 +348,20 @@
 
                                          <div class="modal-body">
 
+                                             <div class="mb-4">
+                                                 <label class="form-label">Kategori Konser</label><br>
+                                                 <select id="kategori" class="custom-select js-example-basic-single"
+                                                     name="kategori" style="width: 100%;height: 38p%">
+                                                     <option selected>Pilih kategori</option>
+                                                     @foreach ($kategoris as $row)
+                                                         <option value="{{ $row->id }}">{{ $row->nama_kategori }}
+                                                         </option>
+                                                     @endforeach
+                                                 </select>
+                                             </div>
                                              <button type="button" id="btnTambahKategoriTiket"
-                                                 class="btn btn-secondary mb-3">Tambah Kategori Tiket</button>
+                                                 class="btn btn-secondary mb-3"><i class="bi bi-plus-square"></i> Kategori
+                                                 Tiket</button>
 
                                              <!-- Tempat untuk menambahkan input -->
                                              <div id="tempatInputKategoriHarga">
@@ -358,20 +370,10 @@
                                              </div>
 
                                              <div class="mb-4">
-                                                 <label class="form-label">Kategori Konser</label><br>
-                                                 <select id="kategori" class="custom-select js-example-basic-single"
-                                                     name="kategori" style="width: 100%;height: 38p%">
-                                                     <option selected>Pilih kategori</option>
-                                                     <option value="1">POP</option>
-                                                     <option value="2">JAZZ</option>
-                                                     <option value="3">HIPHOP</option>
-                                                     <option value="4">ROCK</option>
-                                                 </select>
-                                             </div>
-                                             <div class="mb-4">
                                                  <label class="form-label">Denah Konser (Optional)</label><br>
                                                  <div class="mb-3">
-                                                     <input class="form-control" type="file" id="formFile">
+                                                     <input class="form-control" type="file" name="denah-konser"
+                                                         id="formFile">
                                                  </div>
                                              </div>
 
@@ -411,6 +413,9 @@
                              <p class="text-danger">*{{ $message }}</p>
                          @enderror
                          @error('deskripsi')
+                             <p class="text-danger">*{{ $message }}</p>
+                         @enderror
+                         @error('denah-konser')
                              <p class="text-danger">*{{ $message }}</p>
                          @enderror
                      </div>
@@ -460,11 +465,10 @@
          function checkModalHarga() {
              let kategori = document.getElementById('kategori').value;
              let jumlahtiket = document.getElementById('jumlahtiket').value;
-             let harga = document.getElementById('harga').value;
-             let deskripsi = document.getElementById('deskripsi').value;
-             let kategoritiket = document.getElementById('kategoritiket').value;
+             let kategoritiket = document.querySelectorAll(`[name="kategoritiket1"]`)[0];
+             let harga = document.querySelectorAll(`[name="harga1"]`)[0];
 
-             if (!kategori || !jumlahtiket || !harga || !deskripsi || !kategoritiket) {
+             if (!kategori || !jumlahtiket || !harga || !kategoritiket) {
                  alertGagal();
                  return;
              }
@@ -504,7 +508,7 @@
                  });
              }
 
-             if (!namaTempat || !alamat || !kota || !lat || !lon) {
+             if (!namaTempat || !alamat || !lat || !lon) {
                  alertGagal();
                  return;
              }
@@ -611,66 +615,31 @@
 
          // Initially hide the input field and keep the <p> tag visible
          organizerInput.classList.add('d-none');
-     </script>
-     <script>
          // Mendapatkan referensi ke elemen input gambar profil dan tombol unggah
-         var profileImageInput = document.getElementById('profileImageInput');
-         var uploadProfileButton = document.getElementById('uploadProfileButton');
-         var organizerImage = document.getElementById('organizerImage');
-
-         // Menambahkan event listener untuk klik pada tombol unggah
-         uploadProfileButton.addEventListener('click', function() {
-             // Mengklik input file yang tersembunyi saat tombol unggah diklik
-             profileImageInput.click();
-         });
-
-         // Menambahkan event listener untuk perubahan pada input file gambar profil
-         profileImageInput.addEventListener('change', function() {
-             // Memastikan ada file gambar yang dipilih
-             if (profileImageInput.files && profileImageInput.files[0]) {
-                 // Lakukan sesuatu dengan file gambar yang dipilih di sini
-                 var selectedImage = profileImageInput.files[0];
-                 console.log('File yang dipilih:', selectedImage.name);
-
-                 // Anda dapat mengunggah gambar ini ke server atau menampilkan preview di sini
-                 // Contoh: Tampilkan gambar di bawah tombol unggah
-                 var reader = new FileReader();
-                 reader.onload = function(e) {
-                     var imageURL = e.target.result;
-                     // Mengganti atribut src dari elemen gambar penyelenggara dengan URL baru
-                     organizerImage.src = imageURL;
-                 };
-                 reader.readAsDataURL(selectedImage);
-             }
-         });
-     </script>
-     <script>
          function triggerProfileUpload() {
-             // Mengklik tombol "Unggah Gambar Profil" saat gambar profil di klik
-             document.getElementById('profileImageInput').click();
+             var profileImageInput = document.getElementById('profileImageInput');
+             var uploadProfileButton = document.getElementById('uploadProfileButton');
+             var organizerImage = document.getElementById('organizerImage');
+
+             // Menambahkan event listener untuk perubahan pada input file gambar profil
+             profileImageInput.addEventListener('change', function() {
+                 // Memastikan ada file gambar yang dipilih
+                 if (profileImageInput.files && profileImageInput.files[0]) {
+                     // Lakukan sesuatu dengan file gambar yang dipilih di sini
+                     var selectedImage = profileImageInput.files[0];
+
+                     // Anda dapat mengunggah gambar ini ke server atau menampilkan preview di sini
+                     // Contoh: Tampilkan gambar di bawah tombol unggah
+                     var reader = new FileReader();
+                     reader.onload = function(e) {
+                         var imageURL = e.target.result;
+                         // Mengganti atribut src dari elemen gambar penyelenggara dengan URL baru
+                         organizerImage.src = imageURL;
+                     };
+                     reader.readAsDataURL(selectedImage);
+                 }
+             });
          }
-
-         // ...
-
-         // Menambahkan event listener untuk perubahan pada input file gambar profil
-         profileImageInput.addEventListener('change', function() {
-             // Memastikan ada file gambar yang dipilih
-             if (profileImageInput.files && profileImageInput.files[0]) {
-                 // Lakukan sesuatu dengan file gambar yang dipilih di sini
-                 var selectedImage = profileImageInput.files[0];
-                 console.log('File yang dipilih:', selectedImage.name);
-
-                 // Anda dapat mengunggah gambar ini ke server atau menampilkan preview di sini
-                 // Contoh: Tampilkan gambar di bawah tombol unggah
-                 var reader = new FileReader();
-                 reader.onload = function(e) {
-                     var imageURL = e.target.result;
-                     // Mengganti atribut src dari elemen gambar penyelenggara dengan URL baru
-                     organizerImage.src = imageURL;
-                 };
-                 reader.readAsDataURL(selectedImage);
-             }
-         });
      </script>
 
      <script>
@@ -715,6 +684,7 @@
              function renumberFields() {
                  $(wrapper).find('input[name^="kategoritiket"]').each(function(index, element) {
                      $(element).attr('name', 'kategoritiket' + (index + 1));
+                     $(element).attr('placeholder', 'Kategori Tiket ' + (index + 1));
                  });
 
                  $(wrapper).find('input[name^="harga"]').each(function(index, element) {
@@ -725,10 +695,10 @@
              // Once add button is clicked
              $(addButton).click(function() {
                  // Check maximum number of input fields
-                 if (x < maxField) {
+                 if (x <= maxField) {
                      x++; // Increase field counter
                      var fieldHTML =
-                         `<div class="mb-3"><input name="kategoritiket${(x - 1)}" class="form-control form-control-solid mb-3" placeholder="Kategori Tiket"><input name="harga${(x - 1)}" class="form-control form-control-solid mb-1" placeholder="Harga"><a href="javascript:void(0);" class="remove_button btn btn-danger btn-sm ml-2"><i class="bi bi-trash"></i></a></div>`;
+                         `<div class="mb-3"><input name="kategoritiket${(x - 1)}" class="form-control form-control-solid mb-3" placeholder="Kategori Tiket ${(x - 1)}"><input name="harga${(x - 1)}" class="form-control form-control-solid mb-1" placeholder="Harga"><a href="javascript:void(0);" class="remove_button btn btn-danger btn-sm ml-2"><i class="bi bi-trash"></i></a></div>`;
                      $(wrapper).append(fieldHTML); // Add field html
                  } else {
                      Swal.fire({

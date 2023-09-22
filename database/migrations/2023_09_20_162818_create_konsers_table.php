@@ -24,8 +24,8 @@ return new class extends Migration {
             $table->double('lon');
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
-            $table->text('deskripsi');
-            $table->string('denah');
+            $table->text('deskripsi')->nullable();
+            $table->string('denah')->nullable();
             $table->foreignId('kategori_id')->constrained()->onDelete('restrict');
             $table->timestamps();
         });

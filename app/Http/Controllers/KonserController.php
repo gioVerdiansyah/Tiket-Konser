@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kota;
 use App\Models\Konser;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
@@ -15,7 +14,6 @@ class KonserController extends Controller
      */
     public function index()
     {
-        $kotas = Kota::all();
         $kategoris = Kategori::all();
         $konsers = Konser::paginate(12);
         return view('user_page.konser', compact('konsers', 'kategoris', 'kotas'));

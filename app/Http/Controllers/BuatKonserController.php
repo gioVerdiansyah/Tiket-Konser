@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tiket;
-use App\Http\Requests\StoretiketRequest;
-use App\Http\Requests\UpdatetiketRequest;
-use App\Models\Kota;
+use App\Models\BuatKonser;
+use App\Http\Requests\StoreBuatKonserRequest;
+use App\Http\Requests\UpdateBuatKonserRequest;
+use App\Models\Kategori;
 
-class TiketController extends Controller
+class BuatKonserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('user_page.jual_tiket');
+        $kategoris = Kategori::all();
+        return view('user_page.buat_konser', compact('kategoris'));
     }
 
     /**
@@ -28,15 +29,15 @@ class TiketController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoretiketRequest $request)
+    public function store(StoreBuatKonserRequest $request)
     {
-        dump($request->all());
+        dump($request);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(tiket $tiket)
+    public function show(BuatKonser $buatKonser)
     {
         //
     }
@@ -44,7 +45,7 @@ class TiketController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(tiket $tiket)
+    public function edit(BuatKonser $buatKonser)
     {
         //
     }
@@ -52,7 +53,7 @@ class TiketController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatetiketRequest $request, tiket $tiket)
+    public function update(UpdateBuatKonserRequest $request, BuatKonser $buatKonser)
     {
         //
     }
@@ -60,7 +61,7 @@ class TiketController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(tiket $tiket)
+    public function destroy(BuatKonser $buatKonser)
     {
         //
     }
