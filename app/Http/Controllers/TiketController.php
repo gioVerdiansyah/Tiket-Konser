@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\tiket;
 use App\Http\Requests\StoretiketRequest;
 use App\Http\Requests\UpdatetiketRequest;
+use App\Models\Kota;
 
 class TiketController extends Controller
 {
@@ -13,7 +14,8 @@ class TiketController extends Controller
      */
     public function index()
     {
-        return view('user_page.jual_tiket');
+        $kotas = Kota::all();
+        return view('user_page.jual_tiket', compact('kotas'));
     }
 
     /**

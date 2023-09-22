@@ -74,6 +74,7 @@ Route::middleware('CekLogin')->group(function () {
         return view('user_page.history');
     })->name('history');
 
+    Route::get('/jualtiket',[IndoregionController::class,'jualtiket'])->name('jualtiket');
     Route::resource('/jualtiket', TiketController::class);
 });
 // Route::get('/homeAdmin', function () {

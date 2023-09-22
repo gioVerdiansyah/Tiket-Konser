@@ -7,7 +7,7 @@
      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
          integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
          crossorigin=""></script>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
      {{-- SELECT2 --}}
      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -129,7 +129,7 @@
      <link rel="stylesheet" href="{{ asset('css/main.css') }}">
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+     {{-- <script src="vendor/jquery/jquery-3.2.1.min.js"></script> --}}
      <div class="container py-5">
          <form id="eventForm" action="{{ route('jualtiket.store') }}" method="POST" enctype="multipart/form-data"
              class="d-flex justify-content-center">
@@ -278,26 +278,23 @@
                                          <div class="modal-body">
                                              <div class="mb-0">
                                                  <label for="" class="form-label">Pilih Lokasi Konser</label>
-                                                 <div class="form-group mb-4">
-                                                     <label for="nama-tempat">Nama Tempat</label>
-                                                     <input type="text" name="tempat" id="nama-tempat"
-                                                         class="form-control mt-3" placeholder="Masukkan Nama Tempat">
-                                                 </div>
                                                  <div class="mb-3" id="map"></div>
                                                  <div class="form-group mb-3">
-                                                     <label for="alamat">Masukkan Alamat</label>
+                                                     <label for="alamat">Alamat Konser</label>
                                                      <textarea type="text" name="alamat" id="alamat" class="form-control mt-3"
-                                                         placeholder="masukan alamat konser"></textarea>
-                                                 </div>
-                                                 <div class="form-group mb-3">
-                                                     <label for="kota">Kota</label>
-                                                     <input type="text" name="kota" id="kota"
-                                                         class="form-control mt-3">
-                                                     <input type="hidden" name="lat" id="lat"
-                                                         class="form-control mt-3">
-                                                     <input type="hidden" name="lon" id="lon"
-                                                         class="form-control mt-3">
-                                                 </div>
+                                                     placeholder="Masukan Alamat Konser"></textarea>
+                                                    </div>
+                                                    <div class="form-group mb-0">
+                                                        <input type="hidden" name="lat" id="lat"
+                                                        class="form-control mt-3">
+                                                        <input type="hidden" name="lon" id="lon"
+                                                        class="form-control mt-3">
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="nama-tempat">Nama Tempat (Cth: Gedung, Lantai)</label>
+                                                        <input type="text" name="tempat" id="nama-tempat"
+                                                            class="form-control mt-3" placeholder="Masukkan Nama Tempat">
+                                                    </div>
                                              </div>
                                          </div>
                                          <div class="modal-footer">
@@ -318,8 +315,6 @@
                                              <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                  aria-label="Close"></button>
                                          </div>
-                                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
                                          <div class="modal-body">
                                              <div class="mb-0">
                                                  <label for="kt_datepicker_4" class="form-label">Mulai dari</label>
@@ -340,53 +335,62 @@
                                      </div>
                                  </div>
                              </div>
-                             <!-- Modal harga -->
-                             <div class="modal fade" id="pilihharga" data-bs-backdrop="static" data-bs-keyboard="false"
-                                 aria-labelledby="pilihharga" aria-hidden="true">
-                                 <div class="modal-dialog modal-dialog-centered">
-                                     <div class="modal-content">
-                                         <div class="modal-header">
-                                             <h1 class="modal-title fs-5" id="pilihharga">Harga event</h1>
-                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                 aria-label="Close"></button>
-                                         </div>
-                                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-                                         <div class="modal-body">
-                                             <div class="mb-4">
-                                                 <label class="form-label">Kategori Konser</label><br>
-                                                 <select id="kategori"
-                                                     class="custom-select form-control form-control-solid"
-                                                     name="kategori">
-                                                     <option selected>pilih kategori</option>
-                                                     <option value="1">One</option>
-                                                     <option value="2">Two</option>
-                                                     <option value="3">Three</option>
-                                                 </select>
-                                             </div>
-                                             <div class="mb-3">
-                                                 <label for="jumlahtiket" class="form-label mb-4">Jumlah Tiket</label>
-                                                 <input name="jumlahtiket" id="jumlahtiket"
-                                                     class="form-control form-control-solid" placeholder="" />
-                                             </div>
-                                             <div class="mb-0 mt-4">
-                                                 <label for="harga" class="form-label mb-4">Harga</label>
-                                                 <input name="harga" id="harga"
-                                                     class="form-control form-control-solid" placeholder="" />
-                                             </div>
-                                             <div class="mb-0 mt-4">
-                                                 <label for="deskripsi" class="form-label mb-4">Deskripsi</label>
-                                                 <textarea class="form-control form-control-solid" name="deskripsi" id="deskripsi" cols="20" rows="3"></textarea>
-                                             </div>
-                                         </div>
-                                         <div class="modal-footer mt-3 mb-2">
-                                             <button type="button" onclick="checkModalHarga()"
-                                                 class="btn btn-primary mt-3"
-                                                 style="width: 100%;height: 60px;background-color: #000000;border: none;border-radius: 15px;">Simpan</button>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
+                             <!-- Modal Detail Tiket -->
+                            <div class="modal fade" id="pilihharga" data-bs-backdrop="static" data-bs-keyboard="false"
+                            aria-labelledby="pilihharga" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="pilihharga">Detail Tiket</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                
+                                        <button type="button" id="btnTambahKategoriTiket" class="btn btn-secondary mb-3">Tambah Kategori Tiket</button>
+                                        
+                                        <!-- Tempat untuk menambahkan input -->
+                                        <div id="tempatInputKategoriHarga">
+                                            <!-- Input kategori tiket akan ditambahkan di sini -->
+                                            <!-- Input harga akan ditambahkan di sini -->
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label">Kategori Konser</label><br>
+                                            <select id="kategori" class="custom-select js-example-basic-single" name="kategori" style="width: 100%;height: 38p%">
+                                                <option selected>Pilih kategori</option>
+                                                <option value="1">POP</option>
+                                                <option value="2">JAZZ</option>
+                                                <option value="3">HIPHOP</option>
+                                                <option value="4">ROCK</option>
+                                            </select>
+                                        </div>                                        
+                                        <div class="mb-4">
+                                            <label class="form-label">Denah Konser(Optional)</label><br>
+                                            <div class="mb-3">
+                                                <input class="form-control" type="file" id="formFile">
+                                              </div>
+                                        </div>                                        
+                                        
+                                        <div class="mb-3">
+                                            <label for="jumlahtiket" class="form-label mb-4">Jumlah Tiket</label>
+                                            <input name="jumlahtiket" id="jumlahtiket"
+                                                class="form-control form-control-solid" placeholder="" />
+                                        </div>
+                                        <div class="mb-0 mt-4">
+                                            <label for="deskripsi" class="form-label mb-4">Deskripsi</label>
+                                            <textarea class="form-control form-control-solid" name="deskripsi" id="deskripsi" cols="20" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer mt-3 mb-2">
+                                        <button type="button" onclick="checkModalHarga()"
+                                            class="btn btn-primary mt-3"
+                                            style="width: 100%;height: 60px;background-color: #000000;border: none;border-radius: 15px;">Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                          </div>
                      </div>
                  </div>
@@ -394,7 +398,7 @@
                      <div class="left-column align-self-start">
                          <a id="hargaAnchor" href="#" class="text-decoration-none"
                              style="font-size: 16px;color: #ADB6C9;font-family: Poppins-Regular;margin-left: 32px;"
-                             data-bs-toggle="modal" data-bs-target="#pilihharga">Harga*</a>
+                             data-bs-toggle="modal" data-bs-target="#pilihharga">Detail Tiket*</a>
                          @error('kategori')
                              <p class="text-danger">*{{ $message }}</p>
                          @enderror
@@ -443,7 +447,11 @@
                  alertGagal();
                  return;
              }
+             // Ambil nilai dari input waktu mulai dan waktu selesai yang dipilih
+             var startDate = document.querySelector('#kt_datepicker_3').value;
 
+             // Ganti teks pada elemen anchor dengan output waktu yang dipilih
+             document.querySelector('#tanggalAnchor').textContent = startDate;
              $('#pilihtanggal').modal('hide');
          }
 
@@ -452,8 +460,9 @@
              let jumlahtiket = document.getElementById('jumlahtiket').value;
              let harga = document.getElementById('harga').value;
              let deskripsi = document.getElementById('deskripsi').value;
+             let kategoritiket = document.getElementById('kategoritiket').value;
 
-             if (!kategori || !jumlahtiket || !harga || !deskripsi) {
+             if (!kategori || !jumlahtiket || !harga || !deskripsi || !kategoritiket) {
                  alertGagal();
                  return;
              }
@@ -468,14 +477,18 @@
                  alertGagal();
                  return;
              }
+            // Ambil nilai dari input waktu mulai dan waktu selesai yang dipilih
+            var startTime = document.querySelector('#kt_datepicker_4').value;
+            var endTime = document.querySelector('#kt_datepicker_5').value;
 
+             // Ganti teks pada elemen anchor dengan output waktu yang dipilih
+             document.querySelector('#waktuAnchor').textContent = startTime + ' - ' + endTime;
              $('#pilihwaktu').modal('hide');
          }
 
          function checkModalLocation() {
              var namaTempat = document.getElementById('nama-tempat').value;
              var alamat = document.getElementById('alamat').value;
-             var kota = document.getElementById('kota').value;
              try {
                  var lat = document.getElementById('lat').value;
                  var lon = document.getElementById('lon').value;
@@ -493,7 +506,10 @@
                  alertGagal();
                  return;
              }
+             var selectedLocation = document.querySelector('#alamat').value;
 
+             // Update the content of the <span> element with the selected location
+             document.querySelector('#selectedLocation').textContent = selectedLocation;
              $('#pilihlokasi').modal('hide');
          }
      </script>
@@ -542,19 +558,6 @@
                                  address += results[0].properties.state || '';
                                  address += results[0].properties.country || '';
 
-                                 var kotaInput = document.getElementById('kota');
-                                 var kota = results[0].properties.address.county;
-                                 var kota2 = results[0].properties.address.city;
-
-                                 if (typeof kota !== 'undefined') {
-                                     kotaInput.value = kota;
-                                 } else if (typeof kota2 !== 'undefined') {
-                                     kotaInput.value = kota2;
-                                 } else {
-                                     kotaInput.value = '';
-                                     kotaInput.placeholder =
-                                         'Kota tidak dikenali dalam peta, coba ketik manual';
-                                 }
                                  document.getElementById('lat').value = results[0].properties.lat;
                                  document.getElementById('lon').value = results[0].properties.lon;
                                  document.getElementById('alamat').value = address;
@@ -698,69 +701,44 @@
          });
      </script>
      <!-- MODAL BTN -->
-     <script>
-         // Menangani klik tombol "Simpan" pada modal
-         document.querySelector('#pilihwaktu .btn-primary').addEventListener('click', function() {
-             // Ambil nilai dari input waktu mulai dan waktu selesai yang dipilih
-             var startTime = document.querySelector('#kt_datepicker_4').value;
-             var endTime = document.querySelector('#kt_datepicker_5').value;
-
-             // Ganti teks pada elemen anchor dengan output waktu yang dipilih
-             document.querySelector('#waktuAnchor').textContent = startTime + ' - ' + endTime;
-         });
-     </script>
-     <script>
-         // Menangani klik tombol "Simpan" pada modal
-         document.querySelector('#pilihtanggal .btn-primary').addEventListener('click', function() {
-             // Ambil nilai dari input waktu mulai dan waktu selesai yang dipilih
-             var startDate = document.querySelector('#kt_datepicker_3').value;
-
-             // Ganti teks pada elemen anchor dengan output waktu yang dipilih
-             document.querySelector('#tanggalAnchor').textContent = startDate;
-         });
-     </script>
-     <script>
-         // Event listener for clicking the "Simpan" button in the modal
-         document.querySelector('#pilihlokasi .btn-primary').addEventListener('click', function() {
-             // Get the selected location from the input field
-             var selectedLocation = document.querySelector('#alamat').value;
-
-             // Update the content of the <span> element with the selected location
-             document.querySelector('#selectedLocation').textContent = selectedLocation;
-         });
-     </script>
+     
      <!-- END MODAL BTN -->
 
+     <!-- GOOGLE MAPS API -->
+     
+     <!-- END GOOGLE MAPS API -->
+
+     <!-- BTN TAMBAH FORM -->
      <script>
-         (g => {
-             var h, a, k, p = "The Google Maps JavaScript API",
-                 c = "google",
-                 l = "importLibrary",
-                 q = "__ib__",
-                 m = document,
-                 b = window;
-             b = b[c] || (b[c] = {});
-             var d = b.maps || (b.maps = {}),
-                 r = new Set,
-                 e = new URLSearchParams,
-                 u = () => h || (h = new Promise(async (f, n) => {
-                     await (a = m.createElement("script"));
-                     e.set("libraries", [...r] + "");
-                     for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
-                     e.set("callback", c + ".maps." + q);
-                     a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
-                     d[q] = f;
-                     a.onerror = () => h = n(Error(p + " could not load."));
-                     a.nonce = m.querySelector("script[nonce]")?.nonce || "";
-                     m.head.append(a)
-                 }));
-             d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() =>
-                 d[l](f, ...n))
-         })({
-             key: "AIzaSyBnaueX8_LeUKMzIfbOEjFElopgvR9z_TE",
-             v: "weekly",
-             // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-             // Add other bootstrap parameters as needed, using camel case.
-         });
-     </script>
+        var counter = 0; // Untuk membuat ID unik
+    
+        document.getElementById('btnTambahKategoriTiket').addEventListener('click', function () {
+            tambahInputKategoriHarga();
+        });
+    
+        function tambahInputKategoriHarga() {
+            counter++; // Tambahkan counter setiap kali menambahkan input
+    
+            // Buat elemen input untuk kategori tiket
+            var inputKategoriTiket = document.createElement('input');
+            inputKategoriTiket.name = 'kategoritiket' + counter + ''; // Nama input akan menjadi 'kategoritiket[1]', 'kategoritiket[2]', dan seterusnya
+            inputKategoriTiket.className = 'form-control form-control-solid mb-3';
+            inputKategoriTiket.placeholder = 'Kategori Tiket';
+    
+            // Buat elemen input untuk harga
+            var inputHarga = document.createElement('input');
+            inputHarga.name = 'harga' + counter + ''; // Nama input akan menjadi 'harga[1]', 'harga[2]', dan seterusnya
+            inputHarga.className = 'form-control form-control-solid mb-3';
+            inputHarga.placeholder = 'Harga';
+    
+            // Dapatkan elemen tempat Anda ingin menambahkan input
+            var tempatInputKategoriHarga = document.getElementById('tempatInputKategoriHarga');
+    
+            // Tambahkan input ke dalam tempat yang sesuai
+            tempatInputKategoriHarga.appendChild(inputKategoriTiket);
+            tempatInputKategoriHarga.appendChild(inputHarga);
+        }
+    </script>
+    
+    <!-- END BTN TAMBAH FORM -->
  @endsection
