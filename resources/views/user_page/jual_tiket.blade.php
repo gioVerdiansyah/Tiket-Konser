@@ -291,7 +291,7 @@
                                                         class="form-control mt-3">
                                                     </div>
                                                     <div class="form-group mb-3">
-                                                        <label for="nama-tempat">Nama Tempat (Cth: Gedung, Lantai)</label>
+                                                        <label for="nama-tempat">Nama Tempat (Cth: Gedung, Taman, DLL)</label>
                                                         <input type="text" name="tempat" id="nama-tempat"
                                                             class="form-control mt-3" placeholder="Masukkan Nama Tempat">
                                                     </div>
@@ -367,7 +367,7 @@
                                             </select>
                                         </div>                                        
                                         <div class="mb-4">
-                                            <label class="form-label">Denah Konser(Optional)</label><br>
+                                            <label class="form-label">Denah Konser (Optional)</label><br>
                                             <div class="mb-3">
                                                 <input class="form-control" type="file" id="formFile">
                                               </div>
@@ -711,34 +711,56 @@
      <!-- BTN TAMBAH FORM -->
      <script>
         var counter = 0; // Untuk membuat ID unik
-    
+        
         document.getElementById('btnTambahKategoriTiket').addEventListener('click', function () {
             tambahInputKategoriHarga();
         });
     
         function tambahInputKategoriHarga() {
-            counter++; // Tambahkan counter setiap kali menambahkan input
+            // Buat elemen div untuk mengelompokkan input kategori tiket dan harga
+            var divInput = document.createElement('div');
+            divInput.className = 'mb-3';
+    
+            // Hitung jumlah elemen input yang sudah ada
+            var existingInputs = document.querySelectorAll('input[name^="kategoritiket"]');
+            var inputIndex = existingInputs.length + 1; // Hitung indeks berikutnya
     
             // Buat elemen input untuk kategori tiket
             var inputKategoriTiket = document.createElement('input');
-            inputKategoriTiket.name = 'kategoritiket' + counter + ''; // Nama input akan menjadi 'kategoritiket[1]', 'kategoritiket[2]', dan seterusnya
+            inputKategoriTiket.name = 'kategoritiket' + inputIndex + ''; // Nama input akan selalu bertambah 1 dari indeks terakhir
             inputKategoriTiket.className = 'form-control form-control-solid mb-3';
             inputKategoriTiket.placeholder = 'Kategori Tiket';
     
             // Buat elemen input untuk harga
             var inputHarga = document.createElement('input');
-            inputHarga.name = 'harga' + counter + ''; // Nama input akan menjadi 'harga[1]', 'harga[2]', dan seterusnya
-            inputHarga.className = 'form-control form-control-solid mb-3';
+            inputHarga.name = 'harga' + inputIndex + ''; // Nama input akan selalu bertambah 1 dari indeks terakhir
+            inputHarga.className = 'form-control form-control-solid mb-1';
             inputHarga.placeholder = 'Harga';
+    
+            // Buat elemen tombol "Undo" untuk menghapus input yang baru ditambahkan
+            var undoButton = document.createElement('button');
+            undoButton.type = 'button';
+            undoButton.className = 'btn btn-danger btn-sm ml-2';
+            // Ganti teks dengan ikon "trash"
+            undoButton.innerHTML = '<i class="fa fa-trash"></i>';
+            undoButton.addEventListener('click', function () {
+                // Hapus elemen div yang berisi input kategori tiket, harga, dan tombol "Undo"
+                divInput.remove();
+            });
+
+    
+            // Tambahkan input dan tombol "Undo" ke dalam div input
+            divInput.appendChild(inputKategoriTiket);
+            divInput.appendChild(inputHarga);
+            divInput.appendChild(undoButton);
     
             // Dapatkan elemen tempat Anda ingin menambahkan input
             var tempatInputKategoriHarga = document.getElementById('tempatInputKategoriHarga');
     
-            // Tambahkan input ke dalam tempat yang sesuai
-            tempatInputKategoriHarga.appendChild(inputKategoriTiket);
-            tempatInputKategoriHarga.appendChild(inputHarga);
+            // Tambahkan div input ke dalam tempat yang sesuai
+            tempatInputKategoriHarga.appendChild(divInput);
         }
     </script>
-    
+       
     <!-- END BTN TAMBAH FORM -->
  @endsection
