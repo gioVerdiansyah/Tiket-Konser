@@ -12,8 +12,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+<<<<<<< Updated upstream
         // $this->call(DummyUserSeeder::class);
         // $this->call(KategoriSeeder::class);
         $this->call(IndoRegionRegencySeeder::class); //ini kota
+=======
+        // \App\Models\User::factory(10)->create();
+
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        $this->call(DummyUserSeeder::class);
+        $this->call(KonserSeeder::class);
+        $this->call(KategoriSeeder::class);
+>>>>>>> Stashed changes
     }
 }
