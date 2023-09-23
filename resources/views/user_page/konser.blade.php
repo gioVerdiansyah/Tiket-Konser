@@ -13,6 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">  --}}
         <title>Ticket.</title>
 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
             rel="stylesheet">
 
@@ -199,14 +201,22 @@
                                         </div>
                                         <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                                             <div class="card-body">
-                                                <div class="shop__sidebar__price">
-                                                    <ul>
-                                                        <li><a href="#">Rp50.000 - Rp100.000</a></li>
-                                                        <li><a href="#">Rp100.000 - Rp150.000</a></li>
-                                                        <li><a href="#">Rp150.000 - Rp200.000</a></li>
-                                                        <li><a href="#">Rp200.000 - Rp250.000</a></li>
-                                                        <li><a href="#">Rp250.000+</a></li>
-                                                    </ul>
+
+                                                    <div class="middle">
+                                                        <div id="multi_range">
+                                                            <span id="left_value">250000</span><span> ~ </span><span id="right_value">750000</span>
+                                                        </div>
+                                                        <div class="multi-range-slider my-2">
+                                                            <input type="range" id="input_left" class="range_slider" min="0" max="1000000" value="250000" onmousemove="left_slider(this.value)">
+                                                            <input type="range" id="input_right" class="range_slider" min="0" max="1000000" value="750000" onmousemove="right_slider(this.value)">
+                                                            <div class="slider">
+                                                                <div class="track"></div>
+                                                                <div class="range"></div>
+                                                                <div class="thumb left"></div>
+                                                                <div class="thumb right"></div>
+
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -325,6 +335,45 @@
         <script src="{{ asset('malefashion') }}/js/main.js"></script>
 
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="{{ asset('js/script.js') }}"></script>
+        <script>
+           $.ajaxSetup({
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+           });
+        </script>
+        <script>
+           $(document).ready(function(e){
+              $('.range_slider').on('change',function(){
+                  let left_value = $('#input_left').val();
+                  let right_value = $('#input_right').val();
+                  // alert(left_value+right_value);
+                  $.ajax({
+                      {{--  url:"{{ route('search.products') }}",  --}}
+                      method:"GET",
+                      data:{left_value:left_value, right_value:right_value},
+                      success:function(res){
+                         $('.search-result').html(res);
+                      }
+                  });
+              });
+
+              $('#sort_by').on('change',function(){
+                  let sort_by = $('#sort_by').val();
+                  $.ajax({
+                      {{--  url:"{{ route('sort.by') }}",  --}}
+                      method:"GET",
+                      data:{sort_by:sort_by},
+                      success:function(res){
+                          $('.search-result').html(res);
+                      }
+                  });
+              });
+           })
+        </script>
+
         <script>
             window.dataLayer = window.dataLayer || [];
 
