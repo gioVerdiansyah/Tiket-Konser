@@ -1,11 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-<<<<<<< Updated upstream
-=======
 
 use App\Http\Requests\StoreKonserRequest;
->>>>>>> Stashed changes
 use App\Models\Konser;
 use App\Models\Kategori;
 use App\Models\Tiket;
