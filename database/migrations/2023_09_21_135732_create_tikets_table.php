@@ -13,10 +13,15 @@ return new class extends Migration {
         Schema::create('tikets', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('jumlah_tiket');
+            $table->string('kategoritiket1');
             $table->string('harga1');
+            $table->string('kategoritiket2')->nullable();
             $table->string('harga2')->nullable();
+            $table->string('kategoritiket3')->nullable();
             $table->string('harga3')->nullable();
+            $table->string('kategoritiket4')->nullable();
             $table->string('harga4')->nullable();
+            $table->string('kategoritiket5')->nullable();
             $table->string('harga5')->nullable();
             $table->foreignId('konser_id')->constrained()->onDelete('cascade');
             $table->timestamps();

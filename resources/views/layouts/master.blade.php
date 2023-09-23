@@ -65,7 +65,7 @@
                             <a class="nav-link" href="{{ route('konser') }}">Konser</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('buatkonser.index') }}">Buat Konser</a>
+                            <a class="nav-link" href="{{ route('buatkonser.create') }}">Buat Konser</a>
                         </li>
                 </div>
                 <div class="navbar-nav ml-auto">
@@ -145,7 +145,7 @@
                                     class="nav-link p-0 text-body-secondary">Beranda</a></li>
                             <li class="nav-item mb-2"><a href="{{ route('konser.search') }}"
                                     class="nav-link p-0 text-body-secondary">Konser</a></li>
-                            <li class="nav-item mb-2"><a href="{{ route('buatkonser.index') }}"
+                            <li class="nav-item mb-2"><a href="{{ route('buatkonser.create') }}"
                                     class="nav-link p-0 text-body-secondary">Buat Konser</a></li>
                         </ul>
                     </div>

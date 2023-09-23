@@ -67,7 +67,7 @@ Route::middleware('CekLogin')->group(function () {
         return view('user_page.history');
     })->name('history');
 
-    Route::resource('/buatkonser', BuatKonserController::class);
+    Route::resource('/buatkonser', KonserController::class);
 });
 // Route::get('/homeAdmin', function () {
 //     return view('admin_page.homeAdmin');

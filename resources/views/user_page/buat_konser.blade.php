@@ -90,7 +90,7 @@
              /* Sesuaikan ukuran gambar sesuai kebutuhan */
              height: auto;
              /* margin-bottom: 10px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        padding-right: 15px; */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        padding-right: 15px; */
          }
 
          .rounded-circle {
@@ -130,6 +130,16 @@
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
      {{-- <script src="vendor/jquery/jquery-3.2.1.min.js"></script> --}}
+     @if ($errors->any())
+         <div class="alert alert-danger">
+             <ul>
+                 @foreach ($errors->all() as $error)
+                     <li>{{ $error }}</li>
+                 @endforeach
+             </ul>
+         </div>
+     @endif
+
      <div class="container py-5">
          <form id="eventForm" action="{{ route('buatkonser.store') }}" method="POST" enctype="multipart/form-data"
              class="d-flex justify-content-center">
@@ -163,8 +173,11 @@
                  <div class="card-body-1">
                      <div class="left-column">
                          {{--  <h5 class="card-title">Diselenggarakan oleh</h5>  --}}
-                         <input type="text" name="nama-konser" class="no-border"
+                         <input type="text" name="nama_konser" class="no-border"
                              style="font-size: 25px;margin-left: 32px;margin-top: 20px;" placeholder="Nama Konser*">
+                         @error('nama_konser')
+                             <p class="text-danger">*{{ $message }}</p>
+                         @enderror
                      </div>
                  </div>
                  <div class="card-body">
@@ -174,9 +187,9 @@
                                  <h5 class="card-title">Diselenggarakan oleh</h5>
                                  <div style="display: flex; align-items: center;margin-top: 25px;">
                                      <!-- Tambahkan elemen input file yang tersembunyi -->
-                                     <input type="file" id="profileImageInput" name="photo-penyelenggara"
+                                     <input type="file" id="profileImageInput" name="photo_penyelenggara"
                                          style="display: none;">
-                                     @error('photo-penyelenggara')
+                                     @error('photo_penyelenggara')
                                          <p class="text-danger">*{{ $message }}</p>
                                      @enderror
                                      <!-- Tambahkan foto profil yang dapat diklik -->
@@ -186,10 +199,10 @@
                                              class="organizer-image rounded-circle" onclick="triggerProfileUpload()">
                                      </label>
 
-                                     <input type="text" name="nama-penyelenggara" class="input100 organizer-input"
+                                     <input type="text" name="nama_penyelenggara" class="input100 organizer-input"
                                          id="organizerInput" placeholder="Nama Penyelenggara"
                                          style="font-size: 16px;margin-bottom: 3px;margin-left: 15px">
-                                     @error('nama-penyelenggara')
+                                     @error('nama_penyelenggara')
                                          <p class="text-danger">*{{ $message }}</p>
                                      @enderror
                                  </div>
@@ -202,7 +215,7 @@
                                      <a id="tanggalAnchor" href="#" class="text-decoration-none"
                                          style="font-size: 16px;color: #ADB6C9;font-family: Poppins-Regular;"
                                          data-bs-toggle="modal" data-bs-target="#pilihtanggal">Pilih Tanggal</a>
-                                     @error('tanggal-konser')
+                                     @error('tanggal_konser')
                                          <p class="text-danger">*{{ $message }}</p>
                                      @enderror
                                  </div>
@@ -210,10 +223,10 @@
                                      style="font-size: 16px;color: #ADB6C9;font-family: Poppins-Regular;"
                                      data-bs-toggle="modal" data-bs-target="#pilihwaktu" data-bs-whatever="@fat">Pilih
                                      Waktu</a>
-                                 @error('waktu-mulai')
+                                 @error('waktu_mulai')
                                      <p class="text-danger">*{{ $message }}</p>
                                  @enderror
-                                 @error('waktu-selesai')
+                                 @error('waktu_selesai')
                                      <p class="text-danger">*{{ $message }}</p>
                                  @enderror
                                  <!-- Modal tanggal -->
@@ -230,7 +243,7 @@
                                              <div class="modal-body">
                                                  <div class="mb-0">
                                                      <label for="" class="form-label">Tanggal Konser</label>
-                                                     <input name="tanggal-konser" class="form-control form-control-solid"
+                                                     <input name="tanggal_konser" class="form-control form-control-solid"
                                                          placeholder="Pilih Tanggal" id="kt_datepicker_3" />
                                                  </div>
                                              </div>
@@ -291,7 +304,7 @@
                                                          class="form-control mt-3">
                                                  </div>
                                                  <div class="form-group mb-3">
-                                                     <label for="nama-tempat">Nama Tempat (Cth: Gedung, Taman, DLL)</label>
+                                                     <label for="nama_tempat">Nama Tempat (Cth: Gedung, Taman, DLL)</label>
                                                      <input type="text" name="tempat" id="nama-tempat"
                                                          class="form-control mt-3" placeholder="Masukkan Nama Tempat">
                                                  </div>
@@ -318,12 +331,12 @@
                                          <div class="modal-body">
                                              <div class="mb-0">
                                                  <label for="kt_datepicker_4" class="form-label">Mulai dari</label>
-                                                 <input name="waktu-mulai" class="form-control form-control-solid"
+                                                 <input name="waktu_mulai" class="form-control form-control-solid"
                                                      placeholder="Pilih Waktu" id="kt_datepicker_4" />
                                              </div>
                                              <div class="mb-0 mt-3">
                                                  <label for="kt_datepicker_5" class="form-label">Sampai</label>
-                                                 <input name="waktu-selesai" class="form-control form-control-solid"
+                                                 <input name="waktu_selesai" class="form-control form-control-solid"
                                                      placeholder="Pilih Waktu" id="kt_datepicker_5" />
                                              </div>
                                          </div>
@@ -372,7 +385,7 @@
                                              <div class="mb-4">
                                                  <label class="form-label">Denah Konser (Optional)</label><br>
                                                  <div class="mb-3">
-                                                     <input class="form-control" type="file" name="denah-konser"
+                                                     <input class="form-control" type="file" name="denah_konser"
                                                          id="formFile">
                                                  </div>
                                              </div>
@@ -415,7 +428,7 @@
                          @error('deskripsi')
                              <p class="text-danger">*{{ $message }}</p>
                          @enderror
-                         @error('denah-konser')
+                         @error('denah_konser')
                              <p class="text-danger">*{{ $message }}</p>
                          @enderror
                      </div>
