@@ -21,9 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('user_page.home');
-})->middleware('CekAdmin')->name('index');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('CekAdmin')->name('index');
 
 Auth::routes();
 
@@ -37,9 +35,7 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
-Route::get('/detail-tiket', function () {
-    return view('user_page.detail-tiket');
-})->middleware('CekLogin');
+Route::get('/detail-tiket/{id}', [KonserController::class, 'detailTiket'])->middleware('CekLogin')->name('detail_konser');
 
 // Route::get('/loginview', function () {
 //     return view('login');

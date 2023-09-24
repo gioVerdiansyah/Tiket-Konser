@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Konser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -21,6 +22,7 @@ class HomeController extends Controller
             return redirect()->route('login'); // Ganti 'login' dengan nama rute login Anda
         }
 
-        return view('user_page.home');
+        $konser = Konser::with('tiket')->orderBy('created_at', 'desc')->take(4)->get();
+        return view('user_page.home', compact('konser'));
     }
 }

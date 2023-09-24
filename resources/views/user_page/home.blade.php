@@ -51,34 +51,18 @@
     <div class="container bg-white text-center" data-aos="fade-up" data-aos-delay="300">
         <h1 class="fw-bold pt-5">Konser Terbaru</h1>
         <div class="row py-5">
-            <div class="col-3 concert-card">
-                <a href="/detail-tiket">
-                    <img src="{{ 'images/homepage/card.jpg' }}" alt="" class="img-fluid rounded-5 mb-4">
-                </a>
-                <h3 class="fw-bold">Tame Impala</h3>
-                <p class="fw-bold">Rp. 300.000</p>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <img src="{{ 'images/homepage/card.jpg' }}" alt="" class="img-fluid rounded-5 mb-4">
-                </a>
-                <h3 class="fw-bold">Tame Impala</h3>
-                <p class="fw-bold">Rp. 300.000</p>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <img src="{{ 'images/homepage/card.jpg' }}" alt="" class="img-fluid rounded-5 mb-4">
-                </a>
-                <h3 class="fw-bold">Tame Impala</h3>
-                <p class="fw-bold">Rp. 300.000</p>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <img src="{{ 'images/homepage/card.jpg' }}" alt="" class="img-fluid rounded-5 mb-4">
-                </a>
-                <h3 class="fw-bold">Tame Impala</h3>
-                <p class="fw-bold">Rp. 300.000</p>
-            </div>
+            @foreach ($konser as $row)
+                <div class="col-3 concert-card">
+                    <a href="{{ route('detail_konser', $row->id) }}">
+                        <img src="{{ asset('storage/image/konser/banner/' . $row->banner) }}" alt=""
+                            class="img-fluid rounded-5 mb-4">
+                    </a>
+                    <h3 class="fw-bold">{{ $row->nama_konser }}</h3>
+                    @foreach ($row->tiket as $tiket)
+                        <p class="fw-bold">Rp. {{ number_format($tiket->harga1, 0, ',', '.') }}</p>
+                    @endforeach
+                </div>
+            @endforeach
             <div class="container">
                 <a href="#" class="btn btn-outline-dark mt-5 rounded-5">Tampilkan Lebih</a>
             </div>

@@ -89,8 +89,6 @@
              max-width: 70px;
              /* Sesuaikan ukuran gambar sesuai kebutuhan */
              height: auto;
-             /* margin-bottom: 10px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        padding-right: 15px; */
          }
 
          .rounded-circle {
@@ -515,7 +513,7 @@
                  Swal.fire({
                      icon: "error",
                      title: "Gagal",
-                     text: "Harap mengotak-atik input latitude dan longitude",
+                     text: "Harap tidak mengotak-atik input latitude dan longitude",
                      allowOutsideClick: true,
                      allowEscapeKey: false,
                  });

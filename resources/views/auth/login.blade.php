@@ -44,6 +44,7 @@
                     @error('password')
                         <p style="color:rgb(193,12,153)">{{ $message }}</p>
                     @enderror
+                    <a href="{{ route('password.request') }}">Lupa password?</a>
                     <div class="container-login100-form-btn mt-4">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>

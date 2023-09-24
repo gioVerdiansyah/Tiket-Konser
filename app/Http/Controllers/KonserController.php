@@ -73,8 +73,6 @@ class KonserController extends Controller
             $photo_penyelenggaraName = $request->file('photo_penyelenggara')->hashName();
             $request->file('photo_penyelenggara')->storeAs('public/image/konser/photo_penyelenggara/' . $photo_penyelenggaraName);
             $konser->photo_penyelenggara = $photo_penyelenggaraName;
-        } else {
-            $konser->photo_penyelenggara = Auth::user()->pp;
         }
 
         if ($request->file('denah_konser')) {
@@ -108,15 +106,28 @@ class KonserController extends Controller
         ]);
     }
 
+    public function konserku()
+    {
+        $konserku = Konser::where('user_id', Auth::user()->id)->get();
+    }
+
     public function search(Request $search)
     {
         $konsers = Konser::select('nama', 'alamat')
-        ->where('nama', 'like', '%' . $search->search . '%')
-        ->paginate(12);
+            ->where('nama', 'like', '%' . $search->search . '%')
+            ->paginate(12);
 
         // Mengembalikan tampilan dengan hasil pencarian ke view
         return view('user_page.konser', compact('konsers'));
 
+    }
+    // verdi
+    public function detailTiket($id)
+    {
+        // ini untuk detail tiket saat di konser terbaru di klik
+        $konser = Konser::with('tiket')->where('id', $id)->firstOrFail();
+        $tiket = $konser->tiket[0];
+        return view('user_page.detail-tiket', compact('konser', 'tiket'));
     }
 
     public function detail_tiket($id)
@@ -131,7 +142,7 @@ class KonserController extends Controller
         $konsers = Konser::where('kategori_id', $id)->paginate(12);
         $detail_tikets = new Collection([Konser::with('kategori')->where('kategori_id', $id)->get()[0]->detail_tiket]);
         $kategoris = new Collection([Konser::with('kategori')->where('kategori_id', $id)->get()[0]->kategori]);
-        return view('user_page.konser', compact('konsers', 'kategoris' ));
+        return view('user_page.konser', compact('konsers', 'kategoris'));
     }
     /**
      * Display the specified resource.
