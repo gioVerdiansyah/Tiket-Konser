@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('CekAdmin')->name('index');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 Auth::routes();
 
@@ -35,7 +35,7 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
-Route::get('/detail-tiket/{id}', [KonserController::class, 'detailTiket'])->middleware('CekLogin')->name('detail_konser');
+Route::get('/detail-tiket/{id}', [KonserController::class, 'detailTiket'])->name('detail_konser');
 
 // Route::get('/loginview', function () {
 //     return view('login');
@@ -49,9 +49,9 @@ Route::get('/cart', function () {
     return view('user_page.cart');
 })->name('cart');
 
-Route::get('/konser', [KonserController::class, 'index'])->name('konser')->middleware('CekLogin');
-Route::get('/konser/search', [KonserController::class, 'search'])->name('konser.search')->middleware('CekLogin');
-Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori'])->middleware('CekLogin');
+Route::get('/konser', [KonserController::class, 'index'])->name('konser');
+Route::get('/konser/search', [KonserController::class, 'search'])->name('konser.search');
+Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori']);
 
 // Profile User
 Route::middleware('CekLogin')->group(function () {
