@@ -31,8 +31,12 @@ input_left.addEventListener("input", set_left_value);
 input_right.addEventListener("input", set_right_value);
 
 function left_slider(value) {
-    document.getElementById('left_value').innerHTML = value;
+    const formattedValue = parseInt(value).toLocaleString("id-ID"); // Menggunakan pengaturan lokal Bahasa Indonesia
+    document.getElementById('left_value').innerHTML = "Rp " + formattedValue;
 }
+
 function right_slider(value) {
-    document.getElementById('right_value').innerHTML = value;
+    const formattedValue = parseInt(value).toLocaleString("id-ID"); // Menggunakan pengaturan lokal Bahasa Indonesia
+    document.getElementById('right_value').innerHTML = "Rp " + formattedValue;
 }
+

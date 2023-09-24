@@ -36,7 +36,7 @@ css_slider_harga
     top: 0;
     bottom: 0;
     border-radius: 5px;
-    background-color: #b5d7f1;
+    background-color: #F0F0F0;
 }
 
 .slider>.range {
@@ -47,15 +47,15 @@ css_slider_harga
     top: 0;
     bottom: 0;
     border-radius: 5px;
-    background-color: #27a0ff;
+    background-color: #000000;
 }
 
 .slider>.thumb {
     position: absolute;
     z-index: 3;
-    width: 30px;
-    height: 30px;
-    background-color: #27a0ff;
+    width: 28px;
+    height: 28px;
+    background-color: #000000;
     border-radius: 50%;
 }
 
@@ -92,12 +92,12 @@ css_slider_harga
 
 #multi_range {
     margin: 0 auto;
-    background-color: #818486;
     border-radius: 20px;
     margin-top: 20px;
     text-align: center;
     width: 200px;
+    font-family: "Nunito Sans", sans-serif;
     font-weight: 500;
-    font-size: 1.25em;
-    color: #fff;
+    font-size: 15px;
+    color: #111111;
 }

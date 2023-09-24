@@ -170,6 +170,37 @@
 
                             <div class="shop__sidebar__accordion">
                                 <div class="accordion" id="accordionExample">
+
+
+                                    {{--  harga  --}}
+                                    <div class="card">
+                                        <div class="card-heading">
+                                            <a data-toggle="collapse" data-target="#collapseThree">Harga</a>
+                                        </div>
+                                        <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                                            <div class="card-body">
+
+                                                    <div class="middle">
+                                                        <div class="multi-range-slider my-2">
+                                                            <input type="range" id="input_left" class="range_slider" min="0" max="1000000" value="250000" onmousemove="left_slider(this.value)">
+                                                            <input type="range" id="input_right" class="range_slider" min="0" max="1000000" value="750000" onmousemove="right_slider(this.value)">
+                                                            <div class="slider">
+                                                                <div class="track"></div>
+                                                                <div class="range"></div>
+                                                                <div class="thumb left"></div>
+                                                                <div class="thumb right"></div>
+
+                                                        </div>
+                                                    </div>
+                                                        <div id="multi_range">
+                                                            <span id="left_value">Rp 250.000</span><span> ~ </span><span id="right_value">Rp 750.000</span>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{--  kategori  --}}
                                     <div class="card">
                                           <div class="card-heading">
                                             <a data-toggle="collapse" data-target="#collapseOne">Kategori</a>
@@ -179,8 +210,8 @@
                                             @isset($kategoris)
                                               <div class="card-body">
                                                  <div class="shop__sidebar__categories">
-                                                     @forelse($kategoris as $kategori)
                                                      <ul class="nice-scroll">
+                                                         @forelse($kategoris as $kategori)
 
                                                         <li><a href="/konser/kategori/{{ $kategori->id }}">{{ $kategori->nama_kategori }}</a></li>
                                                         @empty
@@ -195,32 +226,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="card">
-                                        <div class="card-heading">
-                                            <a data-toggle="collapse" data-target="#collapseThree">Harga</a>
-                                        </div>
-                                        <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
-                                            <div class="card-body">
-
-                                                    <div class="middle">
-                                                        <div id="multi_range">
-                                                            <span id="left_value">250000</span><span> ~ </span><span id="right_value">750000</span>
-                                                        </div>
-                                                        <div class="multi-range-slider my-2">
-                                                            <input type="range" id="input_left" class="range_slider" min="0" max="1000000" value="250000" onmousemove="left_slider(this.value)">
-                                                            <input type="range" id="input_right" class="range_slider" min="0" max="1000000" value="750000" onmousemove="right_slider(this.value)">
-                                                            <div class="slider">
-                                                                <div class="track"></div>
-                                                                <div class="range"></div>
-                                                                <div class="thumb left"></div>
-                                                                <div class="thumb right"></div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="card">
                                         <div class="card-heading">

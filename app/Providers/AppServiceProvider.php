@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         Blade::directive('currency', function ( $expression )
-        { return "Rp. <?php echo number_format($expression,0,',','.'); ?>"; });
+        { return "Rp <?php echo number_format($expression,0,',','.'); ?>"; });
     }
 }
