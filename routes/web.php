@@ -58,6 +58,7 @@ Route::middleware('CekLogin')->group(function () {
     Route::get('/profile', [UpdateProfileController::class, 'index'])->name('profileUser');
 
     Route::put('/profile/{user}', [UpdateProfileController::class, 'update'])->name('updateProfile');
+    Route::put('/profile/pass/{user}', [UpdateProfileController::class, 'chagePass'])->name('updateProfilePass');
 
     Route::get('/history', function () {
         return view('user_page.history');

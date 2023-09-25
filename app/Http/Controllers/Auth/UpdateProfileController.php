@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UpdateProfileController extends Controller
 {
@@ -17,8 +19,14 @@ class UpdateProfileController extends Controller
     }
     public function update(UpdateProfileRequest $request, User $user)
     {
+        if ($user->id !== Auth::user()->id) {
+            return back()->with('message', [
+                'icon' => 'warning',
+                'title' => "Peringatan",
+                'text' => "Jangan mengubah id tujuan form!!!"
+            ]);
+        }
         $user->name = $request->nama;
-        // Password nanti
         $old_pass = $user->password;
         $user->password = $old_pass;
         $user->email = $request->email;
@@ -45,5 +53,60 @@ class UpdateProfileController extends Controller
                 "text" => "Anda tidak melakukan perubahan apapun pada profile anda"
             ]);
         }
+    }
+    public function chagePass(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(), [
+            'passwordLama' => 'required|min:6',
+            'passwordBaru' => 'required|min:6',
+            'konfirmasiPasswordBaru' => 'required|min:6|same:passwordBaru',
+        ]);
+
+        if ($user->id !== Auth::user()->id) {
+            return back()->with('message', [
+                'icon' => 'warning',
+                'title' => "Peringatan",
+                'text' => "Jangan mengubah id tujuan form!!!"
+            ]);
+        }
+
+        $errorMessages = $validator->errors()->all();
+        $errorCount = count($errorMessages);
+        $errorMessagesWithNumbers = [];
+
+        foreach ($errorMessages as $key => $message) {
+            $errorMessagesWithNumbers[] = ($key + 1) . '. ' . $message;
+        }
+
+        if ($errorCount > 0) {
+            return back()->with('message', [
+                'icon' => 'error',
+                'title' => 'Gagal',
+                'text' => implode(' ', $errorMessagesWithNumbers),
+            ])->withErrors($validator)->withInput();
+        }
+
+        if ($request->input('passwordBaru') !== $request->input('konfirmasiPasswordBaru')) {
+            return back()->with('message', [
+                'icon' => 'error',
+                'title' => 'Gagal',
+                'text' => 'Konfirmasi password tidak sama!'
+            ]);
+        }
+
+        if (!Hash::check($request->input('passwordLama'), $user->password)) {
+            return back()->with('message', [
+                'icon' => 'error',
+                'title' => 'Gagal',
+                'text' => 'Password tidak sama dengan yang dulu!'
+            ]);
+        }
+        $user->password = Hash::make($request->passwordBaru);
+        $user->save();
+
+        return back()->with('message', [
+            'title' => 'Sukses',
+            'text' => 'Password berhasil di ubah!'
+        ]);
     }
 }

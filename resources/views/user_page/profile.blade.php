@@ -24,7 +24,10 @@
                                 ">
                             <label for="pp" class="btn btn-outline-dark btn-block mb-2">Upload New
                                 Avatar</label>
-                            <button type="button" class="btn btn-outline-dark btn-block">Ubah Kata Sandi</button>
+                            <button type="button" class="btn btn-outline-dark btn-block" data-toggle="modal"
+                                data-target="#gantiKataSandiModal">
+                                Ubah Kata Sandi
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -41,7 +44,7 @@
                                         placeholder="Name" value="{{ $data_user->name }}">
                                 </div>
                                 @error('name')
-                                    <p>{{ $message }}</p>
+                                    <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="form-group row">
@@ -51,7 +54,7 @@
                                         placeholder="Email" value="{{ $data_user->email }}">
                                 </div>
                                 @error('email')
-                                    <p>{{ $message }}</p>
+                                    <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="form-group row">
@@ -61,7 +64,7 @@
                                         placeholder="{{ $data_user->phone ?? 'Nomor telepon belum ditambahkan' }}"
                                         value="{{ $data_user->phone ?? '' }}">
                                     @error('phone')
-                                        <p>{{ $message }}</p>
+                                        <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
@@ -71,7 +74,7 @@
                                     <textarea class="form-control" name="alamat" id="inputExperience"
                                         placeholder="{{ $data_user->alamat ?? 'Alamat belum ditambahkan' }}">{{ $data_user->alamat ?? '' }}</textarea>
                                     @error('alamat')
-                                        <p>{{ $message }}</p>
+                                        <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
@@ -84,5 +87,52 @@
                 <button type="reset" class="btn btn-dark ml-2">Batal</button>
             </div>
         </form>
+    </div>
+    <!-- Modal Ganti Kata Sandi -->
+    <div class="modal fade" id="gantiKataSandiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ganti Kata Sandi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('updateProfilePass', '') }}/{{ $data_user->id }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <label for="passwordLama">Kata Sandi Lama</label>
+                            <input type="password" class="form-control" name="passwordLama" id="passwordLama"
+                                placeholder="Kata Sandi Lama">
+                            @error('passwordLama')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordBaru">Kata Sandi Baru</label>
+                            <input type="password" class="form-control" name="passwordBaru" id="passwordBaru"
+                                placeholder="Kata Sandi Baru">
+                            @error('passwordBaru')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="konfirmasiPasswordBaru">Konfirmasi Kata Sandi Baru</label>
+                            <input type="password" class="form-control" name="konfirmasiPasswordBaru"
+                                id="konfirmasiPasswordBaru" placeholder="Konfirmasi Kata Sandi Baru">
+                            @error('konfirmasiPasswordBaru')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-secondary">Simpan Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

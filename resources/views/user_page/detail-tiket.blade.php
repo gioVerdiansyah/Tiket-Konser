@@ -110,27 +110,14 @@
                     @endif
 
                     <hr>
-                    <div class="button d-flex">
+                    <div class="button d-flex" id="countparent">
                         <div class="counter btn btn-light text-center rounded-3">
-                            <button type="button" id="minus" class="minus"
-                                onclick="
-                                let i = $('#count').val();
-                                if (i > 1) {
-                                    $('#count').val(--i);
-                                }
-                                ">
+                            <button type="button" id="minus" class="minus">
                                 <i class="bi bi-dash-lg"></i>
                             </button>
                             <input type="number" id="count" class="form-control" max="{{ $tiket->jumlah_tiket }}"
                                 value="1" style="width: 50px;text-align: end;padding: 10px 5px;">
-                            <button type="button" id="plus" class="plus"
-                                onclick="
-                                let i = parseInt($('#count').val());
-                                let max = parseInt($('#count').attr('max'));
-                                    if (i < max) {
-                                        $('#count').val(i + 1);
-                                    }
-                            ">
+                            <button type="button" id="plus" class="plus">
                                 <i class="bi bi-plus-lg"></i>
                             </button>
                         </div>
@@ -261,7 +248,7 @@
                         <img src="{{ asset('storage/image/konser/denah_konser/' . $konser->denah) }}" alt="Denah Konser"
                             class="img-fluid"width="%">
                     @else
-                        <p>Penjual tiket tidak menambahkan denah, coba tanyakan langsung kepada penjual</p>
+                        <p>Denah tidak ditambahkan!</p>
                     @endif
                 </div>
             </div>
@@ -352,51 +339,39 @@
 
     {{-- Custom JS for Counter --}}
     <script>
-        // Variabel untuk menghitung jumlah tiket
-        let ticketCount = 0;
-        let plusIntervalId = null;
-        let minusIntervalId = null;
+        let warningShown = false; // Variabel untuk melacak apakah pesan peringatan sudah ditampilkan
 
-        // Fungsi untuk mengurangi jumlah tiket saat tombol minus ditekan
-        document.getElementById('minus').addEventListener('mousedown', () => {
-            // Hentikan interval penambahan jika sedang berjalan
-            clearInterval(plusIntervalId);
+        $('#plus').click(function(e) {
+            e.preventDefault();
+            let i = parseInt($('#count').val());
 
-            // Mulai interval pengurangan saat tombol minus ditekan dan ditahan
-            minusIntervalId = setInterval(() => {
-                if (ticketCount > 0) {
-                    ticketCount--;
-                    updateTicketCount();
+            if (i < 5) {
+                $('#count').val(i + 1);
+            } else {
+                if (!warningShown) {
+                    var newParagraph = $('<p></p>');
+                    newParagraph.text('Peringatan: Anda hanya dapat memesan 5 tiket.');
+                    newParagraph.addClass('text-danger');
+                    $('#countparent').after(newParagraph); // Menambahkan pesan setelah elemen dengan id "count"
+                    warningShown = true; // Setel ke true agar pesan hanya muncul sekali
                 }
-            }, 500); // Anda dapat menyesuaikan kecepatan pengurangan sesuai kebutuhan Anda
+            }
         });
 
-        // Hentikan pengurangan tiket saat tombol minus dilepas
-        document.getElementById('minus').addEventListener('mouseup', () => {
-            clearInterval(minusIntervalId);
+        $('#minus').click(function(e) {
+            e.preventDefault();
+            let i = parseInt($('#count').val());
+
+            if (i > 0) {
+                $('#count').val(i - 1);
+            }
+
+            // Sembunyikan pesan peringatan jika ada
+            if (warningShown) {
+                $('.text-danger').remove();
+                warningShown = false; // Setel kembali ke false saat mengurangi jumlah tiket
+            }
         });
-
-        // Fungsi untuk menambah jumlah tiket saat tombol plus ditekan
-        document.getElementById('plus').addEventListener('mousedown', () => {
-            // Hentikan interval pengurangan jika sedang berjalan
-            clearInterval(minusIntervalId);
-
-            // Mulai interval penambahan saat tombol plus ditekan dan ditahan
-            plusIntervalId = setInterval(() => {
-                ticketCount++;
-                updateTicketCount();
-            }, 500); // Anda dapat menyesuaikan kecepatan penambahan sesuai kebutuhan Anda
-        });
-
-        // Hentikan penambahan tiket saat tombol plus dilepas
-        document.getElementById('plus').addEventListener('mouseup', () => {
-            clearInterval(plusIntervalId);
-        });
-
-        // Fungsi untuk memperbarui tampilan jumlah tiket
-        function updateTicketCount() {
-            document.getElementById('count').textContent = ticketCount;
-        }
     </script>
     {{-- End --}}
 @endsection
