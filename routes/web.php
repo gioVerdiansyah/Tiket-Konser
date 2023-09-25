@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UpdateProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,14 +33,6 @@ Auth::routes(['verify' => true]);
 
 Route::get('/detail-tiket/{id}', [KonserController::class, 'detailTiket'])->name('detail_konser');
 
-Route::get('/konserku', function () {
-    return view('user_page.konserku');
-})->middleware('CekLogin');
-
-Route::get('/edit_konserku', function () {
-    return view('user_page.edit_konserku');
-})->middleware('CekLogin');
-    
 // Route::get('/loginview', function () {
 //     return view('login');
 // })->name('loginview');
@@ -62,10 +55,13 @@ Route::middleware('CekLogin')->group(function () {
     Route::put('/profile/{user}', [UpdateProfileController::class, 'update'])->name('updateProfile');
     Route::put('/profile/pass/{user}', [UpdateProfileController::class, 'chagePass'])->name('updateProfilePass');
 
+    Route::get('/konserku', [KonserController::class, 'konserku'])->name('konserku');
+    Route::get('/konserku/search', [KonserController::class, 'searchKonserku'])->name('konserku.search');
     Route::get('/history', function () {
         return view('user_page.history');
     })->name('history');
     Route::resource('/buatkonser', KonserController::class);
+    Route::resource('orders', OrderController::class)->only(['index', 'show']);
 });
 // Admin
 Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
@@ -96,6 +92,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
 
-Route::get('/done', function() {
+Route::get('/done', function () {
     return view('auth.donereset');
 });

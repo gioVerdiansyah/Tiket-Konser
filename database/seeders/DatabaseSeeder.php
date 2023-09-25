@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(DummyUserSeeder::class);
         $this->call(KategoriSeeder::class);
+        \App\Models\Order::factory(10)->create();
     }
 }

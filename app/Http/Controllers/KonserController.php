@@ -110,18 +110,32 @@ class KonserController extends Controller
 
     public function konserku()
     {
-        $konserku = Konser::where('user_id', Auth::user()->id)->get();
+        $konserku = Konser::with('tiket')->where('user_id', Auth::user()->id)->get();
+
+        return view('user_page.konserku', compact('konserku'));
     }
 
+    public function searchKonserku(Request $search)
+    {
+        $konserku = Konser::with('tiket')
+            ->where('user_id', Auth::user()->id)
+            ->where(function ($query) use ($search) {
+                $query->whereHas('tiket', function ($innerQuery) use ($search) {
+                    $innerQuery->where('harga1', 'like', '%' . $search->search . '%');
+                })
+                    ->orWhere('nama_konser', 'like', '%' . $search->search . '%');
+            })
+            ->paginate(12);
+        return view('user_page.konserku', compact('konserku'));
+    }
     public function search(Request $search)
     {
-        $konsers = Konser::select('nama', 'alamat')
-            ->where('nama', 'like', '%' . $search->search . '%')
+        $konsers = Konser::select('nama_konser', 'alamat')
+            ->where('nama_konser', 'like', '%' . $search->search . '%')
             ->paginate(12);
 
         // Mengembalikan tampilan dengan hasil pencarian ke view
         return view('user_page.konser', compact('konsers'));
-
     }
     // verdi
     public function detailTiket($id)
@@ -158,9 +172,12 @@ class KonserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($buatkonser)
     {
-        //
+        $konser = Konser::with('tiket')->where('id', $buatkonser)->firstOrFail();
+        $kategoris = kategori::all();
+        $tiket = $konser->tiket[0];
+        return view('user_page.edit_konserku', compact('konser', 'kategoris', 'tiket'));
     }
 
     /**
@@ -174,8 +191,13 @@ class KonserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Konser $buatkonser)
     {
-        //
+        $konserName = $buatkonser->nama_konser;
+        $buatkonser->delete();
+        return back()->with('message', [
+            'title' => "Berhasil",
+            'text' => "Berhasil menghapus konser dengan nama: $konserName"
+        ]);
     }
 }

@@ -1,5 +1,3 @@
-css_slider_harga
-
 #rangeValue {
     position: relative;
     text-align: center;
@@ -10,7 +8,9 @@ css_slider_harga
     margin-left: 15px;
     border-radius: 25px;
     font-weight: 500;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px #fff, inset 5px 5px 10px rgba(0, 0, 0, 0.1), inset -5px -5px 5px rgba(255, 255, 255, 0.05);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px #fff,
+        inset 5px 5px 10px rgba(0, 0, 0, 0.1),
+        inset -5px -5px 5px rgba(255, 255, 255, 0.05);
 }
 
 .middle {
@@ -28,7 +28,7 @@ css_slider_harga
     margin: 0 15px;
 }
 
-.slider>.track {
+.slider > .track {
     position: absolute;
     z-index: 1;
     left: 0;
@@ -36,10 +36,10 @@ css_slider_harga
     top: 0;
     bottom: 0;
     border-radius: 5px;
-    background-color: #F0F0F0;
+    background-color: #f0f0f0;
 }
 
-.slider>.range {
+.slider > .range {
     position: absolute;
     z-index: 2;
     left: 25%;
@@ -50,7 +50,7 @@ css_slider_harga
     background-color: #000000;
 }
 
-.slider>.thumb {
+.slider > .thumb {
     position: absolute;
     z-index: 3;
     width: 28px;
@@ -59,12 +59,12 @@ css_slider_harga
     border-radius: 50%;
 }
 
-.slider>.thumb.left {
+.slider > .thumb.left {
     left: 25%;
     transform: translate(-15px, -10px);
 }
 
-.slider>.thumb.right {
+.slider > .thumb.right {
     right: 25%;
     transform: translate(15px, -10px);
 }

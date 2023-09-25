@@ -71,7 +71,7 @@
                     icon: "{{ session('message')['icon'] ?? 'success' }}",
                     title: "{{ session('message')['title'] }}",
                     text: "{{ session('message')['text'] }}",
-                    timer: 5000,
+                    timer: {{ session('message')['timer'] ?? 5000 }},
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                 });

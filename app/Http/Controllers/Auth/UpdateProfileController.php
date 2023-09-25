@@ -83,6 +83,7 @@ class UpdateProfileController extends Controller
                 'icon' => 'error',
                 'title' => 'Gagal',
                 'text' => implode(' ', $errorMessagesWithNumbers),
+                'timer' => 10000
             ])->withErrors($validator)->withInput();
         }
 

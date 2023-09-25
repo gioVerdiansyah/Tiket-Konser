@@ -67,11 +67,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('buatkonser.create') }}">Buat Konser</a>
                         </li>
-                            @auth
+                        @auth
                             <li class="nav-item">
-                            <a class="nav-link" href="{{ ('konserku') }}">Konserku</a>
-                        </li>
-                            @endauth
+                                <a class="nav-link" href="{{ route('konserku') }}">Konserku</a>
+                            </li>
+                        @endauth
                 </div>
                 <div class="navbar-nav ml-auto">
                     @guest

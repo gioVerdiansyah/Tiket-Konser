@@ -3,7 +3,7 @@
      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
          crossorigin="" />
-         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
+     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
          rel="stylesheet">
      <!-- Make sure you put this AFTER Leaflets CSS reference -->
      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
@@ -13,15 +13,6 @@
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
      {{-- SELECT2 --}}
      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-     <link rel="stylesheet" href="{{ asset('malefashion') }}/css/bootstrap.min.css" type="text/css">
-     <link rel="stylesheet" href="{{ asset('malefashion') }}/css/font-awesome.min.css" type="text/css">
-     <link rel="stylesheet" href="{{ asset('malefashion') }}/css/elegant-icons.css" type="text/css">
-     <link rel="stylesheet" href="{{ asset('malefashion') }}/css/magnific-popup.css" type="text/css">
-     <link rel="stylesheet" href="{{ asset('malefashion') }}/css/nice-select.css" type="text/css">
-     <link rel="stylesheet" href="{{ asset('malefashion') }}/css/owl.carousel.min.css" type="text/css">
-     <link rel="stylesheet" href="{{ asset('malefashion') }}/css/slicknav.min.css" type="text/css">
-     <link rel="stylesheet" href="{{ asset('malefashion') }}/css/style.css" type="text/css">
      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
      <style>
          #map {
@@ -450,7 +441,7 @@
                          @enderror
                      </div>
                      <div class="left-column align-self-end me-5">
-                         <button type="submit" class="btn btn-primary">Buat Konser!</button>
+                         <button type="submit" class="btn btn-secondary">Buat Konser!</button>
                      </div>
                  </div>
              </div>

@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
         rel="stylesheet">
     <!-- Make sure you put this AFTER Leaflets CSS reference -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
@@ -13,14 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     {{-- SELECT2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('malefashion') }}/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('malefashion') }}/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('malefashion') }}/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('malefashion') }}/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('malefashion') }}/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('malefashion') }}/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('malefashion') }}/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('malefashion') }}/css/style.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <style>
         #map {
@@ -154,8 +146,8 @@
             @csrf
             <div class="card">
                 <!-- Tambahkan fungsi JavaScript untuk mengklik tombol file input saat gambar diklik -->
-                <img src="{{ asset('images/jual-ticket/banner.png') }}" class="card-img-top tall-image" id="tiket"
-                    alt="Gambar Contoh" onclick="document.getElementById('fileInputA').click()">
+                <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}" class="card-img-top tall-image"
+                    id="tiket" alt="Gambar Contoh" onclick="document.getElementById('fileInputA').click()">
                 <!-- Simpan tombol file input yang semula tersembunyi di sini -->
                 <input type="file" id="fileInputA" name="banner" class="file-input-button">
                 @error('banner')
@@ -182,7 +174,8 @@
                     <div class="left-column">
                         {{--  <h5 class="card-title">Diselenggarakan oleh</h5>  --}}
                         <input type="text" name="nama_konser" class="no-border"
-                            style="font-size: 25px;margin-left: 32px;margin-top: 20px;" placeholder="Nama Konser*">
+                            style="font-size: 25px;margin-left: 32px;margin-top: 20px;" placeholder="Nama Konser*"
+                            value="{{ old('nama_konser', $konser->nama_konser) }}">
                         @error('nama_konser')
                             <p class="text-danger">*{{ $message }}</p>
                         @enderror
@@ -202,14 +195,15 @@
                                     @enderror
                                     <!-- Tambahkan foto profil yang dapat diklik -->
                                     <label for="profileImageInput">
-                                        <img src="{{ asset('images/jual-ticket/logo-upload.png') }}"
+                                        <img src="{{ asset('storage/image/' . $konser->photo_penyelenggara) }}"
                                             alt="Gambar Penyelenggara" id="organizerImage"
                                             class="organizer-image rounded-circle" onclick="triggerProfileUpload()">
                                     </label>
 
                                     <input type="text" name="nama_penyelenggara" class="input100 organizer-input"
                                         id="organizerInput" placeholder="Nama Penyelenggara"
-                                        style="font-size: 16px;margin-bottom: 3px;margin-left: 15px">
+                                        style="font-size: 16px;margin-bottom: 3px;margin-left: 15px"
+                                        value="{{ old('nama_penyelenggara', $konser->nama_penyelenggara) }}">
                                     @error('nama_penyelenggara')
                                         <p class="text-danger">*{{ $message }}</p>
                                     @enderror
@@ -222,15 +216,17 @@
                                 <div class="py-3">
                                     <a id="tanggalAnchor" href="#" class="text-decoration-none"
                                         style="font-size: 16px;color: #ADB6C9;font-family: Poppins-Regular;"
-                                        data-bs-toggle="modal" data-bs-target="#pilihtanggal">Pilih Tanggal</a>
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#pilihtanggal">{{ $konser->tanggal_konser }}</a>
                                     @error('tanggal_konser')
                                         <p class="text-danger">*{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <a id="waktuAnchor" href="#" class="text-decoration-none"
                                     style="font-size: 16px;color: #ADB6C9;font-family: Poppins-Regular;"
-                                    data-bs-toggle="modal" data-bs-target="#pilihwaktu" data-bs-whatever="@fat">Pilih
-                                    Waktu</a>
+                                    data-bs-toggle="modal" data-bs-target="#pilihwaktu"
+                                    data-bs-whatever="@fat">{{ $konser->waktu_mulai }} <br>
+                                    {{ $konser->waktu_selesai }}</a>
                                 @error('waktu_mulai')
                                     <p class="text-danger">*{{ $message }}</p>
                                 @enderror
@@ -238,9 +234,8 @@
                                     <p class="text-danger">*{{ $message }}</p>
                                 @enderror
                                 <!-- Modal tanggal -->
-                                <div class="modal fade" id="pilihtanggal" data-bs-backdrop="static"
-                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="pilihtanggal"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="pilihtanggal" data-bs-backdrop="static" data-bs-keyboard="false"
+                                    tabindex="-1" aria-labelledby="pilihtanggal" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -252,7 +247,8 @@
                                                 <div class="mb-0">
                                                     <label for="" class="form-label">Tanggal Konser</label>
                                                     <input name="tanggal_konser" class="form-control form-control-solid"
-                                                        placeholder="Pilih Tanggal" id="kt_datepicker_3" />
+                                                        placeholder="Pilih Tanggal" id="kt_datepicker_3"
+                                                        value="{{ old('tanggal_konser', $konser->tanggal_konser) }}">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -272,7 +268,7 @@
                                     <a id="selectedLocation" href="#" class="text-decoration-none"
                                         style="font-size: 16px;color: #ADB6C9;font-family: Poppins-Regular;"
                                         data-bs-toggle="modal" data-bs-target="#pilihlokasi" data-bs-whatever="@fat">
-                                        Pilih Lokasi
+                                        {{ $konser->alamat }}
                                     </a>
                                     @error('tempat')
                                         <p class="text-danger">*{{ $message }}</p>
@@ -303,18 +299,19 @@
                                                 <div class="form-group mb-3">
                                                     <label for="alamat">Alamat Konser</label>
                                                     <textarea type="text" name="alamat" id="alamat" class="form-control mt-3"
-                                                        placeholder="Masukan Alamat Konser"></textarea>
+                                                        placeholder="Masukan Alamat Konser">{{ old('alamat', $konser->alamat) }}</textarea>
                                                 </div>
                                                 <div class="form-group mb-0">
                                                     <input type="hidden" name="lat" id="lat"
-                                                        class="form-control mt-3">
+                                                        class="form-control mt-3" value="{{ old('lat', $konser->lat) }}">
                                                     <input type="hidden" name="lon" id="lon"
-                                                        class="form-control mt-3">
+                                                        class="form-control mt-3" value="{{ old('lon', $konser->lon) }}">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="nama_tempat">Nama Tempat (Cth: Gedung, Taman, DLL)</label>
                                                     <input type="text" name="tempat" id="nama-tempat"
-                                                        class="form-control mt-3" placeholder="Masukkan Nama Tempat">
+                                                        class="form-control mt-3" placeholder="Masukkan Nama Tempat"
+                                                        value="{{ old('tempat', $konser->tempat) }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -340,12 +337,14 @@
                                             <div class="mb-0">
                                                 <label for="kt_datepicker_4" class="form-label">Mulai dari</label>
                                                 <input name="waktu_mulai" class="form-control form-control-solid"
-                                                    placeholder="Pilih Waktu" id="kt_datepicker_4" />
+                                                    placeholder="Pilih Waktu" id="kt_datepicker_4"
+                                                    value="{{ old('waktu_mulai', $konser->waktu_mulai) }}">
                                             </div>
                                             <div class="mb-0 mt-3">
                                                 <label for="kt_datepicker_5" class="form-label">Sampai</label>
                                                 <input name="waktu_selesai" class="form-control form-control-solid"
-                                                    placeholder="Pilih Waktu" id="kt_datepicker_5" />
+                                                    placeholder="Pilih Waktu" id="kt_datepicker_5"
+                                                    value="{{ old('waktu_selesai', $konser->waktu_selesai) }}">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -374,10 +373,12 @@
                                                 <select id="kategori" class="custom-select js-example-basic-single"
                                                     name="kategori" style="width: 100%;height: 38p%">
                                                     <option selected>Pilih kategori</option>
-                                                    {{--  @foreach ($kategoris as $row)
-                                                        <option value="{{ $row->id }}">{{ $row->nama_kategori }}
+                                                    @foreach ($kategoris as $row)
+                                                        <option
+                                                            value="{{ old('kategori', $row->id) == $konser->kategori_id ? 'selected' : '' }}">
+                                                            {{ $row->nama_kategori }}
                                                         </option>
-                                                    @endforeach  --}}
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <button type="button" id="btnTambahKategoriTiket"
@@ -401,11 +402,12 @@
                                             <div class="mb-3">
                                                 <label for="jumlahtiket" class="form-label mb-4">Jumlah Tiket</label>
                                                 <input name="jumlahtiket" id="jumlahtiket"
-                                                    class="form-control form-control-solid" placeholder="" />
+                                                    class="form-control form-control-solid"
+                                                    value="{{ old('jumlahtiket', $tiket->jumlah_tiket) }}">
                                             </div>
                                             <div class="mb-0 mt-4">
                                                 <label for="deskripsi" class="form-label mb-4">Deskripsi</label>
-                                                <textarea class="form-control form-control-solid" name="deskripsi" id="deskripsi" cols="20" rows="3"></textarea>
+                                                <textarea class="form-control form-control-solid" name="deskripsi" id="deskripsi" cols="20" rows="3">{{ old('deskripsi', $konser->deskripsi) }}</textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer mt-3 mb-2">
@@ -441,7 +443,7 @@
                         @enderror
                     </div>
                     <div class="left-column align-self-end me-5">
-                        <button type="submit" class="btn btn-primary">Buat Konser!</button>
+                        <button type="submit" class="btn btn-secondary">Buat Konser!</button>
                     </div>
                 </div>
             </div>

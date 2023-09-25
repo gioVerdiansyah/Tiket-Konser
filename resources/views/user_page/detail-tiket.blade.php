@@ -87,26 +87,26 @@
                     <p>Stok : {{ $tiket->jumlah_tiket }}</p>
 
                     <input type="radio" id="lang-1" name="lang" value="{{ $tiket->harga1 }}" class="radio" checked>
-                    <label class="label label-1" for="lang-1">{{ $tiket->kategoritiket1 }}</label>
+                    <label class="label label-1" for="lang-1">{{ strtoupper($tiket->kategoritiket1) }}</label>
 
                     @if (isset($tiket->kategoritiket2) && isset($tiket->harga2))
                         <input type="radio" id="lang-2" name="lang" value="{{ $tiket->harga2 }}" class="radio">
-                        <label class="label label-2" for="lang-2">{{ $tiket->kategoritiket2 }}</label>
+                        <label class="label label-2" for="lang-2">{{ strtoupper($tiket->kategoritiket2) }}</label>
                     @endif
 
                     @if (isset($tiket->kategoritiket3) && isset($tiket->harga3))
                         <input type="radio" id="lang-3" name="lang" value="{{ $tiket->harga3 }}" class="radio">
-                        <label class="label label-3" for="lang-3">{{ $tiket->kategoritiket3 }}</label>
+                        <label class="label label-3" for="lang-3">{{ strtoupper($tiket->kategoritiket3) }}</label>
                     @endif
 
                     @if (isset($tiket->kategoritiket4) && isset($tiket->harga4))
                         <input type="radio" id="lang-4" name="lang" value="{{ $tiket->harga4 }}" class="radio">
-                        <label class="label label-4" for="lang-4">{{ $tiket->kategoritiket4 }}</label>
+                        <label class="label label-4" for="lang-4">{{ strtoupper($tiket->kategoritiket4) }}</label>
                     @endif
 
                     @if (isset($tiket->kategoritiket5) && isset($tiket->harga5))
                         <input type="radio" id="lang-5" name="lang" value="{{ $tiket->harga5 }}" class="radio">
-                        <label class="label label-5" for="lang-5">{{ $tiket->kategoritiket5 }}</label>
+                        <label class="label label-5" for="lang-5">{{ strtoupper($tiket->kategoritiket5) }}</label>
                     @endif
 
                     <hr>
