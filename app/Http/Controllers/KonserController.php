@@ -43,7 +43,7 @@ class KonserController extends Controller
         $konser = new Konser;
         $konser->user_id = Auth::user()->id;
         $konser->nama_konser = $request->nama_konser;
-        $konser->nama_penyelenggara = $request->has('nama_penyelenggara') ? $request->nama_penyelenggara : Auth::user()->name;
+        $konser->nama_penyelenggara = $request->filled('nama_penyelenggara') ? $request->nama_penyelenggara : Auth::user()->name;
         $konser->tanggal_konser = $request->tanggal_konser;
         $konser->alamat = $request->alamat;
         $konser->tempat = $request->tempat;
@@ -72,7 +72,9 @@ class KonserController extends Controller
         if ($request->file('photo_penyelenggara')) {
             $photo_penyelenggaraName = $request->file('photo_penyelenggara')->hashName();
             $request->file('photo_penyelenggara')->storeAs('public/image/konser/photo_penyelenggara/' . $photo_penyelenggaraName);
-            $konser->photo_penyelenggara = $photo_penyelenggaraName;
+            $konser->photo_penyelenggara = 'konser/photo_penyelenggara/' . $photo_penyelenggaraName;
+        } else {
+            $konser->photo_penyelenggara = 'photo-user/' . Auth::user()->pp;
         }
 
         if ($request->file('denah_konser')) {

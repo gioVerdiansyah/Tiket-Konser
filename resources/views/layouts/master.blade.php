@@ -64,11 +64,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('konser') }}">Konser</a>
                         </li>
-                        @auth
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('buatkonser.create') }}">Buat Konser</a>
-                            </li>
-                        @endauth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('buatkonser.create') }}">Buat Konser</a>
+                        </li>
                 </div>
                 <div class="navbar-nav ml-auto">
                     @guest

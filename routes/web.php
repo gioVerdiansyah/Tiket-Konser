@@ -53,7 +53,7 @@ Route::get('/konser', [KonserController::class, 'index'])->name('konser');
 Route::get('/konser/search', [KonserController::class, 'search'])->name('konser.search');
 Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori']);
 
-// Profile User
+// User
 Route::middleware('CekLogin')->group(function () {
     Route::get('/profile', [UpdateProfileController::class, 'index'])->name('profileUser');
 
@@ -65,23 +65,22 @@ Route::middleware('CekLogin')->group(function () {
 
     Route::resource('/buatkonser', KonserController::class);
 });
-// Route::get('/homeAdmin', function () {
-//     return view('admin_page.homeAdmin');
-// })->middleware(['CekLogin', 'CekRole:admin']);
+// Admin
+Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
+    Route::get('/homeAdmin', function () {
+        return view('admin_page.homeAdmin');
+    })->name('homeAdmin');
 
-Route::get('/penjualan', function () {
-    return view('admin_page.penjualan');
-})->name('penjualan');
+    Route::get('/penjualan', function () {
+        return view('admin_page.penjualan');
+    })->name('penjualan');
+});
+
 
 
 Auth::routes();
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-
-Route::get('/homeAdmin', function () {
-    return view('admin_page.homeAdmin');
-})->middleware(['CekLogin', 'CekRole:admin'])->name('homeAdmin');
 
 Route::middleware(['CekRole:user,admin'])->group(function () {
     Route::get('user', function () {

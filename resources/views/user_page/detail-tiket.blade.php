@@ -166,7 +166,11 @@
                     <div class="detail_konser my-5">
                         <h4 class="fw-bold left-align">DETAIL KONSER</h4>
                         <p class="left-align">{{ $konser->nama_konser }}</p>
-                        <p>{{ $konser->deskripsi }}</p>
+                        @if (isset($konser->deskripsi))
+                            <p>{{ $konser->deskripsi }}</p>
+                        @else
+                            <p>Penjual tidak menambahkan deskripsi...</p>
+                        @endif
                         <hr>
                         <div class="lok d-flex justify-content-start text-start gap-5 py-2">
                             <a href="" class="fw-bold text-dark text-decoration-none" data-bs-toggle="modal"
@@ -195,8 +199,21 @@
                                 @endphp
 
                             </p>
-                            <p><i class="bi bi-person"></i> Diselenggarakan Oleh <span
-                                    class="fw-bold">{{ $konser->nama_penyelenggara }}</span>
+                            <p>
+                                @if (isset($konser->photo_penyelenggara))
+                                    <img src="{{ asset('storage/image/' . $konser->photo_penyelenggara) }}"
+                                        alt="Photo penyelenggara" width="30">
+                                @else
+                                    <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}"
+                                        alt="Photo penyelenggara" width="30">
+                                @endif
+                                Diselenggarakan Oleh <span class="fw-bold">
+                                    @if (isset($konser->nama_penyelenggara))
+                                        {{ $konser->nama_penyelenggara }}
+                                    @else
+                                        {{ Auth::user()->name }}
+                                    @endif
+                                </span>
                             </p>
                         </div>
                         <hr>
@@ -262,6 +279,10 @@
                 <div class="modal-body text-center">
                     <div class="modal-body">
                         <div id="map" style="width: 100%; height: 400px;"></div>
+                        <div class="nama-tempat text-start">
+                            <h5>Nama Tempat:</h5>
+                            <p>{{ $konser->tempat }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -288,9 +309,6 @@
 
         // Tambahkan marker ke peta
         var marker = L.marker([{{ $konser->lat }}, {{ $konser->lon }}]).addTo(map);
-
-        // Tambahkan pop-up ke marker jika diperlukan
-        marker.bindPopup("Lokasi Konser").openPopup();
     </script>
 
     {{-- END iframe --}}

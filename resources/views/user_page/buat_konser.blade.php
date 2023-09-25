@@ -172,7 +172,8 @@
                      <div class="left-column">
                          {{--  <h5 class="card-title">Diselenggarakan oleh</h5>  --}}
                          <input type="text" name="nama_konser" class="no-border"
-                             style="font-size: 25px;margin-left: 32px;margin-top: 20px;" placeholder="Nama Konser*">
+                             style="font-size: 25px;margin-left: 32px;margin-top: 20px;" placeholder="Nama Konser*"
+                             value="{{ old('nama_konser') }}">
                          @error('nama_konser')
                              <p class="text-danger">*{{ $message }}</p>
                          @enderror
@@ -199,7 +200,8 @@
 
                                      <input type="text" name="nama_penyelenggara" class="input100 organizer-input"
                                          id="organizerInput" placeholder="Nama Penyelenggara"
-                                         style="font-size: 16px;margin-bottom: 3px;margin-left: 15px">
+                                         style="font-size: 16px;margin-bottom: 3px;margin-left: 15px"
+                                         value="{{ old('nama_penyelenggara') }}">
                                      @error('nama_penyelenggara')
                                          <p class="text-danger">*{{ $message }}</p>
                                      @enderror
@@ -293,18 +295,19 @@
                                                  <div class="form-group mb-3">
                                                      <label for="alamat">Alamat Konser</label>
                                                      <textarea type="text" name="alamat" id="alamat" class="form-control mt-3"
-                                                         placeholder="Masukan Alamat Konser"></textarea>
+                                                         placeholder="Masukan Alamat Konser">{{ old('alamat') }}</textarea>
                                                  </div>
                                                  <div class="form-group mb-0">
                                                      <input type="hidden" name="lat" id="lat"
-                                                         class="form-control mt-3">
+                                                         class="form-control mt-3" value="{{ old('lat') }}">
                                                      <input type="hidden" name="lon" id="lon"
-                                                         class="form-control mt-3">
+                                                         class="form-control mt-3" value="{{ old('lon') }}">
                                                  </div>
                                                  <div class="form-group mb-3">
                                                      <label for="nama_tempat">Nama Tempat (Cth: Gedung, Taman, DLL)</label>
                                                      <input type="text" name="tempat" id="nama-tempat"
-                                                         class="form-control mt-3" placeholder="Masukkan Nama Tempat">
+                                                         class="form-control mt-3" placeholder="Masukkan Nama Tempat"
+                                                         value="{{ old('tempat') }}">
                                                  </div>
                                              </div>
                                          </div>
@@ -330,12 +333,14 @@
                                              <div class="mb-0">
                                                  <label for="kt_datepicker_4" class="form-label">Mulai dari</label>
                                                  <input name="waktu_mulai" class="form-control form-control-solid"
-                                                     placeholder="Pilih Waktu" id="kt_datepicker_4" />
+                                                     placeholder="Pilih Waktu" id="kt_datepicker_4"
+                                                     value="{{ old('waktu_mulai') }}">
                                              </div>
                                              <div class="mb-0 mt-3">
                                                  <label for="kt_datepicker_5" class="form-label">Sampai</label>
                                                  <input name="waktu_selesai" class="form-control form-control-solid"
-                                                     placeholder="Pilih Waktu" id="kt_datepicker_5" />
+                                                     placeholder="Pilih Waktu" id="kt_datepicker_5"
+                                                     value="{{ old('waktu_selesai') }}">
                                              </div>
                                          </div>
                                          <div class="modal-footer">
@@ -362,10 +367,12 @@
                                              <div class="mb-4">
                                                  <label class="form-label">Kategori Konser</label><br>
                                                  <select id="kategori" class="custom-select js-example-basic-single"
-                                                     name="kategori" style="width: 100%;height: 38p%">
-                                                     <option selected>Pilih kategori</option>
+                                                     name="kategori" style="width: 100%; height: 38%">
+                                                     <option value="" selected>Pilih kategori</option>
                                                      @foreach ($kategoris as $row)
-                                                         <option value="{{ $row->id }}">{{ $row->nama_kategori }}
+                                                         <option value="{{ $row->id }}"
+                                                             {{ old('kategori') == $row->id ? 'selected' : '' }}>
+                                                             {{ $row->nama_kategori }}
                                                          </option>
                                                      @endforeach
                                                  </select>
@@ -391,11 +398,12 @@
                                              <div class="mb-3">
                                                  <label for="jumlahtiket" class="form-label mb-4">Jumlah Tiket</label>
                                                  <input name="jumlahtiket" id="jumlahtiket"
-                                                     class="form-control form-control-solid" placeholder="" />
+                                                     class="form-control form-control-solid"
+                                                     value="{{ old('jumlahtiket') }}">
                                              </div>
                                              <div class="mb-0 mt-4">
                                                  <label for="deskripsi" class="form-label mb-4">Deskripsi</label>
-                                                 <textarea class="form-control form-control-solid" name="deskripsi" id="deskripsi" cols="20" rows="3"></textarea>
+                                                 <textarea class="form-control form-control-solid" name="deskripsi" id="deskripsi" cols="20" rows="3">{{ old('deskripsi') }}</textarea>
                                              </div>
                                          </div>
                                          <div class="modal-footer mt-3 mb-2">
