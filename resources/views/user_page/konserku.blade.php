@@ -12,6 +12,7 @@
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">  --}}
         <title>Ticket.</title>
+        <link rel="stylesheet" href="path-to-bootstrap/css/bootstrap.min.css">
 
         {{--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">  --}}
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -146,9 +147,10 @@
                             <h4>Konser</h4>  --}}
                             <div class="breadcrumb__links">
                                 <a class="nac-link" href="/">Beranda</a>
-                                <span>Konser</span>
+                                <span>KonserKu</span>
                             </div>
-                        </div>
+
+                        {{--  </div>  --}}
                     </div>
                 </div>
             </div>
@@ -159,95 +161,27 @@
         <section class="shop spad">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3" >
-                        <div class="shop__sidebar">
-                            <div class="shop__sidebar__search">
-                                <form action="{{ route('konser.search') }}" method="get">
-                                    <input type="text" name="search" placeholder="Search...">
-                                    <button type="submit"><span class="icon_search"></span></button>
-                                </form>
-                            </div>
-
-                            <div class="shop__sidebar__accordion">
-                                <div class="accordion" id="accordionExample">
 
 
-                                    {{--  harga  --}}
-                                    <div class="card">
-                                        <div class="card-heading">
-                                            <a data-toggle="collapse" data-target="#collapseThree">Harga</a>
-                                        </div>
-                                        <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
-                                            <div class="card-body">
-
-                                                    <div class="middle">
-                                                        <div class="multi-range-slider my-2">
-                                                            <input type="range" id="input_left" class="range_slider" min="0" max="1000000" value="250000" onmousemove="left_slider(this.value)">
-                                                            <input type="range" id="input_right" class="range_slider" min="0" max="1000000" value="750000" onmousemove="right_slider(this.value)">
-                                                            <div class="slider">
-                                                                <div class="track"></div>
-                                                                <div class="range"></div>
-                                                                <div class="thumb left"></div>
-                                                                <div class="thumb right"></div>
-
-                                                        </div>
-                                                    </div>
-                                                        <div id="multi_range">
-                                                            <span id="left_value">Rp 250.000</span><span> ~ </span><span id="right_value">Rp 750.000</span>
-                                                        </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {{--  kategori  --}}
-                                    <div class="card">
-                                          <div class="card-heading">
-                                            <a data-toggle="collapse" data-target="#collapseOne">Kategori</a>
-                                          </div>
-                                        <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
-
-                                            @isset($kategoris)
-                                              <div class="card-body">
-                                                 <div class="shop__sidebar__categories">
-                                                     <ul class="nice-scroll">
-                                                         @forelse($kategoris as $kategori)
-
-                                                        <li><a href="/konser/kategori/{{ $kategori->id }}">{{ $kategori->nama_kategori }}</a></li>
-                                                        @empty
-                                                        <p>Tidak ada kategori yang tersedia</p>
-
-                                                        @endforelse
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            @endisset
-
-                                        </div>
-                                    </div>
-                                    {{--  button  --}}
-                                    <div class="card ">
-                                        <div class="card-bodys">
-                                             <div class="shop__sidebar__tags d-flex justify-content-center align-items-center">
-                                                <button type="button" class="btn btn-dark" style="background: black; color:#ffffff; border-radius: 10px; ">Terapkan Filter</button>
-                                            </div>
-                                       </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                      {{--  daftarkonser  --}}
-                    <div class="col-lg-9">
-                        <div class="shop__product__option">
+                     <div class="col-lg-12">
+                        <div class="shop__product__optionn">
                             <div class="row">
-
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="shop__left">
-                                        <d>Daftar Konser</d>
+                                        <d>Daftar KonserKu</d>
                                     </div>
                                 </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="shop__sidebar__searchh">
+                                        <form action="{{ route('konser.search') }}" method="get" style="display: flex; align-items: center;">
+                                            <input type="text" name="search" placeholder="Search..." style="flex: 1;">
+                                            <button type="submit"><span class="icon_search"></span></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
 
                                 {{--  <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="shop__product__option__right">
@@ -259,38 +193,64 @@
                                         </select>
                                     </div>
                                 </div>  --}}
-                            </div>
                         </div>
 
+
                         <div class="row">
-
-
-
-                            @forelse ($konsers as $konser)
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                            {{--  @forelse ($konsers as $konser)  --}}
+                            <div class="col-lg-3 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <div class="product__item__pic">
-                                        <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}"
+                                        <img src="storage/image/konser/banner/TCTqibDWRgYI74722sZ7Yv4DWDTDtqHap8d9do8u.png"
                                         style="width: 265px; height: 300px; border-radius: 5%; ">
+                                        {{--  <img src="{{ asset('img/' . $konser->foto_tiket) }}"  --}}
+                                        {{--  >  --}}
                                         <ul class="product__hover">
-                                            <li><a href="{{ ('detail_tiket' . $konser->id) }}"><img src="img/icon/detail-removebg-preview.png" style="border-radius: 5px;" alt><span>Detail</span></a></li>
+                                            <li><a href="{{ ('edit_konserku') }}"><img src="img/icon/edit.png" style="border-radius: 5px;" alt><span>Ubah</span></a></li>
+                                            <li><a href="#"><img src="img/icon/sampah.png" style="border-radius: 5px;   " alt><span>Hapus</span></a></li>
+                                            {{--  <li><a href="{{ ('detail_tiket' . $konser->id) }}"><img src="img/icon/detail.png" alt><span>Detail</span></a></li>  --}}
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
-                                        <h6> {{ $konser->nama_konser }} </h6>
-                                        <h5> @currency ($konser->harga1) </h5>
+                                        <h6>Chou Ngawi</h6>
+                                        {{--  <h6> {{ $konser->nama }} </h6>  --}}
+                                        <h5> Rp 300.000 </h5>
+                                        {{--  <h5> @currency ($konser->harga) </h5>  --}}
                                     </div>
                                 </div>
                             </div>
-                          @empty
+                          {{--  @empty
                           <p>Tidak ada item yang tersedia.</p>
-                          @endforelse
+                          @endforelse  --}}
 
-                     </div>
+                       </div>
+                     {{--  <div class ="row">
+                       <div class ="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic ">
+                                <img src="storage/image/konser/banner/TCTqibDWRgYI74722sZ7Yv4DWDTDtqHap8d9do8u.png"
+                                 style="width: 265px; height: 300px; border-radius: 5%; ">
+                                <ul class="product__hover">
+                                    <li><a href="#"><img src="img/icon/edit.png" alt></a></li>
+                                    <li><a href="#"><img src="img/icon/delete.png" alt> <span>Compare</span></a>
+                                    </li>
+                                    <li><a href="#"><img src="img/icon/detail.png" alt></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6>T-shirt Contrast Pocket</h6>
+                                <a href="#" class="add-cart">+ Add To Cart</a>
+
+                                <h5>$49.66</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                     </div>  --}}
                       {{--  paginate  --}}
                         <div class="row mt-3">
 
-                        {{ $konsers->links() }}
+                        {{--  {{ $konsers->links() }}  --}}
 
                         </div>
                     </div>

@@ -32,6 +32,14 @@ Auth::routes(['verify' => true]);
 
 Route::get('/detail-tiket/{id}', [KonserController::class, 'detailTiket'])->name('detail_konser');
 
+Route::get('/konserku', function () {
+    return view('user_page.konserku');
+})->middleware('CekLogin');
+
+Route::get('/edit_konserku', function () {
+    return view('user_page.edit_konserku');
+})->middleware('CekLogin');
+    
 // Route::get('/loginview', function () {
 //     return view('login');
 // })->name('loginview');
@@ -83,6 +91,8 @@ Route::middleware(['CekRole:user,admin'])->group(function () {
 });
 
 Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
 

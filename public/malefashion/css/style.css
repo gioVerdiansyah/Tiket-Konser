@@ -905,7 +905,7 @@ ol {
 }
 
 .product__item:hover .product__item__pic .product__hover {
-	right: 20px;
+	right: 17px;
 	opacity: 1;
 }
 
@@ -915,15 +915,16 @@ ol {
 	visibility: visible;
 }
 
-.product__item:hover .product__item__text h6 {
+/* .product__item:hover .product__item__text h6 {
 	opacity: 0;
-}
+} */
 
 .product__item:hover .product__item__text .product__color__select {
 	opacity: 1;
 }
 
 .product__item__pic {
+
 	height: 260px;
 	position: relative;
 	background-position: center center;
@@ -944,7 +945,8 @@ ol {
 }
 
 .product__item__pic .product__hover {
-	position: absolute;
+    padding-right: 30px;
+	position:absolute;
 	right: -200px;
 	top: 20px;
 	-webkit-transition: all, 0.8s;
@@ -1113,6 +1115,7 @@ ol {
 
 .shop__sidebar__search form {
 	position: relative;
+    width:100%;
 }
 
 .shop__sidebar__search form input {
@@ -1157,6 +1160,59 @@ ol {
 	height: 100%;
 }
 
+/* 2 */
+.shop__sidebar__searchh {
+	margin-bottom: 45px;
+    margin-top: 5px;
+}
+
+.shop__sidebar__searchh form {
+	position: relative;
+    width:100%;
+}
+
+.shop__sidebar__searchh form input {
+	width: 100%;
+	font-size: 15px;
+	color: #b7b7b7;
+	padding-left: 20px;
+    border-radius: 10px;
+	border: 1px solid #e5e5e5;
+	height: 42px;
+}
+
+.shop__sidebar__searchh form input::-webkit-input-placeholder {
+	color: #b7b7b7;
+}
+
+.shop__sidebar__searchh form input::-moz-placeholder {
+	color: #b7b7b7;
+}
+
+.shop__sidebar__searchh form input:-ms-input-placeholder {
+	color: #b7b7b7;
+}
+
+.shop__sidebar__searchh form input::-ms-input-placeholder {
+	color: #b7b7b7;
+}
+
+.shop__sidebar__searchh form input::placeholder {
+	color: #b7b7b7;
+}
+
+.shop__sidebar__searchh form button {
+	color: #b7b7b7;
+	font-size: 15px;
+	border: none;
+	background: transparent;
+	position: absolute;
+	right: 0;
+	padding: 0 15px;
+	top: 0;
+	height: 100%;
+}
+
 .shop__sidebar__accordion .card {
 	border: none;
 	border-radius: 0;
@@ -1171,7 +1227,12 @@ ol {
 	padding-bottom: 0;
 	border-bottom: none;
 }
+.shop__sidebar__accordion .card-bodys {
+	padding: 0;
+	padding-top:2px;
+	padding-bottom: 50px;
 
+}
 .shop__sidebar__accordion .card-body {
 	padding: 0;
 	padding-top: 10px;
@@ -1328,9 +1389,10 @@ ol {
 }
 
 .shop__sidebar__tags a {
-	color: #404040;
+
 	font-size: 13px;
 	font-weight: 700;
+    border: #1da1f2;
 	background: #f1f5f8;
 	padding: 5px 18px;
 	display: inline-block;
@@ -1374,6 +1436,10 @@ ol {
 
 .shop__product__option {
 	margin-bottom: 45px;
+}
+.shop__product__optionn {
+    height: 100px;
+
 }
 
 .shop__product__option p {
@@ -1436,7 +1502,7 @@ ol {
     padding: 10px; /* Tambahkan ruang bingkai jika diperlukan */
     background-color: none; /* Ganti latar belakang sesuai preferensi Anda */
     border-top: 1px solid #ccc; /* Tambahkan garis bingkai jika diperlukan */
-    border-radius: 5px; /* Tambahkan sudut bulat jika diperlukan */
+
     margin:0 0px; /* Tambahkan jarak antara tautan jika diperlukan */
     padding-left: 75px;
     padding-right: 165px;
@@ -3259,9 +3325,12 @@ ol {
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
+
+
+
 @media only screen and (min-width: 1200px) {
 	.container {
-		max-width: 1170px;
+		max-width: 1320px;
 	}
 }
 
