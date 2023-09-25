@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UpdateProfileController;
-use App\Http\Controllers\SesiController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,17 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/login', [SesiController::class, 'login'])->name('index');
+// Route::get('/email/verify', [VerificationController::class, 'notice'])->name('verification.notice');
+// Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+// Route::post('/email/verification-notification', [VerificationController::class, 'send'])->name('verification.send');
 
-Route::post('/login', [SesiController::class, 'login']);
-
-
-
-Route::get('/cart', function () {
-    return view('cart');
-});
 
 Route::get('/detail-tiket/{id}', [KonserController::class, 'detailTiket'])->name('detail_konser');
 
@@ -56,14 +51,12 @@ Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori']);
 // User
 Route::middleware('CekLogin')->group(function () {
     Route::get('/profile', [UpdateProfileController::class, 'index'])->name('profileUser');
-
     Route::put('/profile/{user}', [UpdateProfileController::class, 'update'])->name('updateProfile');
     Route::put('/profile/pass/{user}', [UpdateProfileController::class, 'chagePass'])->name('updateProfilePass');
 
     Route::get('/history', function () {
         return view('user_page.history');
     })->name('history');
-
     Route::resource('/buatkonser', KonserController::class);
 });
 // Admin
@@ -91,4 +84,8 @@ Route::middleware(['CekRole:user,admin'])->group(function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
+
+Route::get('/done', function() {
+    return view('auth.donereset');
+});
