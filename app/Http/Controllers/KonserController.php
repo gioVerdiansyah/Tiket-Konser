@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreKonserRequest;
+use App\Http\Requests\UpdateKonserRequest;
 use App\Models\Konser;
 use App\Models\Kategori;
 use App\Models\Tiket;
@@ -10,6 +11,8 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class KonserController extends Controller
 {
@@ -102,7 +105,7 @@ class KonserController extends Controller
 
         $konser->tiket()->save($tiket);
 
-        return back()->with('message', [
+        return to_route('konserku')->with('message', [
             'title' => "Berhasil",
             "text" => "Berhasil membuat konser!"
         ]);
@@ -183,10 +186,112 @@ class KonserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateKonserRequest $request, $id)
     {
-        //
+        $konser = Konser::findOrFail($id);
+
+        $request->validate([
+            'nama_konser' => [
+                'required',
+                'string',
+                'min:3',
+                'max:255',
+                Rule::unique('konsers')->ignore($id),
+            ]
+        ]);
+
+        // Check if the authenticated user owns the concert
+        if ($konser->user_id !== Auth::user()->id) {
+            return back()->with('message', [
+                'icon' => 'warning',
+                'title' => "Peringatan",
+                'text' => "Jangan mengubah id tujuan form!!!"
+            ]);
+        }
+
+        // Memperbarui data konser
+        $konser->nama_konser = $request->nama_konser;
+        $konser->nama_penyelenggara = $request->filled('nama_penyelenggara') ? $request->nama_penyelenggara : Auth::user()->name;
+        $konser->tanggal_konser = $request->tanggal_konser;
+        $konser->alamat = $request->alamat;
+        $konser->tempat = $request->tempat;
+        $konser->lat = $request->lat;
+        $konser->lon = $request->lon;
+
+        $waktuMulai = DateTime::createFromFormat('H:i', $request->input('waktu_mulai'));
+        $waktuSelesai = DateTime::createFromFormat('H:i', $request->input('waktu_selesai'));
+
+        if ($waktuMulai >= $waktuSelesai) {
+            return back()->with('message', [
+                'icon' => 'error',
+                'title' => "Gagal",
+                'text' => "Gagal karena waktu mulai haruslah lebih kecil dari waktu selesai!"
+            ]);
+        }
+
+        $konser->waktu_mulai = $waktuMulai;
+        $konser->waktu_selesai = $waktuSelesai;
+
+        // Proses upload gambar banner baru
+        if ($request->hasFile('banner')) {
+            if ($konser->banner) {
+                Storage::delete('public/image/konser/banner/' . $konser->banner);
+            }
+            $bannerName = $request->file('banner')->hashName();
+            $request->file('banner')->storeAs('public/image/konser/banner/', $bannerName);
+            $konser->banner = $bannerName;
+        }
+
+        // Proses upload gambar penyelenggara baru
+        if ($request->hasFile('photo_penyelenggara')) {
+            if ($konser->denah) {
+                Storage::delete('public/image/konser/denah_konser/' . $konser->denah);
+            }
+            $photoPenyelenggara = $request->file('photo_penyelenggara')->hashName();
+            $request->file('photo_penyelenggara')->storeAs('public/image/konser/photo_penyelenggara/', $photoPenyelenggara);
+            $konser->photo_penyelenggara = $photoPenyelenggara;
+        }
+
+        // Proses upload gambar denah konser baru
+        if ($request->hasFile('denah_konser')) {
+            if ($konser->photo_penyelenggara) {
+                Storage::delete('public/image/konser/photo_penyelenggara/' . $konser->photo_penyelenggara);
+            }
+            $denah_konserName = $request->file('denah_konser')->hashName();
+            $request->file('denah_konser')->storeAs('public/image/konser/denah_konser/', $denah_konserName);
+            $konser->denah = $denah_konserName;
+        }
+
+        $konser->deskripsi = $request->deskripsi;
+        $konser->kategori_id = intval($request->kategori);
+
+        $konser->tiket->jumlah_tiket = $request->jumlahtiket;
+        $konser->tiket->kategoritiket1 = $request->kategoritiket1;
+        $konser->tiket->harga1 = $request->harga1;
+        $konser->tiket->kategoritiket2 = $request->filled('kategoritiket2') ? $request->kategoritiket2 : null;
+        $konser->tiket->harga2 = $request->filled('harga2') ? $request->harga2 : null;
+        $konser->tiket->kategoritiket3 = $request->filled('kategoritiket3') ? $request->kategoritiket3 : null;
+        $konser->tiket->harga3 = $request->filled('harga3') ? $request->harga3 : null;
+        $konser->tiket->kategoritiket4 = $request->filled('kategoritiket4') ? $request->kategoritiket4 : null;
+        $konser->tiket->harga4 = $request->filled('harga4') ? $request->harga4 : null;
+        $konser->tiket->kategoritiket5 = $request->filled('kategoritiket5') ? $request->kategoritiket5 : null;
+        $konser->tiket->harga5 = $request->filled('harga5') ? $request->harga5 : null;
+
+        if ($konser->isDirty()) {
+            $konser->save();
+            return back()->with('message', [
+                'title' => "Berhasil",
+                "text" => "Berhasil memperbarui konser!"
+            ]);
+        } else {
+            return back()->with('message', [
+                'icon' => 'info',
+                'title' => "Tidak ada perubahan",
+                "text" => "Anda tidak melakukan perubahan pada konser!"
+            ]);
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -194,6 +299,13 @@ class KonserController extends Controller
     public function destroy(Konser $buatkonser)
     {
         $konserName = $buatkonser->nama_konser;
+        if ($buatkonser->user_id !== Auth::user()->id) {
+            return back()->with('message', [
+                'icon' => 'warning',
+                'title' => "Peringatan",
+                'text' => "Jangan mengubah id tujuan form!!!"
+            ]);
+        }
         $buatkonser->delete();
         return back()->with('message', [
             'title' => "Berhasil",

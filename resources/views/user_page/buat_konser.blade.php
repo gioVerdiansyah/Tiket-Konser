@@ -5,7 +5,7 @@
          crossorigin="" />
      <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
          rel="stylesheet">
-         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
      <!-- Make sure you put this AFTER Leaflets CSS reference -->
      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
          integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
@@ -126,15 +126,16 @@
          #pilihlokasi .modal-content {
              border-radius: 20px;
          }
-         {{--  button  --}}
-         .buttonku{
-            margin-top: 10px;
-            border-radius: 5px;
+
+         {{--  button  --}} .buttonku {
+             margin-top: 10px;
+             border-radius: 5px;
          }
+
          @media screen and (max-width: 476px) {
-            .card{
-                width: 100%;
-            }
+             .card {
+                 width: 100%;
+             }
          }
      </style>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -228,15 +229,17 @@
                                  <div class="py-3">
                                      <a id="tanggalAnchor" href="#" class="text-decoration-none"
                                          style="font-size: 16px;color: #ADB6C9;font-family: Poppins-Regular;"
-                                         data-bs-toggle="modal" data-bs-target="#pilihtanggal">Pilih Tanggal</a>
+                                         data-bs-toggle="modal"
+                                         data-bs-target="#pilihtanggal">{{ old('tanggal_konser') ?? 'Pilih Tanggal' }}</a>
                                      @error('tanggal_konser')
                                          <p class="text-danger">*{{ $message }}</p>
                                      @enderror
                                  </div>
                                  <a id="waktuAnchor" href="#" class="text-decoration-none"
                                      style="font-size: 16px;color: #ADB6C9;font-family: Poppins-Regular;"
-                                     data-bs-toggle="modal" data-bs-target="#pilihwaktu" data-bs-whatever="@fat">Pilih
-                                     Waktu</a>
+                                     data-bs-toggle="modal" data-bs-target="#pilihwaktu"
+                                     data-bs-whatever="@fat">{{ old('waktu_mulai') ?? 'Pilih Waktu' }}
+                                     {{ old('waktu_selesai') ? '<br>' : '' }} {{ old('waktu_selesai') }}</a>
                                  @error('waktu_mulai')
                                      <p class="text-danger">*{{ $message }}</p>
                                  @enderror
@@ -278,15 +281,13 @@
                                      <a id="selectedLocation" href="#" class="text-decoration-none"
                                          style="font-size: 16px;color: #ADB6C9;font-family: Poppins-Regular;"
                                          data-bs-toggle="modal" data-bs-target="#pilihlokasi" data-bs-whatever="@fat">
-                                         Pilih Lokasi
+                                         {{ old('alamat') ?? 'Pilih lokasi' }} {{ old('tempat') ? '<br>' : '' }}
+                                         {{ old('tempat') }}
                                      </a>
-                                     @error('tempat')
-                                         <p class="text-danger">*{{ $message }}</p>
-                                     @enderror
                                      @error('alamat')
                                          <p class="text-danger">*{{ $message }}</p>
                                      @enderror
-                                     @error('kota')
+                                     @error('tempat')
                                          <p class="text-danger">*{{ $message }}</p>
                                      @enderror
                                  </div>

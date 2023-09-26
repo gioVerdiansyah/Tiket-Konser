@@ -22,7 +22,7 @@ class StoreKonserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_konser' => 'required|string|min:3|max:255',
+            'nama_konser' => 'required|string|min:3|max:255|unique:konsers,nama_konser',
             'nama_penyelenggara' => 'nullable|string|min:3|max:255',
             'tanggal_konser' => 'required|string|min:10|max:25',
             'alamat' => 'required|string|min:5|max:255',

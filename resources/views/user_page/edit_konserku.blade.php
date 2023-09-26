@@ -141,9 +141,10 @@
     @endif
 
     <div class="container py-5">
-        <form id="eventForm" action="{{ route('buatkonser.store') }}" method="POST" enctype="multipart/form-data"
-            class="d-flex justify-content-center">
+        <form id="eventForm" action="{{ route('buatkonser.update', $konser->id) }}" method="POST"
+            enctype="multipart/form-data" class="d-flex justify-content-center">
             @csrf
+            @method('PUT')
             <div class="card">
                 <!-- Tambahkan fungsi JavaScript untuk mengklik tombol file input saat gambar diklik -->
                 <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}" class="card-img-top tall-image"
@@ -372,10 +373,10 @@
                                                 <label class="form-label">Kategori Konser</label><br>
                                                 <select id="kategori" class="custom-select js-example-basic-single"
                                                     name="kategori" style="width: 100%;height: 38p%">
-                                                    <option selected>Pilih kategori</option>
+                                                    <option value="" selected>Pilih kategori</option>
                                                     @foreach ($kategoris as $row)
-                                                        <option
-                                                            value="{{ old('kategori', $row->id) == $konser->kategori_id ? 'selected' : '' }}">
+                                                        <option value="{{ old('kategori', $row->id) }}"
+                                                            {{ old('kategori', $row->id) == $konser->kategori_id ? 'selected' : '' }}>
                                                             {{ $row->nama_kategori }}
                                                         </option>
                                                     @endforeach
@@ -387,8 +388,75 @@
 
                                             <!-- Tempat untuk menambahkan input -->
                                             <div id="tempatInputKategoriHarga">
-                                                <!-- Input kategori tiket akan ditambahkan di sini -->
-                                                <!-- Input harga akan ditambahkan di sini -->
+                                                <!-- Kategori Tiket 1 -->
+                                                <div class="mb-3">
+                                                    <input name="kategoritiket1"
+                                                        class="form-control form-control-solid mb-3"
+                                                        placeholder="Kategori Tiket 1"
+                                                        value="{{ $tiket->kategoritiket1 }}">
+                                                    <input name="harga1" class="form-control form-control-solid mb-1"
+                                                        placeholder="Harga" value="{{ $tiket->harga1 }}">
+                                                </div>
+                                                @if (!empty($tiket->kategoritiket2) && !empty($tiket->harga2))
+                                                    <!-- Kategori Tiket 2 -->
+                                                    <div class="mb-3">
+                                                        <input name="kategoritiket2"
+                                                            class="form-control form-control-solid mb-3"
+                                                            placeholder="Kategori Tiket 2"
+                                                            value="{{ $tiket->kategoritiket2 }}">
+                                                        <input name="harga2" class="form-control form-control-solid mb-1"
+                                                            placeholder="Harga" value="{{ $tiket->harga2 }}">
+                                                        <a href="javascript:void(0);"
+                                                            class="remove_button btn btn-danger btn-sm ml-2"><i
+                                                                class="bi bi-trash"></i></a>
+                                                    </div>
+                                                @endif
+
+                                                @if (!empty($tiket->kategoritiket3) && !empty($tiket->harga3))
+                                                    <!-- Kategori Tiket 3 -->
+                                                    <div class="mb-3">
+                                                        <input name="kategoritiket3"
+                                                            class="form-control form-control-solid mb-3"
+                                                            placeholder="Kategori Tiket 3"
+                                                            value="{{ $tiket->kategoritiket3 }}">
+                                                        <input name="harga3" class="form-control form-control-solid mb-1"
+                                                            placeholder="Harga" value="{{ $tiket->harga3 }}">
+                                                        <a href="javascript:void(0);"
+                                                            class="remove_button btn btn-danger btn-sm ml-2"><i
+                                                                class="bi bi-trash"></i></a>
+                                                    </div>
+                                                @endif
+
+                                                @if (!empty($tiket->kategoritiket4) && !empty($tiket->harga4))
+                                                    <!-- Kategori Tiket 4 -->
+                                                    <div class="mb-3">
+                                                        <input name="kategoritiket4"
+                                                            class="form-control form-control-solid mb-3"
+                                                            placeholder="Kategori Tiket 4"
+                                                            value="{{ $tiket->kategoritiket4 }}">
+                                                        <input name="harga4" class="form-control form-control-solid mb-1"
+                                                            placeholder="Harga" value="{{ $tiket->harga4 }}">
+                                                        <a href="javascript:void(0);"
+                                                            class="remove_button btn btn-danger btn-sm ml-2"><i
+                                                                class="bi bi-trash"></i></a>
+                                                    </div>
+                                                @endif
+
+                                                @if (!empty($tiket->kategoritiket5) && !empty($tiket->harga5))
+                                                    <!-- Kategori Tiket 5 -->
+                                                    <div class="mb-3">
+                                                        <input name="kategoritiket5"
+                                                            class="form-control form-control-solid mb-3"
+                                                            placeholder="Kategori Tiket 5"
+                                                            value="{{ $tiket->kategoritiket5 }}">
+                                                        <input name="harga5" class="form-control form-control-solid mb-1"
+                                                            placeholder="Harga" value="{{ $tiket->harga5 }}">
+                                                        <a href="javascript:void(0);"
+                                                            class="remove_button btn btn-danger btn-sm ml-2"><i
+                                                                class="bi bi-trash"></i></a>
+                                                    </div>
+                                                @endif
+
                                             </div>
 
                                             <div class="mb-4">
@@ -443,7 +511,7 @@
                         @enderror
                     </div>
                     <div class="left-column align-self-end me-5">
-                        <button type="submit" class="btn btn-secondary">Buat Konser!</button>
+                        <button type="submit" class="btn btn-secondary">Update Konser!</button>
                     </div>
                 </div>
             </div>
@@ -560,9 +628,8 @@
         function addMarkerBasedOnCurrentLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    var lat = position.coords.latitude;
-                    var lng = position.coords.longitude;
-
+                    var lat = {{ $konser->lat }};
+                    var lng = {{ $konser->lon }};
                     // Hapus marker jika ada
                     if (marker) {
                         map.removeLayer(marker);
@@ -698,10 +765,34 @@
     <!-- BTN TAMBAH FORM -->
     <script>
         $(document).ready(function() {
-            var maxField = 5; //Input fields increment limitation
-            var addButton = $('#btnTambahKategoriTiket'); //Add button selector
-            var wrapper = $('#tempatInputKategoriHarga'); //Input field wrapper
-            var x = 1; //Initial field counter is 1
+            var maxField = 5;
+
+            @if (!empty($tiket->kategoritiket5) && !empty($tiket->harga5))
+                var maxAllowed = 5;
+            @elseif (!empty($tiket->kategoritiket4) && !empty($tiket->harga4))
+                var maxAllowed = 4;
+            @elseif (!empty($tiket->kategoritiket3) && !empty($tiket->harga3))
+                var maxAllowed = 3;
+            @elseif (!empty($tiket->kategoritiket2) && !empty($tiket->harga2))
+                var maxAllowed = 2;
+            @else
+                var maxAllowed = 1; // Default value if no conditions are met
+            @endif
+
+            @if (!empty($tiket->kategoritiket5) && !empty($tiket->harga5))
+                var x = 4;
+            @elseif (!empty($tiket->kategoritiket4) && !empty($tiket->harga4))
+                var x = 3;
+            @elseif (!empty($tiket->kategoritiket3) && !empty($tiket->harga3))
+                var x = 2;
+            @elseif (!empty($tiket->kategoritiket2) && !empty($tiket->harga2))
+                var x = 1;
+            @else
+                var x = 0; // Default value if no conditions are met
+            @endif
+
+            var addButton = $('#btnTambahKategoriTiket');
+            var wrapper = $('#tempatInputKategoriHarga');
 
             // Function to renumber input fields
             function renumberFields() {
@@ -718,16 +809,17 @@
             // Once add button is clicked
             $(addButton).click(function() {
                 // Check maximum number of input fields
-                if (x <= maxField) {
-                    x++; // Increase field counter
+                if (maxAllowed < maxField) {
+                    maxAllowed++;
                     var fieldHTML =
-                        `<div class="mb-3"><input name="kategoritiket${(x - 1)}" class="form-control form-control-solid mb-3" placeholder="Kategori Tiket ${(x - 1)}"><input name="harga${(x - 1)}" class="form-control form-control-solid mb-1" placeholder="Harga"><a href="javascript:void(0);" class="remove_button btn btn-danger btn-sm ml-2"><i class="bi bi-trash"></i></a></div>`;
+                        `<div class="mb-3"><input name="kategoritiket${(x + 1)}" class="form-control form-control-solid mb-3" placeholder="Kategori Tiket ${(x + 1)}"><input name="harga${(x + 1)}" class="form-control form-control-solid mb-1" placeholder="Harga"><a href="javascript:void(0);" class="remove_button btn btn-danger btn-sm ml-2"><i class="bi bi-trash"></i></a></div>`;
                     $(wrapper).append(fieldHTML); // Add field html
+                    renumberFields(); // Re-number the fields
                 } else {
                     Swal.fire({
                         icon: "error",
                         title: "Gagal",
-                        text: "Maksimal kategori tiket adalah 5!",
+                        text: "Maksimal kategori tiket adalah 5 dan hanya dapat menambah sesuai kondisi yang diizinkan!",
                         allowOutsideClick: true,
                         allowEscapeKey: false,
                     });
