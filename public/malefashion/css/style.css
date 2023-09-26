@@ -1212,7 +1212,44 @@ ol {
 	top: 0;
 	height: 100%;
 }
+.shop__sidebar__accordion .card {
+	border: none;
+	border-radius: 0;
+	margin-bottom: 25px;
+}
 
+.shop__sidebar__accordion .card:last-child {
+	margin-bottom: 0;
+}
+
+.shop__sidebar__accordion .card:last-child .card-body {
+	padding-bottom: 0;
+	border-bottom: none;
+}
+.shop__sidebar__accordion .card-bodys {
+	padding: 0;
+	padding-top:2px;
+	padding-bottom: 50px;
+
+}
+.shop__sidebar__accordion .card-body {
+	padding: 0;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.shop__sidebar__accordion .card-heading {
+	cursor: pointer;
+}
+
+.shop__sidebar__accordion .card-heading a {
+	color: #111111;
+	font-size: 16px;
+	font-weight: 700;
+	text-transform: uppercase;
+	display: block;
+}
 .shop__sidebar__accordion .card {
 	border: none;
 	border-radius: 0;
@@ -2123,7 +2160,7 @@ ol {
 
 .breadcrumb-option {
 	background: #ffffff;
-	padding: 20px 0;
+	padding: 20px  1rem;
 }
 
 .breadcrumb__text h4 {

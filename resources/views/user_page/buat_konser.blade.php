@@ -5,6 +5,7 @@
          crossorigin="" />
      <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
          rel="stylesheet">
+         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
      <!-- Make sure you put this AFTER Leaflets CSS reference -->
      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
          integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
@@ -21,7 +22,7 @@
          }
 
          .card {
-             width: 56rem;
+             width: 70%;
              background-color: #fff;
              border-radius: 15px;
          }
@@ -47,6 +48,7 @@
          .card-body {
              display: flex;
              justify-content: flex-start;
+             flex-wrap: wrap;
          }
 
          .center-text {
@@ -124,6 +126,16 @@
          #pilihlokasi .modal-content {
              border-radius: 20px;
          }
+         {{--  button  --}}
+         .buttonku{
+            margin-top: 10px;
+            border-radius: 5px;
+         }
+         @media screen and (max-width: 476px) {
+            .card{
+                width: 100%;
+            }
+         }
      </style>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
      <link rel="stylesheet" href="{{ asset('css/main.css') }}">
@@ -140,7 +152,7 @@
          </div>
      @endif
 
-     <div class="container py-5">
+     <div class="container ">
          <form id="eventForm" action="{{ route('buatkonser.store') }}" method="POST" enctype="multipart/form-data"
              class="d-flex justify-content-center">
              @csrf
@@ -250,7 +262,7 @@
                                                  </div>
                                              </div>
                                              <div class="modal-footer">
-                                                 <button type="button" class="btn btn-primary mt-3"
+                                                 <button type="button" class="btn btn-dark mt-3"
                                                      style="width: 100%;height: 60px;background-color: #000000;border: none;border-radius: 15px;"
                                                      onclick="checkModalTanggalEvent()">Simpan</button>
                                              </div>
@@ -315,7 +327,7 @@
                                          </div>
                                          <div class="modal-footer">
                                              <button type="button" class="btn btn-primary mt-3" id="simpan"
-                                                 style="width: 100%;height: 60px;background-color: #000000;border: none;border-radius: 15px;"
+                                                 style="width: 100%;height: 60px;background-color: #000000; border: none;border-radius: 15px;"
                                                  onclick="checkModalLocation()">Simpan</button>
                                          </div>
                                      </div>
@@ -347,7 +359,7 @@
                                          </div>
                                          <div class="modal-footer">
                                              <button type="button" class="btn btn-primary mt-3"
-                                                 style="width: 100%;height: 60px;background-color: #000000;border: none;border-radius: 15px;"
+                                                 style="width: 100%;height: 60px;background-color: #000000; border: none;border-radius: 15px;"
                                                  onclick="checkModalWaktuEvent()">Simpan</button>
                                          </div>
                                      </div>

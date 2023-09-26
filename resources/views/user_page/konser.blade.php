@@ -17,15 +17,14 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
             rel="stylesheet">
+            <link rel="stylesheet" href="path-to-bootstrap/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
-        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="{{ asset('malefashion') }}/css/font-awesome.min.css" type="text/css">
         <link rel="stylesheet" href="{{ asset('malefashion') }}/css/elegant-icons.css" type="text/css">
-        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/magnific-popup.css" type="text/css">
-        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/nice-select.css" type="text/css">
-        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/owl.carousel.min.css" type="text/css">
-        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/slicknav.min.css" type="text/css">
-        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/style.css" type="text/css">
+
+
         <script nonce="39342a9c-a4b6-4c37-a019-bd53c0eeded9">
             (function(w, d) {
                 ! function(bg, bh, bi, bj) {
