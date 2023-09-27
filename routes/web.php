@@ -47,6 +47,10 @@ Route::get('/cart', function () {
     return view('user_page.cart');
 })->name('cart');
 
+Route::get('/edit_konserku', function () {
+    return view('user_page.edit_konserku');
+})->name('edit_konserku');
+
 Route::get('/konser', [KonserController::class, 'index'])->name('konser');
 Route::get('/konser/search', [KonserController::class, 'search'])->name('konser.search');
 Route::get('/konser/kategori/{id}', [KonserController::class, 'kategori']);
@@ -70,6 +74,18 @@ Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
     Route::get('/homeAdmin', function () {
         return view('admin_page.homeAdmin');
     })->name('homeAdmin');
+
+    Route::get('/pembelian', function () {
+        return view('admin_page.pembelian');
+    })->name('pembelian');
+
+    Route::get('/konser_page', function () {
+        return view('admin_page.konser_page');
+    })->name('konser_page');
+
+    Route::get('/detail_konser_page', function () {
+        return view('admin_page.detail_konser_page');
+    })->name('detail_konser_page');
 
     Route::get('/penjualan', function () {
         return view('admin_page.penjualan');

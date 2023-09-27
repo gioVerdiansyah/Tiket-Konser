@@ -23,7 +23,15 @@
 
             <link rel="stylesheet" href="{{ asset('malefashion') }}/css/font-awesome.min.css" type="text/css">
             <link rel="stylesheet" href="{{ asset('malefashion') }}/css/elegant-icons.css" type="text/css">
-
+            <style>
+                .shop__left{
+                    padding-bottom:8px;
+                }
+                .shop__left d{
+                    font-size: 24px;
+                    font-weight: bold;
+                }
+            </style>
             <script nonce="39342a9c-a4b6-4c37-a019-bd53c0eeded9">
                 (function(w, d) {
                     ! function(bg, bh, bi, bj) {
