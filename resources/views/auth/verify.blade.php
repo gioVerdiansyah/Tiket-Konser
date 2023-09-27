@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
-
-                <div class="card-body">
+<div class="limiter" style="height: 100vh;">
+    <div class="container-login100">
+        <div class="login100-more"
+            style="background-image:  url('{{ asset('images/login.jpeg') }}');width: 864px;height: auto;flex-shrink: 0;"></div>
+        <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+                
+                @csrf
+                <span class="login100-form-title p-b-5">
                     @if (session('resent'))
                         <div class="alert alert-success" role="alert">
                             {{ __('A fresh verification link has been sent to your email address.') }}
@@ -18,10 +19,20 @@
                     {{ __('If you did not receive the email') }},
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">Klik disini untuk meminta kirim ulang email.</button>
                     </form>
+                </span>
+                <div class="container-login100-form-btn mt-4">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn">
+
+                        </div>
+                        <a style="text-decoration: none" href="{{ route('login') }}" class="login100-form-btn" id="signup-button">
+                            Masuk
+                        </a>
+                    </div>
                 </div>
-            </div>
+                </div>
         </div>
     </div>
 </div>

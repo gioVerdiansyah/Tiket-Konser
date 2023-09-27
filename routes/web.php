@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index')->middleware('CekAdmin');
 
+// Route::middleware(['web', 'guest'])->group(function () {
+// });
 Auth::routes(['verify' => true]);
 
 // Route::get('/email/verify', [VerificationController::class, 'notice'])->name('verification.notice');
@@ -75,9 +77,6 @@ Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
 });
 
 
-
-Auth::routes();
-
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['CekRole:user,admin'])->group(function () {
@@ -85,8 +84,6 @@ Route::middleware(['CekRole:user,admin'])->group(function () {
         return view('user_page.home');
     });
 });
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

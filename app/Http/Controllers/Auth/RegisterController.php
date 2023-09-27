@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -64,15 +65,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        session()->flash('message', [
-            'title' => "Berhasil",
-            'text' => "Berhasil register"
-        ]);
+        // Generate a random verification token
+        $verification_token = \Illuminate\Support\Str::random(40);
 
-        return User::create([
+        // Create the user with the verification token
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'verification_token' => $verification_token, 
         ]);
+
+        // Trigger the email verification event
+        event(new Registered($user));
+
+        // Flash a success message
+        session()->flash('message', [
+            'title' => 'Berhasil',
+            'text' => 'Berhasil register. Silakan cek email Anda untuk verifikasi.',
+        ]);
+
+        return $user;
     }
 }

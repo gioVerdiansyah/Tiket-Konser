@@ -17,6 +17,8 @@
         }
 
         .nav-tabs .nav-link {
+            color: #0000008c;
+            /* opacity: 60%; */
             border-bottom: 1px solid transparent;
             border-top: none;
             border-left: none;
@@ -25,7 +27,8 @@
         }
 
         .nav-tabs .nav-link.active {
-            border-bottom-color: #1170ff;
+            border-bottom-color: #000000;
+            color: #000000
         }
 
         .count {
@@ -40,12 +43,13 @@
 
         .label {
             /* background-color: #F0F0F0; */
-            color: #1170ff;
+            color: #000000;
             cursor: pointer;
             font-size: 18px;
             padding: 15px 25px;
             border-radius: 15px;
-            margin-left: 5px
+            margin-left: 5px;
+            background-color: #F0F0F0;
         }
 
         #lang-1:checked~.label-1,
@@ -154,7 +158,7 @@
                         <h4 class="fw-bold left-align">DETAIL KONSER</h4>
                         <p class="left-align">{{ $konser->nama_konser }}</p>
                         @if (isset($konser->deskripsi))
-                            <p>{{ $konser->deskripsi }}</p>
+                            <p class="left-align">{{ $konser->deskripsi }}</p>
                         @else
                             <p>Penjual tidak menambahkan deskripsi...</p>
                         @endif
@@ -266,8 +270,8 @@
                 <div class="modal-body text-center">
                     <div class="modal-body">
                         <div id="map" style="width: 100%; height: 400px;"></div>
-                        <div class="nama-tempat text-start">
-                            <h5>Nama Tempat:</h5>
+                        <div class="nama-tempat text-start mt-3">
+                            <h5>Nama Tempat :</h5>
                             <p>{{ $konser->tempat }}</p>
                         </div>
                     </div>

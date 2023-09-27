@@ -153,7 +153,7 @@
          </div>
      @endif
 
-     <div class="container ">
+     <div class="container mb-5 mt-5">
          <form id="eventForm" action="{{ route('buatkonser.store') }}" method="POST" enctype="multipart/form-data"
              class="d-flex justify-content-center">
              @csrf
