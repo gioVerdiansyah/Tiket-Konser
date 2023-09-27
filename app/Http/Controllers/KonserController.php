@@ -22,7 +22,7 @@ class KonserController extends Controller
     public function index()
     {
         $kategoris = Kategori::all();
-        $konsers = Konser::paginate(12);
+        $konsers = Konser::with('tiket')->paginate(12);
         return view('user_page.konser', compact('konsers', 'kategoris'));
     }
 
@@ -131,14 +131,34 @@ class KonserController extends Controller
             ->paginate(12);
         return view('user_page.konserku', compact('konserku'));
     }
-    public function search(Request $search)
+    public function search(Request $request)
     {
-        $konsers = Konser::select('nama_konser', 'alamat')
-            ->where('nama_konser', 'like', '%' . $search->search . '%')
-            ->paginate(12);
+        $konsers = Konser::with('tiket')->where('nama_konser', 'like', '%' . $request->search . '%')
+            ->whereHas('tiket', function ($query) use ($request) {
+                $query->where(function ($subQuery) use ($request) {
+                    $subQuery->whereRaw('CAST(harga1 AS SIGNED) >= ?', [$request->harga_min])
+                        ->orWhereRaw('CAST(harga2 AS SIGNED) >= ?', [$request->harga_min])
+                        ->orWhereRaw('CAST(harga3 AS SIGNED) >= ?', [$request->harga_min])
+                        ->orWhereRaw('CAST(harga4 AS SIGNED) >= ?', [$request->harga_min])
+                        ->orWhereRaw('CAST(harga5 AS SIGNED) >= ?', [$request->harga_min]);
+                })->where(function ($subQuery) use ($request) {
+                    $subQuery->whereRaw('CAST(harga1 AS SIGNED) <= ?', [$request->harga_max])
+                        ->orWhereRaw('CAST(harga2 AS SIGNED) <= ?', [$request->harga_max])
+                        ->orWhereRaw('CAST(harga3 AS SIGNED) <= ?', [$request->harga_max])
+                        ->orWhereRaw('CAST(harga4 AS SIGNED) <= ?', [$request->harga_max])
+                        ->orWhereRaw('CAST(harga5 AS SIGNED) <= ?', [$request->harga_max]);
+                });
+            });
+        if (!empty($request->kategori)) {
+            $konsers->whereIn('kategori_id', $request->kategori);
+        }
+
+        $konsers = $konsers->paginate(12);
+
 
         // Mengembalikan tampilan dengan hasil pencarian ke view
-        return view('user_page.konser', compact('konsers'));
+        $kategoris = Kategori::all();
+        return view('user_page.konser', compact('konsers', 'kategoris'));
     }
     // verdi
     public function detailTiket($id)
