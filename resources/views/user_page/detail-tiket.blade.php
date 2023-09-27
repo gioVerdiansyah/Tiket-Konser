@@ -92,34 +92,39 @@
 
                     <p>Stok : {{ $tiket->jumlah_tiket }}</p>
 
-                    <input type="radio" id="lang-1" name="price" value="{{ $tiket->harga1 }}" class="radio" checked>
+                    <input type="radio" id="lang-1" name="price" value="{{ $tiket->kategoritiket1 }}" class="radio"
+                        checked>
                     <label class="label label-1" for="lang-1">{{ strtoupper($tiket->kategoritiket1) }}</label>
                     <input type="radio" id="kategori-lang-1" name="kategori_tiket" value="{{ $tiket->kategoritiket1 }}"
                         hidden checked>
 
                     @if (isset($tiket->kategoritiket2) && isset($tiket->harga2))
-                        <input type="radio" id="lang-2" name="price" value="{{ $tiket->harga2 }}" class="radio">
+                        <input type="radio" id="lang-2" name="price" value="{{ $tiket->kategoritiket2 }}"
+                            class="radio">
                         <label class="label label-2" for="lang-2">{{ strtoupper($tiket->kategoritiket2) }}</label>
                         <input type="radio" id="kategori-lang-2" name="kategori_tiket"
                             value="{{ $tiket->kategoritiket2 }}" hidden>
                     @endif
 
                     @if (isset($tiket->kategoritiket3) && isset($tiket->harga3))
-                        <input type="radio" id="lang-3" name="price" value="{{ $tiket->harga3 }}" class="radio">
+                        <input type="radio" id="lang-3" name="price" value="{{ $tiket->kategoritiket3 }}"
+                            class="radio">
                         <label class="label label-3" for="lang-3">{{ strtoupper($tiket->kategoritiket3) }}</label>
                         <input type="radio" id="kategori-lang-3" name="kategori_tiket"
                             value="{{ $tiket->kategoritiket3 }}" hidden>
                     @endif
 
                     @if (isset($tiket->kategoritiket4) && isset($tiket->harga4))
-                        <input type="radio" id="lang-4" name="price" value="{{ $tiket->harga4 }}" class="radio">
+                        <input type="radio" id="lang-4" name="price" value="{{ $tiket->kategoritiket4 }}"
+                            class="radio">
                         <label class="label label-4" for="lang-4">{{ strtoupper($tiket->kategoritiket4) }}</label>
                         <input type="radio" id="kategori-lang-4" name="kategori_tiket"
                             value="{{ $tiket->kategoritiket4 }}" hidden>
                     @endif
 
                     @if (isset($tiket->kategoritiket5) && isset($tiket->harga5))
-                        <input type="radio" id="lang-5" name="price" value="{{ $tiket->harga5 }}" class="radio">
+                        <input type="radio" id="lang-5" name="price" value="{{ $tiket->kategoritiket5 }}"
+                            class="radio">
                         <label class="label label-5" for="lang-5">{{ strtoupper($tiket->kategoritiket5) }}</label>
                         <input type="radio" id="kategori-lang-5" name="kategori_tiket"
                             value="{{ $tiket->kategoritiket5 }}" hidden>

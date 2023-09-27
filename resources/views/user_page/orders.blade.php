@@ -3,24 +3,33 @@
     <div class="container">
         <h1>Daftar Order</h1>
         <ul class="list-group">
-            @for ($i = 1; $i <= 5; $i++)
+            @forelse ($orders as $order)
+                {{-- @dump($order) --}}
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col-md-3">
-                            <img src="{{ asset('foto/ooh.jpg') }}" alt="Gambar Konser" class="img-fluid">
+                            <img src="{{ asset('storage/image/konser/banner/' . $order->konser->banner) }}"
+                                alt="Gambar Konser" class="img-fluid">
                         </div>
                         <div class="col-md-6">
-                            <h4>Nama Konser</h4>
-                            <p>Jumlah Tiket: 2</p>
-                            <p>Kategori: VIP</p>
-                            <p>Harga: $200</p>
+                            <h4>{{ $order->konser->nama_konser }}</h4>
+                            <p class="m-0">Kategori: {{ $order->kategori_tiket }}</p>
+                            <p class="m-0">Harga Satu Tiket: @currency($order->harga_satuan)</p>
+                            <p class="m-0">Jumlah Tiket: {{ $order->jumlah }}</p>
+                            <p class="m-0">Total Harga: @currency($order->total_price)</p>
                         </div>
                         <div class="col-md-3 d-flex justify-content-center align-items-center">
-                            <button class="btn btn-primary">Bayar Sekarang</button>
+                            <form action="{{ route('orders.show', $order->id) }}">
+                                <button class="btn btn-primary">Bayar Sekarang</button>
+                            </form>
                         </div>
                     </div>
                 </li>
-            @endfor
+            @empty
+                <li class="list-group-item">
+                    <p>Belum memesan tiket apapun...</p>
+                </li>
+            @endforelse
         </ul>
     </div>
 @endsection

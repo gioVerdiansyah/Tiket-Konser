@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Konser;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Services\Midtrans\CreateSnapTokenService;
@@ -14,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // $order = Order::where('id', 7)->first();
+        // $order = Order::where('id', 1)->first();
 
         // $midtrans = new CreateSnapTokenService($order);
         // $snapToken = $midtrans->getSnapToken();
@@ -23,7 +24,8 @@ class OrderController extends Controller
         // $order->save();
 
         // return view('user_page.test', compact('order', 'snapToken'));
-        return view('user_page.orders');
+        $orders = Order::with('konser')->where('user_id', Auth::user()->id)->get();
+        return view('user_page.orders', compact('orders'));
     }
 
     /**
@@ -39,9 +41,16 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dump($request->all());
+        $request->validate([
+            'konser_id' => 'integer|exists:konsers,id',
+            'price' => "integer"
+        ]);
         $order = new Order;
         $order->user_id = Auth::user()->id;
+        $konser = Konser::with('tiket')->whereHas('tiket', function ($query) use ($request) {
+
+        })->where('id', $request->konser_id)->firstOrFail();
+        $tiket = $konser->tiket[0];
         $order->konser_id = $request->konser_id;
 
         // fungsi
@@ -71,18 +80,28 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $snapToken = $order->snap_token;
-        if (empty($snapToken)) {
-            // Jika snap token masih NULL, buat token snap dan simpan ke database
-
-            $midtrans = new CreateSnapTokenService($order);
-            $snapToken = $midtrans->getSnapToken();
-
-            $order->snap_token = $snapToken;
-            $order->save();
+        // HARD VALIDATOR!!!
+        if ($order->user_id !== Auth::user()->id) {
+            return back()->with('message', [
+                'icon' => 'warning',
+                'title' => "Peringatan!",
+                'text' => "Jangan mengubah-ubah alamat form!!!!"
+            ]);
         }
 
-        return view('user_page.test', compact('order', 'snapToken'));
+        echo "berhasil masuk!!";
+        // $snapToken = $order->snap_token;
+        // if (empty($snapToken)) {
+        //     // Jika snap token masih NULL, buat token snap dan simpan ke database
+
+        //     $midtrans = new CreateSnapTokenService($order);
+        //     $snapToken = $midtrans->getSnapToken();
+
+        //     $order->snap_token = $snapToken;
+        //     $order->save();
+        // }
+
+        // return view('user_page.test', compact('order', 'snapToken'));
     }
 
     /**
