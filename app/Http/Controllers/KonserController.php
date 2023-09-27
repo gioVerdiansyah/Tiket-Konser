@@ -285,20 +285,22 @@ class KonserController extends Controller
         $konser->deskripsi = $request->deskripsi;
         $konser->kategori_id = intval($request->kategori);
 
-        $konser->tiket->jumlah_tiket = $request->jumlahtiket;
-        $konser->tiket->kategoritiket1 = $request->kategoritiket1;
-        $konser->tiket->harga1 = $request->harga1;
-        $konser->tiket->kategoritiket2 = $request->filled('kategoritiket2') ? $request->kategoritiket2 : null;
-        $konser->tiket->harga2 = $request->filled('harga2') ? $request->harga2 : null;
-        $konser->tiket->kategoritiket3 = $request->filled('kategoritiket3') ? $request->kategoritiket3 : null;
-        $konser->tiket->harga3 = $request->filled('harga3') ? $request->harga3 : null;
-        $konser->tiket->kategoritiket4 = $request->filled('kategoritiket4') ? $request->kategoritiket4 : null;
-        $konser->tiket->harga4 = $request->filled('harga4') ? $request->harga4 : null;
-        $konser->tiket->kategoritiket5 = $request->filled('kategoritiket5') ? $request->kategoritiket5 : null;
-        $konser->tiket->harga5 = $request->filled('harga5') ? $request->harga5 : null;
+        $tiket = Tiket::where('konser_id', $konser->id)->first();
+        $tiket->jumlah_tiket = $request->jumlahtiket;
+        $tiket->kategoritiket1 = $request->kategoritiket1;
+        $tiket->harga1 = $request->harga1;
+        $tiket->kategoritiket2 = $request->filled('kategoritiket2') ? $request->kategoritiket2 : null;
+        $tiket->harga2 = $request->filled('harga2') ? $request->harga2 : null;
+        $tiket->kategoritiket3 = $request->filled('kategoritiket3') ? $request->kategoritiket3 : null;
+        $tiket->harga3 = $request->filled('harga3') ? $request->harga3 : null;
+        $tiket->kategoritiket4 = $request->filled('kategoritiket4') ? $request->kategoritiket4 : null;
+        $tiket->harga4 = $request->filled('harga4') ? $request->harga4 : null;
+        $tiket->kategoritiket5 = $request->filled('kategoritiket5') ? $request->kategoritiket5 : null;
+        $tiket->harga5 = $request->filled('harga5') ? $request->harga5 : null;
 
         if ($konser->isDirty()) {
             $konser->save();
+            $konser->tiket()->save($tiket);
             return back()->with('message', [
                 'title' => "Berhasil",
                 "text" => "Berhasil memperbarui konser!"

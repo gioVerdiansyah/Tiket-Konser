@@ -52,4 +52,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Konser::class);
     }
+    public function order(): HasOne
+    {
+        return $this->hasOne(Order::class);
+    }
 }

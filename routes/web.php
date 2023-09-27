@@ -67,7 +67,7 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
         return view('user_page.history');
     })->name('history');
     Route::resource('/buatkonser', KonserController::class);
-    Route::resource('orders', OrderController::class)->only(['index', 'show']);
+    Route::resource('orders', OrderController::class);
 });
 // Admin
 Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {

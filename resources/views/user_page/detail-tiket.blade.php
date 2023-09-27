@@ -79,7 +79,9 @@
                     style="width: 300px" alt="">
             </div>
             <div class="col-6 text-left mt-5">
-                <form>
+                <form action="{{ route('orders.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="konser_id" value="{{ $konser->id }}">
                     <h3 class="fw-bold">{{ $konser->nama_konser }}</h3>
                     <h5 class="fw-bold" id="harga">Rp. {{ number_format($tiket->harga1, 0, ',', '.') }}</h5>
                     @if (isset($konser->deskripsi))
@@ -90,27 +92,37 @@
 
                     <p>Stok : {{ $tiket->jumlah_tiket }}</p>
 
-                    <input type="radio" id="lang-1" name="lang" value="{{ $tiket->harga1 }}" class="radio" checked>
+                    <input type="radio" id="lang-1" name="price" value="{{ $tiket->harga1 }}" class="radio" checked>
                     <label class="label label-1" for="lang-1">{{ strtoupper($tiket->kategoritiket1) }}</label>
+                    <input type="radio" id="kategori-lang-1" name="kategori_tiket" value="{{ $tiket->kategoritiket1 }}"
+                        hidden checked>
 
                     @if (isset($tiket->kategoritiket2) && isset($tiket->harga2))
-                        <input type="radio" id="lang-2" name="lang" value="{{ $tiket->harga2 }}" class="radio">
+                        <input type="radio" id="lang-2" name="price" value="{{ $tiket->harga2 }}" class="radio">
                         <label class="label label-2" for="lang-2">{{ strtoupper($tiket->kategoritiket2) }}</label>
+                        <input type="radio" id="kategori-lang-2" name="kategori_tiket"
+                            value="{{ $tiket->kategoritiket2 }}" hidden>
                     @endif
 
                     @if (isset($tiket->kategoritiket3) && isset($tiket->harga3))
-                        <input type="radio" id="lang-3" name="lang" value="{{ $tiket->harga3 }}" class="radio">
+                        <input type="radio" id="lang-3" name="price" value="{{ $tiket->harga3 }}" class="radio">
                         <label class="label label-3" for="lang-3">{{ strtoupper($tiket->kategoritiket3) }}</label>
+                        <input type="radio" id="kategori-lang-3" name="kategori_tiket"
+                            value="{{ $tiket->kategoritiket3 }}" hidden>
                     @endif
 
                     @if (isset($tiket->kategoritiket4) && isset($tiket->harga4))
-                        <input type="radio" id="lang-4" name="lang" value="{{ $tiket->harga4 }}" class="radio">
+                        <input type="radio" id="lang-4" name="price" value="{{ $tiket->harga4 }}" class="radio">
                         <label class="label label-4" for="lang-4">{{ strtoupper($tiket->kategoritiket4) }}</label>
+                        <input type="radio" id="kategori-lang-4" name="kategori_tiket"
+                            value="{{ $tiket->kategoritiket4 }}" hidden>
                     @endif
 
                     @if (isset($tiket->kategoritiket5) && isset($tiket->harga5))
-                        <input type="radio" id="lang-5" name="lang" value="{{ $tiket->harga5 }}" class="radio">
+                        <input type="radio" id="lang-5" name="price" value="{{ $tiket->harga5 }}" class="radio">
                         <label class="label label-5" for="lang-5">{{ strtoupper($tiket->kategoritiket5) }}</label>
+                        <input type="radio" id="kategori-lang-5" name="kategori_tiket"
+                            value="{{ $tiket->kategoritiket5 }}" hidden>
                     @endif
 
                     <hr>
@@ -119,18 +131,15 @@
                             <button type="button" id="minus" class="minus">
                                 <i class="bi bi-dash-lg"></i>
                             </button>
-                            <input type="number" id="count" class="form-control" max="{{ $tiket->jumlah_tiket }}"
-                                value="1" style="width: 50px;text-align: end;padding: 10px 5px;">
+                            <input type="number" id="count" name="jumlah" class="form-control"
+                                max="{{ $tiket->jumlah_tiket }}" value="1"
+                                style="width: 50px;text-align: end;padding: 10px 5px;">
                             <button type="button" id="plus" class="plus">
                                 <i class="bi bi-plus-lg"></i>
                             </button>
                         </div>
                         <div class="pesan col-9 mx-4">
-                            {{-- <a href="/cart" class="btn btn-dark d-flex justify-content-center align-items-center rounded-5"
-                            style="height: 60px;">
-                            <span>Pesan Sekarang</span>
-                        </a> --}}
-                            <button type="submit"
+                            <button type="submit" id="buatpesanan"
                                 class="btn btn-dark d-flex justify-content-center align-items-center rounded-5"
                                 style="height: 60px;">Pesan sekarang</button>
                         </div>
@@ -306,7 +315,7 @@
     {{-- click kategori tiket harga auto berubah --}}
     <script>
         // Dapatkan semua input radio dengan nama "lang"
-        var radioInputs = document.querySelectorAll('input[name="lang"]');
+        var radioInputs = document.querySelectorAll('input[name="price"]');
 
         // Dapatkan elemen h5 dengan id "harga"
         var hargaElement = document.getElementById('harga');
@@ -338,6 +347,27 @@
             return split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         }
     </script>
+    <script>
+        // Memilih semua input radio harga
+        const radioHarga = document.querySelectorAll('[name="price"]');
+
+        // Memantau perubahan pada input radio harga
+        radioHarga.forEach((radio) => {
+            radio.addEventListener('change', function() {
+                // Mendapatkan id dari input radio yang terpilih
+                const selectedId = this.id;
+
+                // Mendapatkan id dari input kategori tiket yang sesuai dengan input radio yang terpilih
+                const kategoriId = 'kategori-' + selectedId;
+
+                // Mendapatkan input kategori tiket yang sesuai
+                const kategoriInput = document.getElementById(kategoriId);
+
+                // Mengatur status input kategori tiket sesuai dengan input radio yang terpilih
+                kategoriInput.checked = this.checked;
+            });
+        });
+    </script>
 
     {{-- END click kategori tiket harga auto berubah --}}
 
@@ -366,7 +396,7 @@
             e.preventDefault();
             let i = parseInt($('#count').val());
 
-            if (i > 0) {
+            if (i > 1) {
                 $('#count').val(i - 1);
             }
 

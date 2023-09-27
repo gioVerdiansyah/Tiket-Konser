@@ -71,6 +71,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('konserku') }}">Konserku</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('orders.index') }}">Orders</a>
+                            </li>
                         @endauth
                 </div>
                 <div class="navbar-nav ml-auto">
