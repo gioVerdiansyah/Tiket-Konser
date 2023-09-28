@@ -144,6 +144,9 @@
                                 style="height: 60px;">Pesan sekarang</button>
                         </div>
                     </div>
+                    @error('jumlah')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </form>
             </div>
         </div>
