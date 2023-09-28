@@ -91,6 +91,11 @@ Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
     Route::get('/penjualan', function () {
         return view('admin_page.penjualan');
     })->name('penjualan');
+
+    Route::get('/list-konser', function () {
+        return view('admin_page.list-order');
+    })->name('list-konser');
+
 });
 
 
