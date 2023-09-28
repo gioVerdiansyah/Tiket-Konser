@@ -4,168 +4,215 @@ namespace App\Http\Controllers;
 
 use App\Models\Konser;
 use App\Models\Order;
+use App\Models\TransactionHistory;
 use Illuminate\Http\Request;
 use App\Services\Midtrans\CreateSnapTokenService;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 */
-	public function index()
-	{
-		// $order = Order::where('id', 1)->first();
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        // $order = Order::where('id', 1)->first();
 
-		// $midtrans = new CreateSnapTokenService($order);
-		// $snapToken = $midtrans->getSnapToken();
+        // $midtrans = new CreateSnapTokenService($order);
+        // $snapToken = $midtrans->getSnapToken();
 
-		// $order->snap_token = $snapToken;
-		// $order->save();
+        // $order->snap_token = $snapToken;
+        // $order->save();
 
-		// return view('user_page.test', compact('order', 'snapToken'));
-		$orders = Order::with('konser')->where('user_id', Auth::user()->id)->get();
-		return view('user_page.orders', compact('orders'));
-	}
+        // return view('user_page.test', compact('order', 'snapToken'));
+        $orders = Order::with('konser')->where('user_id', Auth::user()->id)->get();
 
-	/**
-	 * Show the form for creating a new resource.
-	 */
-	public function create()
-	{
-		//
-	}
+        foreach ($orders as $order) {
+            $snapToken = $order->snap_token;
+            if (empty($snapToken)) {
 
-	/**
-	 * Store a newly created resource in storage.
-	 */
-	public function store(Request $request)
-	{
-		$request->validate([
-			'konser_id' => 'integer|exists:konsers,id',
-			'price' => "integer"
-		]);
-		$order = new Order;
-		$order->user_id = Auth::user()->id;
-		$konserId = $request->konser_id;
-		$kategoriTiket = $request->kategori_tiket;
-		$konser = Konser::with('tiket')->where('id', $konserId)->firstOrFail();
-		$tiket = $konser->tiket[0];
-		$order->konser_id = $request->konser_id;
+                $midtrans = new CreateSnapTokenService($order);
+                $snapToken = $midtrans->getSnapToken();
 
-		$hargaValid = false;
-		if ($tiket->harga1 == $request->price) {
-			$hargaValid = true;
-		} elseif (isset($tiket->harga2) && $tiket->harga2 == $request->price) {
-			$hargaValid = true;
-		} elseif (isset($tiket->harga3) && $tiket->harga3 == $request->price) {
-			$hargaValid = true;
-		} elseif (isset($tiket->harga4) && $tiket->harga4 == $request->price) {
-			$hargaValid = true;
-		} elseif (isset($tiket->harga5) && $tiket->harga5 == $request->price) {
-			$hargaValid = true;
-		}
+                $order->snap_token = $snapToken;
+                $order->save();
+            }
+        }
 
-		if (!$hargaValid) {
-			return back()->with('message', [
-				'icon' => "warning",
-				'title' => "Hayolooo",
-				'text' => "Antum pasti mengubah harganyaaa~"
-			]);
-		}
-		$kategoriValid = false;
-		if ($tiket->kategoritiket1 == $request->kategori_tiket) {
-			$kategoriTiket = true;
-		} elseif (isset($tiket->kategoritiket2) && $tiket->kategoritiket2 == $request->kategori_tiket) {
-			$kategoriTiket = true;
-		} elseif (isset($tiket->kategoritiket3) && $tiket->kategoritiket3 == $request->kategori_tiket) {
-			$kategoriTiket = true;
-		} elseif (isset($tiket->kategoritiket4) && $tiket->kategoritiket4 == $request->kategori_tiket) {
-			$kategoriTiket = true;
-		} elseif (isset($tiket->kategoritiket5) && $tiket->kategoritiket5 == $request->kategori_tiket) {
-			$kategoriTiket = true;
-		}
+        return view('user_page.orders', compact('orders'));
+    }
 
-		if (!$kategoriValid) {
-			return back()->with('message', [
-				'icon' => "warning",
-				'title' => "Hayolooo",
-				'text' => "Antum pasti mengubah nama ketegori tiketnya~"
-			]);
-		}
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
 
-		// fungsi
-		$total_price = $request->price * $request->jumlah;
-		$konserId = $request->konser_id;
-		$kategoriTiket = $request->kategori_tiket;
-		$timestamp = now()->format('YmdHis');
-		$idPemesanan = $konserId . $kategoriTiket . $timestamp;
-		$idPemesanan = substr($idPemesanan, 0, 16);
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'konser_id' => 'integer|exists:konsers,id',
+            'price' => "integer",
+            'kategori_tiket' => 'required|string',
+            'jumlah' => 'required|integer|min:1|max:5'
+        ]);
 
-		$order->number = $idPemesanan;
-		$order->harga_satuan = $request->price;
-		$order->total_price = $total_price;
-		$order->kategori_tiket = $request->kategori_tiket;
-		$order->jumlah = $request->jumlah;
-		$order->save();
+        $order = new Order;
+        $order->user_id = Auth::user()->id;
+        $konserId = $request->konser_id;
+        $kategoriTiket = $request->kategori_tiket;
+        $konser = Konser::with('tiket')->where('id', $konserId)->firstOrFail();
+        $tiket = $konser->tiket[0];
+        $order->konser_id = $request->konser_id;
 
-		return back()->with('message', [
-			'title' => "Berhasil!",
-			'text' => "Berhasil memesan tiket konser"
-		]);
-	}
+        $kategoriValid = false;
 
-	/**
-	 * Display the specified resource.
-	 */
+        switch ($request->kategori_tiket) {
+            case $tiket->kategoritiket1:
+                if ($request->price == $tiket->harga1) {
+                    $kategoriValid = true;
+                }
+                break;
+            case $tiket->kategoritiket2:
+                if ($request->price == $tiket->harga2) {
+                    $kategoriValid = true;
+                }
+                break;
+            case $tiket->kategoritiket3:
+                if ($request->price == $tiket->harga3) {
+                    $kategoriValid = true;
+                }
+                break;
+            case $tiket->kategoritiket4:
+                if ($request->price == $tiket->harga4) {
+                    $kategoriValid = true;
+                }
+                break;
+            case $tiket->kategoritiket5:
+                if ($request->price == $tiket->harga5) {
+                    $kategoriValid = true;
+                }
+                break;
+            default:
+                $kategoriValid = false;
+                break;
+        }
 
-	public function show(Order $order)
-	{
-		// HARD VALIDATOR!!!
-		if ($order->user_id !== Auth::user()->id) {
-			return back()->with('message', [
-				'icon' => 'warning',
-				'title' => "Peringatan!",
-				'text' => "Jangan mengubah-ubah alamat form!!!!"
-			]);
-		}
+        if (!$kategoriValid) {
+            return back()->with('message', [
+                'icon' => "warning",
+                'title' => "Hayolooo",
+                'text' => "Antum pasti mengubah ubah value di inputannya!"
+            ]);
+        }
 
-		echo "berhasil masuk!!";
-		// $snapToken = $order->snap_token;
-		// if (empty($snapToken)) {
-		//     // Jika snap token masih NULL, buat token snap dan simpan ke database
+        // fungsi
+        $total_price = $request->price * $request->jumlah;
+        $konserId = $request->konser_id;
+        $order->number = uniqid();
+        $order->harga_satuan = $request->price;
+        $order->total_price = $total_price;
+        $order->kategori_tiket = $request->kategori_tiket;
+        $order->jumlah = $request->jumlah;
+        $order->save();
 
-		//     $midtrans = new CreateSnapTokenService($order);
-		//     $snapToken = $midtrans->getSnapToken();
+        return back()->with('message', [
+            'title' => "Berhasil!",
+            'text' => "Berhasil memesan tiket konser"
+        ]);
+    }
 
-		//     $order->snap_token = $snapToken;
-		//     $order->save();
-		// }
+    /**
+     * Display the specified resource.
+     */
 
-		// return view('user_page.test', compact('order', 'snapToken'));
-	}
+    public function show(Order $order)
+    {
+        // HARD VALIDATOR!!!
+        if ($order->user_id !== Auth::user()->id) {
+            return back()->with('message', [
+                'icon' => 'warning',
+                'title' => "Peringatan!",
+                'text' => "Jangan mengubah-ubah alamat form!!!!"
+            ]);
+        }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 */
-	public function edit(Order $order)
-	{
-		//
-	}
+        echo "berhasil masuk!!";
+        // $snapToken = $order->snap_token;
+        // if (empty($snapToken)) {
+        //     // Jika snap token masih NULL, buat token snap dan simpan ke database
 
-	/**
-	 * Update the specified resource in storage.
-	 */
-	public function update(Request $request, Order $order)
-	{
-		//
-	}
+        //     $midtrans = new CreateSnapTokenService($order);
+        //     $snapToken = $midtrans->getSnapToken();
 
-	/**
-	 * Remove the specified resource from storage.
-	 */
-	public function destroy(Order $order)
-	{
-		//
-	}
+        //     $order->snap_token = $snapToken;
+        //     $order->save();
+        // }
+
+        // return view('user_page.test', compact('order', 'snapToken'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Order $order)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Order $order)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Order $order)
+    {
+        //
+    }
+
+    // transaksi
+    public function trans(Request $request)
+    {
+        $order = Order::where('number', $request->order_id)->firstOrFail();
+
+        $transactionHistoryData = [
+            'approval_code' => $request->approval_code,
+            'bank' => $request->bank,
+            'card_type' => $request->card_type,
+            'fraud_status' => $request->fraud_status,
+            'gross_amount' => $request->gross_amount,
+            'masked_card' => $request->masked_card,
+            'payment_type' => $request->payment_type,
+            'status_message' => $request->status_message,
+            'transaction_id' => $request->transaction_id,
+            'transaction_status' => $request->transaction_status,
+            'transaction_time' => $request->transaction_time,
+            'order_id' => $order->id,
+        ];
+
+        TransactionHistory::create($transactionHistoryData);
+
+        if ($request->status_code == 200 || $request->status_code == 201) {
+            $order->payment_status = 2;
+        } elseif ($request->status_code == 406) {
+            $order->payment_status = 3;
+        } else {
+            $order->payment_status = 4;
+        }
+
+        $order->save();
+
+        return response()->json(['message' => 'Transaksi berhasil diproses!']);
+    }
 }

@@ -68,6 +68,7 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
     })->name('history');
     Route::resource('/buatkonser', KonserController::class);
     Route::resource('orders', OrderController::class);
+    Route::post('/orders/trans', [OrderController::class, 'trans'])->name('sendTrans');
 });
 // Admin
 Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
