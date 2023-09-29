@@ -229,38 +229,61 @@
                         <h4 class="">KOMENTAR <span>(2)</span></h4>
                     </div>
 
-                    <!-- Form untuk Berkomentar -->
-                    <div class="comment-form">
-                        <form action="" method="POST" class="d-flex flex-column">
-                            @csrf
-                            <div class="form-group">
-                                <textarea class="form-control" id="komentar" name="komentar" rows="3" placeholder="Tulis komentar Anda"
-                                    required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-3" style="width: max-content">Kirim
-                                Komentar</button>
-                        </form>
-                    </div>
-
-                    <!-- List Komentar User -->
-                    <div class="comment-list mt-4">
-                        <!-- Komentar 1 -->
-                        <div class="comment d-flex flex-cloumn align-items-start">
-                            <div class="user-info">
-                                <div class="d-flex flex-row align-items-center">
-                                    <img src="{{ asset('storage/image/photo-user/profil.jpeg') }}"
-                                        alt="Foto Profil Verdi" width="40">
-                                    <p class="ms-2 mb-0"><strong>Verdi</strong></p>
+                    @if ($orderExists)
+                        <!-- Form untuk Berkomentar -->
+                        <div class="comment-form">
+                            <form id="comment-form" action="{{ route('comment', $konser->id) }}" method="POST"
+                                class="d-flex flex-column">
+                                @csrf
+                                <div class="form-group">
+                                    <textarea class="form-control" id="komentar" name="fillin" rows="3" placeholder="Tulis komentar Anda"
+                                        required></textarea>
                                 </div>
-                                <div class="text-start" style="max-width: 90%">
-                                    <p>10 September 2023</p>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem
-                                        nostrum eius itaque?
-                                        Quasi, mollitia ipsum?</p>
-                                </div>
-                            </div>
+                                <button type="submit" class="btn btn-primary mt-3" style="width: max-content">Kirim
+                                    Komentar</button>
+                            </form>
                         </div>
-                    </div>
+
+                        @forelse ($konser->comment->sortByDesc('created_at') as $comment)
+                            <div class="comment-list mt-4" id="comment-list">
+                                <div class="comment d-flex align-items-start">
+                                    <div class="user-info">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
+                                                alt="Foto Profil Verdi" width="40">
+                                            <div class="d-flex flex-column text-start ms-3">
+                                                <p class="mb-0"><strong>{{ $comment->user->name }}</strong></p>
+                                                <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
+                                                </p>
+                                            </div>
+                                            <div class="nav-item dropdown">
+                                                <a class="nav-link" href="#" id="profileDropdown" role="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-three-dots-vertical ms-3"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end"
+                                                    aria-labelledby="profileDropdown">
+                                                    <form action="{{ route('delete-comment', $comment->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item">Hapus</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-start">
+                                            <p>{{ $comment->fillin }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <p>Belum ada komentar, jadilah orang pertama yang berkomentar</p>
+                        @endforelse
+                    @else
+                        <p>Belilah tiket ini untuk memberi ulasan!</p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -275,10 +298,6 @@
     <!-- Memuat jQuery dan script Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> {{-- Anchor Detail Konser dan Ulasan End --}}
-
-    {{-- Detail Konser Start --}}
-
-    {{-- Detail Konser End --}}
 
     {{-- Modal Denah Konser Start --}}
     <div class="modal fade" id="denahKonserModal" tabindex="-1" aria-labelledby="denahKonserModalLabel"

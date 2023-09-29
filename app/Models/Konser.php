@@ -35,4 +35,8 @@ class Konser extends Model
             ->selectRaw('count(distinct user_id) as count')
             ->groupBy('konser_id');
     }
+    public function comment(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

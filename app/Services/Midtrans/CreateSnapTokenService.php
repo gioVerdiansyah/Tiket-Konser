@@ -26,7 +26,7 @@ class CreateSnapTokenService extends Midtrans
             'item_details' => [
                 [
                     'id' => $this->order->id,
-                    'price' => $this->order->harga_satuan,
+                    'price' => $this->order->harga_satuan + ($this->order->harga_satuan * 0.05),
                     'quantity' => $this->order->jumlah,
                     'name' => $this->order->kategori_tiket,
                 ]

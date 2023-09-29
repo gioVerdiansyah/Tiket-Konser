@@ -103,7 +103,8 @@ class OrderController extends Controller
         }
 
         // fungsi
-        $total_price = $request->price * $request->jumlah;
+        $admin = ($request->price * $request->jumlah) * (5 / 100);
+        $total_price = $request->price * $request->jumlah + $admin;
         $konserId = $request->konser_id;
         $order->number = uniqid();
         $order->harga_satuan = $request->price;

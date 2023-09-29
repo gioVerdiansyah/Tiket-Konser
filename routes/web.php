@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\KonserController;
 use App\Http\Controllers\BuatKonserController;
 use App\Http\Controllers\Auth\LoginAdminController;
@@ -67,6 +68,9 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
     Route::resource('/buatkonser', KonserController::class);
     Route::resource('orders', OrderController::class);
     Route::post('/orders/trans', [OrderController::class, 'trans'])->name('sendTrans');
+    Route::post('/detail-tiket/{id}/comment', [CommentController::class, 'store'])->name('comment');
+    Route::get('/detail-tiket/{id}/comment/get', [CommentController::class, 'get'])->name('load-comments');
+    Route::delete('/detail-tiket/{id}/comment', [CommentController::class, 'destroy'])->name('delete-comment');
 });
 Route::get('/test', function () {
     return view('user_page.tiketku');

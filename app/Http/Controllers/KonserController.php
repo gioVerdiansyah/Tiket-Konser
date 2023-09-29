@@ -165,7 +165,11 @@ class KonserController extends Controller
     public function detailTiket($id)
     {
         // ini untuk detail tiket saat di konser terbaru di klik
-        $konser = Konser::with('tiket')->where('id', $id)->firstOrFail();
+        $konser = Konser::with('tiket', 'comment')
+            ->where('id', $id)
+            ->latest()
+            ->firstOrFail();
+
         $tiket = $konser->tiket[0];
 
         $orderExists = Order::where('user_id', Auth::user()->id)

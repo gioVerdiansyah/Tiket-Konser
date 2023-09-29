@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -48,12 +48,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function konser(): HasOne
+    public function konser(): HasMany
     {
-        return $this->hasOne(Konser::class);
+        return $this->hasMany(Konser::class);
     }
-    public function order(): HasOne
+    public function order(): HasMany
     {
-        return $this->hasOne(Order::class);
+        return $this->hasMany(Order::class);
+    }
+    public function comment(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 }

@@ -34,18 +34,18 @@
                                 <td>{{ $order->kategori_tiket }}</td>
                                 <td>@currency($order->harga_satuan)</td>
                                 <td>{{ $order->jumlah }}</td>
-                                <td>@currency($order->total_price)</td>
+                                <td>@currency($order->harga_satuan * $order->jumlah)</td>
                             </tr>
 
                             <!-- Kode yang akan ditampilkan jika $orders kosong -->
 
                             <tr>
                                 <td colspan="5" align="right"><strong>Total Harga :</strong></td>
-                                <td align="left"><strong>@currency($order->total_price)</strong></td>
+                                <td align="left"><strong>@currency($order->harga_satuan * $order->jumlah)</strong></td>
                             </tr>
                             <tr>
                                 <td colspan="5" align="right"><strong>Biaya Admin (5%) :</strong></td>
-                                <td align="left"><strong>@currency($order->total_price * 0.05)</strong></td>
+                                <td align="left"><strong>@currency($order->harga_satuan * $order->jumlah * (5 / 100))</strong></td>
                             </tr>
                             {{-- <tr>
                         <td colspan="5" align="right"><strong>Total yang harus ditransfer :</strong></td>
@@ -53,7 +53,7 @@
                     </tr> --}}
                             <tr>
                                 <td colspan="5" align="right"><strong>Total yang harus dibayar :</strong></td>
-                                <td align="left"><strong>@currency($order->total_price + $order->total_price * 0.05)</strong></td>
+                                <td align="left"><strong>@currency($order->total_price)</strong></td>
                             </tr>
                             <tr>
                                 <td colspan="5" align="right"><strong>Status :</strong></td>
@@ -95,7 +95,7 @@
     </div>
 @empty
     <li class="list-group-item">
-        <p>Belum memesan tiket apapun...</p>
+        <p class="my-3 text-center">Belum memesan tiket apapun...</p>
     </li>
     @endforelse
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
