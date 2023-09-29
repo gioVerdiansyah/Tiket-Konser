@@ -29,4 +29,10 @@ class Konser extends Model
     {
         return $this->hasMany(Order::class);
     }
+    public function uniqueOrderCount()
+    {
+        return $this->hasMany(Order::class)
+            ->selectRaw('count(distinct user_id) as count')
+            ->groupBy('konser_id');
+    }
 }

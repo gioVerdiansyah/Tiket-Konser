@@ -6,6 +6,7 @@ use App\Http\Requests\StoreKonserRequest;
 use App\Http\Requests\UpdateKonserRequest;
 use App\Models\Konser;
 use App\Models\Kategori;
+use App\Models\Order;
 use App\Models\Tiket;
 use DateTime;
 use Illuminate\Http\Request;
@@ -166,7 +167,13 @@ class KonserController extends Controller
         // ini untuk detail tiket saat di konser terbaru di klik
         $konser = Konser::with('tiket')->where('id', $id)->firstOrFail();
         $tiket = $konser->tiket[0];
-        return view('user_page.detail-tiket', compact('konser', 'tiket'));
+
+        $orderExists = Order::where('user_id', Auth::user()->id)
+            ->where('konser_id', $id)
+            ->where('payment_status', 2)
+            ->exists();
+
+        return view('user_page.detail-tiket', compact('konser', 'tiket', 'orderExists'));
     }
 
     public function detail_tiket($id)

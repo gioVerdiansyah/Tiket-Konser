@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,18 @@ class UpdateProfileController extends Controller
     {
         $data_user = User::where('id', Auth::user()->id)->first();
         return view('user_page.profile', compact('data_user'));
+    }
+
+    public function history()
+    {
+        $orders = Order::with(['konser', 'konser.tiket', 'transactionHistory'])->where('user_id', Auth::user()->id)->where('payment_status', '!=', 1)->get();
+        return view('user_page.history', compact('orders'));
+    }
+    public function test()
+    {
+        $orders = Order::with(['konser', 'konser.tiket', 'konser.user', 'transactionHistory'])->where('id', 26)->where('user_id', Auth::user()->id)->where('payment_status', '!=', 1)->firstOrFail();
+        // dd($orders);
+        return view('user_page.tiketku', compact('orders'));
     }
     public function update(UpdateProfileRequest $request, User $user)
     {

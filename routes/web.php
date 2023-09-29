@@ -60,16 +60,17 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
     Route::get('/profile', [UpdateProfileController::class, 'index'])->name('profileUser');
     Route::put('/profile/{user}', [UpdateProfileController::class, 'update'])->name('updateProfile');
     Route::put('/profile/pass/{user}', [UpdateProfileController::class, 'chagePass'])->name('updateProfilePass');
+    Route::get('/profile/history', [UpdateProfileController::class, 'history'])->name('history');
 
     Route::get('/konserku', [KonserController::class, 'konserku'])->name('konserku');
     Route::get('/konserku/search', [KonserController::class, 'searchKonserku'])->name('konserku.search');
-    Route::get('/history', function () {
-        return view('user_page.history');
-    })->name('history');
     Route::resource('/buatkonser', KonserController::class);
     Route::resource('orders', OrderController::class);
     Route::post('/orders/trans', [OrderController::class, 'trans'])->name('sendTrans');
 });
+Route::get('/test', function () {
+    return view('user_page.tiketku');
+})->name('test');
 // Admin
 Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
     Route::get('/homeAdmin', function () {

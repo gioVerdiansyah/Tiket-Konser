@@ -16,16 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // $order = Order::where('id', 1)->first();
-
-        // $midtrans = new CreateSnapTokenService($order);
-        // $snapToken = $midtrans->getSnapToken();
-
-        // $order->snap_token = $snapToken;
-        // $order->save();
-
-        // return view('user_page.test', compact('order', 'snapToken'));
-        $orders = Order::with('konser')->where('user_id', Auth::user()->id)->get();
+        $orders = Order::with('konser')->where('user_id', Auth::user()->id)->where('payment_status', 1)->get();
 
         foreach ($orders as $order) {
             $snapToken = $order->snap_token;
@@ -133,28 +124,6 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        // HARD VALIDATOR!!!
-        if ($order->user_id !== Auth::user()->id) {
-            return back()->with('message', [
-                'icon' => 'warning',
-                'title' => "Peringatan!",
-                'text' => "Jangan mengubah-ubah alamat form!!!!"
-            ]);
-        }
-
-        echo "berhasil masuk!!";
-        // $snapToken = $order->snap_token;
-        // if (empty($snapToken)) {
-        //     // Jika snap token masih NULL, buat token snap dan simpan ke database
-
-        //     $midtrans = new CreateSnapTokenService($order);
-        //     $snapToken = $midtrans->getSnapToken();
-
-        //     $order->snap_token = $snapToken;
-        //     $order->save();
-        // }
-
-        // return view('user_page.test', compact('order', 'snapToken'));
     }
 
     /**

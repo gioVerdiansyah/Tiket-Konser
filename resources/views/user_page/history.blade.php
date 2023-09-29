@@ -7,46 +7,65 @@
             border: 1px solid #dee2e6;
             margin-bottom: 1rem;
             margin-top: 2rem;
-            
         }
     </style>
     {{-- End --}}
-
     {{-- Content Start --}}
     <div class="container">
         <br>
-        <div class="card">
-            <div class="row no-gutters">
-                <div class="col-md-3 d-flex align-items-center justify-content-start"> <!-- Mengubah ukuran kolom gambar -->
-                    <img src="{{ asset('images/history/Tame.jpeg') }}" class="card-img custom-img" alt="Placeholder Image"
-                        width="110">
-                </div>
-                <div class="col-md-9">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <!-- Use Bootstrap classes for layout -->
-                            <h4 class="m-0 p-0 font-weight-bold" style="font-size: 20px">Currents</h4>
-                            <h9 class="card-title">Batal Otomatis 05 sep 23.59</h9>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="m-0 p-0" style="color: rgb(162, 170, 162);">
-                                    <strong>Status:</strong> menunggu konfirmasi
-                                </p>
-                                <p class="m-0 p-0">
-                                    <strong style="color: rgb(231, 57, 188);" data-toggle="modal"
-                                        data-target="#transactionModal">Lihat Detail Transaksi</strong>
-                                </p>
+        <img src="" alt="" id="gambarku">
+        @php
+            $i = 1;
+        @endphp
+        @forelse ($orders as $i => $order)
+            <div class="card">
+                <div class="row no-gutters">
+                    <div class="col-md-3 d-flex align-items-center justify-content-start">
+                        <!-- Mengubah ukuran kolom gambar -->
+                        <img src="{{ asset('storage/image/konser/banner/' . $order->konser->banner) }}"
+                            class="card-img custom-img" alt="Placeholder Image" width="110">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="m-0 p-0 font-weight-bold" style="font-size: 20px">
+                                    {{ $order->konser->nama_konser }}</h4>
+                                <h6 class="card-title">Di order pada:
+                                    {{ \Carbon\Carbon::parse($order->created_at)->translatedFormat('l, d F Y H:i') }}
+                                    <br>
+                                    Di bayar pada:
+                                    {{ \Carbon\Carbon::parse($order->transactionHistory[0]->transaction_time)->translatedFormat('l, d F Y H:i') }}
+                                </h6>
                             </div>
-                            <div class="wrapper mb-20 px-5 mx-5">
-                                <p class="m-0 p-0" style="font-size: 20px;">Total harga</p>
-                                <p class="m-0 p-0 font-weight-bold" style="font-size: 20px">Rp 500.000</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="m-0 p-0" style="color: rgb(162, 170, 162);">
+                                        <strong>Status:</strong>
+                                        {{ Str::before($order->transactionHistory[0]->status_message, ',') }}
+                                    </p>
+                                    <p class="m-0 p-0">
+                                        <strong style="color: rgb(231, 57, 188);" data-toggle="modal"
+                                            data-target="#transactionModal">Lihat Detail Transaksi</strong>
+                                    </p>
+                                    <button id="generatePdf" onclick="generatePDF('{{ $i }}')">Tiket
+                                        Anda</button>
+                                </div>
+                                <div class="wrapper mb-20 px-5 mx-5">
+                                    <p class="m-0 p-0" style="font-size: 20px;">Total harga</p>
+                                    <p class="m-0 p-0 font-weight-bold" style="font-size: 20px">@currency($order->total_price)</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            @php
+                $i++;
+            @endphp
+        @empty
+            <p>Anda belum mungkin belum melakukan pemesanan atau bahkan belum melakukan pembayaran, coba cek pada halaman <a
+                    href="{{ route('orders.index') }}">order</a></p>
+        @endforelse
     </div>
 
     {{-- Transaction Modal --}}
@@ -73,5 +92,32 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.js"
+        integrity="sha512-Fd3EQng6gZYBGzHbKd52pV76dXZZravPY7lxfg01nPx5mdekqS8kX4o1NfTtWiHqQyKhEGaReSf4BrtfKc+D5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function generatePDF(id) {
+            var ticketId = 'ticket' + id;
+
+            $.ajax({
+                url: `{{ route('test') }}#ticket${id}`,
+                method: 'GET',
+                data: {
+                    ticketId: ticketId
+                },
+                success: function(response) {
+                    var $ticketElement = $(response).filter('#ticket' + id);
+                    console.log($ticketElement);
+
+                    $ticketElement.printThis();
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        };
+    </script>
     {{-- End --}}
 @endsection

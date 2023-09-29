@@ -226,10 +226,40 @@
             <div id="tab2" class="tab-pane fade">
                 <div class="container py-5">
                     <div class="title d-flex">
-                        <h4 class="">KOMENTAR<span>(2)</span></h4>
+                        <h4 class="">KOMENTAR <span>(2)</span></h4>
                     </div>
-                    <div class="review-button d-flex">
-                        <a href="" class="btn btn-dark rounded-5">Beri Ulasan</a>
+
+                    <!-- Form untuk Berkomentar -->
+                    <div class="comment-form">
+                        <form action="" method="POST" class="d-flex flex-column">
+                            @csrf
+                            <div class="form-group">
+                                <textarea class="form-control" id="komentar" name="komentar" rows="3" placeholder="Tulis komentar Anda"
+                                    required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3" style="width: max-content">Kirim
+                                Komentar</button>
+                        </form>
+                    </div>
+
+                    <!-- List Komentar User -->
+                    <div class="comment-list mt-4">
+                        <!-- Komentar 1 -->
+                        <div class="comment d-flex flex-cloumn align-items-start">
+                            <div class="user-info">
+                                <div class="d-flex flex-row align-items-center">
+                                    <img src="{{ asset('storage/image/photo-user/profil.jpeg') }}"
+                                        alt="Foto Profil Verdi" width="40">
+                                    <p class="ms-2 mb-0"><strong>Verdi</strong></p>
+                                </div>
+                                <div class="text-start" style="max-width: 90%">
+                                    <p>10 September 2023</p>
+                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem
+                                        nostrum eius itaque?
+                                        Quasi, mollitia ipsum?</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
