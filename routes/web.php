@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UpdateProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ListOrderController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -97,9 +98,11 @@ Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
         return view('admin_page.penjualan');
     })->name('penjualan');
 
-    Route::get('/list-konser', function () {
-        return view('admin_page.list-order');
-    })->name('list-konser');
+    Route::get('list-konser', [ListOrderController::class,'ListKonser'])->name('list-konser');
+    Route::get('/list-konser/search', [ListOrderController::class,'search'])->name('list-konser.search');
+
+    Route::delete('/order/{id}', [ListOrderController::class,'destroy'])->name('order.destroy');
+
 
 });
 
