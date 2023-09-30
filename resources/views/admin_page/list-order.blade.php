@@ -14,13 +14,13 @@
             <div class="konser-search-form">
                 <div class="col-lg-4 col-md-6">
                     <form action="{{ route('list-konser.search') }}" method="GET">
-                        <div class="form-group">
+                        <div class="form-group d-flex">
                             <input type="text" id="search-input" class="form-control" name="search" placeholder="Cari menurut ID Pesanan atau Email Pelanggan">
-                            <button type="submit" class="btn btn-primary mt-2">Cari</button>
+                            <button type="submit" class="btn btn-primary ml-2">Cari</button>
                         </div>
                     </form>
                 </div>
-            </div>
+            </div>            
 
             <div class="row">
                 <div class="col-sm-12">

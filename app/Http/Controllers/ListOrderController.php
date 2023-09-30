@@ -31,10 +31,16 @@ class ListOrderController extends Controller
         $order = Order::find($id);
     
         if ($order) {
+            $konserName = $order->nama_konser; 
             $order->delete();
-            return redirect()->back()->with('success', 'Pesanan berhasil dihapus.');
-        } else {
-            return redirect()->back()->with('error', 'Pesanan tidak ditemukan.');
+    
+            session()->flash('message', [
+                'icon' => "success",
+                'title' => "Berhasil",
+                'text' => "Berhasil menghapus konser dengan nama: $konserName"
+            ]);
+    
+            return back();
         }
     }
 

@@ -37,6 +37,11 @@
             <i class="fas fa-fw fa-check"></i>
             <span>Penjualan</span></a>
     </li>
+    <li class="nav-item @if ($title == 'list-konser') active @endif">
+        <a class="nav-link" href="{{ route('list-konser') }}">
+            <i class="fas fa-fw fa-tasks"></i>
+            <span>List Order</span></a>
+    </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
     {{-- <li class="nav-item">
