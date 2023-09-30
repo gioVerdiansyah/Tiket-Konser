@@ -23,7 +23,7 @@ class KonserController extends Controller
     public function index()
     {
         $kategoris = Kategori::all();
-        $konsers = Konser::with('tiket')->paginate(12);
+        $konsers = Konser::with('tiket')->paginate(9);
         return view('user_page.konser', compact('konsers', 'kategoris'));
     }
 
@@ -114,8 +114,7 @@ class KonserController extends Controller
 
     public function konserku()
     {
-        $konserku = Konser::with('tiket')->where('user_id', Auth::user()->id)->get();
-
+        $konserku = Konser::with('tiket')->where('user_id', Auth::user()->id)->paginate(8);
         return view('user_page.konserku', compact('konserku'));
     }
 

@@ -1,5 +1,8 @@
 @extends('layouts.master')
 @section('content')
+<!DOCTYPE html>
+<html lang="zxx">
+    <head>
     <title>Ticket.</title>
     <link rel="stylesheet" href="path-to-bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -12,7 +15,11 @@
 
     <link rel="stylesheet" href="{{ asset('malefashion') }}/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="{{ asset('malefashion') }}/css/elegant-icons.css" type="text/css">
-
+    <style>
+        .paginate ul{
+          justify-content: center;
+        }
+    </style>
     <script nonce="39342a9c-a4b6-4c37-a019-bd53c0eeded9">
         (function(w, d) {
             ! function(bg, bh, bi, bj) {
@@ -78,6 +85,9 @@
             }(w, d, "zarazData", "script");
         })(window, document);
     </script>
+    </head>
+    
+    <body>
     <section class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -149,6 +159,12 @@
                         @empty
                             <p>Tidak ada item yang tersedia.</p>
                         @endforelse
+                    </div>
+                      {{--  paginate  --}}
+                      <div class="row mt-3">
+                        <div class="paginate">
+                            {{ $konserku->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -246,4 +262,6 @@
         integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
         data-cf-beacon='{"rayId":"8035967efd494ac7","version":"2023.8.0","b":1,"token":"cd0b4b3a733644fc843ef0b185f98241","si":100}'
         crossorigin="anonymous"></script>
+</body>
+        </html>
 @endsection

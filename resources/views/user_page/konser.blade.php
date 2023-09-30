@@ -31,6 +31,12 @@
                     font-size: 24px;
                     font-weight: bold;
                 }
+
+                .paginate ul{
+                    justify-content: center;
+                }
+
+
             </style>
             <script nonce="39342a9c-a4b6-4c37-a019-bd53c0eeded9">
                 (function(w, d) {
@@ -115,9 +121,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">
-                            <form action="{{ route('konser.search') }}" method="get">
-                                <div class="shop__sidebar">
-                                    <div class="shop__sidebar__search">
+                            <div class="shop__sidebar">
+                                <div class="shop__sidebar__search">
+                                        <form action="{{ route('konser.search') }}" method="get">
                                         <input type="text" name="search" placeholder="Search...">
                                         <button type="submit"><span class="icon_search"></span></button>
                                     </div>
@@ -269,9 +275,9 @@
                             </div>
                             {{--  paginate  --}}
                             <div class="row mt-3">
-
-                                {{ $konsers->links() }}
-
+                                <div class="paginate">
+                                    {{ $konsers->links() }}
+                                </div>
                             </div>
                         </div>
                     </div>
