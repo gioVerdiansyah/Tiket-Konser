@@ -113,7 +113,36 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                        <canvas id="monthlyIncomeChart"></canvas>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <script>
+                            var labels = @json($labels);
+                            var data = @json($data);
+
+                            var ctx = document.getElementById("monthlyIncomeChart").getContext("2d");
+                            var monthlyIncomeChart = new Chart(ctx, {
+                                type: "line",
+                                data: {
+                                    labels: labels,
+                                    datasets: [
+                                        {
+                                            label: "Monthly Income",
+                                            data: data,
+                                            backgroundColor: "rgba(75,192,192,0.4)",
+                                            borderColor: "rgba(75,192,192,1)",
+                                            borderWidth: 1,
+                                        },
+                                    ],
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                        },
+                                    },
+                                },
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
@@ -124,7 +153,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Metode Pembayaran</h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -142,20 +171,24 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Direct
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Social
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Referral
-                        </span>
-                    </div>
+                    <canvas id="paymentChart" width="400" height="400"></canvas>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        var ctx = document.getElementById('paymentChart').getContext('2d');
+                        var data = {
+                            labels: ["Credit Card", "Bank Transfer", "E-Wallet"],
+                            datasets: [{
+                                data: [{{ $creditCardCount }}, {{ $bankTransferCount }}, {{ $eWalletCount }}],
+                                backgroundColor: ["#FF5733", "#36A2EB", "#FFC300"]
+                            }]
+                        };
+
+                        var myPieChart = new Chart(ctx, {
+                            type: 'pie',
+                            data: data
+                        });
+                    </script>
                 </div>
             </div>
         </div>

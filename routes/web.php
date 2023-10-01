@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UpdateProfileController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListOrderController;
 use App\Http\Controllers\OrderController;
@@ -78,9 +79,9 @@ Route::get('/test', function () {
 })->name('test');
 // Admin
 Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
-    Route::get('/homeAdmin', function () {
-        return view('admin_page.homeAdmin');
-    })->name('homeAdmin');
+    // Route::get('/homeAdmin', function () {
+    //     return view('admin_page.homeAdmin');
+    // })->name('homeAdmin');
 
     Route::get('/pembelian', function () {
         return view('admin_page.pembelian');
@@ -100,6 +101,8 @@ Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
 
     Route::get('list-konser', [ListOrderController::class,'ListKonser'])->name('list-konser');
     Route::get('/list-konser/search', [ListOrderController::class,'search'])->name('list-konser.search');
+
+    Route::get('homeAdmin', [ChartController::class,'index'])->name('homeAdmin');
 
     Route::delete('/order/{id}', [ListOrderController::class,'destroy'])->name('order.destroy');
 

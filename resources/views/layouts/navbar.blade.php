@@ -46,18 +46,7 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal"
-                    onclick="
-                      Swal.fire({
-                            title: `Are you sure?`,
-                            text: `Apakah kamu yakin ingin logout?`, icon: 'warning' , showCancelButton: true,
-                            confirmButtonColor: '#3085d6' , cancelButtonColor: '#d33' ,
-                            confirmButtonText: 'Yes, delete it!' }).then((result)=> {
-                            if (result.isConfirmed) {
-                                event.preventDefault();
-                                document.getElementById('logout-form').submit();
-                            }
-                            })
-                ">
+                    >
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     {{ __('Logout') }}
                 </a>

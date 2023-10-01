@@ -6,6 +6,7 @@ use App\Models\Konser;
 use App\Models\Order;
 use App\Models\TransactionHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Services\Midtrans\CreateSnapTokenService;
 use Illuminate\Support\Facades\Auth;
 
