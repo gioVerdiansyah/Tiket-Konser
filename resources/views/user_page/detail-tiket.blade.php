@@ -17,7 +17,7 @@
         }
 
         .nav-tabs .nav-link {
-            color: #0000008c;
+            color: #000000;
             /* opacity: 60%; */
             border-bottom: 1px solid transparent;
             border-top: none;
@@ -67,6 +67,16 @@
 
         .container {
             margin-top: -10px;
+        }
+
+        .radio {
+            transform: scale(0.8);
+            /* Mengubah ukuran radio button */
+        }
+
+        .label {
+            font-size: 12px;
+            /* Mengubah ukuran teks label */
         }
     </style>
     {{-- End --}}
@@ -139,8 +149,7 @@
                             </button>
                         </div>
                         <div class="pesan col-9 mx-4">
-                            <button type="submit" id="buatpesanan"
-                                class="btn btn-dark d-flex justify-content-center align-items-center rounded-5"
+                            <button type="submit" id="buatpesanan" class="btn btn-dark rounded-5"
                                 style="height: 60px;">Pesan sekarang</button>
                         </div>
                     </div>

@@ -49,30 +49,29 @@
                                 </thead>
                                 <tbody>
                                     <div id="search-results">
-                                        @forelse ($orders as $order)
-                                            @if ($order->payment_status == 2)
-                                                <tr>
-                                                    <td class="fw-bold"></td>
-                                                    <td class="fw-bold">{{ $order->created_at }}</td>
-                                                    <td class="fw-bold">{{ $order->id }}</td>
-                                                    <td class="fw-bold">{{ $order->user->email }}</td>
-                                                    <td class="fw-bold">@currency($order->total_price)</td>
-                                                    <td class="">
-                                                        <button class="btn btn-success">Sukses di bayar</button>
-                                                    </td>
-                                                    <td class="">
-                                                        <form action="{{ route('order.destroy', $order->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-outline-danger rounded-4">Hapus</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        @empty
-                                        @endforelse
+                                    @forelse ($orders as $order)
+                                        @if ($order->payment_status == 2)
+                                            <tr>
+                                                <td class="fw-bold"></td>
+                                                <td class="fw-bold">{{ $order->created_at }}</td>
+                                                <td class="fw-bold">{{ $order->id }}</td>
+                                                <td class="fw-bold">{{ $order->user->email }}</td>
+                                                <td class="fw-bold">@currency($order->total_price)</td>
+                                                <td class="">
+                                                    <button class="btn btn-success">Sukses di bayar</button>
+                                                </td>
+                                                <td class="">
+                                                    <form action="{{ route('order.destroy', $order->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-outline-danger rounded-4">Hapus</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @empty
+
+                                    @endforelse
                                     </div>
                                 </tbody>
                             </table>
@@ -114,14 +113,14 @@
         </div>
     </div>
 
-    @section('script')
-        <script>
-            $(document).ready(function() {
-                $('#search-input').on('keyup', function() {
-                    var searchText = $(this).val().toLowerCase();
-                    var $tableRows = $('.datatable tbody tr');
+@section('script')
+<script>
+    $(document).ready(function () {
+        $('#search-input').on('keyup', function () {
+            var searchText = $(this).val().toLowerCase();
+            var $tableRows = $('.datatable tbody tr');
 
-                    $tableRows.hide();
+            $tableRows.hide();
 
                     var $matchedRows = $tableRows.filter(function() {
                         return $(this).text().toLowerCase().indexOf(searchText) > -1;
