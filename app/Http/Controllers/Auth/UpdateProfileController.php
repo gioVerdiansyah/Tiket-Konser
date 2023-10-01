@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Notifications;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -122,5 +123,17 @@ class UpdateProfileController extends Controller
             'title' => 'Sukses',
             'text' => 'Password berhasil di ubah!'
         ]);
+    }
+
+    public function markNotif(Request $request)
+    {
+        if ($request->user_id !== Auth::user()->id) {
+            return response()->json(['error' => "Jangan ubah ID nya!!!"]);
+        }
+        $notif = Notifications::find($request->user_id);
+        $notif->read = 2;
+        $notif->save();
+
+        return response()->json(['message' => "Berhasil"]);
     }
 }

@@ -13,6 +13,7 @@
 
         <!-- Custom fonts for this template-->
         <link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link
@@ -23,7 +24,7 @@
 
         <!-- Custom styles for this template-->
         <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
-        
+
     </head>
 
     <body id="page-top">
@@ -100,6 +101,9 @@
         </div>
 
         <!-- Bootstrap core JavaScript-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+        </script>
         <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -116,17 +120,17 @@
         <script src="{{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
         <script src="{{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
 
-        <script>
-            var message = @json(session('message'));
-            
-            if (message) {
+        @if (session('message'))
+            <script>
                 Swal.fire({
-                    icon: message.title.toLowerCase(),
-                    title: message.title,
-                    text: message.text,
+                    icon: "{{ session('message')['icon'] ?? 'success' }}",
+                    title: "{{ session('message')['title'] }}",
+                    text: "{{ session('message')['text'] }}",
+                    allowOutsideClick: true,
+                    allowEscapeKey: false,
                 });
-            }
-        </script>
+            </script>
+        @endif
 
     </body>
 

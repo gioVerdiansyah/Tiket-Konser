@@ -1,5 +1,4 @@
-@extends('layouts.master')
-
+@extends('layouts.admin', ['title' => 'List Konser'])
 @section('content')
     {{-- Custom CSS --}}
     <style>
@@ -79,9 +78,7 @@
                     style="width: 300px" alt="">
             </div>
             <div class="col-6 text-left mt-5">
-                <form action="{{ route('orders.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="konser_id" value="{{ $konser->id }}">
+                <div>
                     <h3 class="fw-bold">{{ $konser->nama_konser }}</h3>
                     <h5 class="fw-bold" id="harga">Rp. {{ number_format($tiket->harga1, 0, ',', '.') }}</h5>
                     @if (isset($konser->deskripsi))
@@ -124,30 +121,7 @@
                         <input type="radio" id="kategori-lang-5" name="kategori_tiket"
                             value="{{ $tiket->kategoritiket5 }}" hidden>
                     @endif
-
-                    <hr>
-                    <div class="button d-flex" id="countparent">
-                        <div class="counter btn btn-light text-center rounded-3">
-                            <button type="button" id="minus" class="minus">
-                                <i class="bi bi-dash-lg"></i>
-                            </button>
-                            <input type="number" id="count" name="jumlah" class="form-control"
-                                max="{{ $tiket->jumlah_tiket }}" value="1"
-                                style="width: 50px;text-align: end;padding: 10px 5px;">
-                            <button type="button" id="plus" class="plus">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
-                        </div>
-                        <div class="pesan col-9 mx-4">
-                            <button type="submit" id="buatpesanan"
-                                class="btn btn-dark d-flex justify-content-center align-items-center rounded-5"
-                                style="height: 60px;">Pesan sekarang</button>
-                        </div>
-                    </div>
-                    @error('jumlah')
-                        <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -229,61 +203,43 @@
                         <h4 class="">KOMENTAR <span>({{ $jumlahKomentar }})</span></h4>
                     </div>
 
-                    @if ($orderExists)
-                        <!-- Form untuk Berkomentar -->
-                        <div class="comment-form">
-                            <form id="comment-form" action="{{ route('comment', $konser->id) }}" method="POST"
-                                class="d-flex flex-column">
-                                @csrf
-                                <div class="form-group">
-                                    <textarea class="form-control" id="komentar" name="fillin" rows="3" placeholder="Tulis komentar Anda"
-                                        required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="width: max-content">Kirim
-                                    Komentar</button>
-                            </form>
-                        </div>
-
-                        @forelse ($konser->comment->sortByDesc('created_at') as $comment)
-                            <div class="comment-list mt-4" id="comment-list">
-                                <div class="comment d-flex align-items-start">
-                                    <div class="user-info">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
-                                                alt="Foto Profil Verdi" width="40">
-                                            <div class="d-flex flex-column text-start ms-3">
-                                                <p class="mb-0"><strong>{{ $comment->user->name }}</strong></p>
-                                                <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
-                                                </p>
-                                            </div>
-                                            <div class="nav-item dropdown">
-                                                <a class="nav-link" href="#" id="profileDropdown" role="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="bi bi-three-dots-vertical ms-3"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="profileDropdown">
-                                                    <form action="{{ route('delete-comment', $comment->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="dropdown-item">Hapus</button>
-                                                    </form>
-                                                </div>
+                    @forelse ($konser->comment->sortByDesc('created_at') as $comment)
+                        <div class="comment-list mt-4" id="comment-list">
+                            <div class="comment d-flex align-items-start">
+                                <div class="user-info">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
+                                            alt="Foto Profil Verdi" width="40">
+                                        <div class="d-flex flex-column text-start ms-3">
+                                            <p class="mb-0"><strong>{{ $comment->user->name }}</strong></p>
+                                            <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
+                                            </p>
+                                        </div>
+                                        <div class="nav-item dropdown">
+                                            <a class="nav-link" href="#" id="profileDropdown" role="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-three-dots-vertical ms-3"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end"
+                                                aria-labelledby="profileDropdown">
+                                                <form action="{{ route('delete-comment', $comment->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item">Hapus</button>
+                                                </form>
                                             </div>
                                         </div>
-                                        <div class="text-start">
-                                            <p>{{ $comment->fillin }}</p>
-                                        </div>
+                                    </div>
+                                    <div class="text-start">
+                                        <p>{{ $comment->fillin }}</p>
                                     </div>
                                 </div>
                             </div>
-                        @empty
-                            <p>Belum ada komentar, jadilah orang pertama yang berkomentar</p>
-                        @endforelse
-                    @else
-                        <p>Belilah tiket ini untuk memberi ulasan!</p>
-                    @endif
+                        </div>
+                    @empty
+                        <p>Belum ada komentar</p>
+                    @endforelse
                 </div>
             </div>
         </div>

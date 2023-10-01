@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminKonserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\KonserController;
 use App\Http\Controllers\BuatKonserController;
@@ -64,6 +65,7 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
     Route::put('/profile/{user}', [UpdateProfileController::class, 'update'])->name('updateProfile');
     Route::put('/profile/pass/{user}', [UpdateProfileController::class, 'chagePass'])->name('updateProfilePass');
     Route::get('/profile/history', [UpdateProfileController::class, 'history'])->name('history');
+    Route::patch('/marked', [UpdateProfileController::class, 'markNotif'])->name('read-notif');
 
     Route::get('/konserku', [KonserController::class, 'konserku'])->name('konserku');
     Route::get('/konserku/search', [KonserController::class, 'searchKonserku'])->name('konserku.search');
@@ -87,9 +89,9 @@ Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
         return view('admin_page.pembelian');
     })->name('pembelian');
 
-    Route::get('/konser_page', function () {
-        return view('admin_page.konser_page');
-    })->name('konser_page');
+    Route::get('/konser_page', [AdminKonserController::class, 'index'])->name('konser_page');
+    Route::get('/konser_page/detail/{id}', [AdminKonserController::class, 'detail'])->name('konser_page.detail');
+    Route::delete('/konser_page/destroy', [AdminKonserController::class, 'destroy'])->name('konser_page.destroy');
 
     Route::get('/detail_konser_page', function () {
         return view('admin_page.detail_konser_page');
@@ -99,12 +101,12 @@ Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
         return view('admin_page.penjualan');
     })->name('penjualan');
 
-    Route::get('list-konser', [ListOrderController::class,'ListKonser'])->name('list-konser');
-    Route::get('/list-konser/search', [ListOrderController::class,'search'])->name('list-konser.search');
+    Route::get('list-konser', [ListOrderController::class, 'ListKonser'])->name('list-konser');
+    Route::get('/list-konser/search', [ListOrderController::class, 'search'])->name('list-konser.search');
 
-    Route::get('homeAdmin', [ChartController::class,'index'])->name('homeAdmin');
+    Route::get('homeAdmin', [ChartController::class, 'index'])->name('homeAdmin');
 
-    Route::delete('/order/{id}', [ListOrderController::class,'destroy'])->name('order.destroy');
+    Route::delete('/order/{id}', [ListOrderController::class, 'destroy'])->name('order.destroy');
 
 
 });

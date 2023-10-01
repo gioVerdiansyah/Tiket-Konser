@@ -28,6 +28,15 @@
                 border-radius: 50px;
                 width: 45px;
             }
+
+            .notice {
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50px;
+                position: absolute;
+                top: 5px
+            }
         </style>
         {{-- Custom CSS End --}}
 
@@ -64,10 +73,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('konser') }}">Konser</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('buatkonser.create') }}">Buat Konser</a>
-                        </li>
                         @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('buatkonser.create') }}">Buat Konser</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('konserku') }}">Konserku</a>
                             </li>
@@ -87,12 +96,66 @@
                         </li>
                     @else
                         {{-- Pengguna sudah login, tampilkan dropdown profil --}}
+                        @php
+                            $notif = \App\Models\Notifications::where('user_id', Auth::user()->id)->get();
+                            $exist = \App\Models\Notifications::where('user_id', Auth::user()->id)->exists();
+                            $latest = \App\Models\Notifications::where('user_id', Auth::user()->id)
+                                ->latest()
+                                ->first();
+                        @endphp
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}" alt="Photo user"
-                                    srcset="">
-                            </a>
+                            <div class="wrapper d-flex flex-row align-items-center">
+                                <div class="dropdown" id="notification-dropdown">
+                                    <a role="button" class="me-3 text-secondary" id="notification-dropdown-button"
+                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                        onclick="
+                                            document.querySelector('.notice').remove();
+                                        // $.ajax({
+                                        //     type: 'PATCH',
+                                        //     url: '{{ route('read-notif') }}',
+                                        //     beforeSend: function(xhr) {
+                                        //         xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+                                        //     }
+                                        //     data: {
+                                        //         user_id: {{ Auth::user()->id }}
+                                        //     },
+                                        //     dataType: 'json',
+                                        //     success: function(response) {
+                                        //     },
+                                        //     error: function(error) {
+                                        //         console.error('Kesalahan:', error);
+                                        //     }
+                                        // });
+                                        ">
+                                        <i class="bi bi-bell fs-4"></i>
+                                        @if ($exist && $latest)
+                                            <div class="notice"></div>
+                                        @endif
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end"
+                                        aria-labelledby="notification-dropdown-button"
+                                        style="
+                                        width: max-content;
+                                        max-width: 300px;
+                                    ">
+                                        @forelse ($notif as $row)
+                                            <li class="px-3 py-2 d-flex flex-row justify-content-between"
+                                                data-notification-id="{{ $row->id }}">
+                                                {{ $row->fillin }}
+                                                <button class="btn" data-bs-dismiss="false"><i
+                                                        class="bi bi-x"></i></button>
+                                            </li>
+                                        @empty
+                                            <p>Tidak ada notifikasi...</p>
+                                        @endforelse
+                                    </ul>
+                                </div>
+                                <a class="nav-link" href="#" id="profileDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}" alt="Photo user"
+                                        srcset="">
+                                </a>
+                            </div>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                                 <li><a class="dropdown-item" href="{{ route('profileUser') }}">Profil Saya</a></li>
                                 <li>
@@ -190,6 +253,7 @@
             </div>
         </div>
         {{-- Footer End --}}
+
         @if (session('message'))
             <script>
                 Swal.fire({

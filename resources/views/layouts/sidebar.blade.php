@@ -27,17 +27,12 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item @if ($title == 'Pembelian') active @endif">
-        <a class="nav-link" href="index.html">
+    <li class="nav-item @if ($title == 'List Konser') active @endif">
+        <a class="nav-link" href="{{ route('konser_page') }}">
             <i class="fas fa-fw fa-shopping-cart"></i>
-            <span>Pembelian</span></a>
+            <span>List Konser</span></a>
     </li>
-    <li class="nav-item @if ($title == 'Penjualan') active @endif">
-        <a class="nav-link" href="{{ route('penjualan') }}">
-            <i class="fas fa-fw fa-check"></i>
-            <span>Penjualan</span></a>
-    </li>
-    <li class="nav-item @if ($title == 'list-konser') active @endif">
+    <li class="nav-item @if ($title == 'List Order') active @endif">
         <a class="nav-link" href="{{ route('list-konser') }}">
             <i class="fas fa-fw fa-tasks"></i>
             <span>List Order</span></a>

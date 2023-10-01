@@ -1,161 +1,168 @@
-@extends('layouts.admin', ['title'=>'Konser'])
+@extends('layouts.admin', ['title' => 'List Konser'])
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bootstrap Table with Search Column Feature</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<style>
-body {
-    color: #566787;
-    background: #f7f5f2;
-    font-family: 'Roboto', sans-serif;
-}
-.table-responsive {
-    margin: 30px 0;
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
-}
-.table-wrapper {
-  	min-width: 1000px;
-    background: #fff;
-    padding: 20px 25px;
-    border-radius: 4px;
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
-}
-.table-title {
-    color: #4e73df!important;
-    background:;
-    padding: 16px 25px;
-    margin: -20px -25px 0px;
-    border-radius: 3px 3px 0 0;
-}
-.table-title h2 {
-    margin: 5px 0 0;
-    font-size: 24px;
-}
-.search-box {
-    position: relative;
-    float: right;
-}
-.search-box .input-group {
-    min-width: 300px;
-    position:inherit;
-    right: 0;
-}
-.search-box .input-group-addon, .search-box input {
-    border-color: #ddd;
-    border-radius: 0;
-}
-.search-box input {
-    height: 34px;
-    padding-right: 35px;
-    background: #f4fcfd;
-    border: none;
-    border-radius: 10px !important;
-}
-.search-box input:focus {
-    background: #fff;
-}
-.search-box input::placeholder {
-    font-style: italic;
-}
-.search-box .input-group-addon {
-    min-width: 35px;
-    border: none;
-    background: transparent;
-    position: absolute;
-    right: 0;
-    z-index: 9;
-    padding: 6px 0;
-}
-.search-box i {
-    color: #a0a5b1;
-    font-size: 19px;
-    position: relative;
-    top: 2px;
-}
-table.table {
-    table-layout: fixed;
-    margin-top: 0px;
-}
-table.table tr th, table.table tr td {
-    border-color: #e9e9e9;
-}
-table.table th i {
-    font-size: 13px;
-    margin: 0 5px;
-    cursor: pointer;
-}
-table.table th:first-child {
-    width: 90px;
-}
-table.table th:last-child {
-    width: 120px;
-}
-table.table td a {
-    color: #a0a5b1;
-    display: inline-block;
-    margin: 0 5px;
-}
-table.table td a.view {
-    color: #03A9F4;
-}
-table.table td a.edit {
-    color: #ffffff;
-}
-table.table td a.delete {
-    color: #ffffff;
-}
-table.table td i {
-    background-color: chartreuse;
-    font-size: 25px;
-    border-radius: 5px;
-}
-table.table td z {
-    width: 40px;
-    height: 30px;
-    background-color:rgb(35, 75, 255);
-    font-size: 25px;
-    border-radius: 5px;
-}
-.material-icons{
-    size: 10px;
-}
+    <style>
+        body {
+            color: #566787;
+            background: #f7f5f2;
+            font-family: 'Roboto', sans-serif;
+        }
 
+        .table-responsive {
+            margin: 30px 0;
+            box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+        }
 
-</style>
-<script>
-$(document).ready(function(){
-	// Activate tooltips
-	$('[data-toggle="tooltip"]').tooltip();
+        .table-wrapper {
+            min-width: 1000px;
+            background: #fff;
+            padding: 20px 25px;
+            border-radius: 4px;
+            box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+        }
 
-	// Filter table rows based on searched term
-    $("#search").on("keyup", function() {
-        var term = $(this).val().toLowerCase();
-        $("table tbody tr").each(function(){
-            $row = $(this);
-            var name = $row.find("td").text().toLowerCase();
-            console.log(name);
-            if(name.search(term) < 0){
-                $row.hide();
-            } else{
-                $row.show();
-            }
+        .table-title {
+            color: #4e73df !important;
+            background: ;
+            padding: 16px 25px;
+            margin: -20px -25px 0px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .table-title h2 {
+            margin: 5px 0 0;
+            font-size: 24px;
+        }
+
+        .search-box {
+            position: relative;
+            float: right;
+        }
+
+        .search-box .input-group {
+            min-width: 300px;
+            position: inherit;
+            right: 0;
+        }
+
+        .search-box .input-group-addon,
+        .search-box input {
+            border-color: #ddd;
+            border-radius: 0;
+        }
+
+        .search-box input {
+            height: 34px;
+            padding-right: 35px;
+            background: #f4fcfd;
+            border: none;
+            border-radius: 10px !important;
+        }
+
+        .search-box input:focus {
+            background: #fff;
+        }
+
+        .search-box input::placeholder {
+            font-style: italic;
+        }
+
+        .search-box .input-group-addon {
+            min-width: 35px;
+            border: none;
+            background: transparent;
+            position: absolute;
+            right: 0;
+            z-index: 9;
+            padding: 6px 0;
+        }
+
+        .search-box i {
+            color: #a0a5b1;
+            font-size: 19px;
+            position: relative;
+            top: 2px;
+        }
+
+        table.table {
+            table-layout: fixed;
+            margin-top: 0px;
+        }
+
+        table.table tr th,
+        table.table tr td {
+            border-color: #e9e9e9;
+        }
+
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        table.table th:first-child {
+            width: 90px;
+        }
+
+        table.table th:last-child {
+            width: 120px;
+        }
+
+        table.table td a {
+            color: #a0a5b1;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        table.table td a.view {
+            color: #03A9F4;
+        }
+
+        table.table td a.edit {
+            color: #ffffff;
+        }
+
+        table.table td a.delete {
+            color: #ffffff;
+        }
+
+        table.table td i {
+            font-size: 25px;
+            border-radius: 5px;
+        }
+
+        table.table td z {
+            width: 40px;
+            height: 30px;
+            background-color: rgb(35, 75, 255);
+            font-size: 25px;
+            border-radius: 5px;
+        }
+
+        .material-icons {
+            size: 10px;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            // Activate tooltips
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Filter table rows based on searched term
+            $("#search").on("keyup", function() {
+                var term = $(this).val().toLowerCase();
+                $("table tbody tr").each(function() {
+                    $row = $(this);
+                    var name = $row.find("td").text().toLowerCase();
+                    console.log(name);
+                    if (name.search(term) < 0) {
+                        $row.hide();
+                    } else {
+                        $row.show();
+                    }
+                });
+            });
         });
-    });
-});
-</script>
-</head>
-<body>
+    </script>
     <div class="container-lg">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -186,50 +193,72 @@ $(document).ready(function(){
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td style="vertical-align:middle;">Guns And Roses</td>
-                            <td><img src="img/denny.jpg" style="width: 130px; height:135px; border-radius:10px;" ></td>
-                            <td style="vertical-align:middle;">Dr.Asep</td>
-                            <td style="vertical-align:middle;">Jln.Sentosa</td>
-                            <td style="vertical-align:middle;">Lapangan Rampal</td>
-                            <td style="padding-left: 6px; vertical-align:middle;">
-                                <a href="#" class="delete" title="detail" data-toggle="tooltip">
-                                    <z class="material-icons"><center style="margin-top:2px;">remove_red_eye</center></z>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align:middle;">Guns And Roses</td>
-                            <td><img src="img/denny.jpg" style="width: 130px; height:135px; border-radius:10px;" ></td>
-                            <td style="vertical-align:middle;">Peso</td>
-                            <td style="vertical-align:middle;">Jln.Sentosa</td>
-                            <td style="vertical-align:middle;">Lapangan Rampal</td>
-                            <td style="padding-left: 6px; vertical-align:middle;">
-                                <a href="#" class="delete" title="detail" data-toggle="tooltip">
-                                    <z class="material-icons"><center style="margin-top:2px;">remove_red_eye</center></z>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align:middle;">Guns And Roses</td>
-                            <td><img src="img/denny.jpg" style="width: 130px; height:135px; border-radius:10px;" ></td>
-                            <td style="vertical-align:middle;">Dr.Asep</td>
-                            <td style="vertical-align:middle;">Jln.Sentosa</td>
-                            <td style="vertical-align:middle;">Lapangan Rampal</td>
-                            <td style="padding-left: 6px; vertical-align:middle;">
-                                <a href="#" class="delete" title="detail" data-toggle="tooltip">
-                                    <z class="material-icons"><center style="margin-top:2px;">remove_red_eye</center></z>
-                                </a>
-                            </td>
-                        </tr>
-
-
-
+                        @foreach ($konsers as $konser)
+                            <tr>
+                                <td style="vertical-align:middle;">{{ $konser->nama_konser }}</td>
+                                <td><img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}"
+                                        style="width: 130px; height:135px; border-radius:10px;"></td>
+                                <td style="vertical-align:middle;">{{ $konser->nama_penyelenggara }}</td>
+                                <td style="vertical-align:middle;">{{ $konser->alamat }}</td>
+                                <td style="vertical-align:middle;">{{ $konser->tempat }}</td>
+                                <td style="padding-left: 6px; vertical-align:middle;">
+                                    <div class="d-flex">
+                                        <a href="{{ route('konser_page.detail', $konser->id) }}"
+                                            class="delete p-0 rounded btn-primary" title="detail" data-toggle="tooltip">
+                                            <i class="bi bi-eye-fill m-1"></i>
+                                        </a>
+                                        <form action="{{ route('konser_page.destroy') }}" id="delete-form" method="POST"
+                                            onsubmit="
+                                                     event.preventDefault();
+                                                     alasan()
+                                                    ">
+                                            @method('DELETE')
+                                            @csrf
+                                            <input type="hidden" name="konser_id" value="{{ $konser->id }}">
+                                            <button type="submit" class="btn py-0 px-1 btn-danger"><i
+                                                    class="bi bi-trash-fill"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-</body>
-</html>
+    </body>
+    <script>
+        const deleteForm = document.getElementById('delete-form');
+
+        function alasan() {
+            Swal.fire({
+                title: 'Konfirmasi Hapus Konser',
+                input: 'text',
+                inputLabel: 'Alasan Penghapusan',
+                inputPlaceholder: 'Masukkan alasan penghapusan...',
+                showCancelButton: true,
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal',
+                preConfirm: (reason) => {
+                    if (!reason) {
+                        Swal.showValidationMessage('Alasan penghapusan wajib diisi');
+                    }
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const reasonInput = document.createElement('input');
+                    reasonInput.setAttribute('type', 'hidden');
+                    reasonInput.setAttribute('name', 'alasan_hapus');
+                    reasonInput.value = result.value;
+
+                    deleteForm.appendChild(reasonInput);
+
+                    deleteForm.submit();
+                }
+            });
+        }
+    </script>
+
+    </html>
 @endsection

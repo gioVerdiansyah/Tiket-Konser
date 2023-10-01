@@ -175,8 +175,9 @@ class KonserController extends Controller
             ->where('konser_id', $id)
             ->where('payment_status', 2)
             ->exists();
+        $jumlahKomentar = $konser->comment->count();
 
-        return view('user_page.detail-tiket', compact('konser', 'tiket', 'orderExists'));
+        return view('user_page.detail-tiket', compact('konser', 'tiket', 'orderExists', 'jumlahKomentar'));
     }
 
     public function detail_tiket($id)
@@ -330,6 +331,7 @@ class KonserController extends Controller
      */
     public function destroy(Konser $buatkonser)
     {
+        dd($buatkonser);
         $konserName = $buatkonser->nama_konser;
         if ($buatkonser->user_id !== Auth::user()->id) {
             return back()->with('message', [
