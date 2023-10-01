@@ -1,9 +1,12 @@
 @extends('layouts.app')
 @guest
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
     <div class="limiter">
         <div class="container-login100">
             <div class="login100-more"
-                style="background-image: url('{{ asset('images/login.jpeg') }}');width: 780px;height: 655px ;flex-shrink: 0;">
+                style="background-image: url('{{ asset('images/login.jpeg') }}');width: 748px; height: 783px;flex-shrink: 0;">
             </div>
             <div class="wrap-login1000 p-l-50 p-r-50 p-t-72 p-b-50">
                 @if (Session::has('alert'))
@@ -23,7 +26,7 @@
 
                     <br><br>
 
-                    <div class="wrap-input100 mb-5">
+                    <div class="wrap-input100 mb-2">
                         <label for="email" class="label-input100">{{ __('Email Address') }}</label>
                         <input class="input100" id="email" type="email"
                             class="form-control @error('email') is-invalid @enderror" name="email"

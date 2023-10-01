@@ -143,7 +143,7 @@ iframe {
 }
 .txt1 {
     font-family: Poppins-Regular;
-    font-size: 15px;
+    font-size: 100%;
     color: #999;
     line-height: 1.4;
 }
@@ -168,33 +168,38 @@ iframe {
 }
 .container-login100 {
     width: 100%;
+    max-width: 1439px; /* Ganti dengan lebar maksimum yang Anda inginkan */
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
+    position: absolute;
+
     /* flex-wrap: wrap; */
     align-items: stretch;
 }
 .wrap-login1000 {
-    width: 600px;
-    height: 655px;
+    width: 1198px;
+    height: 783px;
     background: #050214;
     border-radius: 0;
     position: relative;
 }
 .wrap-login100 {
-    width: 600px;
+    width: 1194px;
     height: 900px;
     background: #050214;
     border-radius: 0;
     position: relative;
 }
 .login100-more {
+    overflow: hidden !important;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    width: calc(100% - 520px);
+    width: 100%;
+    height: auto;
     position: relative;
     z-index: 1;
 }
@@ -271,7 +276,7 @@ iframe {
     height: 50px;
     background: 0 0;
     font-family: Poppins-Regular;
-    font-size: 22px;
+    font-size: 100%;
     color: #555;
     line-height: 1.2;
     padding: 0 2px;
@@ -359,7 +364,8 @@ iframe {
     align-items: center;
 }
 .wrap-login100-form-btn {
-    display: block;
+    width: 100%;
+    display: flex;
     position: relative;
     z-index: 1;
     border-radius: 25px;
@@ -388,7 +394,7 @@ iframe {
     justify-content: center;
     align-items: center;
     padding: 0 20px;
-    min-width: 500px;
+    width: 100%;
     height: 50px;
     font-family: Poppins-Medium;
     font-size: 16px;
@@ -475,28 +481,39 @@ iframe {
     transform: translateY(50%);
     right: 5px;
 }
-@media (max-width: 800px) {
-    .wrap-login100 {
-        width:100% ;
-        height:100%;
-        padding-left: 15px;
-        padding-right: 15px;
-    }
+@media(max-width: 1199.98px){
     .login100-more{
         display: none;
+      }
+
+    .container-login100{
+        position: absolute;
+        width: 100%;
+        height: auto;
+    }
+}
+@media (max-width: 800px) {
+    .container-login100 {
+        max-width: 100%; /* Mengisi seluruh lebar layar pada perangkat mobile */
+    }
+    .wrap-login100 {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-right: 0; /* Hapus margin-right */
+    }
+    .login100-more{
+        width: auto;
+        height: auto;
     }
     .login100-form-btn{
+
         text-align: center;
         justify-content: center;
     }
 }
-@media (max-width: 768px) {
-    /* CSS untuk tampilan mobile di sini */
-    .login100-form-btn{
-        margin-right: 200px;
-        }
-    .wrap-login1000{
-        
-    }
-}
 
+
+@media(max-width:473px){
+
+}

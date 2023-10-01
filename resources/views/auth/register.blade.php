@@ -3,7 +3,7 @@
     <div class="limiter" style="height: 100vh;">
         <div class="container-login100">
             <div class="login100-more"
-                style="background-image: url('images/login.jpeg');width: 864px;height: auto;flex-shrink: 0;"></div>
+                style="background-image: url('images/login.jpeg');width: 748px;height: auto;flex-shrink: 0;"></div>
             <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
                 <form action="{{ route('register') }}" method="POST" class="login100-form validate-form"
                     style="padding: 20px;    padding: 20px;display: flex;
@@ -16,7 +16,7 @@
                                 style="color: #C10C99;font-size:20px">Login Disini!</a></p>
                     </span>
 
-                    <br><br>
+                   
                     <div class="wrap-input100">
                         <label for="email" class="label-input100">{{ __('Email Address') }}</label>
                         <input id="email" type="email" class="input100 @error('email') is-invalid @enderror"
