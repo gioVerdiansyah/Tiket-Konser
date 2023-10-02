@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('nama_konser');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('fillin');
-            // $table->enum('read', ['1', '2'])->default('1');
+            $table->enum('read', ['1', '2'])->default('1');
             $table->timestamps();
         });
     }

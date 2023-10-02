@@ -127,13 +127,23 @@ class UpdateProfileController extends Controller
 
     public function markNotif(Request $request)
     {
-        if ($request->user_id !== Auth::user()->id) {
-            return response()->json(['error' => "Jangan ubah ID nya!!!"]);
-        }
-        $notif = Notifications::find($request->user_id);
-        $notif->read = 2;
-        $notif->save();
+        $notifs = Notifications::where('user_id', Auth::user()->id)->where('read', 1)->get();
 
-        return response()->json(['message' => "Berhasil"]);
+        foreach ($notifs as $notif) {
+            $notif->read = 2;
+            $notif->save();
+        }
+
+        return response()->json(['message' => 'Notifikasi berhasil ditandai sebagai sudah dibaca']);
     }
+    public function deleteNotif(Request $request)
+    {
+        $notifs = Notifications::findOrFail($request->notif_id);
+        if ($notifs->user_id !== Auth::user()->id) {
+            return response()->json(['error' => "ID user_id tidaklah sama"]);
+        }
+        $notifs->delete();
+        return response()->json(['message' => 'Notifikasi berhasil di hapus']);
+    }
+
 }

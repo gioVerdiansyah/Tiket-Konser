@@ -35,7 +35,7 @@
                 background-color: red;
                 border-radius: 50px;
                 position: absolute;
-                top: 5px
+                top: 15px
             }
         </style>
         {{-- Custom CSS End --}}
@@ -102,60 +102,64 @@
                             $latest = \App\Models\Notifications::where('user_id', Auth::user()->id)
                                 ->latest()
                                 ->first();
+                            $notifs = \App\Models\Notifications::where('user_id', Auth::user()->id)
+                                ->where('read', 1)
+                                ->get();
+                            $isUnread = $notifs->isNotEmpty();
                         @endphp
-                        <li class="nav-item dropdown">
-                            <div class="wrapper d-flex flex-row align-items-center">
-                                <div class="dropdown" id="notification-dropdown">
-                                    <a role="button" class="me-3 text-secondary" id="notification-dropdown-button"
-                                        data-bs-toggle="dropdown" aria-expanded="false"
-                                        onclick="
-                                            document.querySelector('.notice').remove();
-                                        // $.ajax({
-                                        //     type: 'PATCH',
-                                        //     url: '{{ route('read-notif') }}',
-                                        //     beforeSend: function(xhr) {
-                                        //         xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
-                                        //     }
-                                        //     data: {
-                                        //         user_id: {{ Auth::user()->id }}
-                                        //     },
-                                        //     dataType: 'json',
-                                        //     success: function(response) {
-                                        //     },
-                                        //     error: function(error) {
-                                        //         console.error('Kesalahan:', error);
-                                        //     }
-                                        // });
-                                        ">
-                                        <i class="bi bi-bell fs-4"></i>
-                                        @if ($exist && $latest)
-                                            <div class="notice"></div>
-                                        @endif
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end"
-                                        aria-labelledby="notification-dropdown-button"
-                                        style="
+                        <li class="nav-item dropdown d-flex flex-row align-items-center">
+                            <a role="button" class="me-3 text-secondary" id="notification-dropdown-button"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                @if ($exist && $latest && $isUnread) onclick="
+                                        $.ajax({
+                                            type: 'PUT',
+                                            url: '{{ route('read-notif') }}',
+                                            beforeSend: function(xhr) {
+                                                xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+                                            },
+                                            data: {
+                                                user_id: {{ Auth::user()->id }}
+                                            },
+                                            dataType: 'json',
+                                            success: function(response) {
+                                                console.log(response);
+                                                document.querySelector('.notice').remove();
+                                                var notificationDiv = document.getElementById('notification-dropdown-button');
+                                                notificationDiv.removeAttribute('onclick');
+                                            },
+                                            error: function(error) {
+                                                console.error('Kesalahan:', error);
+                                            }
+                                        });
+                                        " @endif>
+                                <i class="bi bi-bell fs-4"></i>
+                                @if ($exist && $latest && $isUnread)
+                                    <div class="notice"></div>
+                                @endif
+                            </a>
+                            <ul id="parentnotif" class="dropdown-menu dropdown-menu-end"
+                                aria-labelledby="notification-dropdown-button"
+                                style="
                                         width: max-content;
                                         max-width: 300px;
                                     ">
-                                        @forelse ($notif as $row)
-                                            <li class="px-3 py-2 d-flex flex-row justify-content-between"
-                                                data-notification-id="{{ $row->id }}">
-                                                {{ $row->fillin }}
-                                                <button class="btn" data-bs-dismiss="false"><i
-                                                        class="bi bi-x"></i></button>
-                                            </li>
-                                        @empty
-                                            <p>Tidak ada notifikasi...</p>
-                                        @endforelse
-                                    </ul>
-                                </div>
-                                <a class="nav-link" href="#" id="profileDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}" alt="Photo user"
-                                        srcset="">
-                                </a>
-                            </div>
+                                @forelse ($notif as $row)
+                                    <li class="px-3 py-2 d-flex flex-row justify-content-between align-items-center"
+                                        data-notification-id="{{ $row->id }}">
+                                        {{ $row->fillin }}
+                                        <button class="btn" data-bs-dismiss="false" id="butonnotid{{ $row->id }}"
+                                            onclick="deleteNotif(this, {{ $row->id }})"><i
+                                                class="bi bi-x"></i></button>
+                                    </li>
+                                @empty
+                                    <p class="mx-3 my-2">Tidak ada notifikasi...</p>
+                                @endforelse
+                            </ul>
+                            <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}" alt="Photo user"
+                                    srcset="">
+                            </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                                 <li><a class="dropdown-item" href="{{ route('profileUser') }}">Profil Saya</a></li>
                                 <li>
@@ -253,6 +257,32 @@
             </div>
         </div>
         {{-- Footer End --}}
+        <script>
+            function deleteNotif(button, id) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '{{ route('delete-notif') }}',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+                    },
+                    data: {
+                        notif_id: id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response);
+                        console.log(button.parentElement.parentElement.childElementCount);
+                        if (button.parentElement.parentElement.childElementCount === 1) {
+                            $('#parentnotif').append('<li><p class="mx-3 my-0">Tidak ada notifikasi...</p></li>');
+                        }
+                        button.parentElement.remove();
+                    },
+                    error: function(error) {
+                        console.error('Kesalahan:', error);
+                    }
+                });
+            }
+        </script>
 
         @if (session('message'))
             <script>

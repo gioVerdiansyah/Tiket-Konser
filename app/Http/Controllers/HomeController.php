@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index()
     {
         $konser = Konser::with('tiket')->orderBy('created_at', 'desc')->take(4)->get();
-        $hotConcerts = Konser::withCount([
+        $hotConcerts = Konser::with('comment')->withCount([
             'uniqueOrderCount as orders_count' => function ($query) {
                 $query->selectRaw('count(distinct user_id)');
             }

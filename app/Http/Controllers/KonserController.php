@@ -171,10 +171,15 @@ class KonserController extends Controller
 
         $tiket = $konser->tiket[0];
 
-        $orderExists = Order::where('user_id', Auth::user()->id)
-            ->where('konser_id', $id)
-            ->where('payment_status', 2)
-            ->exists();
+        if (Auth::check()) {
+            $orderExists = Order::where('user_id', Auth::user()->id)
+                ->where('konser_id', $id)
+                ->where('payment_status', 2)
+                ->exists();
+        } else {
+            $orderExists = false;
+        }
+
         $jumlahKomentar = $konser->comment->count();
 
         return view('user_page.detail-tiket', compact('konser', 'tiket', 'orderExists', 'jumlahKomentar'));

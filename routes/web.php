@@ -65,7 +65,8 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
     Route::put('/profile/{user}', [UpdateProfileController::class, 'update'])->name('updateProfile');
     Route::put('/profile/pass/{user}', [UpdateProfileController::class, 'chagePass'])->name('updateProfilePass');
     Route::get('/profile/history', [UpdateProfileController::class, 'history'])->name('history');
-    Route::patch('/marked', [UpdateProfileController::class, 'markNotif'])->name('read-notif');
+    Route::put('/marked', [UpdateProfileController::class, 'markNotif'])->name('read-notif');
+    Route::delete('/delete-notif', [UpdateProfileController::class, 'deleteNotif'])->name('delete-notif');
 
     Route::get('/konserku', [KonserController::class, 'konserku'])->name('konserku');
     Route::get('/konserku/search', [KonserController::class, 'searchKonserku'])->name('konserku.search');

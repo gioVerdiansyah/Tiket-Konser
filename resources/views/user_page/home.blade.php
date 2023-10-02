@@ -8,7 +8,7 @@
                 <img src="{{ asset('images/homepage/jumbotron.png') }}" class="d-block w-100" alt="">
                 <div class="carousel-caption" style="top: 20%; left: 100px; right: auto; text-align: left;">
                     <h1 class="text-black fw-bold" style="max-width: 600px">Temukan Keseruan dengan menonton konser!</h1>
-                    <a href="#" class="btn btn-dark rounded-5">Pesan Sekarang</a>
+                    <a href="{{ route('konser') }}" class="btn btn-dark rounded-5">Pesan Sekarang</a>
                 </div>
             </div>
         </div>
@@ -93,49 +93,36 @@
     {{-- Komentar Kustomer Start --}}
     <div class="container mt-5 d-flex" data-aos="fade-up" data-aos-delay="300">
         <h1 class="fw-bold">Komentar Pelanggan</h1>
-        <div class="ms-auto me-5">
-            <a href="" class="text-black"><i class="bi bi-arrow-left"></i></a>
-            <a href="" class="text-black"><i class="bi bi-arrow-right"></i></a>
-        </div>
     </div>
     <div class="container">
+        <style>
+            .dari-konser {
+                position: absolute;
+                bottom: 0;
+                right: 3px;
+                font-size: 13px;
+            }
+        </style>
         <div class="row py-5">
-            <div class="col" data-aos="fade-up" data-aos-delay="500">
-                <div class="card mb-3 d-flex flex-row align-items-center rounded-4">
-                    <div class="p-3">
-                        <img src="{{ 'images/homepage/komentar.jpeg' }}" class="rounded-circle" alt="Komentar 1"
-                            width="100">
+            @foreach ($hotConcerts as $row)
+                @foreach ($row->comment as $cell)
+                    <div class="col" data-aos="fade-up" data-aos-delay="500">
+                        <div class="card mb-3 d-flex flex-row align-items-center rounded-4">
+                            <div class="p-3">
+                                <img src="{{ asset('storage/image/photo-user/' . $cell->user->pp) }}" class="rounded-circle"
+                                    alt="Komentar 1" width="100">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $cell->user->name }}</h5>
+                                <p class="card-text">{{ $cell->fillin }}</p>
+                            </div>
+                            <p class="dari-konser">Dari konser: <a
+                                    href="{{ route('detail_konser', $cell->konser->id) }}">{{ $cell->konser->nama_konser }}</a>
+                            </p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Alex Turner</h5>
-                        <p class="card-text">Mantap jiwa raga</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col" data-aos="fade-up" data-aos-delay="1000">
-                <div class="card mb-3 d-flex flex-row align-items-center rounded-4">
-                    <div class="p-3">
-                        <img src="{{ 'images/homepage/komentar.jpeg' }}" class="rounded-circle" alt="Komentar 1"
-                            width="100">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Alex Turner</h5>
-                        <p class="card-text">Mantap jiwa raga</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col" data-aos="fade-up" data-aos-delay="1500">
-                <div class="card mb-3 d-flex flex-row align-items-center rounded-4">
-                    <div class="p-3">
-                        <img src="{{ 'images/homepage/komentar.jpeg' }}" class="rounded-circle" alt="Komentar 1"
-                            width="100">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Alex Turner</h5>
-                        <p class="card-text">Mantap jiwa raga</p>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @endforeach
         </div>
     </div>
     </div>

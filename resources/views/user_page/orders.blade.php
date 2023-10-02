@@ -77,10 +77,10 @@
                                 <td colspan="5" align="right"><strong>Tiket Anda : </strong></td>
                                 <td align="left"><strong><a href="">Lihat Tiket anda!</a></strong></td>
                             </tr>
-                                        @endif
+    @endif
 
-                        </tbody>
-                        </table>
+    </tbody>
+    </table>
 
     {{-- <form method="post" action="proses_upload" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -93,7 +93,7 @@
     </div>
     </div>
     </div>
-    @empty
+@empty
     <li class="list-group-item">
         <p class="my-3 text-center">Belum memesan tiket apapun...</p>
     </li>
@@ -120,7 +120,8 @@
                                 icon: "success",
                                 title: "Berhasil",
                                 text: response.message +
-                                    " Refresh untuk melihat perubahan",
+                                    " Refresh untuk melihat perubahan atau pergi ke halaman <a href=" /
+                                    {{ route('history') }} "> history untuk melihat tiket anda</a>'",
                                 allowOutsideClick: true,
                                 allowEscapeKey: false,
                             });
