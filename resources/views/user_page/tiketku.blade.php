@@ -220,7 +220,7 @@
                         </table>
                         <table class="numbers">
                             <tr>
-                                @foreach (str_split($orders->transactionHistory[0]->approval_code) as $digit)
+                                @foreach (str_split($orders->number) as $digit)
                                     <td>{{ $digit }}</td>
                                 @endforeach
                             </tr>
@@ -228,8 +228,15 @@
                     </div>
                 </div>
                 <script>
-                    let decimalNumber = {{ $orders->transactionHistory[0]->approval_code }};
-                    let code = decimalNumber.toString(2);
+                    function hexToBinary(hex) {
+                        let binary = "";
+                        for (let i = 0; i < hex.length; i++) {
+                            const digit = parseInt(hex[i], 16).toString(2).padStart(4, '0');
+                            binary += digit;
+                        }
+                        return binary;
+                    }
+                    let code = hexToBinary("{{ $orders->number }}");
 
                     let table = document.querySelector('.barcode tr');
                     for (var i = 0; i < code.length; i++) {

@@ -12,12 +12,14 @@ return new class extends Migration {
     {
         Schema::create('transaction_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('approval_code');
-            $table->string('bank');
-            $table->string('card_type');
+            $table->string('approval_code')->nullable();
+            $table->string('va_number')->nullable();
+            $table->string('biller_code')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('card_type')->nullable();
+            $table->string('masked_card')->nullable();
             $table->string('fraud_status');
             $table->decimal('gross_amount', 10, 2);
-            $table->string('masked_card');
             $table->string('payment_type');
             $table->string('status_message');
             $table->string('transaction_id');
