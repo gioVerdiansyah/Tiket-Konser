@@ -78,8 +78,6 @@
             font-size: 12px;
             /* Mengubah ukuran teks label */
         }
-
-        
     </style>
     {{-- End --}}
 
@@ -87,8 +85,8 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-6 text-center">
-                <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}" class="img-fluid rounded-4 shadow-lg"
-                    style="width: 300px" alt="">
+                <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}" class="img-fluid rounded-4"
+                    style="width: 100%" alt="Banner konser">
             </div>
             <div class="col-6 text-left mt-5">
                 <form action="{{ route('orders.store') }}" method="POST">
