@@ -11,9 +11,9 @@ class ListOrderController extends Controller
     public function ListKonser(Request $request)
     {
         $search = $request->input('search');
-
-        $query = Order::where('payment_status', 2);
-
+        
+        $query = Order::with('transactionHistory')->where('payment_status', 2);
+    
         if ($search) {
             $query->where(function ($query) use ($search) {
                 $query->where('id', 'like', '%' . $search . '%')
@@ -46,18 +46,21 @@ class ListOrderController extends Controller
     }
 
     public function search(Request $request)
-    {
-        $search = $request->input('search');
+{
+    $search = $request->input('search');
 
-        $orders = Order::where('payment_status', 2)
-            ->where(function ($query) use ($search) {
-                $query->where('id', 'like', '%' . $search . '%')
-                    ->orWhereHas('user', function ($userQuery) use ($search) {
-                        $userQuery->where('email', 'like', '%' . $search . '%');
-                    });
-            })
-            ->get();
+    $query = Order::where('payment_status', 2)
+        ->where(function ($query) use ($search) {
+            $query->where('id', 'like', '%' . $search . '%')
+                ->orWhereHas('user', function ($userQuery) use ($search) {
+                    $userQuery->where('email', 'like', '%' . $search . '%');
+                });
+        });
 
-        return view('admin_page.list-order', compact('orders'));
-    }
+    // Menggunakan paginate() untuk mengambil data dengan pembagian halaman
+    $orders = $query->paginate(10);
+
+    return view('admin_page.list-order', compact('orders'));
+}
+
 }

@@ -153,7 +153,7 @@ class KonserController extends Controller
             $konsers->whereIn('kategori_id', $request->kategori);
         }
 
-        $konsers = $konsers->paginate(12);
+        $konsers = $konsers->paginate(9);
 
 
         // Mengembalikan tampilan dengan hasil pencarian ke view

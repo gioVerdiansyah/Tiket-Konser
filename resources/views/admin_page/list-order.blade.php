@@ -52,7 +52,7 @@
                                     @forelse ($orders as $order)
                                         @if ($order->payment_status == 2)
                                             <tr>
-                                                <td class="fw-bold"></td>
+                                                <td class="fw-bold">{{ $order->transactionHistory[0]->payment_type }}</td>
                                                 <td class="fw-bold">{{ $order->created_at }}</td>
                                                 <td class="fw-bold">{{ $order->id }}</td>
                                                 <td class="fw-bold">{{ $order->user->email }}</td>
