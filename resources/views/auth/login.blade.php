@@ -6,7 +6,7 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="login100-more"
-                style="background-image: url('{{ asset('images/login.jpeg') }}');width: 748px; height: 783px;flex-shrink: 0;">
+                style="background-image: url('{{ asset('images/login.jpeg') }}');width: 748px; height: 950px;flex-shrink: 0;">
             </div>
             <div class="wrap-login1000 p-l-50 p-r-50 p-t-72 p-b-50">
                 @if (Session::has('alert'))
