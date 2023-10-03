@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Konser;
 use App\Models\Order;
+use App\Models\Tiket;
 use App\Models\TransactionHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,6 +54,29 @@ class OrderController extends Controller
             'kategori_tiket' => 'required|string',
             'jumlah' => 'required|integer|min:1|max:5'
         ]);
+
+        $konser = Konser::findOrFail($request->konser_id);
+        $jumlahTiketDibeli = Order::where('user_id', Auth::user()->id)
+            ->where('konser_id', $konser->id)
+            ->whereIn('payment_status', [1, 2])
+            ->sum('jumlah');
+
+        if (intval($jumlahTiketDibeli) >= 5) {
+            return back()->with('message', [
+                'icon' => "error",
+                'title' => "Gagal!",
+                'text' => "Anda sudah memesan tiket ini sebanyak 5 kali!"
+            ]);
+        }
+        $batasTiket = 5 - $jumlahTiketDibeli;
+
+        if ($request->jumlah > $batasTiket) {
+            return back()->with('message', [
+                'icon' => "error",
+                'title' => "Gagal!",
+                'text' => "Anda hanya bisa membeli tiket sebanyak $batasTiket tiket lagi pada konser ini"
+            ]);
+        }
 
         $order = new Order;
         $order->user_id = Auth::user()->id;
@@ -152,10 +176,20 @@ class OrderController extends Controller
         //
     }
 
+    public function test()
+    {
+        $order = Order::with('konser', 'konser.tiket')->where('number', '651b9ed95a3a2')->firstOrFail();
+        $konser = $order->konser;
+        $tiket = $konser->tiket[0];
+        $tiket->jumlah_tiket -= 1;
+        $tiket->save();
+        dump($order);
+        dump($tiket);
+    }
     // transaksi
     public function trans(Request $request)
     {
-        $order = Order::where('number', $request->order_id)->firstOrFail();
+        $order = Order::with('konser', 'konser.tiket')->where('number', $request->order_id)->firstOrFail();
 
         $transactionHistoryData = [
             'approval_code' => $request->approval_code,
@@ -175,7 +209,19 @@ class OrderController extends Controller
         TransactionHistory::create($transactionHistoryData);
 
         if ($request->status_code == 200 || $request->status_code == 201) {
-            $order->payment_status = 2;
+            try {
+                $order->payment_status = 2;
+                $tiket = Tiket::where('id', $order->konser->tiket[0]->id)->firstOrFail();
+
+                $tiket->jumlah_tiket = $tiket->jumlah_tiket - $order->jumlah;
+
+                if ($tiket->jumlah_tiket < 0) {
+                    return response()->json(['message' => 'Stok tiket habis.']);
+                }
+                $tiket->save();
+            } catch (\Exception $e) {
+                return response()->json(['message' => $e->getMessage()], 400);
+            }
         } elseif ($request->status_code == 406) {
             $order->payment_status = 3;
         } else {

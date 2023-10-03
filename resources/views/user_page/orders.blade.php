@@ -119,9 +119,19 @@
                             Swal.fire({
                                 icon: "success",
                                 title: "Berhasil",
-                                text: response.message +
-                                    " Refresh untuk melihat perubahan atau pergi ke halaman <a href=" /
-                                    {{ route('history') }} "> history untuk melihat tiket anda</a>'",
+                                html: `${response.message}. Refresh untuk melihat perubahan atau <a href="{{ route('history') }}">lihat history tiket Anda.</a>`,
+                                allowOutsideClick: true,
+                                allowEscapeKey: false,
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr)
+                            console.log(status)
+                            console.log(error)
+                            Swal.fire({
+                                icon: "error",
+                                title: "Gagal",
+                                text: "Terjadi kesalahan saat mengirim data.",
                                 allowOutsideClick: true,
                                 allowEscapeKey: false,
                             });

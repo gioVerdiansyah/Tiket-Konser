@@ -201,7 +201,13 @@
                             </tr>
                             <tr>
                                 <td>@currency($orders->total_price)</td>
-                                <td>{{ $orders->konser->waktu_mulai }}</td>
+                                <td>
+                                    @php
+                                        $tanggalArray = explode(' to ', $orders->konser->tanggal_konser);
+                                        $tanggalPertama = $tanggalArray[0];
+                                        echo $tanggalPertama;
+                                    @endphp
+                                </td>
                                 <td>{{ $orders->konser->waktu_mulai }}</td>
                             </tr>
                         </table>

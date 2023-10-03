@@ -336,7 +336,6 @@ class KonserController extends Controller
      */
     public function destroy(Konser $buatkonser)
     {
-        dd($buatkonser);
         $konserName = $buatkonser->nama_konser;
         if ($buatkonser->user_id !== Auth::user()->id) {
             return back()->with('message', [

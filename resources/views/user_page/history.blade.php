@@ -520,7 +520,7 @@
                 var ticketId = 'ticket' + id;
 
                 $.ajax({
-                    url: `{{ route('test') }}#ticket${id}`,
+                    url: `{{ route('tiketku') }}#ticket${id}`,
                     method: 'GET',
                     data: {
                         ticketId: ticketId

@@ -76,10 +76,11 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
     Route::post('/detail-tiket/{id}/comment', [CommentController::class, 'store'])->name('comment');
     Route::get('/detail-tiket/{id}/comment/get', [CommentController::class, 'get'])->name('load-comments');
     Route::delete('/detail-tiket/{id}/comment', [CommentController::class, 'destroy'])->name('delete-comment');
+    Route::get('/tiketku', function () {
+        return view('user_page.tiketku');
+    })->name('tiketku');
 });
-Route::get('/test', function () {
-    return view('user_page.tiketku');
-})->name('test');
+Route::get('testing', [OrderController::class, 'test'])->name('test');
 // Admin
 Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
     // Route::get('/homeAdmin', function () {
