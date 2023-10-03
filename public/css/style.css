@@ -107,7 +107,10 @@
 
 .breadcrumb-option {
 	background: #ffffff;
-	padding: 20px  1rem;
+	padding-bottom: 1rem;
+	padding-top: 1rem;
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    padding-right: calc(var(--bs-gutter-x) * .5);
 }
 
 .breadcrumb__text h4 {
@@ -122,6 +125,7 @@
 	margin-right: 18px;
 	display: inline-block;
 	position: relative;
+    text-decoration: none;
 }
 
 .breadcrumb__links a:after {
@@ -136,6 +140,7 @@
 	font-size: 15px;
 	color: #b7b7b7;
 	display: inline-block;
+    text-decoration: underline;
 }
 
 
@@ -150,6 +155,8 @@
 
 .shop__sidebar__search {
 	margin-bottom: 45px;
+    box-shadow: 0 1px 8px 1px rgba(62,57,107,.08);
+    border-radius: 10px;
 }
 
 .shop__sidebar__search form {
@@ -201,8 +208,10 @@
 
 /* Search Konserku*/
 .shop__sidebar__searchh {
+    box-shadow: 0 1px 8px 1px rgba(62,57,107,.08);
 	margin-bottom: 45px;
     margin-top: 5px;
+    border-radius: 10px;
 }
 
 .shop__sidebar__searchh form {
@@ -325,9 +334,17 @@
 
 /* Product */
 .product__item {
+    -webkit-transition:all .25s ease;
+    box-shadow: 0 1px 15px 1px rgba(62,57,107,.07);
+    border-radius:5%;
 	overflow: hidden;
 	margin-bottom: 40px;
+    transition:  all .25s ease;
 }
+.product__item:hover{
+    box-shadow: 0 1px 30px 1px rgba(62,57,107,.14);
+}
+
 
 .product__item.sale .product__item__pic .label {
 	color: #ffffff;
@@ -363,7 +380,7 @@
 
 .product__item__pic {
 
-	height: 260px;
+	height: 100%;
 	position: relative;
 	background-position: center center;
 }
@@ -441,9 +458,12 @@
 }
 
 .product__item__text {
-	padding-top: 45px;
+    text-align: left;
+    padding: 0.8rem;
+	padding-top: 5px;
 	position: relative;
 }
+
 
 .product__item__text a {
 	font-size: 15px;
@@ -461,13 +481,19 @@
 }
 
 .product__item__text h6 {
+    display: flex;
+    justify-content:space-between;
 	color: #111111;
-	font-size: 15px;
+	font-size: 1.2rem;
 	font-weight: 600;
-	margin-bottom: 5px;
 	-webkit-transition: all, 0.3s;
 	-o-transition: all, 0.3s;
 	transition: all, 0.3s;
+    padding: 0.9rem;
+}
+.product__item__text h6 span{
+    color: #b7b7b7;
+    font-size: 1.1rem;
 }
 
 .product__item__text .rating {
@@ -480,9 +506,13 @@
 	margin-right: -5px;
 }
 
-.product__item__text h5 {
+.product__item__text h4 {
+    font-size: 1.1rem;
 	color: #0d0d0d;
-	font-weight: 700;
+}
+.product__item__text h5 {
+    font-size: 1rem;
+	color: #ff0000;
 }
 
 .product__item__text .product__color__select {
@@ -534,4 +564,23 @@
 .product__item__text .product__color__select label input {
 	position: absolute;
 	visibility: hidden;
+}
+@media(max-width:1361px){
+    .product__item__text h6{
+        font-size: 100%;
+    }
+    .product__item__text h6 span{
+        font-size: 100%;
+    }
+    .product__item__text h5{
+        font-size: 100%;
+    }
+}
+@media(width:992px){
+    .product__item__text h6 {
+        font-size: 80%;
+    }
+    .product__item__text h5{
+        font-size: 100%;
+    }
 }

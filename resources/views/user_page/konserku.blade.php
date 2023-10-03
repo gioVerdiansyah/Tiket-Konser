@@ -19,6 +19,15 @@
         .paginate ul{
           justify-content: center;
         }
+        .shop_spad{
+            position: relative;
+            min-height: 50vh;
+        }
+        .shop__left d{
+            font-size: 24px;
+            font-weight: bold;
+        }
+
     </style>
     <script nonce="39342a9c-a4b6-4c37-a019-bd53c0eeded9">
         (function(w, d) {
@@ -86,7 +95,7 @@
         })(window, document);
     </script>
     </head>
-    
+
     <body>
     <section class="breadcrumb-option">
         <div class="container">
@@ -100,7 +109,7 @@
             </div>
         </div>
     </section>
-    <section class="shop spad">
+    <section class="shop_spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -129,7 +138,7 @@
                                 <div class="product__item">
                                     <div class="product__item__pic">
                                         <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}"
-                                            style="width: 265px; height: 300px; border-radius: 5%; ">
+                                            style="width: 100%; height: 300px;  border-bottom: solid 1px #d4d4d4;">
                                         <ul class="product__hover">
                                             <li><a href="{{ route('buatkonser.edit', $konser->id) }}"><img
                                                         src="img/icon/edit.png" style="border-radius: 5px;"
@@ -151,7 +160,7 @@
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
-                                        <h6> {{ $konser->nama_konser }} </h6>
+                                        <h6> {{ $konser->nama_konser }} <span> {{ $konser->kategori->nama_kategori }}</span> </h6>
                                         <h5> @currency ($konser->tiket[0]->harga1) </h5>
                                     </div>
                                 </div>

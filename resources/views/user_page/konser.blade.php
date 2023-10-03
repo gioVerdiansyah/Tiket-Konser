@@ -251,10 +251,10 @@
 
                                 @forelse ($konsers as $konser)
                                     <div class="col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product__item"> 
+                                        <div class="product__item">
                                             <div class="product__item__pic">
                                                 <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}"
-                                                    style="width: 245px; height: 265px; border-radius: 4%; ">
+                                                    style="width: 100%; height: 300px; border-bottom: solid 1px #d4d4d4;">
                                                 <ul class="product__hover">
                                                     <li><a href="{{ route('detail_konser', $konser->id) }}"><img
                                                                 src="img/icon/detail-removebg-preview.png"
@@ -263,7 +263,11 @@
                                                 </ul>
                                             </div>
                                             <div class="product__item__text">
-                                                <h6> {{ $konser->nama_konser }} </h6>
+                                                <h6> {{ $konser->nama_konser }}
+                                                    <span>
+                                                      {{ $konser->kategori->nama_kategori }}
+                                                    </span>
+                                                </h6>
                                                 <h5> @currency ($konser->tiket[0]->harga1) </h5>
                                             </div>
                                         </div>
