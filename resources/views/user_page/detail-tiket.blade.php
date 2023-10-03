@@ -78,6 +78,8 @@
             font-size: 12px;
             /* Mengubah ukuran teks label */
         }
+
+        
     </style>
     {{-- End --}}
 

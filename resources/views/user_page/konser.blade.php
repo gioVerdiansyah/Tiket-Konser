@@ -251,10 +251,10 @@
 
                                 @forelse ($konsers as $konser)
                                     <div class="col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product__item">
+                                        <div class="product__item"> 
                                             <div class="product__item__pic">
                                                 <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}"
-                                                    style="width: 265px; height: 300px; border-radius: 5%; ">
+                                                    style="width: 245px; height: 265px; border-radius: 4%; ">
                                                 <ul class="product__hover">
                                                     <li><a href="{{ route('detail_konser', $konser->id) }}"><img
                                                                 src="img/icon/detail-removebg-preview.png"
