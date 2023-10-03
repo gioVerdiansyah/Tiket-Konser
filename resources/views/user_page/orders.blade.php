@@ -8,6 +8,7 @@
                 border-radius: 15px;
                 justify-content: center;
             }
+
         </style>
         <div class="container">
             <div class="card mt-4 mb-3">
@@ -94,7 +95,7 @@
     </div>
     </div>
 @empty
-    <li class="list-group-item">
+    <li class="list-group-item" style="position: relative; min-height: 50vh;">
         <p class="my-3 text-center">Belum memesan tiket apapun...</p>
     </li>
     @endforelse
