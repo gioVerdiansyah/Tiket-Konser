@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Konser;
 use App\Models\Order;
-use App\Models\Tiket;
 use App\Models\TransactionHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -171,64 +170,70 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
-        //
+        $order = Order::where('id', $id)->firstOrFail();
+        if ($order->user_id !== Auth::user()->id) {
+            return back()->with('message', [
+                'icon' => 'error',
+                'title' => "Gagal!",
+                'text' => "User id order tidaklah sama!"
+            ]);
+        }
+
+        $order->delete();
+        return back()->with('message', [
+            'title' => "Berhasil!",
+            'text' => "Berhasil menghapus order!"
+        ]);
     }
 
-    public function test()
-    {
-        $order = Order::with('konser', 'konser.tiket')->where('number', '651b9ed95a3a2')->firstOrFail();
-        $konser = $order->konser;
-        $tiket = $konser->tiket[0];
-        $tiket->jumlah_tiket -= 1;
-        $tiket->save();
-        dump($order);
-        dump($tiket);
-    }
     // transaksi
     public function trans(Request $request)
     {
-        $order = Order::with('konser', 'konser.tiket')->where('number', $request->order_id)->firstOrFail();
-
-        $transactionHistoryData = [
-            'approval_code' => $request->approval_code,
-            'bank' => $request->bank,
-            'card_type' => $request->card_type,
-            'fraud_status' => $request->fraud_status,
-            'gross_amount' => $request->gross_amount,
-            'masked_card' => $request->masked_card,
-            'payment_type' => $request->payment_type,
-            'status_message' => $request->status_message,
-            'transaction_id' => $request->transaction_id,
-            'transaction_status' => $request->transaction_status,
-            'transaction_time' => $request->transaction_time,
-            'order_id' => $order->id,
-        ];
-
-        TransactionHistory::create($transactionHistoryData);
+        $order = Order::where('number', $request->order_id)->firstOrFail();
 
         if ($request->status_code == 200 || $request->status_code == 201) {
-            try {
-                $order->payment_status = 2;
-                $tiket = Tiket::where('id', $order->konser->tiket[0]->id)->firstOrFail();
-
-                $tiket->jumlah_tiket = $tiket->jumlah_tiket - $order->jumlah;
-
-                if ($tiket->jumlah_tiket < 0) {
-                    return response()->json(['message' => 'Stok tiket habis.']);
-                }
-                $tiket->save();
-            } catch (\Exception $e) {
-                return response()->json(['message' => $e->getMessage()], 400);
-            }
-        } elseif ($request->status_code == 406) {
+            $order->payment_status = 2;
+        } elseif ($request->status_code == 407) {
             $order->payment_status = 3;
         } else {
             $order->payment_status = 4;
         }
 
         $order->save();
+
+        $transaksi = new TransactionHistory;
+        $transaksi->fraud_status = $request->fraud_status;
+        $transaksi->gross_amount = $request->gross_amount;
+        $transaksi->payment_type = $request->payment_type;
+        $transaksi->status_message = $request->status_message;
+        $transaksi->transaction_id = $request->transaction_id;
+        $transaksi->transaction_status = $request->transaction_status;
+        $transaksi->transaction_time = $request->transaction_time;
+        $transaksi->order_id = $order->id;
+
+        if ($request->payment_type == 'bank_transfer') {
+            if (isset($request->va_numbers[0])) {
+                $transaksi->va_number = $request->va_numbers[0]['va_number'];
+                $transaksi->bank = $request->va_numbers[0]['bank'];
+            }
+            if ($request->has('permata_va_number')) {
+                $transaksi->bank = 'permata';
+                $transaksi->va_number = $request->permata_va_number;
+            }
+        } elseif ($request->payment_type == 'echannel') {
+            $transaksi->bank = 'mandiri';
+            $transaksi->va_number = $request->bill_key;
+            $transaksi->biller_code = $request->biller_code;
+        } elseif ($request->payment_type == 'credit_card') {
+            $transaksi->approval_code = $request->approval_code;
+            $transaksi->masked_card = $request->masked_card;
+            $transaksi->card_type = $request->card_type;
+            $transaksi->bank = $request->bank;
+        }
+
+        $transaksi->save();
 
         return response()->json(['message' => 'Transaksi berhasil diproses!']);
     }

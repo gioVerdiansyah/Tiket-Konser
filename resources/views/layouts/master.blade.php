@@ -30,12 +30,20 @@
             }
 
             .notice {
-                width: 10px;
-                height: 10px;
                 background-color: red;
                 border-radius: 50px;
                 position: absolute;
-                top: 15px
+                font-size: 13px;
+                width: max-content;
+                height: max-content;
+                padding: 0 8px;
+                color: white;
+                top: 32px;
+                transform: translateX(-7px);
+            }
+
+            .notice.notif {
+                top: 8px;
             }
         </style>
         {{-- Custom CSS End --}}
@@ -80,37 +88,51 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('konserku') }}">Konserku</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('orders.index') }}">Orders</a>
-                            </li>
                         @endauth
+                    </ul>
                 </div>
-                <div class="navbar-nav ml-auto">
+                @auth
+                    <div class="navbar-nav ml-auto">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex align-items-center me-3">
+                                <a class="nav-link" href="{{ route('orders.index') }}"><i class="bi bi-basket fs-4"></i>
+                                    @php
+                                        $cart = \App\Models\Order::where('user_id', Auth::user()->id)
+                                            ->where('payment_status', 1)
+                                            ->count();
+                                    @endphp
+                                    @if ($cart > 0)
+                                        <div class="notice cart">
+                                            {{ $cart }}
+                                        </div>
+                                    @endif
+                                </a>
+                            </li>
+                        </ul>
+                    @endauth
                     @guest
-                        {{-- Pengguna belum login, tampilkan tombol login dan register --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
-                        </li>
+                        <ul class="navbar-nav">
+                            {{-- Pengguna belum login, tampilkan tombol login dan register --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">Register</a>
+                            </li>
+                        </ul>
                     @else
-                        {{-- Pengguna sudah login, tampilkan dropdown profil --}}
-                        @php
-                            $notif = \App\Models\Notifications::where('user_id', Auth::user()->id)->get();
-                            $exist = \App\Models\Notifications::where('user_id', Auth::user()->id)->exists();
-                            $latest = \App\Models\Notifications::where('user_id', Auth::user()->id)
-                                ->latest()
-                                ->first();
-                            $notifs = \App\Models\Notifications::where('user_id', Auth::user()->id)
-                                ->where('read', 1)
-                                ->get();
-                            $isUnread = $notifs->isNotEmpty();
-                        @endphp
+                        @auth
+                            @php
+                                $notif = \App\Models\Notifications::where('user_id', Auth::user()->id)->get();
+                                $count = \App\Models\Notifications::where('user_id', Auth::user()->id)
+                                    ->where('read', 1)
+                                    ->count();
+                            @endphp
+                        @endauth
                         <li class="nav-item dropdown d-flex flex-row align-items-center">
                             <a role="button" class="me-3 text-secondary" id="notification-dropdown-button"
                                 data-bs-toggle="dropdown" aria-expanded="false"
-                                @if ($exist && $latest && $isUnread) onclick="
+                                @if ($count > 0) onclick="
                                         $.ajax({
                                             type: 'PUT',
                                             url: '{{ route('read-notif') }}',
@@ -123,7 +145,7 @@
                                             dataType: 'json',
                                             success: function(response) {
                                                 console.log(response);
-                                                document.querySelector('.notice').remove();
+                                                document.querySelector('.notice.notif').remove();
                                                 var notificationDiv = document.getElementById('notification-dropdown-button');
                                                 notificationDiv.removeAttribute('onclick');
                                             },
@@ -133,8 +155,8 @@
                                         });
                                         " @endif>
                                 <i class="bi bi-bell fs-4"></i>
-                                @if ($exist && $latest && $isUnread)
-                                    <div class="notice"></div>
+                                @if ($count > 0)
+                                    <div class="notice notif">{{ $count }}</div>
                                 @endif
                             </a>
                             <ul id="parentnotif" class="dropdown-menu dropdown-menu-end"
@@ -146,7 +168,15 @@
                                 @forelse ($notif as $row)
                                     <li class="px-3 py-2 d-flex flex-row justify-content-between align-items-center"
                                         data-notification-id="{{ $row->id }}">
-                                        {{ $row->fillin }}
+                                        <div class="d-flex flex-column">
+                                            <strong
+                                                style="
+                                        font-size: 10px;
+                                    ">Dari
+                                                konser:
+                                                {{ $row->nama_konser }}</strong>
+                                            {{ $row->fillin }}
+                                        </div>
                                         <button class="btn" data-bs-dismiss="false" id="butonnotid{{ $row->id }}"
                                             onclick="deleteNotif(this, {{ $row->id }})"><i
                                                 class="bi bi-x"></i></button>
@@ -184,6 +214,7 @@
                                 </li>
                             </ul>
                         </li>
+                        </ul>
                     @endguest
                 </div>
             </div>

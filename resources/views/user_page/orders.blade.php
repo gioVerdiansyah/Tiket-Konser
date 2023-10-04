@@ -8,7 +8,6 @@
                 border-radius: 15px;
                 justify-content: center;
             }
-
         </style>
         <div class="container">
             <div class="card mt-4 mb-3">
@@ -57,33 +56,24 @@
                                 <td align="left"><strong>@currency($order->total_price)</strong></td>
                             </tr>
                             <tr>
-                                <td colspan="5" align="right"><strong>Status :</strong></td>
-                                <td align="left"><strong>
-                                        @if ($order->payment_status == 1)
-                                            <button class="btn btn-primary" id="order-now"
-                                                onclick="payNow('{{ $order->snap_token }}')">Bayar Sekarang</button>
-                                        @endif
-                                        @if ($order->payment_status == 3)
-                                            <button class="btn btn-warning">Sudah kadaluarsa!</button>
-                                        @endif
-                                        @if ($order->payment_status == 4)
-                                            <button class="btn btn-danger">Gagal!</button>
-                                        @endif
-                                        @if ($order->payment_status == 2)
-                                            <button class="btn btn-success">Sukses di bayar</button>
-                                            {{-- <a href="">Lihat Tiket mu!</a> --}}
-                                    </strong></td>
+                                <td colspan="5" align="right"><strong>Action :</strong></td>
+                                <td align="left" class="d-flex">
+                                    @if ($order->payment_status == 1)
+                                        <button class="btn btn-primary" id="order-now"
+                                            onclick="payNow('{{ $order->snap_token }}')">Bayar Sekarang</button>
+                                    @endif
+                                    <form action="{{ route('orders.destroy', $order->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger ms-2"><i
+                                                class="bi bi-trash"></i></button>
+                                    </form>
+                                </td>
                             </tr>
-                            <tr>
-                                <td colspan="5" align="right"><strong>Tiket Anda : </strong></td>
-                                <td align="left"><strong><a href="">Lihat Tiket anda!</a></strong></td>
-                            </tr>
-    @endif
+                        </tbody>
+                    </table>
 
-    </tbody>
-    </table>
-
-    {{-- <form method="post" action="proses_upload" enctype="multipart/form-data">
+                    {{-- <form method="post" action="proses_upload" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="pesanan_id" value="{{ $pesanan->id }}">
                 <!-- tambahkan elemen input untuk file gambar -->
@@ -91,13 +81,13 @@
                 <input type="submit" value="Upload" class="btn btn-primary">
             </form> --}}
 
-    </div>
-    </div>
-    </div>
-@empty
-    <li class="list-group-item" style="position: relative; min-height: 50vh;">
-        <p class="my-3 text-center">Belum memesan tiket apapun...</p>
-    </li>
+                </div>
+            </div>
+        </div>
+    @empty
+        <li class="list-group-item" style="position: relative; min-height: 50vh;">
+            <p class="my-3 text-center">Belum memesan tiket apapun...</p>
+        </li>
     @endforelse
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
     </script>
