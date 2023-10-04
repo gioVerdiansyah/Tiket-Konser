@@ -92,6 +92,12 @@
         table.table tr td {
             border-color: #e9e9e9;
         }
+        .table td {
+            max-width: 200px; /* Batasi lebar maksimum sel */
+            white-space: nowrap; /* Hindari pemutaran teks */
+            overflow: hidden; /* Sembunyikan teks yang berlebihan */
+            text-overflow: ellipsis; /* Tambahkan elipsis (...) jika teks terlalu panjang */
+        }
 
         table.table th i {
             font-size: 13px;
@@ -226,6 +232,37 @@
                 </table>
             </div>
         </div>
+        <nav aria-label="Page navigation example" class="mt-3">
+            <ul class="pagination justify-content-center">
+                @if ($konsers->onFirstPage())
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                @else
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $konsers->previousPageUrl() }}"
+                            rel="prev">Previous</a>
+                    </li>
+                @endif
+
+                @for ($i = 1; $i <= $konsers->lastPage(); $i++)
+                    <li class="page-item {{ $konsers->currentPage() == $i ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $konsers->url($i) }}">{{ $i }}</a>
+                    </li>
+                @endfor
+
+                @if ($konsers->hasMorePages())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $konsers->nextPageUrl() }}"
+                            rel="next">Next</a>
+                    </li>
+                @else
+                    <li class="page-item disabled">
+                        <span class="page-link">Next</span>
+                    </li>
+                @endif
+            </ul>
+        </nav>
     </div>
     </body>
     <script>
