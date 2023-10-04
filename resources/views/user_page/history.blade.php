@@ -397,8 +397,10 @@
                             <h6 class="card-title">Di order pada:
                                 {{ \Carbon\Carbon::parse($order->created_at)->translatedFormat('l, d F Y H:i') }}
                                 <br>
-                                Di bayar pada:
-                                {{ \Carbon\Carbon::parse($order->transactionHistory[0]->transaction_time)->translatedFormat('l, d F Y H:i') }}
+                                @if ($order->payment_status == 2)
+                                    Di bayar pada:
+                                    {{ \Carbon\Carbon::parse($order->transactionHistory[0]->transaction_time)->translatedFormat('l, d F Y H:i') }}
+                                @endif
                             </h6>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
@@ -406,23 +408,30 @@
                                     <p class="m-0 p-0" style="color: rgb(162, 170, 162);">
                                     <p class="m-0 p-0">Total harga: @currency($order->total_price)</p>
                                     <strong>Status:</strong>
-                                    <ss style="color: #21ad44; font-weight:bolder; font-style:normal;">
-                                        {{ Str::before($order->transactionHistory[0]->status_message, ',') }}
-                                        <ss>
-                                            </p>
-                                            <button class="bittin hover" id="generatePdf"
-                                                onclick="generatePDF('{{ $i }}')">Tiket
-                                                Anda</button>
+                                    @if ($order->payment_status == 2)
+                                        <p style="color: #21ad44; font-weight:bolder; font-style:normal;">
+                                            {{ Str::before($order->transactionHistory[0]->status_message, ',') }}
+                                        </p>
+                                        <button class="bittin hover" id="generatePdf"
+                                            onclick="generatePDF('{{ $i }}')">Tiket
+                                            Anda</button>
+                                    @else
+                                        <p style="color: #ffb60d; font-weight:bolder; font-style:normal;">
+                                            Kadaluarsa
+                                        <p>
+                                    @endif
                                 </div>
-                                <div class="wrapper ">
-                                    <p class="m-0 p-0">
-                                        <strong
-                                            style="color: rgb(231, 57, 188); text-decoration: underline;  cursor: pointer;"
-                                            data-toggle="modal" data-target="#transactionModal{{ $i + 1 }}">Lihat
-                                            Detail
-                                            Transaksi</strong>
-                                    </p>
-                                </div>
+                                @if ($order->payment_status == 2)
+                                    <div class="wrapper ">
+                                        <p class="m-0 p-0">
+                                            <strong
+                                                style="color: rgb(231, 57, 188); text-decoration: underline;  cursor: pointer;"
+                                                data-toggle="modal" data-target="#transactionModal{{ $i + 1 }}">Lihat
+                                                Detail
+                                                Transaksi</strong>
+                                        </p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -437,113 +446,115 @@
         @endforelse
     </div>
     @forelse ($orders as $i => $orderku)
-        <div class="modal fade" id="transactionModal{{ ++$i }}" tabindex="-1" role="dialog"
-            aria-labelledby="transactionModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="transactionModalLabel"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="big-wrapper">
-                            <div class="wrapper-transaction new-background">
-                                <h5 class="title-wrapper" id="exampleModalLabel">Detail Transaksi</h5>
-                                @if ($orderku->transactionHistory[0]->payment_type == 'credit_card')
-                                    <div class="list-transaction">
-                                        <span class="type">Kode Aproval</span>
-                                        <span class="value">{{ $orderku->transactionHistory[0]->approval_code }}</span>
-                                    </div>
-                                @endif
-                                @if (
-                                    $orderku->transactionHistory[0]->payment_type == 'bank_transfer' ||
-                                        $orderku->transactionHistory[0]->payment_type == 'credit_card' ||
-                                        $orderku->transactionHistory[0]->payment_type == 'echannel')
-                                    <div class="list-transaction">
-                                        <span class="type">Bank</span>
-                                        <span class="value">{{ $orderku->transactionHistory[0]->bank }}</span>
-                                    </div>
-                                @endif
-                                <div class="list-transaction">
-                                    <span class="type">Status transaksi</span>
-                                    <span class="value">{{ $orderku->transactionHistory[0]->fraud_status }}</span>
-                                </div>
-                                @if ($orderku->transactionHistory[0]->payment_type == 'credit_card')
-                                    <div class="list-transaction">
-                                        <span class="type">Tipe Kartu</span>
-                                        <span class="value">{{ $orderku->transactionHistory[0]->card_type }}</span>
-                                    </div>
-                                @endif
-                                @if (
-                                    $orderku->transactionHistory[0]->payment_type == 'credit_card' ||
+        @if ($orderku->payment_status == 2)
+            <div class="modal fade" id="transactionModal{{ ++$i }}" tabindex="-1" role="dialog"
+                aria-labelledby="transactionModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="transactionModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="big-wrapper">
+                                <div class="wrapper-transaction new-background">
+                                    <h5 class="title-wrapper" id="exampleModalLabel">Detail Transaksi</h5>
+                                    @if ($orderku->transactionHistory[0]->payment_type == 'credit_card')
+                                        <div class="list-transaction">
+                                            <span class="type">Kode Aproval</span>
+                                            <span class="value">{{ $orderku->transactionHistory[0]->approval_code }}</span>
+                                        </div>
+                                    @endif
+                                    @if (
                                         $orderku->transactionHistory[0]->payment_type == 'bank_transfer' ||
-                                        $orderku->transactionHistory[0]->payment_type == 'echannel')
+                                            $orderku->transactionHistory[0]->payment_type == 'credit_card' ||
+                                            $orderku->transactionHistory[0]->payment_type == 'echannel')
+                                        <div class="list-transaction">
+                                            <span class="type">Bank</span>
+                                            <span class="value">{{ $orderku->transactionHistory[0]->bank }}</span>
+                                        </div>
+                                    @endif
                                     <div class="list-transaction">
-                                        <span class="type">No Kartu</span>
-                                        <span class="value">
-                                            @if ($orderku->transactionHistory[0]->payment_type == 'credit_card')
-                                                {{ substr_replace($orderku->transactionHistory[0]->masked_card, str_repeat('*', strlen($orderku->transactionHistory[0]->masked_card) - 8), 4, -4) }}
-                                            @endif
-                                            @if (
-                                                $orderku->transactionHistory[0]->payment_type == 'bank_transfer' ||
-                                                    $orderku->transactionHistory[0]->payment_type == 'echannel')
-                                                {{ substr_replace($orderku->transactionHistory[0]->va_number, str_repeat('*', strlen($orderku->transactionHistory[0]->va_number) - 8), 4, -4) }}
-                                            @endif
-                                        </span>
+                                        <span class="type">Status transaksi</span>
+                                        <span class="value">{{ $orderku->transactionHistory[0]->fraud_status }}</span>
                                     </div>
-                                @endif
-                                @if ($orderku->transactionHistory[0]->payment_type == 'echannel')
+                                    @if ($orderku->transactionHistory[0]->payment_type == 'credit_card')
+                                        <div class="list-transaction">
+                                            <span class="type">Tipe Kartu</span>
+                                            <span class="value">{{ $orderku->transactionHistory[0]->card_type }}</span>
+                                        </div>
+                                    @endif
+                                    @if (
+                                        $orderku->transactionHistory[0]->payment_type == 'credit_card' ||
+                                            $orderku->transactionHistory[0]->payment_type == 'bank_transfer' ||
+                                            $orderku->transactionHistory[0]->payment_type == 'echannel')
+                                        <div class="list-transaction">
+                                            <span class="type">No Kartu</span>
+                                            <span class="value">
+                                                @if ($orderku->transactionHistory[0]->payment_type == 'credit_card')
+                                                    {{ substr_replace($orderku->transactionHistory[0]->masked_card, str_repeat('*', strlen($orderku->transactionHistory[0]->masked_card) - 8), 4, -4) }}
+                                                @endif
+                                                @if (
+                                                    $orderku->transactionHistory[0]->payment_type == 'bank_transfer' ||
+                                                        $orderku->transactionHistory[0]->payment_type == 'echannel')
+                                                    {{ substr_replace($orderku->transactionHistory[0]->va_number, str_repeat('*', strlen($orderku->transactionHistory[0]->va_number) - 8), 4, -4) }}
+                                                @endif
+                                            </span>
+                                        </div>
+                                    @endif
+                                    @if ($orderku->transactionHistory[0]->payment_type == 'echannel')
+                                        <div class="list-transaction">
+                                            <span class="type">Kode Pembayaran</span>
+                                            <span class="value">{{ $orderku->transactionHistory[0]->biller_code }}</span>
+                                        </div>
+                                    @endif
                                     <div class="list-transaction">
-                                        <span class="type">Kode Pembayaran</span>
-                                        <span class="value">{{ $orderku->transactionHistory[0]->biller_code }}</span>
+                                        <span class="type">Tipe Pembayaran</span>
+                                        <span
+                                            class="value">{{ str_replace('_', ' ', $orderku->transactionHistory[0]->payment_type) }}</span>
                                     </div>
-                                @endif
-                                <div class="list-transaction">
-                                    <span class="type">Tipe Pembayaran</span>
-                                    <span
-                                        class="value">{{ str_replace('_', ' ', $orderku->transactionHistory[0]->payment_type) }}</span>
-                                </div>
-                                <div class="list-transaction ">
-                                    <span class="type">Tanggal Transaksi</span>
-                                    <span
-                                        class="value">{{ \Carbon\Carbon::parse($orderku->transactionHistory[0]->transaction_time)->translatedFormat('l, d F Y H:i') }}</span>
-                                </div>
-                                <div class="list-transaction single-line ">
-                                    <span class="type">Nomor Telepon</span>
-                                    <span class="value">{{ Auth::user()->phone }}</span>
-                                </div>
-                                <div class="list-transaction ">
-                                    <span class="type">Harga satuan</span>
-                                    <span class="value">@currency($orderku->harga_satuan)</span>
-                                </div>
-                                <div class="list-transaction ">
-                                    <span class="type">Jumlah</span>
-                                    <span class="value">{{ $orderku->jumlah }}</span>
-                                </div>
-                                <div class="list-transaction ">
-                                    <span class="type">Biaya Admin</span>
-                                    <span class="value">@currency($orderku->harga_satuan * $orderku->jumlah * (5 / 100))</span>
-                                </div>
-                                <div class="list-transaction single-line dashed">
-                                    <span class="typep">Total Harga</span>
-                                    <span class="valuep">@currency($orderku->total_price)</span>
-                                </div>
-                                <div class="status_message">
-                                    <span class="type bolder">Status</span>
-                                </div>
-                                <div class="value-bolder">
-                                    <span class="spin">Berhasil</span>
+                                    <div class="list-transaction ">
+                                        <span class="type">Tanggal Transaksi</span>
+                                        <span
+                                            class="value">{{ \Carbon\Carbon::parse($orderku->transactionHistory[0]->transaction_time)->translatedFormat('l, d F Y H:i') }}</span>
+                                    </div>
+                                    <div class="list-transaction single-line ">
+                                        <span class="type">Nomor Telepon</span>
+                                        <span class="value">{{ Auth::user()->phone }}</span>
+                                    </div>
+                                    <div class="list-transaction ">
+                                        <span class="type">Harga satuan</span>
+                                        <span class="value">@currency($orderku->harga_satuan)</span>
+                                    </div>
+                                    <div class="list-transaction ">
+                                        <span class="type">Jumlah</span>
+                                        <span class="value">{{ $orderku->jumlah }}</span>
+                                    </div>
+                                    <div class="list-transaction ">
+                                        <span class="type">Biaya Admin</span>
+                                        <span class="value">@currency($orderku->harga_satuan * $orderku->jumlah * (5 / 100))</span>
+                                    </div>
+                                    <div class="list-transaction single-line dashed">
+                                        <span class="typep">Total Harga</span>
+                                        <span class="valuep">@currency($orderku->total_price)</span>
+                                    </div>
+                                    <div class="status_message">
+                                        <span class="type bolder">Status</span>
+                                    </div>
+                                    <div class="value-bolder">
+                                        <span class="spin">Berhasil</span>
+                                    </div>
+
                                 </div>
 
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     @empty
         <p class="text-center">Tidak ada data...</p>
     @endforelse

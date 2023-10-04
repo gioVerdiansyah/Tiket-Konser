@@ -197,8 +197,12 @@ class OrderController extends Controller
             $order->payment_status = 2;
         } elseif ($request->status_code == 407) {
             $order->payment_status = 3;
+            $order->save();
+            return response()->json(['message' => "Pembayaran telah kadaluarsa"], 407);
         } else {
             $order->payment_status = 4;
+            $order->save();
+            return response()->json(['message' => "Pembayaran gagal!"], 422);
         }
 
         $order->save();

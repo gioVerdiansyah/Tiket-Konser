@@ -107,6 +107,7 @@
                             xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
                         },
                         success: function(response) {
+                            console.log(response);
                             Swal.fire({
                                 icon: "success",
                                 title: "Berhasil",
@@ -130,7 +131,16 @@
                     });
                 },
                 onError: function(result) {
-                    console.log(result)
+                    console.log(result);
+                    if (result.status_code == 407) {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Pembayaran Kadaluarsa",
+                            text: "Pembayaran telah kadaluarsa!",
+                            allowOutsideClick: true,
+                            allowEscapeKey: false,
+                        });
+                    }
                     $.ajax({
                         type: "POST",
                         url: "{{ route('sendTrans') }}",

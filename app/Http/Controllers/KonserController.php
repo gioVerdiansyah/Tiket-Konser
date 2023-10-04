@@ -23,7 +23,7 @@ class KonserController extends Controller
     public function index()
     {
         $kategoris = Kategori::all();
-        $konsers = Konser::with('tiket')->paginate(9);
+        $konsers = Konser::with('tiket')->withTrashed()->paginate(9);
         return view('user_page.konser', compact('konsers', 'kategoris'));
     }
 
@@ -114,7 +114,7 @@ class KonserController extends Controller
 
     public function konserku()
     {
-        $konserku = Konser::with('tiket')->where('user_id', Auth::user()->id)->paginate(8);
+        $konserku = Konser::with('tiket')->where('user_id', Auth::user()->id)->withTrashed()->paginate(8);
         return view('user_page.konserku', compact('konserku'));
     }
 
@@ -128,6 +128,7 @@ class KonserController extends Controller
                 })
                     ->orWhere('nama_konser', 'like', '%' . $search->search . '%');
             })
+            ->withTrashed()
             ->paginate(12);
         return view('user_page.konserku', compact('konserku'));
     }
@@ -166,6 +167,7 @@ class KonserController extends Controller
         // ini untuk detail tiket saat di konser terbaru di klik
         $konser = Konser::with('tiket', 'comment')
             ->where('id', $id)
+            ->withTrashed()
             ->latest()
             ->firstOrFail();
 

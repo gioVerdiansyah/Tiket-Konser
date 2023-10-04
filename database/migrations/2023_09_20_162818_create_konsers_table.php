@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->string('denah')->nullable();
             $table->foreignId('kategori_id')->constrained()->onDelete('restrict');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

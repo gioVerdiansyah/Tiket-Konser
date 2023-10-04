@@ -89,7 +89,7 @@
                     style="width: 100%" alt="Banner konser">
             </div>
             <div class="col-6 text-left mt-5">
-                <form action="{{ route('orders.store') }}" method="POST">
+                <form @if (!$konser->deleted_at) action="{{ route('orders.store') }}" method="POST" @endif>
                     @csrf
                     <input type="hidden" name="konser_id" value="{{ $konser->id }}">
                     <h3 class="fw-bold">{{ $konser->nama_konser }}</h3>
@@ -100,63 +100,75 @@
                         <p>Penjual tidak menambahkan deskripsi...</p>
                     @endif
 
-                    <p>Stok : {{ $tiket->jumlah_tiket }}</p>
+                    @if (!$konser->deleted_at)
+                        <p>Stok : {{ $tiket->jumlah_tiket }}</p>
 
-                    <input type="radio" id="lang-1" name="price" value="{{ $tiket->harga1 }}" class="radio" checked>
-                    <label class="label label-1" for="lang-1">{{ strtoupper($tiket->kategoritiket1) }}</label>
-                    <input type="radio" id="kategori-lang-1" name="kategori_tiket" value="{{ $tiket->kategoritiket1 }}"
-                        hidden checked>
+                        <input type="radio" id="lang-1" name="price" value="{{ $tiket->harga1 }}" class="radio"
+                            checked>
+                        <label class="label label-1" for="lang-1">{{ strtoupper($tiket->kategoritiket1) }}</label>
+                        <input type="radio" id="kategori-lang-1" name="kategori_tiket"
+                            value="{{ $tiket->kategoritiket1 }}" hidden checked>
 
-                    @if (isset($tiket->kategoritiket2) && isset($tiket->harga2))
-                        <input type="radio" id="lang-2" name="price" value="{{ $tiket->harga2 }}" class="radio">
-                        <label class="label label-2" for="lang-2">{{ strtoupper($tiket->kategoritiket2) }}</label>
-                        <input type="radio" id="kategori-lang-2" name="kategori_tiket"
-                            value="{{ $tiket->kategoritiket2 }}" hidden>
-                    @endif
+                        @if (isset($tiket->kategoritiket2) && isset($tiket->harga2))
+                            <input type="radio" id="lang-2" name="price" value="{{ $tiket->harga2 }}"
+                                class="radio">
+                            <label class="label label-2" for="lang-2">{{ strtoupper($tiket->kategoritiket2) }}</label>
+                            <input type="radio" id="kategori-lang-2" name="kategori_tiket"
+                                value="{{ $tiket->kategoritiket2 }}" hidden>
+                        @endif
 
-                    @if (isset($tiket->kategoritiket3) && isset($tiket->harga3))
-                        <input type="radio" id="lang-3" name="price" value="{{ $tiket->harga3 }}" class="radio">
-                        <label class="label label-3" for="lang-3">{{ strtoupper($tiket->kategoritiket3) }}</label>
-                        <input type="radio" id="kategori-lang-3" name="kategori_tiket"
-                            value="{{ $tiket->kategoritiket3 }}" hidden>
-                    @endif
+                        @if (isset($tiket->kategoritiket3) && isset($tiket->harga3))
+                            <input type="radio" id="lang-3" name="price" value="{{ $tiket->harga3 }}"
+                                class="radio">
+                            <label class="label label-3" for="lang-3">{{ strtoupper($tiket->kategoritiket3) }}</label>
+                            <input type="radio" id="kategori-lang-3" name="kategori_tiket"
+                                value="{{ $tiket->kategoritiket3 }}" hidden>
+                        @endif
 
-                    @if (isset($tiket->kategoritiket4) && isset($tiket->harga4))
-                        <input type="radio" id="lang-4" name="price" value="{{ $tiket->harga4 }}" class="radio">
-                        <label class="label label-4" for="lang-4">{{ strtoupper($tiket->kategoritiket4) }}</label>
-                        <input type="radio" id="kategori-lang-4" name="kategori_tiket"
-                            value="{{ $tiket->kategoritiket4 }}" hidden>
-                    @endif
+                        @if (isset($tiket->kategoritiket4) && isset($tiket->harga4))
+                            <input type="radio" id="lang-4" name="price" value="{{ $tiket->harga4 }}"
+                                class="radio">
+                            <label class="label label-4" for="lang-4">{{ strtoupper($tiket->kategoritiket4) }}</label>
+                            <input type="radio" id="kategori-lang-4" name="kategori_tiket"
+                                value="{{ $tiket->kategoritiket4 }}" hidden>
+                        @endif
 
-                    @if (isset($tiket->kategoritiket5) && isset($tiket->harga5))
-                        <input type="radio" id="lang-5" name="price" value="{{ $tiket->harga5 }}" class="radio">
-                        <label class="label label-5" for="lang-5">{{ strtoupper($tiket->kategoritiket5) }}</label>
-                        <input type="radio" id="kategori-lang-5" name="kategori_tiket"
-                            value="{{ $tiket->kategoritiket5 }}" hidden>
-                    @endif
+                        @if (isset($tiket->kategoritiket5) && isset($tiket->harga5))
+                            <input type="radio" id="lang-5" name="price" value="{{ $tiket->harga5 }}"
+                                class="radio">
+                            <label class="label label-5" for="lang-5">{{ strtoupper($tiket->kategoritiket5) }}</label>
+                            <input type="radio" id="kategori-lang-5" name="kategori_tiket"
+                                value="{{ $tiket->kategoritiket5 }}" hidden>
+                        @endif
 
-                    <hr>
-                    <div class="button d-flex" id="countparent">
-                        <div class="counter btn btn-light text-center rounded-3">
-                            <button type="button" id="minus" class="minus">
-                                <i class="bi bi-dash-lg"></i>
-                            </button>
-                            <input type="number" id="count" name="jumlah" class="form-control"
-                                max="{{ $tiket->jumlah_tiket }}" value="1"
-                                style="width: 50px;text-align: end;padding: 10px 5px;">
-                            <button type="button" id="plus" class="plus">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
+                        <hr>
+                        <div class="button d-flex" id="countparent">
+                            <div class="counter btn btn-light text-center rounded-3">
+                                <button type="button" id="minus" class="minus">
+                                    <i class="bi bi-dash-lg"></i>
+                                </button>
+                                <input type="number" id="count" name="jumlah" class="form-control"
+                                    max="{{ $tiket->jumlah_tiket }}" value="1"
+                                    style="width: 50px;text-align: end;padding: 10px 5px;">
+                                <button type="button" id="plus" class="plus">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                            <div class="pesan col-9 mx-4">
+                                <button type="submit" id="buatpesanan" class="btn btn-dark rounded-5"
+                                    style="height: 60px;">Pesan sekarang</button>
+                            </div>
                         </div>
-                        <div class="pesan col-9 mx-4">
-                            <button type="submit" id="buatpesanan" class="btn btn-dark rounded-5"
-                                style="height: 60px;">Pesan sekarang</button>
-                        </div>
-                    </div>
-                    @error('jumlah')
-                        <p class="text-danger">{{ $message }}</p>
-                    @enderror
+                        @error('jumlah')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    @endif
                 </form>
+                @if ($konser->deleted_at)
+                    <h2 class="text-warning p-2"
+                        style="border-radius: 10px; width: max-content; background-color: rgba(255, 166, 0, 0.333)">Konser
+                        telah kadaluarsa</h2>
+                @endif
             </div>
         </div>
     </div>

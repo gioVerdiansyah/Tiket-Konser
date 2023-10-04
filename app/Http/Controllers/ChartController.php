@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\TransactionHistory;
 
 use Illuminate\Http\Request;
@@ -10,8 +11,8 @@ class ChartController extends Controller
     public function index()
     {
         $creditCardCount = TransactionHistory::where('payment_type', 'credit_card')->count();
-        $bankTransferCount = TransactionHistory::where('payment_type', 'bank_transfer')->count();
-        $eWalletCount = TransactionHistory::where('payment_type', 'e-wallet')->count();
+        $bankTransferCount = TransactionHistory::where('payment_type', 'bank_transfer')->orWhere('payment_type', 'echannel')->count();
+        $eWalletCount = TransactionHistory::where('payment_type', 'qris')->count();
 
         // Menghitung jumlah pendapatan tahunan
         $annualIncome = TransactionHistory::whereYear('transaction_time', now()->year)
