@@ -18,6 +18,8 @@ class CreateSnapTokenService extends Midtrans
 
     public function getSnapToken()
     {
+        
+
         $params = [
             'transaction_details' => [
                 'order_id' => $this->order->number,
