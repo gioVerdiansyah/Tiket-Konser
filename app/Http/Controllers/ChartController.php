@@ -14,7 +14,7 @@ class ChartController extends Controller
         $bankTransferCount = TransactionHistory::where('payment_type', 'bank_transfer')->orWhere('payment_type', 'echannel')->count();
         $eWalletCount = TransactionHistory::where('payment_type', 'qris')->count();
 
-        // Menghitung jumlah pendapatan tahunan
+        
         $annualIncome = TransactionHistory::whereYear('transaction_time', now()->year)
             ->sum('gross_amount');
 
@@ -23,8 +23,28 @@ class ChartController extends Controller
             ->orderBy('transaction_time')
             ->get();
 
-        $labels = $monthlyIncome->pluck('month_year');
-        $data = $monthlyIncome->pluck('total_income');
+        $allMonths = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December',
+        ];
+        // $labels = $monthlyIncome->pluck('month_year');
+        // $data = $monthlyIncome->pluck('total_income');
+
+        foreach ($allMonths as $month) {
+            $label = $month . ' ' . date('Y');
+            $income = 0; // Nilai default jika tidak ada data
+    
+            // Cari data yang sesuai dari hasil query database
+            foreach ($monthlyIncome as $item) {
+                if ($item->month_year === $label) {
+                    $income = $item->total_income;
+                    break;
+                }
+            }
+    
+            $labels[] = $label;
+            $data[] = $income;
+        }
 
         return view('admin_page.homeAdmin', compact('creditCardCount', 'bankTransferCount', 'eWalletCount', 'labels', 'data', 'annualIncome', 'monthlyIncome'));
     }

@@ -64,6 +64,11 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous"></script>
         {{-- JQuery End --}}
+        <!-- Icons -->
+        {{-- <link href="{{ asset('/css/nucleo-icons.css') }}" rel="stylesheet" /> --}}
+        <!-- CSS -->
+        {{-- <link href="{{ asset('/css/black-dashboard.css?v=1.0.0') }}" rel="stylesheet" /> --}}
+        <link href="{{ asset('/css/theme.css') }}" rel="stylesheet" />
     </head>
 
     <body>
@@ -293,6 +298,15 @@
             </div>
         </div>
         {{-- Footer End --}}
+        
+        <script src="{{ asset('/js/core/jquery.min.js') }}"></script>
+        <script src="{{ asset('/js/core/popper.min.js') }}"></script>
+        <script src="{{ asset('/js/core/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
+        <script src="{{ asset('/js/plugins/bootstrap-notify.js') }}"></script>
+
+        <script src="{{ asset('/js/black-dashboard.min.js?v=1.0.0') }}"></script>
+        <script src="{{ asset('/js/theme.js') }}"></script>
         <script>
             function deleteNotif(button, id) {
                 $.ajax({
@@ -343,7 +357,7 @@
             AOS.init();
         </script>
         {{-- End --}}
-
+        @stack('js')
     </body>
 
 </html>

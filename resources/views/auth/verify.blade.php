@@ -22,16 +22,6 @@
                         <button type="submit" class="btn btn-link p-0 m-0 align-baseline">Klik disini untuk meminta kirim ulang email.</button>
                     </form>
                 </span>
-                <div class="container-login100-form-btn mt-4">
-                    <div class="wrap-login100-form-btn">
-                        <div class="login100-form-bgbtn">
-
-                        </div>
-                        <a style="text-decoration: none" href="{{ route('login') }}" class="login100-form-btn" id="signup-button">
-                            Masuk
-                        </a>
-                    </div>
-                </div>
                 </div>
         </div>
     </div>

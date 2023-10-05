@@ -9,9 +9,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UpdateProfileController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\ChartUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListOrderController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentDataController;
+use App\Http\Controllers\PendapatanUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +72,8 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
     Route::delete('/delete-notif', [UpdateProfileController::class, 'deleteNotif'])->name('delete-notif');
 
     Route::get('/konserku', [KonserController::class, 'konserku'])->name('konserku');
+    Route::get('pendapatanku/{id}', [ChartUserController::class, 'index'])->name('pendapatanku');
+    Route::get('/get-payment-data', [PaymentDataController::class, 'getPaymentData'])->name('get-payment-data');
     Route::get('/konserku/search', [KonserController::class, 'searchKonserku'])->name('konserku.search');
     Route::resource('/buatkonser', KonserController::class);
     Route::resource('orders', OrderController::class);

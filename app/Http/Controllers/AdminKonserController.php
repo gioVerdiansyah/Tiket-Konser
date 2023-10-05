@@ -36,7 +36,7 @@ class AdminKonserController extends Controller
         $notif->fillin = $request->alasan_hapus;
         $notif->save();
 
-        $konser->delete();
+        // $konser->delete();
         return back()->with('message', [
             'title' => "Berhasil!",
             'text' => "Berhasil menghapus konser $konserName dengan alasan {$request->alasan_hapus}"

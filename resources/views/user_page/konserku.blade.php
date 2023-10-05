@@ -146,6 +146,10 @@
                                                 </a>
                                                 @if (!$konser->deleted_at)
                                                     <ul class="product__hover">
+                                                        <li><a href="{{ route('pendapatanku', $konser->id) }}"><img
+                                                                    src="img/icon/edit.png" style="border-radius: 5px;"
+                                                                    alt><span>Detail</span></a></li>
+                                                        <li>
                                                         <li><a href="{{ route('buatkonser.edit', $konser->id) }}"><img
                                                                     src="img/icon/edit.png" style="border-radius: 5px;"
                                                                     alt><span>Ubah</span></a></li>

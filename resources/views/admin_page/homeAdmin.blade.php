@@ -127,9 +127,9 @@
                         <canvas id="monthlyIncomeChart"></canvas>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                         <script>
-                            var labels = @json($labels);
-                            var data = @json($data);
-
+                            var labels = <?php echo json_encode($labels); ?>;
+                            var data = <?php echo json_encode($data); ?>;
+                
                             var ctx = document.getElementById("monthlyIncomeChart").getContext("2d");
                             var monthlyIncomeChart = new Chart(ctx, {
                                 type: "line",
@@ -155,7 +155,7 @@
                             });
                         </script>
                     </div>
-                </div>
+                </div>                
             </div>
         </div>
 
