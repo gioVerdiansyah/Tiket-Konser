@@ -29,7 +29,7 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item @if ($title ==  'List Konser') active @endif">
         <a class="nav-link" href="{{ route('konser_page') }}">
-            <i class="fas fa-fw fa-shopping-cart"></i>
+            <i class="bi bi-stack"></i>
             <span>List Konser</span></a>
     </li>
     <li class="nav-item @if ($title == 'List Order') active @endif">

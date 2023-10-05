@@ -257,11 +257,11 @@
                                 class="d-flex flex-column">
                                 @csrf
                                 <div class="form-group">
-                                    <textarea class="form-control" id="komentar" name="fillin" rows="3" placeholder="Tulis komentar Anda"
+                                    <textarea class="form-control" id="komentar" name="fillin" rows="2" placeholder="Tulis komentar Anda"
                                         required></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-3" style="width: max-content">Kirim
-                                    Komentar</button>
+                                    Komentar</button> 
                             </form>
                         </div>
 
