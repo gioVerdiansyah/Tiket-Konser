@@ -1,6 +1,79 @@
 @extends('layouts.master')
 
 @section('content')
+
+    <style>
+        .sahh{
+            align-items: center;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+        }
+        b{
+            background-color: currentColor;
+            display: block;
+            flex: 1;
+            height: 2px;
+            opacity: .1;
+        }
+        body{
+            width: auto;
+        }
+        .col-3{
+            flex: auto;
+        }
+        @media(max-width:988px){
+            .col-3{
+                width: 100%;
+            }
+        }
+        @media(min-width: 637px){
+            .img-fluid{
+                height: 80%;
+            }
+        }
+        @media(max-width: 636px){
+            .row.py-5{
+                display: flex;
+            }
+            .col-4{
+                width: 100%;
+            }
+        }
+        @media(max-width:414px){
+            body{
+                width: 100%;
+            }
+        }
+        @media(max-width:393px){
+            body{
+                width: 106%;
+            }
+        }
+        @media(max-width:375px){
+            body{
+                width: 113%;
+            }
+        }
+        @media(max-width:360px){
+            body{
+                width: 115%;
+            }
+        }
+        @media(max-width:320px){
+            body{
+                width: 129%;
+            }
+        }
+        @media(max-width:280px){
+            body{
+                width:150%;
+            }
+        }
+    </style>
+
     {{-- Carousel Start --}}
     <div id="carouselExampleCaptions" class="carousel slide animate__animated animate__fadeIn" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -19,7 +92,7 @@
     <div class="container-fluid bg-black text-center text-white">
         <div class="container-fluid" data-aos="fade-up" data-aos-delay="300">
             <h1 class="fw-bold pt-5">Cara Membeli</h1>
-            <div class="row py-5">
+            <div class="row py-5" style="text-align: left; padding-left: 1.5rem; padding-right: 1.5rem;">
                 <div class="col-4">
                     <h4 class="mb-4">1. Pilih Konser</h4>
                     <p>
@@ -49,13 +122,13 @@
 
     {{-- Card Konser Terbaru Start --}}
     <div class="container bg-white text-center" data-aos="fade-up" data-aos-delay="300">
-        <h1 class="fw-bold pt-5">Konser Terbaru</h1>
+            <h1 class="fw-bold pt-5 ">Konser Terbaru</h1>
         <div class="row py-5">
             @foreach ($konser as $row)
                 <div class="col-3 concert-card">
                     <a href="{{ route('detail_konser', $row->id) }}">
-                        <img src="{{ asset('storage/image/konser/banner/' . $row->banner) }}" alt=""
-                            class="img-fluid rounded-5 mb-4">
+                        <img  width="400" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}" alt=""
+                            class="mb-4" style="border-radius:5%;">
                     </a>
                     <h3 class="fw-bold">{{ $row->nama_konser }}</h3>
                     @foreach ($row->tiket as $tiket)
@@ -75,8 +148,8 @@
             @foreach ($hotConcerts as $row)
                 <div class="col-3 concert-card">
                     <a href="{{ route('detail_konser', $row->id) }}">
-                        <img src="{{ asset('storage/image/konser/banner/' . $row->banner) }}" alt=""
-                            class="img-fluid rounded-5 mb-4">
+                        <img width="400" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}" alt=""
+                            class="mb-4" style="border-radius: 5%;">
                     </a>
                     <h3 class="fw-bold">{{ $row->nama_konser }}</h3>
                     @foreach ($row->tiket as $tiket)

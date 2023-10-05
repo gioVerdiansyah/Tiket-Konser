@@ -23,6 +23,9 @@
             body {
                 font-family: 'Montserrat', sans-serif;
             }
+            .navbar-nav2{
+
+            }
 
             #profileDropdown img {
                 border-radius: 50px;
@@ -68,11 +71,13 @@
         {{-- Nav Start --}}
         <nav class="navbar navbar-expand-lg bg-body-tertiary py-4">
             <div class="container">
-                <a class="navbar-brand fw-bold" href="/">Ticket.</a>
+                <a class="navbar-brand fw-bold" href="/"><span style="margin-right: 5px;">Ticket.</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
@@ -92,8 +97,8 @@
                     </ul>
                 </div>
                 @auth
-                    <div class="navbar-nav ml-auto">
-                        <ul class="navbar-nav">
+                    <div class="navbar-nav ml-auto" style="flex-direction:inherit;">
+                        <ul class="navbar-nav" style="flex-direction: row; ">
                             <li class="nav-item d-flex align-items-center me-3">
                                 <a class="nav-link" href="{{ route('orders.index') }}"><i class="bi bi-basket fs-4"></i>
                                     @php

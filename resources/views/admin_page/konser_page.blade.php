@@ -6,7 +6,12 @@
             background: #f7f5f2;
             font-family: 'Roboto', sans-serif;
         }
+        .pagination li.page-item {
+            border-radius: 10px; /* Ganti nilai sesuai dengan radius yang Anda inginkan */
+        }
+        .pagination li.page-item.active{
 
+        }
         .table-responsive {
             margin: 30px 0;
             box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
