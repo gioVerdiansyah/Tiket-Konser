@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('delete:old_records')->everyMinute(); // Eksekusi setiap menit
+        $schedule->command('concerts:cleanup')->dailyAt('00:00');
     }
 
     /**
@@ -20,9 +20,9 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
-    
+
 }

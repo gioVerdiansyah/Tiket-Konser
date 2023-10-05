@@ -134,20 +134,12 @@ class KonserController extends Controller
     }
     public function search(Request $request)
     {
-        $konsers = Konser::with('tiket')->where('nama_konser', 'like', '%' . $request->search . '%')
-            ->whereHas('tiket', function ($query) use ($request) {
+        $konsers = Konser::with('tiket')->withTrashed()->where('nama_konser', 'like', '%' . $request->search . '%')
+            ->orWhereHas('tiket', function ($query) use ($request) {
                 $query->where(function ($subQuery) use ($request) {
-                    $subQuery->whereRaw('CAST(harga1 AS SIGNED) >= ?', [$request->harga_min])
-                        ->orWhereRaw('CAST(harga2 AS SIGNED) >= ?', [$request->harga_min])
-                        ->orWhereRaw('CAST(harga3 AS SIGNED) >= ?', [$request->harga_min])
-                        ->orWhereRaw('CAST(harga4 AS SIGNED) >= ?', [$request->harga_min])
-                        ->orWhereRaw('CAST(harga5 AS SIGNED) >= ?', [$request->harga_min]);
+                    $subQuery->whereRaw('CAST(harga1 AS SIGNED) >= ?', [intval($request->harga_min)]);
                 })->where(function ($subQuery) use ($request) {
-                    $subQuery->whereRaw('CAST(harga1 AS SIGNED) <= ?', [$request->harga_max])
-                        ->orWhereRaw('CAST(harga2 AS SIGNED) <= ?', [$request->harga_max])
-                        ->orWhereRaw('CAST(harga3 AS SIGNED) <= ?', [$request->harga_max])
-                        ->orWhereRaw('CAST(harga4 AS SIGNED) <= ?', [$request->harga_max])
-                        ->orWhereRaw('CAST(harga5 AS SIGNED) <= ?', [$request->harga_max]);
+                    $subQuery->whereRaw('CAST(harga1 AS SIGNED) <= ?', [intval($request->harga_max)]);
                 });
             });
         if (!empty($request->kategori)) {
@@ -155,7 +147,6 @@ class KonserController extends Controller
         }
 
         $konsers = $konsers->paginate(9);
-
 
         // Mengembalikan tampilan dengan hasil pencarian ke view
         $kategoris = Kategori::all();
