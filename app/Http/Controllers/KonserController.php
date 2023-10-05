@@ -134,7 +134,7 @@ class KonserController extends Controller
     }
     public function search(Request $request)
     {
-        $konsers = Konser::with('tiket')->withTrashed()->where('nama_konser', 'like', '%' . $request->search . '%')
+        $konsers = Konser::with('tiket')->where('nama_konser', 'like', '%' . $request->search . '%')
             ->orWhereHas('tiket', function ($query) use ($request) {
                 $query->where(function ($subQuery) use ($request) {
                     $subQuery->whereRaw('CAST(harga1 AS SIGNED) >= ?', [intval($request->harga_min)]);

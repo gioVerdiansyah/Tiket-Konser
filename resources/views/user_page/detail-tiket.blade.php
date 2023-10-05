@@ -247,78 +247,84 @@
             <div id="tab2" class="tab-pane fade">
                 <div class="container py-5">
                     <div class="title d-flex">
-                        <h4 class="">KOMENTAR <span>({{ $jumlahKomentar }})</span></h4>
+                        <h4 id="jumlah_komen">KOMENTAR (<span>{{ $jumlahKomentar }}</span>)</h4>
                     </div>
-
-                    @if ($orderExists)
-                        @if (!$konser->deleted_at)
-                            <!-- Form untuk Berkomentar -->
-                            <div class="comment-form">
-                                <form id="comment-form" action="{{ route('comment', $konser->id) }}" method="POST"
-                                    class="d-flex flex-column">
-                                    @csrf
-                                    <div class="form-group">
-                                        <textarea class="form-control" id="komentar" name="fillin" rows="3" placeholder="Tulis komentar Anda"
-                                            required></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mt-3" style="width: max-content">Kirim
-                                        Komentar</button>
-                                </form>
-                            </div>
-                        @endif
-                    @else
-                        @if (!$konser->deleted_at)
-                            <p>Belilah tiket untuk memberi ulasan</p>
-                        @else
-                            <p>Konser telah kadaluarsa!</p>
-                        @endif
-                    @endif
-
-                    @forelse ($konser->comment->sortByDesc('created_at') as $comment)
-                        <div class="comment-list mt-4" id="comment-list">
-                            <div class="comment d-flex align-items-start">
-                                <div class="user-info">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
-                                            alt="Foto Profil Verdi" width="40">
-                                        <div class="d-flex flex-column text-start ms-3">
-                                            <p class="mb-0"><strong>{{ $comment->user->name }}</strong></p>
-                                            <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
-                                            </p>
+                    @auth
+                        @if ($orderExists)
+                            @if (!$konser->deleted_at)
+                                <div class="comment-form">
+                                    <form id="comment-form" action="{{ route('comment', $konser->id) }}" method="POST"
+                                        class="d-flex flex-column">
+                                        <input type="hidden" name="komen_id"
+                                            value="{{ \App\Models\Comment::latest('id')->first()->id ?? 1 }}">
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="komentar" name="fillin" rows="3" placeholder="Tulis komentar Anda"
+                                                required></textarea>
                                         </div>
-                                        @if ($comment->user->id == Auth::user()->id)
-                                            <div class="nav-item dropdown">
-                                                <a class="nav-link" href="#" id="profileDropdown" role="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="bi bi-three-dots-vertical ms-3"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="profileDropdown">
-                                                    <form action="{{ route('delete-comment', $comment->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="dropdown-item">Hapus</button>
-                                                    </form>
-                                                </div>
+                                        <button type="submit" class="btn btn-primary mt-3" style="width: max-content">Kirim
+                                            Komentar</button>
+                                    </form>
+                                </div>
+                            @endif
+                        @else
+                            @if (!$konser->deleted_at)
+                                <p>Belilah tiket untuk memberi ulasan</p>
+                            @else
+                                <p>Konser telah kadaluarsa!</p>
+                            @endif
+                        @endif
+                    @endauth
+                    <div id="comment-list-container">
+                        @forelse ($konser->comment->sortByDesc('created_at') as $i => $comment)
+                            <div class="comment-list mt-4" id="comment-list{{ ++$i }}">
+                                <div class="comment d-flex align-items-start">
+                                    <div class="user-info">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
+                                                alt="Foto Profil Verdi" width="40">
+                                            <div class="d-flex flex-column text-start ms-3">
+                                                <p class="mb-0"><strong>{{ $comment->user->name }}</strong></p>
+                                                <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
+                                                </p>
                                             </div>
-                                        @endif
-                                    </div>
-                                    <div class="text-start">
-                                        <p>{{ $comment->fillin }}</p>
+                                            @auth
+                                                @if ($comment->user->id == Auth::user()->id)
+                                                    <div class="nav-item dropdown">
+                                                        <a class="nav-link" href="#" id="profileDropdown"
+                                                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bi bi-three-dots-vertical ms-3"></i>
+                                                        </a>
+                                                        <div class="komenku dropdown-menu dropdown-menu-end"
+                                                            aria-labelledby="profileDropdown"
+                                                            id="comment-list{{ $i }}">
+                                                            <form
+                                                                onsubmit="
+                                                                    event.preventDefault();
+                                                                    deleteComment({{ $comment->id }}, {{ $i }});
+                                                                ">
+                                                                <button type="submit" class="dropdown-item">Hapus</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endauth
+                                        </div>
+                                        <div class="text-start">
+                                            <p>{{ $comment->fillin }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        @if (!$konser->deleted_at)
-                            @if ($orderExists)
-                                <p>Belum ada komentar, jadilah orang pertama yang berkomentar</p>
+                        @empty
+                            @if (!$konser->deleted_at)
+                                @if ($orderExists)
+                                    <p>Belum ada komentar, jadilah orang pertama yang berkomentar</p>
+                                @endif
+                            @else
+                                <p>Anda sudah tidak bisa memberi ulasan karena konser telah kadaluarsa</p>
                             @endif
-                        @else
-                            <p>Anda sudah tidak bisa memberi ulasan karena konser telah kadaluarsa</p>
-                        @endif
-                    @endforelse
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>
@@ -375,6 +381,115 @@
             </div>
         </div>
     </div>
+    <script>
+        const form = document.getElementById('comment-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(response.statusText);
+                }
+
+                const data = await response.json();
+                console.log(data);
+                if (data && data.message) {
+                    if (data && data.message) {
+                        var lastValue = parseInt($('#jumlah_komen span').text());
+                        $('#jumlah_komen span').text(lastValue + 1);
+                        const lastCommentIndex = $('#comment-list-container .comment-list').length + 1;
+                        const now = new Date();
+                        now.toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                        });
+
+                        const newComment = `
+                            <div class="comment-list mt-4" id="comment-list${lastCommentIndex}">
+                                <div class="comment d-flex align-items-start">
+                                    <div class="user-info">
+                                        <div class="d-flex flex-row align-items-center">
+                                        <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
+                                            alt="Foto Profil Verdi" width="40">
+                                        <div class="d-flex flex-column text-start ms-3">
+                                            @auth
+                                            <p class="mb-0"><strong>{{ Auth::user()->name }}</strong></p>
+                                            <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
+                                            </p>
+                                            @endauth
+                                        </div>
+                                                <div class="nav-item dropdown">
+                                                    <a class="nav-link" href="#" id="profileDropdown" role="button"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bi bi-three-dots-vertical ms-3"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-end"
+                                                        aria-labelledby="profileDropdown">
+                                                        <form onsubmit="
+                                                                    event.preventDefault();
+                                                                    deleteComment(${formData.get('komen_id')}, ${lastCommentIndex});
+                                                                ">
+                                                            <button type="submit" class="dropdown-item">Hapus</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                    </div>
+                                        <div class="text-start">
+                                            <p>${formData.get('fillin')}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        $('#comment-list-container').prepend(newComment);
+                        form.reset();
+                    }
+
+                } else if (data && data.error) {
+                    console.log(data.error);
+                    Swal.fire('Kesalahan!', data.error[0], 'error');
+                }
+            } catch (error) {
+                console.log(error);
+                Swal.fire('Kesalahan!', `Request gagal: ${error.message}`, 'error');
+            }
+        });
+
+        function deleteComment(id, listId) {
+            const commentElement = $('#comment-list' + listId);
+            $.ajax({
+                type: 'DELETE',
+                url: `{{ route('delete-comment', '') }}/${id}`,
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    console.log(data);
+                    var lastValue = parseInt($('#jumlah_komen span').text());
+                    $('#jumlah_komen span').text(lastValue - 1);
+                    if (data.message) {
+                        commentElement.remove();
+                    } else {
+                        Swal.fire('Error!', `Gagal menghapus komentar`, 'error');
+                    }
+                },
+                error: function() {
+                    Swal.fire('Kesalahan!', `Request gagal: ${error.message}`, 'error');
+                }
+            });
+        }
+    </script>
     {{-- iframe --}}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="

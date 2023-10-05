@@ -80,7 +80,7 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
     Route::post('/orders/trans', [OrderController::class, 'trans'])->name('sendTrans');
     Route::post('/detail-tiket/{id}/comment', [CommentController::class, 'store'])->name('comment');
     Route::get('/detail-tiket/{id}/comment/get', [CommentController::class, 'get'])->name('load-comments');
-    Route::delete('/detail-tiket/{id}/comment', [CommentController::class, 'destroy'])->name('delete-comment');
+    Route::delete('/detail-tiket/comment/{id}', [CommentController::class, 'destroy'])->name('delete-comment');
     Route::get('/tiketku', function () {
         return view('user_page.tiketku');
     })->name('tiketku');

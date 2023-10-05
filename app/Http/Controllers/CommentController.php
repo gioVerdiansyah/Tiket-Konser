@@ -6,14 +6,27 @@ use App\Models\Comment;
 use App\Models\Konser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
     public function store(Request $request, $id)
     {
-        $request->validate([
-            'fillin' => "min:3|max:200"
-        ]);
+        $rules = [
+            'fillin' => 'required|min:3|max:200',
+        ];
+        $messages = [
+            'fillin.required' => 'Kolom komentar harus diisi.',
+            'fillin.min' => 'Komentar minimal harus memiliki 3 karakter.',
+            'fillin.max' => 'Komentar tidak boleh lebih dari 200 karakter.',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['error' => $errors]);
+        }
 
         $konser = Konser::findOrFail($id);
 
@@ -23,26 +36,16 @@ class CommentController extends Controller
         $comment->fillin = $request->input('fillin');
         $comment->save();
 
-        return back()->with('message', [
-            'title' => "Berhasil!",
-            'text' => "Berhasil memposting komentar pada konser: $konser->nama_konser"
-        ]);
+        return response()->json(['message' => 'Komentar berhasil di post']);
     }
 
     public function destroy($id)
     {
         $comment = Comment::where('id', $id)->firstOrFail();
         if ($comment->user_id != Auth::user()->id) {
-            return back()->with('message', [
-                'icon' => "error",
-                'title' => "Gagal!",
-                'text' => "Jangan mencoba menghapus komentar orang lain!"
-            ]);
+            return response()->json(['error' => 'Jangan mencoba menghapus komentar orang lain!']);
         }
         $comment->delete();
-        return back()->with('message', [
-            'title' => "Berhasil!",
-            'text' => "Berhasil menghapus komentar anda"
-        ]);
+        return response()->json(['message' => 'Komentar berhasil di hapus']);
     }
 }

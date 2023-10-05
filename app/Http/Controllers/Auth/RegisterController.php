@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Mailku;
 use App\Notifications\UserRegister;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -80,7 +79,6 @@ class RegisterController extends Controller
 
         // Trigger the email verification event
         // event(new Registered($user));
-        // event(new Mailku($user));
         $user->notify(new UserRegister($user));
 
         // Flash a success message

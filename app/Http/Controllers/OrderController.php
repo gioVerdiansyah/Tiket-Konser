@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Konser;
 use App\Models\Order;
+use App\Models\Tiket;
 use App\Models\TransactionHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -195,6 +196,15 @@ class OrderController extends Controller
 
         if ($request->status_code == 200 || $request->status_code == 201) {
             $order->payment_status = 2;
+            $konser = Konser::where('id', $order->konser_id)->firstOrFail();
+            $tiket = Tiket::where('konser_id', $konser->id)->firstOrFail();
+            if ($tiket->jumlah_tiket == 0) {
+                $order->payment_status = 4;
+                $order->save();
+                return response()->json(['message' => "Pembayaran gagal karena stock sudah habis!"], 422);
+            }
+            $tiket->jumlah_tiket -= intval($order->jumlah);
+            $tiket->save();
         } elseif ($request->status_code == 407) {
             $order->payment_status = 3;
             $order->save();
