@@ -251,32 +251,42 @@
                     </div>
 
                     @if ($orderExists)
-                        <!-- Form untuk Berkomentar -->
-                        <div class="comment-form">
-                            <form id="comment-form" action="{{ route('comment', $konser->id) }}" method="POST"
-                                class="d-flex flex-column">
-                                @csrf
-                                <div class="form-group">
-                                    <textarea class="form-control" id="komentar" name="fillin" rows="3" placeholder="Tulis komentar Anda"
-                                        required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary mt-3" style="width: max-content">Kirim
-                                    Komentar</button>
-                            </form>
-                        </div>
+                        @if (!$konser->deleted_at)
+                            <!-- Form untuk Berkomentar -->
+                            <div class="comment-form">
+                                <form id="comment-form" action="{{ route('comment', $konser->id) }}" method="POST"
+                                    class="d-flex flex-column">
+                                    @csrf
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="komentar" name="fillin" rows="3" placeholder="Tulis komentar Anda"
+                                            required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-3" style="width: max-content">Kirim
+                                        Komentar</button>
+                                </form>
+                            </div>
+                        @endif
+                    @else
+                        @if (!$konser->deleted_at)
+                            <p>Belilah tiket untuk memberi ulasan</p>
+                        @else
+                            <p>Konser telah kadaluarsa!</p>
+                        @endif
+                    @endif
 
-                        @forelse ($konser->comment->sortByDesc('created_at') as $comment)
-                            <div class="comment-list mt-4" id="comment-list">
-                                <div class="comment d-flex align-items-start">
-                                    <div class="user-info">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
-                                                alt="Foto Profil Verdi" width="40">
-                                            <div class="d-flex flex-column text-start ms-3">
-                                                <p class="mb-0"><strong>{{ $comment->user->name }}</strong></p>
-                                                <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
-                                                </p>
-                                            </div>
+                    @forelse ($konser->comment->sortByDesc('created_at') as $comment)
+                        <div class="comment-list mt-4" id="comment-list">
+                            <div class="comment d-flex align-items-start">
+                                <div class="user-info">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
+                                            alt="Foto Profil Verdi" width="40">
+                                        <div class="d-flex flex-column text-start ms-3">
+                                            <p class="mb-0"><strong>{{ $comment->user->name }}</strong></p>
+                                            <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
+                                            </p>
+                                        </div>
+                                        @if ($comment->user->id == Auth::user()->id)
                                             <div class="nav-item dropdown">
                                                 <a class="nav-link" href="#" id="profileDropdown" role="button"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -292,19 +302,23 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="text-start">
-                                            <p>{{ $comment->fillin }}</p>
-                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="text-start">
+                                        <p>{{ $comment->fillin }}</p>
                                     </div>
                                 </div>
                             </div>
-                        @empty
-                            <p>Belum ada komentar, jadilah orang pertama yang berkomentar</p>
-                        @endforelse
-                    @else
-                        <p>Belilah tiket ini untuk memberi ulasan!</p>
-                    @endif
+                        </div>
+                    @empty
+                        @if (!$konser->deleted_at)
+                            @if ($orderExists)
+                                <p>Belum ada komentar, jadilah orang pertama yang berkomentar</p>
+                            @endif
+                        @else
+                            <p>Anda sudah tidak bisa memberi ulasan karena konser telah kadaluarsa</p>
+                        @endif
+                    @endforelse
                 </div>
             </div>
         </div>

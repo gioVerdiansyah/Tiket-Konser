@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Mailku;
+use App\Notifications\UserRegister;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -73,11 +75,13 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'verification_token' => $verification_token, 
+            'verification_token' => $verification_token,
         ]);
 
         // Trigger the email verification event
-        event(new Registered($user));
+        // event(new Registered($user));
+        // event(new Mailku($user));
+        $user->notify(new UserRegister($user));
 
         // Flash a success message
         session()->flash('message', [
