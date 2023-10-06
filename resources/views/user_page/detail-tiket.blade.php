@@ -256,7 +256,7 @@
                                     <form id="comment-form" action="{{ route('comment', $konser->id) }}" method="POST"
                                         class="d-flex flex-column">
                                         <input type="hidden" name="komen_id"
-                                            value="{{ \App\Models\Comment::latest('id')->first()->id ?? 1 }}">
+                                            value="{{ \App\Models\Comment::max('id') + 1 }}">
                                         <div class="form-group">
                                             <textarea class="form-control" id="komentar" name="fillin" rows="3" placeholder="Tulis komentar Anda"
                                                 required></textarea>
@@ -318,7 +318,7 @@
                         @empty
                             @if (!$konser->deleted_at)
                                 @if ($orderExists)
-                                    <p>Belum ada komentar, jadilah orang pertama yang berkomentar</p>
+                                    <p id="first-comment">Belum ada komentar, jadilah orang pertama yang berkomentar</p>
                                 @endif
                             @else
                                 <p>Anda sudah tidak bisa memberi ulasan karena konser telah kadaluarsa</p>
@@ -409,24 +409,27 @@
                         $('#jumlah_komen span').text(lastValue + 1);
                         const lastCommentIndex = $('#comment-list-container .comment-list').length + 1;
                         const now = new Date();
-                        now.toLocaleDateString('id-ID', {
+                        const tanggal = now.toLocaleDateString('id-ID', {
                             day: 'numeric',
                             month: 'short',
                             year: 'numeric',
                         });
+
+                        if (lastValue == 0) {
+                            $('#first-comment').remove();
+                        }
 
                         const newComment = `
                             <div class="comment-list mt-4" id="comment-list${lastCommentIndex}">
                                 <div class="comment d-flex align-items-start">
                                     <div class="user-info">
                                         <div class="d-flex flex-row align-items-center">
-                                        <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
+                                        <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}"
                                             alt="Foto Profil Verdi" width="40">
                                         <div class="d-flex flex-column text-start ms-3">
                                             @auth
                                             <p class="mb-0"><strong>{{ Auth::user()->name }}</strong></p>
-                                            <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
-                                            </p>
+                                            <p>${tanggal}</p>
                                             @endauth
                                         </div>
                                                 <div class="nav-item dropdown">
@@ -468,26 +471,36 @@
 
         function deleteComment(id, listId) {
             const commentElement = $('#comment-list' + listId);
-            $.ajax({
-                type: 'DELETE',
-                url: `{{ route('delete-comment', '') }}/${id}`,
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(data) {
-                    console.log(data);
-                    var lastValue = parseInt($('#jumlah_komen span').text());
-                    $('#jumlah_komen span').text(lastValue - 1);
-                    if (data.message) {
-                        commentElement.remove();
-                    } else {
-                        Swal.fire('Error!', `Gagal menghapus komentar`, 'error');
+            try {
+                $.ajax({
+                    type: 'DELETE',
+                    url: `{{ route('delete-comment', '') }}/${id}`,
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        var lastValue = parseInt($('#jumlah_komen span').text());
+                        $('#jumlah_komen span').text(lastValue - 1);
+                        if (data.message) {
+                            commentElement.remove();
+                            if (lastValue == 1) {
+                                $('#comment-list-container').prepend(
+                                    '<p id="first-comment">Belum ada komentar, jadilah orang pertama yang berkomentar</p>'
+                                );
+                            }
+                        } else {
+                            Swal.fire('Error!', `Gagal menghapus komentar`, 'error');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Kesalahan!', `Request gagal, coba refresh halaman untuk menghapusnya`,
+                            'error');
                     }
-                },
-                error: function() {
-                    Swal.fire('Kesalahan!', `Request gagal: ${error.message}`, 'error');
-                }
-            });
+                });
+            } catch (error) {
+                Swal.fire('Kesalahan!', `Request gagal: ${error.message}`, 'error');
+            }
         }
     </script>
     {{-- iframe --}}

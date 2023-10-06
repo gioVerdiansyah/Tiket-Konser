@@ -48,6 +48,13 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Auth::user()->phone) {
+            return to_route('profileUser')->with('message', [
+                'icon' => 'error',
+                'title' => "Gagal!",
+                'text' => "Harap isi nomor telephone sebelum melakukan order!"
+            ])->withErrors(['phone' => 'Harap isi nomor telephone sebelum melakukan order!']);
+        }
         $request->validate([
             'konser_id' => 'integer|exists:konsers,id',
             'price' => "integer",
