@@ -100,7 +100,7 @@
                     </p>
                 </div>
                 <div class="col-4">
-                    <h4 class="mb-4">2. Konfirmasi Pemesanan</h4>
+                    <h4 class="mb-4">2. Konfirmasi Pemesanan</h4> 
                     <p>
                         Kemudian, kalian bisa memilih kategori tiket dan jumlah tiket yang akan dibeli, lalu kalian dapat
                         klik “pesan” dan menuju ke halaman cart
