@@ -1,8 +1,50 @@
 @extends('layouts.master')
-
 @section('content')
+
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
+    rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
     {{-- Custom CSS --}}
     <style>
+        body{
+            width: 100%;
+            height: auto;
+        }
+        .breadcrumb__linkss a{
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        a.nac-link{
+            font-size: 15px;
+        }
+        .lok {
+            display: flex;
+            justify-content: start; /* atau flex-start */
+            text-align: start; /* atau left */
+            gap: 10px;
+            padding-top: 2rem;
+          }
+        .warning {
+            display: flex;
+            padding-top: 1rem;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .aku{
+            display: flex;
+            justify-content:space-between;
+            background-color: #ffbc003b;
+            padding: 10px;
+             border-radius: 5px;
+             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
         .counter {
             display: flex;
             align-items: center;
@@ -47,7 +89,8 @@
             cursor: pointer;
             font-size: 18px;
             padding: 15px 25px;
-            border-radius: 15px;
+            border-radius: 10px;
+            margin-bottom:5px;
             margin-left: 5px;
             background-color: #F0F0F0;
         }
@@ -66,7 +109,10 @@
         }
 
         .container {
-            margin-top: -10px;
+            margin-top: 0px;
+        }
+        .tengah{
+            text-align: center;
         }
 
         .radio {
@@ -76,36 +122,90 @@
 
         .label {
             font-size: 12px;
-            /* Mengubah ukuran teks label */
+            font-weight: 800; /* Mengubah ukuran teks label */
+            padding: 15px 15px;
         }
+
+        @media(max-width:766px){
+
+        }
+        @media(max-width:460px){
+            .lok{
+                display: grid;
+            }
+        }
+        @media(max-width:338px){
+            .lok{
+                gap:0px;
+            }
+            .label{
+                padding: 15px 15px;
+                margin-bottom: 8px;
+            }
+        }
+        @media(max-width:414px){
+            .img-fluid {
+                width: 85%;
+            }
+        }
+        @media(max-width:692px){
+            .row{
+                display: block;
+            }
+            .row .col-6 {
+                margin-top:5%;
+            }
+            .row .col-6{
+                width: 100%;
+            }
+
+            body{
+                width: auto;
+                height: auto;
+            }
+        }
+
+
     </style>
     {{-- End --}}
 
+
     {{-- Content Start --}}
-    <div class="container py-5">
+    <div class="container py-2">
+        <section class="breadcrumb-option" style="padding-left: 0%; padding-top:0.5rem;">
+            <div class="container" style="padding: 0%;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb__linkss:hover">
+                            <a class="nac-link" href="{{route('konser') }}">Kembali</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <div class="row">
             <div class="col-6 text-center">
                 <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}" class="img-fluid rounded-4"
-                    style="width: 100%" alt="Banner konser">
+                    alt="Banner konser">
             </div>
-            <div class="col-6 text-left mt-5">
+            <div class="col-6 text-left" style="margin-top:10%;">
                 <form @if (!$konser->deleted_at) action="{{ route('orders.store') }}" method="POST" @endif>
                     @csrf
                     <input type="hidden" name="konser_id" value="{{ $konser->id }}">
-                    <h3 class="fw-bold">{{ $konser->nama_konser }}</h3>
-                    <h5 class="fw-bold" id="harga">Rp. {{ number_format($tiket->harga1, 0, ',', '.') }}</h5>
+                    <h3 class="fw-bold" style="margin-bottom: 0.4%;">{{ $konser->nama_konser }}</h3>
+                    <h5 class="fw-bold" id="harga" style="margin-bottom: 1%;">Rp. {{ number_format($tiket->harga1, 0, ',', '.') }}</h5>
                     @if (isset($konser->deskripsi))
                         <p>{{ $konser->deskripsi }}</p>
                     @else
-                        <p>Penjual tidak menambahkan deskripsi...</p>
+                        <p style="margin-bottom: 3%;">Penjual tidak menambahkan deskripsi...</p>
                     @endif
 
                     @if (!$konser->deleted_at)
-                        <p>Stok : {{ $tiket->jumlah_tiket }}</p>
+                        <p style="margin-bottom: 1%">Stok : {{ $tiket->jumlah_tiket }}</p>
 
                         <input type="radio" id="lang-1" name="price" value="{{ $tiket->harga1 }}" class="radio"
                             checked>
-                        <label class="label label-1" for="lang-1">{{ strtoupper($tiket->kategoritiket1) }}</label>
+                        <label class="label label-1 kecil" for="lang-1">{{ strtoupper($tiket->kategoritiket1) }}</label>
                         <input type="radio" id="kategori-lang-1" name="kategori_tiket"
                             value="{{ $tiket->kategoritiket1 }}" hidden checked>
 
@@ -142,20 +242,20 @@
                         @endif
 
                         <hr>
-                        <div class="button d-flex" id="countparent">
+                        <div class="button" id="countparent" style="display:-webkit-box;">
                             <div class="counter btn btn-light text-center rounded-3">
                                 <button type="button" id="minus" class="minus">
                                     <i class="bi bi-dash-lg"></i>
                                 </button>
-                                <input type="number" id="count" name="jumlah" class="form-control"
+                                <input type="number" id="count" name="jumlah" class="form-control tengah"
                                     max="{{ $tiket->jumlah_tiket }}" value="1"
-                                    style="width: 50px;text-align: end;padding: 10px 5px;">
+                                    style="width: 50px; padding: 10px 5px;">
                                 <button type="button" id="plus" class="plus">
                                     <i class="bi bi-plus-lg"></i>
                                 </button>
                             </div>
-                            <div class="pesan col-9 mx-4">
-                                <button type="submit" id="buatpesanan" class="btn btn-dark rounded-5"
+                            <div class="pesan col-5 mx-4">
+                                <button type="submit" id="buatpesanan" class="btn btn-dark rounded-4"
                                     style="height: 60px;">Pesan sekarang</button>
                             </div>
                         </div>
@@ -165,9 +265,11 @@
                     @endif
                 </form>
                 @if ($konser->deleted_at)
-                    <h2 class="text-warning p-2"
-                        style="border-radius: 10px; width: max-content; background-color: rgba(255, 166, 0, 0.333)">Konser
-                        telah kadaluarsa</h2>
+                <div class="aku">
+                    <i class="material-icons" style="font-size: 30px; padding:1rem;">warning</i>
+                    <d class="warning" >Konser telah kadaluarsa</d>
+                </div>
+
                 @endif
             </div>
         </div>
@@ -189,14 +291,14 @@
                 <div class="container">
                     <div class="detail_konser my-5">
                         <h4 class="fw-bold left-align">DETAIL KONSER</h4>
-                        <p class="left-align">{{ $konser->nama_konser }}</p>
+                        <p class="left-align" style="color: #000000;"> {{ $konser->nama_konser }}</p>
                         @if (isset($konser->deskripsi))
                             <p class="left-align">{{ $konser->deskripsi }}</p>
                         @else
                             <p>Penjual tidak menambahkan deskripsi...</p>
                         @endif
                         <hr>
-                        <div class="lok d-flex justify-content-start text-start gap-5 py-2">
+                        <div class="lok">
                             <a href="" class="fw-bold text-dark text-decoration-none" data-bs-toggle="modal"
                                 data-bs-target="#denahKonserModal"><i class="bi bi-map"></i> Denah Konser</a>
                             <a href="" class="text-dark text-decoration-none" data-bs-toggle="modal"

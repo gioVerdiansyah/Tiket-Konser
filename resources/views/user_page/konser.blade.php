@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="path-to-bootstrap/css/bootstrap.min.css">
@@ -118,8 +119,9 @@
 
                                 {{--  harga  --}}
                                 <div class="card">
-                                    <div class="card-heading">
+                                    <div class="card-heading" style=" display:flex;  justify-content: space-between">
                                         <a data-toggle="collapse" data-target="#collapseThree">Harga</a>
+                                        <i data-toggle="collapse" data-target="#collapseThree" class="material-icons" style="justify-items: center">keyboard_arrow_down</i>
                                     </div>
                                     <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
@@ -151,15 +153,16 @@
 
                                 {{--  kategori  --}}
                                 <div class="card">
-                                    <div class="card-heading">
+                                    <div class="card-heading" style=" display:flex;  justify-content: space-between">
                                         <a data-toggle="collapse" data-target="#collapseOne">Kategori</a>
+                                        <i  data-toggle="collapse" data-target="#collapseOne" class="material-icons" style="justify-items: center">keyboard_arrow_down</i>
                                     </div>
-                                    <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div id="collapseOne" class="collapse " data-parent="#accordionExample">
 
                                         @isset($kategoris)
                                             <div class="card-body">
                                                 <div class="shop__sidebar__categories">
-                                                    <ul class="nice-scroll">
+                                                    <ul class="nice-scroll" style="padding:0%;">
                                                         @forelse ($kategoris as $i => $kategori)
                                                             <li>
                                                                 @for ($j = 0; $j < 2; $j++)
@@ -225,7 +228,7 @@
                                 <div class="product__item">
                                     <div class="product__item__pic">
                                         <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}"
-                                            style="width: 100%; height: 300px; border-bottom: solid 1px #d4d4d4;">
+                                            style="width: 100%; max-height: 300px; border-bottom: solid 1px #d4d4d4;">
                                         <ul class="product__hover">
                                             <li><a href="{{ route('detail_konser', $konser->id) }}"><img
                                                         src="img/icon/detail-removebg-preview.png"
