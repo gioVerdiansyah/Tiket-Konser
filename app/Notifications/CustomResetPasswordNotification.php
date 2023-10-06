@@ -6,19 +6,18 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\URL;
 
-class UserRegister extends Notification
+class CustomResetPasswordNotification extends Notification
 {
     use Queueable;
-    public $user;
-
+    public $url, $username;
     /**
      * Create a new notification instance.
      */
-    public function __construct($user)
+    public function __construct($url, $username)
     {
-        $this->user = $user;
+        $this->url = $url;
+        $this->username = $username;
     }
 
     /**
@@ -36,17 +35,11 @@ class UserRegister extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $url = URL::signedRoute('verification.verify', [
-            'id' => $this->user->id,
-            'hash' => sha1($this->user->getEmailForVerification()),
-        ]);
-
         return (new MailMessage)
             ->from(config('mail.from.address'))
-            ->subject('Verifikasi Email - Manula Team')
-            ->markdown('mail.verify', ['url' => $url, 'username' => $this->user->name]);
+            ->subject('Verifikasi Lupa Password - Manula Team')
+            ->markdown('mail.forgot', ['url' => $this->url, 'username' => $this->username]);
     }
-
 
     /**
      * Get the array representation of the notification.

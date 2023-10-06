@@ -30,33 +30,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index')->middleware('CekAdmin');
-
-// Route::middleware(['web', 'guest'])->group(function () {
-// });
 Auth::routes(['verify' => true]);
 
-// Route::get('/email/verify', [VerificationController::class, 'notice'])->name('verification.notice');
-// Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
-// Route::post('/email/verification-notification', [VerificationController::class, 'send'])->name('verification.send');
-
-
 Route::get('/detail-tiket/{id}', [KonserController::class, 'detailTiket'])->name('detail_konser');
-
-// Route::get('/loginview', function () {
-//     return view('login');
-// })->name('loginview');
-
-// // Define the route for the 'login' action from the controller
-// Route::get('/', [SesiController::class, 'login'])->name('login');
-
-
-Route::get('/cart', function () {
-    return view('user_page.cart');
-})->name('cart');
-
-Route::get('/edit_konserku', function () {
-    return view('user_page.edit_konserku');
-})->name('edit_konserku');
 
 Route::get('/konser', [KonserController::class, 'index'])->name('konser');
 Route::get('/konser/search', [KonserController::class, 'search'])->name('konser.search');
@@ -85,13 +61,8 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
         return view('user_page.tiketku');
     })->name('tiketku');
 });
-Route::get('testing', [OrderController::class, 'test'])->name('test');
 // Admin
 Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
-    // Route::get('/homeAdmin', function () {
-    //     return view('admin_page.homeAdmin');
-    // })->name('homeAdmin');
-
     Route::get('/pembelian', function () {
         return view('admin_page.pembelian');
     })->name('pembelian');

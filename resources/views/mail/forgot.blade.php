@@ -297,7 +297,7 @@
                                       "
                                                                             align="center">
                                                                             <img align="center" border="0"
-                                                                                src="https://cdn.templates.unlayer.com/assets/1597218650916-xxxxc.png"
+                                                                                src="https://cdn.templates.unlayer.com/assets/1593141680866-reset.png"
                                                                                 alt="Logo {{ config('app.name') }}"
                                                                                 title="Image"
                                                                                 style="
@@ -340,9 +340,8 @@
                                   ">
                                                                     <p
                                                                         style="font-size: 14px; line-height: 140%;text-align: center;">
-                                                                        <strong>T E R I M A K A S I H&nbsp; &nbsp;T E L
-                                                                            A H&nbsp;
-                                                                            &nbsp;B E R G A B U N G !</strong>
+                                                                        <strong>L U P A&nbsp; &nbsp;P A S S W O R D ? ?
+                                                                            ?</strong>
                                                                     </p>
                                                                 </div>
                                                             </td>
@@ -378,7 +377,7 @@
                                             line-height: 39.2px;
                                             font-size: 28px;
                                           ">Verifikasi
-                                                                                    Email Terlebih Dahulu
+                                                                                    Lupa Password
                                                                                 </span></strong></span>
                                                                     </p>
                                                                 </div>
@@ -461,11 +460,12 @@
                                                                             style="
                                         font-size: 18px;
                                         line-height: 28.8px;
-                                      ">Anda
-                                                                            hampir siap untuk memulai. Silakan
-                                                                            klik tombol di bawah untuk memverifikasi
-                                                                            alamat email Anda dan nikmati layanan
-                                                                            tiket konser kami!</span>
+                                      ">Halo,
+
+                                                                            Kami telah mengirimkan email ini kepada Anda
+                                                                            sebagai tanggapan atas permintaan Anda untuk
+                                                                            mengatur ulang kata sandi Anda pada website
+                                                                            kami -{{ config('app.name') }}.</span>
                                                                     </p>
                                                                 </div>
                                                             </td>

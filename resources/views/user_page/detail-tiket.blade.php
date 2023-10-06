@@ -273,6 +273,8 @@
                                 <p>Konser telah kadaluarsa!</p>
                             @endif
                         @endif
+                    @else
+                        <p>Login untuk memberi ulasan</p>
                     @endauth
                     <div id="comment-list-container">
                         @forelse ($konser->comment->sortByDesc('created_at') as $i => $comment)
@@ -424,8 +426,10 @@
                                 <div class="comment d-flex align-items-start">
                                     <div class="user-info">
                                         <div class="d-flex flex-row align-items-center">
+                                            @auth
                                         <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}"
                                             alt="Foto Profil Verdi" width="40">
+                                            @endauth
                                         <div class="d-flex flex-column text-start ms-3">
                                             @auth
                                             <p class="mb-0"><strong>{{ Auth::user()->name }}</strong></p>

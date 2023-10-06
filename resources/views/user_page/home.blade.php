@@ -1,9 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
-
     <style>
-        .sahh{
+        .sahh {
             align-items: center;
             display: flex;
             flex-flow: row wrap;
@@ -11,65 +10,78 @@
             position: relative;
             width: 100%;
         }
-        b{
+
+        b {
             background-color: currentColor;
             display: block;
             flex: 1;
             height: 2px;
             opacity: .1;
         }
-        body{
+
+        body {
             width: auto;
         }
-        .col-3{
+
+        .col-3 {
             flex: auto;
         }
-        @media(max-width:988px){
-            .col-3{
+
+        @media(max-width:988px) {
+            .col-3 {
                 width: 100%;
             }
         }
-        @media(min-width: 637px){
-            .img-fluid{
+
+        @media(min-width: 637px) {
+            .img-fluid {
                 height: 80%;
             }
         }
-        @media(max-width: 636px){
-            .row.py-5{
+
+        @media(max-width: 636px) {
+            .row.py-5 {
                 display: flex;
             }
-            .col-4{
+
+            .col-4 {
                 width: 100%;
             }
         }
-        @media(max-width:414px){
-            body{
+
+        @media(max-width:414px) {
+            body {
                 width: 100%;
             }
         }
-        @media(max-width:393px){
-            body{
+
+        @media(max-width:393px) {
+            body {
                 width: 106%;
             }
         }
-        @media(max-width:375px){
-            body{
+
+        @media(max-width:375px) {
+            body {
                 width: 113%;
             }
         }
-        @media(max-width:360px){
-            body{
+
+        @media(max-width:360px) {
+            body {
                 width: 115%;
             }
         }
-        @media(max-width:320px){
-            body{
+
+        @media(max-width:320px) {
+            body {
                 width: 129%;
             }
         }
-        @media(max-width:280px){
-            body{
-                width:150%;
+
+        @media(max-width:280px) {
+            body {
+                width: 150%;
             }
         }
     </style>
@@ -100,7 +112,7 @@
                     </p>
                 </div>
                 <div class="col-4">
-                    <h4 class="mb-4">2. Konfirmasi Pemesanan</h4> 
+                    <h4 class="mb-4">2. Konfirmasi Pemesanan</h4>
                     <p>
                         Kemudian, kalian bisa memilih kategori tiket dan jumlah tiket yang akan dibeli, lalu kalian dapat
                         klik “pesan” dan menuju ke halaman cart
@@ -122,20 +134,22 @@
 
     {{-- Card Konser Terbaru Start --}}
     <div class="container bg-white text-center" data-aos="fade-up" data-aos-delay="300">
-            <h1 class="fw-bold pt-5 ">Konser Terbaru</h1>
+        <h1 class="fw-bold pt-5 ">Konser Terbaru</h1>
         <div class="row py-5">
-            @foreach ($konser as $row)
+            @forelse ($konser as $row)
                 <div class="col-3 concert-card">
                     <a href="{{ route('detail_konser', $row->id) }}">
-                        <img  width="400" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}" alt=""
-                            class="mb-4" style="border-radius:5%;">
+                        <img width="400" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}"
+                            alt="" class="mb-4" style="border-radius:5%;">
                     </a>
                     <h3 class="fw-bold">{{ $row->nama_konser }}</h3>
                     @foreach ($row->tiket as $tiket)
                         <p class="fw-bold">@currency($tiket->harga1)</p>
                     @endforeach
                 </div>
-            @endforeach
+            @empty
+                <p>Belum ada konser...</p>
+            @endforelse
         </div>
     </div>
     <hr>
@@ -145,18 +159,20 @@
     <div class="container bg-white text-center" data-aos="fade-up" data-aos-delay="300">
         <h1 class="fw-bold pt-5">Sedang Hot</h1>
         <div class="row py-5">
-            @foreach ($hotConcerts as $row)
+            @forelse ($hotConcerts as $row)
                 <div class="col-3 concert-card">
                     <a href="{{ route('detail_konser', $row->id) }}">
-                        <img width="400" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}" alt=""
-                            class="mb-4" style="border-radius: 5%;">
+                        <img width="400" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}"
+                            alt="" class="mb-4" style="border-radius: 5%;">
                     </a>
                     <h3 class="fw-bold">{{ $row->nama_konser }}</h3>
                     @foreach ($row->tiket as $tiket)
                         <p class="fw-bold">@currency($tiket->harga1)</p>
                     @endforeach
                 </div>
-            @endforeach
+            @empty
+                <p>Belum ada konser yang populer...</p>
+            @endforelse
         </div>
     </div>
     </div>
@@ -178,7 +194,7 @@
         </style>
         <div class="row py-5">
             @foreach ($hotConcerts as $row)
-                @foreach ($row->comment as $cell)
+                @forelse ($row->comment as $cell)
                     <div class="col" data-aos="fade-up" data-aos-delay="500">
                         <div class="card mb-3 d-flex flex-row align-items-center rounded-4">
                             <div class="p-3">
@@ -194,7 +210,9 @@
                             </p>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <p>Jadilah orang pertama yang memberi ulasan</p>
+                @endforelse
             @endforeach
         </div>
     </div>
