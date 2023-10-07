@@ -23,6 +23,7 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'pp' => 'nullable|image|max:5120|mimes:jpeg,png,jpg,gif',
             'nama' => "required|string|max:50",
             'email' => ["required", "email", Rule::unique('users', 'email')->ignore($this->user()->id)],
             'phone' => ['nullable', 'gt:0', 'regex:/^08\d{10,15}$/', Rule::unique('users', 'phone')->ignore($this->user()->id)],

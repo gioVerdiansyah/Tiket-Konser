@@ -12,6 +12,9 @@
                             class="profile-image card-img-top rounded" alt="Profile" id="photo-profile">
                         <div class="card-body text-center">
                             <h5 class="card-title">{{ $data_user->name }}</h5>
+                            @error('pp')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <input type="file" name="pp" id="pp"
                                 onchange="
                                         var reader = new FileReader();
@@ -42,20 +45,20 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="nama" id="inputName"
                                         placeholder="Name" value="{{ $data_user->name }}">
+                                    @error('nama')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
-                                @error('name')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
                             </div>
                             <div class="form-group row">
                                 <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
                                     <input type="email" class="form-control" name="email" id="inputEmail"
                                         placeholder="Email" value="{{ $data_user->email }}">
+                                    @error('email')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
-                                @error('email')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
                             </div>
                             <div class="form-group row">
                                 <label for="inputName2" class="col-sm-2 col-form-label">No Telp</label>

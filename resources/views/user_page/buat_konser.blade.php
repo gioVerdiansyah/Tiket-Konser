@@ -14,7 +14,6 @@
      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
      {{-- SELECT2 --}}
      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
      <style>
          #map {
              width: 100%;
@@ -461,6 +460,7 @@
      </div>
      </form>
      </div>
+     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
      <script>
          $(document).ready(function() {
              $('#kategori').select2({
@@ -529,23 +529,45 @@
          function checkModalLocation() {
              var namaTempat = document.getElementById('nama-tempat').value;
              var alamat = document.getElementById('alamat').value;
-             try {
-                 var lat = document.getElementById('lat').value;
-                 var lon = document.getElementById('lon').value;
-             } catch (error) {
-                 Swal.fire({
-                     icon: "error",
-                     title: "Gagal",
-                     text: "Harap tidak mengotak-atik input latitude dan longitude",
-                     allowOutsideClick: true,
-                     allowEscapeKey: false,
-                 });
-             }
+             var lat = document.getElementById('lat').value;
+             var lon = document.getElementById('lon').value;
 
-             if (!namaTempat || !alamat || !lat || !lon) {
+             if (!namaTempat || !alamat) {
                  alertGagal();
                  return;
              }
+             if (!lat || !lon) {
+                 if ("geolocation" in navigator) {
+                     navigator.geolocation.getCurrentPosition(function(position) {
+                         lat = position.coords.latitude;
+                         lon = position.coords.longitude;
+                         document.getElementById('lat').value = lat;
+                         document.getElementById('lon').value = lon;
+                         continueAction();
+                     }, function(error) {
+                         Swal.fire({
+                             icon: "error",
+                             title: "Gagal",
+                             text: "Gagal mengambil lokasi pengguna saat ini",
+                             allowOutsideClick: true,
+                             allowEscapeKey: false,
+                         });
+                     });
+                 } else {
+                     Swal.fire({
+                         icon: "warning",
+                         title: "Peringatan",
+                         text: "Browser Anda tidak mendukung geolokasi. Harap isi manual latitude dan longitude atau gunakan browser yang mendukung geolokasi.",
+                         allowOutsideClick: true,
+                         allowEscapeKey: false,
+                     });
+                 }
+             } else {
+                 continueAction();
+             }
+         }
+
+         function continueAction() {
              var selectedLocation = document.querySelector('#alamat').value;
 
              // Update the content of the <span> element with the selected location

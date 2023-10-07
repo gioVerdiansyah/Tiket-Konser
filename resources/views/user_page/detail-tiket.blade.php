@@ -1,50 +1,58 @@
 @extends('layouts.master')
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
-    rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     {{-- Custom CSS --}}
     <style>
-        body{
+        body {
             width: 100%;
             height: auto;
         }
-        .breadcrumb__linkss a{
+
+        .breadcrumb__linkss a {
             cursor: pointer;
             font-size: 16px;
             display: inline-block;
             text-decoration: none;
         }
-        a.nac-link{
+
+        a.nac-link {
             font-size: 15px;
         }
+
         .lok {
             display: flex;
-            justify-content: start; /* atau flex-start */
-            text-align: start; /* atau left */
+            justify-content: start;
+            /* atau flex-start */
+            text-align: start;
+            /* atau left */
             gap: 10px;
             padding-top: 2rem;
-          }
+        }
+
         .warning {
             display: flex;
             padding-top: 1rem;
             justify-content: center;
             margin: 0 auto;
         }
-        .aku{
+
+        .aku {
             display: flex;
-            justify-content:space-between;
+            justify-content: space-between;
             background-color: #ffbc003b;
             padding: 10px;
-             border-radius: 5px;
-             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
         }
+
         .counter {
             display: flex;
             align-items: center;
@@ -90,7 +98,7 @@
             font-size: 18px;
             padding: 15px 25px;
             border-radius: 10px;
-            margin-bottom:5px;
+            margin-bottom: 5px;
             margin-left: 5px;
             background-color: #F0F0F0;
         }
@@ -111,7 +119,8 @@
         .container {
             margin-top: 0px;
         }
-        .tengah{
+
+        .tengah {
             text-align: center;
         }
 
@@ -122,53 +131,56 @@
 
         .label {
             font-size: 12px;
-            font-weight: 800; /* Mengubah ukuran teks label */
+            font-weight: 800;
+            /* Mengubah ukuran teks label */
             padding: 15px 15px;
         }
 
-        @media(max-width:766px){
+        @media(max-width:766px) {}
 
-        }
-        @media(max-width:460px){
-            .lok{
+        @media(max-width:460px) {
+            .lok {
                 display: grid;
             }
         }
-        @media(max-width:338px){
-            .lok{
-                gap:0px;
+
+        @media(max-width:338px) {
+            .lok {
+                gap: 0px;
             }
-            .label{
+
+            .label {
                 padding: 15px 15px;
                 margin-bottom: 8px;
             }
         }
-        @media(max-width:414px){
+
+        @media(max-width:414px) {
             .img-fluid {
                 width: 85%;
             }
         }
-        @media(max-width:692px){
-            .row{
+
+        @media(max-width:692px) {
+            .row {
                 display: block;
             }
+
             .row .col-6 {
-                margin-top:5%;
+                margin-top: 5%;
             }
-            .row .col-6{
+
+            .row .col-6 {
                 width: 100%;
             }
 
-            body{
+            body {
                 width: auto;
                 height: auto;
             }
         }
-
-
     </style>
     {{-- End --}}
-
 
     {{-- Content Start --}}
     <div class="container py-2">
@@ -177,7 +189,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="breadcrumb__linkss:hover">
-                            <a class="nac-link" href="{{route('konser') }}">Kembali</a>
+                            <a class="nac-link" href="{{ route('konser') }}">Kembali</a>
                         </div>
                     </div>
                 </div>
@@ -193,7 +205,8 @@
                     @csrf
                     <input type="hidden" name="konser_id" value="{{ $konser->id }}">
                     <h3 class="fw-bold" style="margin-bottom: 0.4%;">{{ $konser->nama_konser }}</h3>
-                    <h5 class="fw-bold" id="harga" style="margin-bottom: 1%;">Rp. {{ number_format($tiket->harga1, 0, ',', '.') }}</h5>
+                    <h5 class="fw-bold" id="harga" style="margin-bottom: 1%;">Rp.
+                        {{ number_format($tiket->harga1, 0, ',', '.') }}</h5>
                     @if (isset($konser->deskripsi))
                         <p>{{ $konser->deskripsi }}</p>
                     @else
@@ -265,11 +278,10 @@
                     @endif
                 </form>
                 @if ($konser->deleted_at)
-                <div class="aku">
-                    <i class="material-icons" style="font-size: 30px; padding:1rem;">warning</i>
-                    <d class="warning" >Konser telah kadaluarsa</d>
-                </div>
-
+                    <div class="aku">
+                        <i class="material-icons" style="font-size: 30px; padding:1rem;">warning</i>
+                        <d class="warning">Konser telah kadaluarsa</d>
+                    </div>
                 @endif
             </div>
         </div>
