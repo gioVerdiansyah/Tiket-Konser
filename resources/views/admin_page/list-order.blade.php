@@ -5,7 +5,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-
         <style>
             .card {
                 overflow: auto;
@@ -15,16 +14,21 @@
                 display: flex;
                 justify-content: space-between;
             }
-            .table th{
+
+            .table th {
                 text-align: center;
             }
-            .table td {
-                max-width: 200px; /* Batasi lebar maksimum sel */
-                white-space: nowrap; /* Hindari pemutaran teks */
-                overflow: hidden; /* Sembunyikan teks yang berlebihan */
-                text-overflow: ellipsis; /* Tambahkan elipsis (...) jika teks terlalu panjang */
-            }
 
+            .table td {
+                max-width: 200px;
+                /* Batasi lebar maksimum sel */
+                white-space: nowrap;
+                /* Hindari pemutaran teks */
+                overflow: hidden;
+                /* Sembunyikan teks yang berlebihan */
+                text-overflow: ellipsis;
+                /* Tambahkan elipsis (...) jika teks terlalu panjang */
+            }
         </style>
     </head>
     {{-- message --}}
@@ -39,7 +43,7 @@
             </div>
 
             <div class="konser-search-form">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-6 col-md-6">
                     <form action="{{ route('list-konser.search') }}" method="GET">
                         <div class="form-group d-flex">
                             <input type="text" id="search-input" class="form-control" name="search"
@@ -77,60 +81,65 @@
                                 <tbody>
                                     <div id="search-results">
                                         @forelse ($orders as $order)
-                                            @if ($order->payment_status == 2)
-                                                <tr>
-                                                    <td class="fw-bold">{{ $order->transactionHistory[0]->payment_type }}
-                                                    </td>
-                                                    <td class="fw-bold">{{ $order->created_at }}</td>
-                                                    <td class="fw-bold">{{  $order->transactionHistory[0]->transaction_id }}</td>
-                                                    <td class="fw-bold">{{ $order->user->email }}</td>
-                                                    <td class="fw-bold">@currency($order->total_price)</td>
-                                                    <td class="">
-                                                        <button class="btn btn-success" style="border-radius: 10px">Sukses di bayar</button>
-                                                    </td>
-                                                    <td class="sayah">
-                                                        <form action="{{ route('order.destroy', $order->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-outline-danger" style="border-radius: 10px; margin-right: 8px;">Hapus
+                                            <tr>
+                                                <td class="fw-bold">{{ $order->transactionHistory[0]->payment_type }}
+                                                </td>
+                                                <td class="fw-bold">{{ $order->created_at }}</td>
+                                                <td class="fw-bold">#{{ $order->number }}
+                                                </td>
+                                                <td class="fw-bold">{{ $order->user->email }}</td>
+                                                <td class="fw-bold">@currency($order->total_price)</td>
+                                                <td class="">
+                                                    <button class="btn btn-success" style="border-radius: 10px">Sukses
+                                                        di bayar</button>
+                                                </td>
+                                                <td class="sayah">
+                                                    <form action="{{ route('order.destroy', $order->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-outline-danger"
+                                                            style="border-radius: 10px; margin-right: 8px;">Hapus
+                                                        </button>
+                                                    </form>
+                                                    <a class="btn btn-info" style="border-radius: 10px;" data-toggle="modal"
+                                                        data-target="#modal-{{ $order->id }}">
+                                                        Lihat
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="modal-{{ $order->id }}" tabindex="-1"
+                                                role="dialog">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Detail Order</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
                                                             </button>
-                                                        </form>
-                                                        <form action="">
-                                                            <a class="btn btn-info" style="border-radius: 10px;" data-toggle="modal" data-target="#modal-{{ $order->id }}">
-                                                                Lihat
-                                                            </a>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="modal-{{ $order->id }}" tabindex="-1" role="dialog">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Detail Order</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <!-- Isi modal sesuai dengan data order -->
-                                                                <p><strong>Payment Type:</strong> {{ $order->transactionHistory[0]->payment_type }}</p>
-                                                                <p><strong>Tanggal dan Waktu:</strong> {{ $order->created_at }}</p>
-                                                                <p><strong>UUID:</strong> {{ $order->transactionHistory[0]->transaction_id }}</p>
-                                                                <p><strong>Nama Pelanggan:</strong> {{ $order->konser->nama_konser }}</p>
-                                                                <p><strong>Nama Pelanggan:</strong> {{ $order->user->name }}</p>
-                                                                <p><strong>Email Pelanggan:</strong> {{ $order->user->email }}</p>
-                                                                <p><strong>Jumlah:</strong> @currency($order->total_price)</p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            </div>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <!-- Isi modal sesuai dengan data order -->
+                                                            <p><strong>Payment Type:</strong>
+                                                                {{ $order->transactionHistory[0]->payment_type }}</p>
+                                                            <p><strong>Tanggal dan Waktu:</strong>
+                                                                {{ $order->created_at }}</p>
+                                                            <p><strong>UUID:</strong>
+                                                                {{ $order->transactionHistory[0]->transaction_id }}</p>
+                                                            <p><strong>Nama Pelanggan:</strong>
+                                                                {{ $order->user->name }}</p>
+                                                            <p><strong>Email Pelanggan:</strong>
+                                                                {{ $order->user->email }}</p>
+                                                            <p><strong>Jumlah:</strong> @currency($order->total_price)</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endif
+                                            </div>
                                         @empty
                                         @endforelse
                                     </div>
@@ -175,7 +184,6 @@
         </div>
     </div>
 
-
     @section('script')
         <script>
             $(document).ready(function() {
@@ -199,6 +207,5 @@
                 });
             });
         </script>
-
     @endsection
 @endsection

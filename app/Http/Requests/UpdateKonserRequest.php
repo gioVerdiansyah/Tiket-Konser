@@ -42,7 +42,7 @@ class UpdateKonserRequest extends FormRequest
             'harga3' => 'nullable|integer|min:3000',
             'harga4' => 'nullable|integer|min:3000',
             'harga5' => 'nullable|integer|min:3000',
-            'jumlahtiket' => 'required|integer|min:1',
+            'jumlahtiket' => 'required|integer|min:10',
             'deskripsi' => 'nullable|string|min:5|max:300',
             'banner' => 'image|max:20480',
             'photo_penyelenggara' => 'nullable|image|max:20480',
