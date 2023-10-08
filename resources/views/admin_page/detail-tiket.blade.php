@@ -1,7 +1,58 @@
 @extends('layouts.admin', ['title' => 'List Konser'])
 @section('content')
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     {{-- Custom CSS --}}
     <style>
+        body {
+            width: 100%;
+            height: auto;
+        }
+
+        .breadcrumb__linkss a {
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        a.nac-link {
+            font-size: 15px;
+        }
+
+        .lok {
+            display: flex;
+            justify-content: start;
+            /* atau flex-start */
+            text-align: start;
+            /* atau left */
+            gap: 10px;
+            padding-top: 2rem;
+        }
+
+        .warning {
+            display: flex;
+            padding-top: 1rem;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .aku {
+            display: flex;
+            justify-content: space-between;
+            background-color: #ffbc003b;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
         .counter {
             display: flex;
             align-items: center;
@@ -16,7 +67,7 @@
         }
 
         .nav-tabs .nav-link {
-            color: #0000008c;
+            color: #000000;
             /* opacity: 60%; */
             border-bottom: 1px solid transparent;
             border-top: none;
@@ -46,7 +97,8 @@
             cursor: pointer;
             font-size: 18px;
             padding: 15px 25px;
-            border-radius: 15px;
+            border-radius: 10px;
+            margin-bottom: 5px;
             margin-left: 5px;
             background-color: #F0F0F0;
         }
@@ -65,63 +117,152 @@
         }
 
         .container {
-            margin-top: -10px;
+            margin-top: 0px;
+        }
+
+        .tengah {
+            text-align: center;
+        }
+
+        .radio {
+            transform: scale(0.8);
+            /* Mengubah ukuran radio button */
+        }
+
+        .label {
+            font-size: 12px;
+            font-weight: 800;
+            /* Mengubah ukuran teks label */
+            padding: 15px 15px;
+        }
+
+        @media(max-width:766px) {}
+
+        @media(max-width:460px) {
+            .lok {
+                display: grid;
+            }
+        }
+
+        @media(max-width:338px) {
+            .lok {
+                gap: 0px;
+            }
+
+            .label {
+                padding: 15px 15px;
+                margin-bottom: 8px;
+            }
+        }
+
+        @media(max-width:414px) {
+            .img-fluid {
+                width: 85%;
+            }
+        }
+
+        @media(max-width:692px) {
+            .row {
+                display: block;
+            }
+
+            .row .col-6 {
+                margin-top: 5%;
+            }
+
+            .row .col-6 {
+                width: 100%;
+            }
+
+            body {
+                width: auto;
+                height: auto;
+            }
         }
     </style>
     {{-- End --}}
 
     {{-- Content Start --}}
-    <div class="container py-5">
+    <div class="container py-2">
         <div class="row">
             <div class="col-6 text-center">
-                <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}" class="img-fluid rounded-4 shadow-lg"
-                    style="width: 300px" alt="">
+                <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}" class="img-fluid rounded-4"
+                    alt="Banner konser">
             </div>
-            <div class="col-6 text-left mt-5">
-                <div>
-                    <h3 class="fw-bold">{{ $konser->nama_konser }}</h3>
-                    <h5 class="fw-bold" id="harga">Rp. {{ number_format($tiket->harga1, 0, ',', '.') }}</h5>
-                    @if (isset($konser->deskripsi))
-                        <p>{{ $konser->deskripsi }}</p>
-                    @else
-                        <p>Penjual tidak menambahkan deskripsi...</p>
+            <div class="col-6 text-left" style="margin-top:10%;">
+                <form @if (!$konser->deleted_at && $tiket->jumlah_tiket) action="{{ route('orders.store') }}" method="POST" @endif>
+                    @csrf
+                    <input type="hidden" name="konser_id" value="{{ $konser->id }}">
+                    <h3 class="fw-bold" style="margin-bottom: 0.4%;">{{ $konser->nama_konser }}</h3>
+                    <h5 class="fw-bold" id="harga" style="margin-bottom: 1%;">Rp.
+                        {{ number_format($tiket->harga1, 0, ',', '.') }}</h5>
+
+                    @if (!$konser->deleted_at && $tiket->jumlah_tiket)
+                        <p style="margin-bottom: 1%">
+                            Stok :
+                            @if ($tiket->jumlah_tiket)
+                                {{ $tiket->jumlah_tiket }}
+                            @else
+                                <span style="color: red">Sold Out!</span>
+                            @endif
+                        </p>
+
+                        <input type="radio" id="lang-1" name="price" value="{{ $tiket->harga1 }}" class="radio"
+                            checked>
+                        <label class="label label-1 kecil" for="lang-1">{{ strtoupper($tiket->kategoritiket1) }}</label>
+                        <input type="radio" id="kategori-lang-1" name="kategori_tiket"
+                            value="{{ $tiket->kategoritiket1 }}" hidden checked>
+
+                        @if (isset($tiket->kategoritiket2) && isset($tiket->harga2))
+                            <input type="radio" id="lang-2" name="price" value="{{ $tiket->harga2 }}"
+                                class="radio">
+                            <label class="label label-2" for="lang-2">{{ strtoupper($tiket->kategoritiket2) }}</label>
+                            <input type="radio" id="kategori-lang-2" name="kategori_tiket"
+                                value="{{ $tiket->kategoritiket2 }}" hidden>
+                        @endif
+
+                        @if (isset($tiket->kategoritiket3) && isset($tiket->harga3))
+                            <input type="radio" id="lang-3" name="price" value="{{ $tiket->harga3 }}"
+                                class="radio">
+                            <label class="label label-3" for="lang-3">{{ strtoupper($tiket->kategoritiket3) }}</label>
+                            <input type="radio" id="kategori-lang-3" name="kategori_tiket"
+                                value="{{ $tiket->kategoritiket3 }}" hidden>
+                        @endif
+
+                        @if (isset($tiket->kategoritiket4) && isset($tiket->harga4))
+                            <input type="radio" id="lang-4" name="price" value="{{ $tiket->harga4 }}"
+                                class="radio">
+                            <label class="label label-4" for="lang-4">{{ strtoupper($tiket->kategoritiket4) }}</label>
+                            <input type="radio" id="kategori-lang-4" name="kategori_tiket"
+                                value="{{ $tiket->kategoritiket4 }}" hidden>
+                        @endif
+
+                        @if (isset($tiket->kategoritiket5) && isset($tiket->harga5))
+                            <input type="radio" id="lang-5" name="price" value="{{ $tiket->harga5 }}"
+                                class="radio">
+                            <label class="label label-5" for="lang-5">{{ strtoupper($tiket->kategoritiket5) }}</label>
+                            <input type="radio" id="kategori-lang-5" name="kategori_tiket"
+                                value="{{ $tiket->kategoritiket5 }}" hidden>
+                        @endif
+
+                        <hr>
+                        @error('jumlah')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     @endif
-
-                    <p>Stok : {{ $tiket->jumlah_tiket }}</p>
-
-                    <input type="radio" id="lang-1" name="price" value="{{ $tiket->harga1 }}" class="radio" checked>
-                    <label class="label label-1" for="lang-1">{{ strtoupper($tiket->kategoritiket1) }}</label>
-                    <input type="radio" id="kategori-lang-1" name="kategori_tiket" value="{{ $tiket->kategoritiket1 }}"
-                        hidden checked>
-
-                    @if (isset($tiket->kategoritiket2) && isset($tiket->harga2))
-                        <input type="radio" id="lang-2" name="price" value="{{ $tiket->harga2 }}" class="radio">
-                        <label class="label label-2" for="lang-2">{{ strtoupper($tiket->kategoritiket2) }}</label>
-                        <input type="radio" id="kategori-lang-2" name="kategori_tiket"
-                            value="{{ $tiket->kategoritiket2 }}" hidden>
-                    @endif
-
-                    @if (isset($tiket->kategoritiket3) && isset($tiket->harga3))
-                        <input type="radio" id="lang-3" name="price" value="{{ $tiket->harga3 }}" class="radio">
-                        <label class="label label-3" for="lang-3">{{ strtoupper($tiket->kategoritiket3) }}</label>
-                        <input type="radio" id="kategori-lang-3" name="kategori_tiket"
-                            value="{{ $tiket->kategoritiket3 }}" hidden>
-                    @endif
-
-                    @if (isset($tiket->kategoritiket4) && isset($tiket->harga4))
-                        <input type="radio" id="lang-4" name="price" value="{{ $tiket->harga4 }}" class="radio">
-                        <label class="label label-4" for="lang-4">{{ strtoupper($tiket->kategoritiket4) }}</label>
-                        <input type="radio" id="kategori-lang-4" name="kategori_tiket"
-                            value="{{ $tiket->kategoritiket4 }}" hidden>
-                    @endif
-
-                    @if (isset($tiket->kategoritiket5) && isset($tiket->harga5))
-                        <input type="radio" id="lang-5" name="price" value="{{ $tiket->harga5 }}" class="radio">
-                        <label class="label label-5" for="lang-5">{{ strtoupper($tiket->kategoritiket5) }}</label>
-                        <input type="radio" id="kategori-lang-5" name="kategori_tiket"
-                            value="{{ $tiket->kategoritiket5 }}" hidden>
-                    @endif
-                </div>
+                </form>
+                @if ($konser->deleted_at)
+                    <div class="aku">
+                        <i class="material-icons" style="font-size: 30px; padding:1rem;">warning</i>
+                        <p class="warning">Konser telah kadaluarsa</p>
+                    </div>
+                @endif
+                @if ($tiket->jumlah_tiket == 0)
+                    <div class="aku">
+                        <i class="material-icons" style="font-size: 30px; padding:1rem;">warning</i>
+                        <p class="warning">Stock tiket sudah habis!</p>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -142,14 +283,14 @@
                 <div class="container">
                     <div class="detail_konser my-5">
                         <h4 class="fw-bold left-align">DETAIL KONSER</h4>
-                        <p class="left-align">{{ $konser->nama_konser }}</p>
+                        <p class="left-align" style="color: #000000;"> {{ $konser->nama_konser }}</p>
                         @if (isset($konser->deskripsi))
                             <p class="left-align">{{ $konser->deskripsi }}</p>
                         @else
                             <p>Penjual tidak menambahkan deskripsi...</p>
                         @endif
                         <hr>
-                        <div class="lok d-flex justify-content-start text-start gap-5 py-2">
+                        <div class="lok">
                             <a href="" class="fw-bold text-dark text-decoration-none" data-bs-toggle="modal"
                                 data-bs-target="#denahKonserModal"><i class="bi bi-map"></i> Denah Konser</a>
                             <a href="" class="text-dark text-decoration-none" data-bs-toggle="modal"
@@ -177,19 +318,10 @@
 
                             </p>
                             <p>
-                                @if (isset($konser->photo_penyelenggara))
-                                    <img src="{{ asset('storage/image/' . $konser->photo_penyelenggara) }}"
-                                        alt="Photo penyelenggara" width="30">
-                                @else
-                                    <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}"
-                                        alt="Photo penyelenggara" width="30">
-                                @endif
+                                <img src="{{ asset('storage/image/' . $konser->photo_penyelenggara) }}"
+                                    alt="Photo penyelenggara" width="30">
                                 Diselenggarakan Oleh <span class="fw-bold">
-                                    @if (isset($konser->nama_penyelenggara))
-                                        {{ $konser->nama_penyelenggara }}
-                                    @else
-                                        {{ Auth::user()->name }}
-                                    @endif
+                                    {{ $konser->nama_penyelenggara }}
                                 </span>
                             </p>
                         </div>
@@ -200,46 +332,53 @@
             <div id="tab2" class="tab-pane fade">
                 <div class="container py-5">
                     <div class="title d-flex">
-                        <h4 class="">KOMENTAR <span>({{ $jumlahKomentar }})</span></h4>
+                        <h4 id="jumlah_komen">KOMENTAR (<span>{{ $jumlahKomentar }}</span>)</h4>
                     </div>
-
-                    @forelse ($konser->comment->sortByDesc('created_at') as $comment)
-                        <div class="comment-list mt-4" id="comment-list">
-                            <div class="comment d-flex align-items-start">
-                                <div class="user-info">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
-                                            alt="Foto Profil Verdi" width="40">
-                                        <div class="d-flex flex-column text-start ms-3">
-                                            <p class="mb-0"><strong>{{ $comment->user->name }}</strong></p>
-                                            <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
-                                            </p>
-                                        </div>
-                                        <div class="nav-item dropdown">
-                                            <a class="nav-link" href="#" id="profileDropdown" role="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-three-dots-vertical ms-3"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="profileDropdown">
-                                                <form action="{{ route('delete-comment', $comment->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="dropdown-item">Hapus</button>
-                                                </form>
+                    <div id="comment-list-container">
+                        @forelse ($konser->comment->sortByDesc('created_at') as $i => $comment)
+                            <div class="comment-list mt-4" id="comment-list{{ ++$i }}">
+                                <div class="comment d-flex align-items-start">
+                                    <div class="user-info">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
+                                                alt="Foto Profil Verdi" width="40">
+                                            <div class="d-flex flex-column text-start ms-3">
+                                                <p class="mb-0"><strong>{{ $comment->user->name }}</strong></p>
+                                                <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}
+                                                </p>
+                                            </div>
+                                            <div class="nav-item dropdown">
+                                                <a class="nav-link" href="#" id="profileDropdown" role="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-three-dots-vertical ms-3"></i>
+                                                </a>
+                                                <div class="komenku dropdown-menu dropdown-menu-end"
+                                                    aria-labelledby="profileDropdown"
+                                                    id="comment-list{{ $i }}">
+                                                    <form
+                                                        action="{{ route('konser_page.comment.destroy', $comment->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item">Hapus</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="text-start">
-                                        <p>{{ $comment->fillin }}</p>
+                                        <div class="text-start">
+                                            <p>{{ $comment->fillin }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        <p>Belum ada komentar</p>
-                    @endforelse
+                        @empty
+                            @if (!$konser->deleted_at)
+                                <p id="first-comment">Belum ada komentar...</p>
+                            @else
+                                <p>Konser telah kadaluarsa</p>
+                            @endif
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>
@@ -322,18 +461,12 @@
     {{-- END iframe --}}
     {{-- click kategori tiket harga auto berubah --}}
     <script>
-        // Dapatkan semua input radio dengan nama "lang"
         var radioInputs = document.querySelectorAll('input[name="price"]');
-
-        // Dapatkan elemen h5 dengan id "harga"
         var hargaElement = document.getElementById('harga');
 
-        // Tambahkan event listener pada setiap input radio
         radioInputs.forEach(function(input) {
             input.addEventListener('change', function() {
-                // Periksa apakah input radio ini yang sedang dipilih
                 if (input.checked) {
-                    // Setel nilai elemen h5 "harga" sesuai dengan nilai input radio yang dipilih
                     hargaElement.textContent = "Rp. " + formatRupiah(input.value);
                 }
             });
@@ -356,22 +489,13 @@
         }
     </script>
     <script>
-        // Memilih semua input radio harga
         const radioHarga = document.querySelectorAll('[name="price"]');
 
-        // Memantau perubahan pada input radio harga
         radioHarga.forEach((radio) => {
             radio.addEventListener('change', function() {
-                // Mendapatkan id dari input radio yang terpilih
                 const selectedId = this.id;
-
-                // Mendapatkan id dari input kategori tiket yang sesuai dengan input radio yang terpilih
                 const kategoriId = 'kategori-' + selectedId;
-
-                // Mendapatkan input kategori tiket yang sesuai
                 const kategoriInput = document.getElementById(kategoriId);
-
-                // Mengatur status input kategori tiket sesuai dengan input radio yang terpilih
                 kategoriInput.checked = this.checked;
             });
         });
@@ -381,7 +505,7 @@
 
     {{-- Custom JS for Counter --}}
     <script>
-        let warningShown = false; // Variabel untuk melacak apakah pesan peringatan sudah ditampilkan
+        let warningShown = false;
 
         $('#plus').click(function(e) {
             e.preventDefault();
@@ -394,8 +518,8 @@
                     var newParagraph = $('<p></p>');
                     newParagraph.text('Peringatan: Anda hanya dapat memesan 5 tiket.');
                     newParagraph.addClass('text-danger');
-                    $('#countparent').after(newParagraph); // Menambahkan pesan setelah elemen dengan id "count"
-                    warningShown = true; // Setel ke true agar pesan hanya muncul sekali
+                    $('#countparent').after(newParagraph);
+                    warningShown = true;
                 }
             }
         });
@@ -407,11 +531,9 @@
             if (i > 1) {
                 $('#count').val(i - 1);
             }
-
-            // Sembunyikan pesan peringatan jika ada
             if (warningShown) {
                 $('.text-danger').remove();
-                warningShown = false; // Setel kembali ke false saat mengurangi jumlah tiket
+                warningShown = false;
             }
         });
     </script>

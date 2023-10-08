@@ -213,18 +213,19 @@
                                 aria-labelledby="notification-dropdown-button"
                                 style="
                                         width: max-content;
-                                        max-width: 300px;
+                                        max-width: 500px;
                                     ">
                                 @forelse ($notif as $row)
                                     <li class="px-3 py-2 d-flex flex-row justify-content-between align-items-center"
                                         data-notification-id="{{ $row->id }}">
                                         <div class="d-flex flex-column">
-                                            <strong
-                                                style="
-                                        font-size: 10px;
-                                    ">Dari
-                                                konser:
-                                                {{ $row->nama_konser }}</strong>
+                                            <strong style="font-size: 10px;">
+                                                @if (Str::startsWith($row->nama_konser, 'Komentar') || Str::startsWith(strtolower($row->nama_konser), 'konser'))
+                                                    Dari: {{ $row->nama_konser }}
+                                                @else
+                                                    Dari konser: {{ $row->nama_konser }}
+                                                @endif
+                                            </strong>
                                             {{ $row->fillin }}
                                         </div>
                                         <button class="btn" data-bs-dismiss="false" id="butonnotid{{ $row->id }}"
@@ -234,6 +235,7 @@
                                 @empty
                                     <p class="mx-3 my-2">Tidak ada notifikasi...</p>
                                 @endforelse
+
                             </ul>
                             <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">

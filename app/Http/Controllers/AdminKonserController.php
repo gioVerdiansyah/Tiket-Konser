@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Konser;
 use App\Models\Notifications;
 use Illuminate\Http\Request;
@@ -10,12 +11,12 @@ class AdminKonserController extends Controller
 {
     public function index()
     {
-        $konsers = Konser::paginate(10);
+        $konsers = Konser::withTrashed()->paginate(10);
         return view('admin_page.konser_page', compact('konsers'));
     }
     public function detail($id)
     {
-        $konser = Konser::with('tiket', 'comment')
+        $konser = Konser::withTrashed()->with('tiket', 'comment')
             ->where('id', $id)
             ->latest()
             ->firstOrFail();
@@ -36,10 +37,27 @@ class AdminKonserController extends Controller
         $notif->fillin = $request->alasan_hapus;
         $notif->save();
 
-        // $konser->delete();
+        $konser->delete();
         return back()->with('message', [
             'title' => "Berhasil!",
             'text' => "Berhasil menghapus konser $konserName dengan alasan {$request->alasan_hapus}"
+        ]);
+    }
+
+    public function commentDestroy($id)
+    {
+        $komen = Comment::with('konser')->where('id', $id)->firstOrFail();
+
+        $notif = new Notifications;
+        $notif->nama_konser = "Komentar " . $komen->konser->nama_konser;
+        $notif->user_id = $komen->user_id;
+        $notif->fillin = "Notifikasi penghapusan komentar tidak pantas!";
+        $notif->save();
+
+        $komen->delete();
+        return back()->with('message', [
+            'title' => "Berhasil!",
+            'text' => "Berhasil menghapus komentar user"
         ]);
     }
 }

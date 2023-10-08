@@ -335,19 +335,10 @@
 
                             </p>
                             <p>
-                                @if (isset($konser->photo_penyelenggara))
-                                    <img src="{{ asset('storage/image/' . $konser->photo_penyelenggara) }}"
-                                        alt="Photo penyelenggara" width="30">
-                                @else
-                                    <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}"
-                                        alt="Photo penyelenggara" width="30">
-                                @endif
+                                <img src="{{ asset('storage/image/' . $konser->photo_penyelenggara) }}"
+                                    alt="Photo penyelenggara" width="30">
                                 Diselenggarakan Oleh <span class="fw-bold">
-                                    @if (isset($konser->nama_penyelenggara))
-                                        {{ $konser->nama_penyelenggara }}
-                                    @else
-                                        {{ Auth::user()->name }}
-                                    @endif
+                                    {{ $konser->nama_penyelenggara }}
                                 </span>
                             </p>
                         </div>
