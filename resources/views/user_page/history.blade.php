@@ -27,8 +27,6 @@
                 justify-content: center;
             }
 
-
-
             .wrapper {
                 text-align: right;
                 padding: 0%;
@@ -355,33 +353,29 @@
             font-size: 14px;
         }
 
-        .element.style {
+        .element.style {}
 
-        }
-        @media screen and (max-width: 766px) {
-
-        }
-
+        @media screen and (max-width: 766px) {}
 
         img {
             max-width: 100%;
             height: auto;
         }
+
         @media screen and (max-width: 768px) {
-           img  {
-            max-width: 100%;
-           }
+            img {
+                max-width: 100%;
+            }
         }
 
-
-.card img {
-  max-width: 100%;
-  height: auto;
-}
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
     {{-- End --}}
     {{-- Content Start --}}
-    <div class="container-fluid mt-2"> 
+    <div class="container-fluid mt-2">
         <div class="container">
             <br>
             <img src="" alt="" id="gambarku">
@@ -389,70 +383,78 @@
                 $i = 1;
             @endphp
             @forelse ($orders as $i => $order)
-            <div class="card">
+                <div class="card">
 
-                <div class="card-full">
-                    <div class="row no-gutters">
-                        <div class="col-md-4 ">
-                            <!-- Mengubah ukuran kolom gambar -->
-                            <img src="{{ asset('storage/image/konser/banner/' . $order->konser->banner) }}"
-                                class="card-img custom-img" alt="Placeholder Image" height="200 px;" width="110">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <div class="d-flex ">
-                                    <h4 class="m-0 p-0 font-weight-bold" style="font-size: 20px">
-                                        {{ $order->konser->nama_konser }}</h4>
-                                </div>
-                                <h6 class="card-title">Di order pada:
-                                    {{ \Carbon\Carbon::parse($order->created_at)->translatedFormat('l, d F Y H:i') }}
-                                    <br>
-                                    @if ($order->payment_status == 2)
-                                        Di bayar pada:
-                                        {{ \Carbon\Carbon::parse($order->transactionHistory[0]->transaction_time)->translatedFormat('l, d F Y H:i') }}
-                                    @endif
-                                </h6>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-
-                                        <p class="m-0 p-0" style="color: rgb(162, 170, 162);">
-                                        <p class="m-0 p-0">Total harga: @currency($order->total_price)</p>
-                                        <strong>Status:</strong>
+                    <div class="card-full">
+                        <div class="row no-gutters">
+                            <div class="col-md-4 ">
+                                <!-- Mengubah ukuran kolom gambar -->
+                                <img src="{{ asset('storage/image/konser/banner/' . $order->konser->banner) }}"
+                                    class="card-img custom-img" alt="Placeholder Image" height="200 px;" width="110">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div class="d-flex ">
+                                        <h4 class="m-0 p-0 font-weight-bold" style="font-size: 20px">
+                                            {{ $order->konser->nama_konser }}</h4>
+                                    </div>
+                                    <h6 class="card-title">Di order pada:
+                                        {{ \Carbon\Carbon::parse($order->created_at)->translatedFormat('l, d F Y H:i') }}
+                                        <br>
                                         @if ($order->payment_status == 2)
-                                            <p style="color: #21ad44; font-weight:bolder; font-style:normal;">
-                                                {{ Str::before($order->transactionHistory[0]->status_message, ',') }}
-                                            </p>
-                                            <button class="bittin hover" id="generatePdf"
-                                                onclick="generatePDF('{{ $i }}')">Tiket
-                                                Anda</button>
-                                        @else
-                                            <p style="color: #ffb60d; font-weight:bolder; font-style:normal;">
-                                                Kadaluarsa
-                                            <p>
+                                            Di bayar pada:
+                                            {{ \Carbon\Carbon::parse($order->transactionHistory[0]->transaction_time)->translatedFormat('l, d F Y H:i') }}
+                                        @endif
+                                    </h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+
+                                            <p class="m-0 p-0" style="color: rgb(162, 170, 162);">
+                                            <p class="m-0 p-0">Total harga: @currency($order->total_price)</p>
+                                            <strong>Status:</strong>
+                                            @if ($order->payment_status == 2)
+                                                <p style="color: #21ad44; font-weight:bolder; font-style:normal;">
+                                                    {{ Str::before($order->transactionHistory[0]->status_message, ',') }}
+                                                </p>
+                                                <button class="bittin hover" id="generatePdf"
+                                                    onclick="generatePDF('{{ $i }}')">Tiket
+                                                    Anda</button>
+                                            @endif
+                                            @if ($order->payment_status == 3)
+                                                <p style="color: #ffb60d; font-weight:bolder; font-style:normal;">
+                                                    Kadaluarsa
+                                                <p>
+                                            @endif
+                                            @if ($order->payment_status == 4)
+                                                <p style="color: rgb(255, 48, 48); font-weight:bolder; font-style:normal;">
+                                                    Gagal
+                                                <p>
+                                            @endif
+                                        </div>
+                                        @if ($order->payment_status == 2)
+                                            <div class="wrapper ">
+                                                <p class="m-0 p-0">
+                                                    <strong
+                                                        style="color: rgb(231, 57, 188); text-decoration: underline;  cursor: pointer;"
+                                                        data-toggle="modal"
+                                                        data-target="#transactionModal{{ $i + 1 }}">Lihat
+                                                        Detail
+                                                        Transaksi</strong>
+                                                </p>
+                                            </div>
                                         @endif
                                     </div>
-                                    @if ($order->payment_status == 2)
-                                        <div class="wrapper ">
-                                            <p class="m-0 p-0">
-                                                <strong
-                                                    style="color: rgb(231, 57, 188); text-decoration: underline;  cursor: pointer;"
-                                                    data-toggle="modal" data-target="#transactionModal{{ $i + 1 }}">Lihat
-                                                    Detail
-                                                    Transaksi</strong>
-                                            </p>
-                                        </div>
-                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
                 @php
                     $i++;
                 @endphp
             @empty
-                <p class="text-center">Anda belum mungkin belum melakukan pemesanan atau bahkan belum melakukan pembayaran, coba
+                <p class="text-center">Anda belum mungkin belum melakukan pemesanan atau bahkan belum melakukan pembayaran,
+                    coba
                     cek pada halaman <a href="{{ route('orders.index') }}">order</a></p>
             @endforelse
         </div>

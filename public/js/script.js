@@ -5,38 +5,42 @@ const thumb_left = document.querySelector(".slider > .thumb.left");
 const thumb_right = document.querySelector(".slider > .thumb.right");
 const range = document.querySelector(".slider > .range");
 
+// Dapatkan nilai terendah dan tertinggi dari slider harga
+const [minPrice, maxPrice] = [parseInt(input_left.min), parseInt(input_left.max)];
+
+// Atur nilai awal untuk input_left dan input_right
+input_left.value = minPrice;
+input_right.value = maxPrice;
+
+// Fungsi untuk mengatur nilai awal slider kiri
 const set_left_value = () => {
     const _this = input_left;
-    const [min, max] = [parseInt(_this.min), parseInt(_this.max)];
-
-    _this.value = Math.min(parseInt(_this.value), parseInt(input_right.value) - 1);
-
-    const percent = ((_this.value - min) / (max - min)) * 100;
+    const percent = ((_this.value - minPrice) / (maxPrice - minPrice)) * 100;
     thumb_left.style.left = percent + "%";
     range.style.left = percent + "%";
 };
 
+// Fungsi untuk mengatur nilai awal slider kanan
 const set_right_value = () => {
     const _this = input_right;
-    const [min, max] = [parseInt(_this.min), parseInt(_this.max)];
-
-    _this.value = Math.max(parseInt(_this.value), parseInt(input_left.value) + 1);
-
-    const percent = ((_this.value - min) / (max - min)) * 100;
+    const percent = ((_this.value - minPrice) / (maxPrice - minPrice)) * 100;
     thumb_right.style.right = 100 - percent + "%";
     range.style.right = 100 - percent + "%";
 };
+
+// Panggil fungsi set_left_value() dan set_right_value() untuk mengatur posisi awal
+set_left_value();
+set_right_value();
 
 input_left.addEventListener("input", set_left_value);
 input_right.addEventListener("input", set_right_value);
 
 function left_slider(value) {
-    const formattedValue = parseInt(value).toLocaleString("id-ID"); // Menggunakan pengaturan lokal Bahasa Indonesia
+    const formattedValue = parseInt(value).toLocaleString("id-ID");
     document.getElementById('left_value').innerHTML = "Rp " + formattedValue;
 }
 
 function right_slider(value) {
-    const formattedValue = parseInt(value).toLocaleString("id-ID"); // Menggunakan pengaturan lokal Bahasa Indonesia
+    const formattedValue = parseInt(value).toLocaleString("id-ID");
     document.getElementById('right_value').innerHTML = "Rp " + formattedValue;
 }
-

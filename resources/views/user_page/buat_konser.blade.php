@@ -238,7 +238,7 @@
                                      style="font-size: 16px;color: #ADB6C9;font-family: Poppins-Regular;"
                                      data-bs-toggle="modal" data-bs-target="#pilihwaktu"
                                      data-bs-whatever="@fat">{{ old('waktu_mulai') ?? 'Pilih Waktu' }}
-                                     {{ old('waktu_selesai') ? '<br>' : '' }} {{ old('waktu_selesai') }}</a>
+                                     {{ old('waktu_selesai') ? '-' : '' }} {{ old('waktu_selesai') }}</a>
                                  @error('waktu_mulai')
                                      <p class="text-danger">*{{ $message }}</p>
                                  @enderror
