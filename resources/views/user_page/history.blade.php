@@ -14,6 +14,8 @@
                 font-size: 14px;
             }
 
+
+
             h6.card-title {
                 margin-top: 14px;
                 text-align: left;
