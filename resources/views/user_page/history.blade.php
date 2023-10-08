@@ -14,7 +14,7 @@
                 font-size: 14px;
             }
 
-     
+
 
             h6.card-title {
                 margin-top: 14px;
@@ -378,13 +378,10 @@
   max-width: 100%;
   height: auto;
 }
-
-
-
     </style>
     {{-- End --}}
     {{-- Content Start --}}
-    <div class="container-fluid mt-2">
+    <div class="container-fluid mt-2"> 
         <div class="container">
             <br>
             <img src="" alt="" id="gambarku">
