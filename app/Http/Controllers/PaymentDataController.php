@@ -10,24 +10,45 @@ use Illuminate\Support\Facades\DB;
 
 class PaymentDataController extends Controller
 {
-    public function getPaymentData()
+    public function getPaymentData(Request $request, int $id)
     {
-        
-        $dailyIncomeData = TransactionHistory::select(DB::raw('DATE(transaction_time) as date'), DB::raw('count(*) as count'))
-            ->groupBy('date')
-            ->get();
+        $konser_id = $id;
 
-        $categoryIncomeData = Order::select('kategori_tiket', DB::raw('sum(harga_satuan) as total'))
-            ->groupBy('kategori_tiket')
-            ->get();
+    $paymentTypeData = TransactionHistory::select('payment_type', DB::raw('count(*) as count'))
+        ->whereHas('order', function ($query) use ($konser_id) {
+            $query->where('konser_id', $konser_id);
+        })
+        ->groupBy('payment_type')
+        ->get();
 
-        $monthlyIncomeData = TransactionHistory::select(DB::raw('DATE_FORMAT(transaction_time, "%Y-%m") as month'), DB::raw('sum(gross_amount) as total'))
-            ->groupBy('month')
-            ->get();
+    $dailyIncomeData = TransactionHistory::select(DB::raw('DATE(transaction_time) as date'), DB::raw('count(*) as count'))
+        ->whereHas('order', function ($query) use ($konser_id) {
+            $query->where('konser_id', $konser_id);
+        })
+        ->groupBy('date')
+        ->get();
+
+    $categoryIncomeData = Order::select('kategori_tiket', DB::raw('sum(harga_satuan) as total'))
+        ->where('konser_id', $konser_id)
+        ->groupBy('kategori_tiket')
+        ->get();
+
+
+    $monthlyIncomeData = TransactionHistory::select(DB::raw('DATE_FORMAT(transaction_time, "%Y-%m") as month'), DB::raw('sum(gross_amount) as total'))
+        ->whereHas('order', function ($query) use ($konser_id) {
+            $query->where('konser_id', $konser_id);
+        })
+        ->groupBy('month')
+        ->get();
 
         $dailyData = [
             'labels' => $dailyIncomeData->pluck('date')->toArray(),
             'totals' => $dailyIncomeData->pluck('count')->toArray(),
+        ];
+        
+        $paymentType = [
+            'labels' => $paymentTypeData->pluck('payment_type')->toArray(),
+            'totals' => $paymentTypeData->pluck('count')->toArray(),
         ];
 
         $categoryData = [
@@ -41,7 +62,6 @@ class PaymentDataController extends Controller
             'July', 'August', 'September', 'October', 'November', 'December'
         ];
         
-        // Inisialisasi array data bulanan dengan nilai 0 untuk semua bulan
         $monthlyData = [
             'labels' => $allMonths,
             'totals' => array_fill(0, 12, 0)
@@ -56,6 +76,7 @@ class PaymentDataController extends Controller
             'dailyData' => $dailyData,
             'categoryData' => $categoryData,
             'monthlyData' => $monthlyData,
+            'paymentType' => $paymentType,
         ]);
     }
 

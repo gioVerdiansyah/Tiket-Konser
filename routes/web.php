@@ -49,7 +49,7 @@ Route::middleware(['CekLogin', 'CekRole:user'])->group(function () {
 
     Route::get('/konserku', [KonserController::class, 'konserku'])->name('konserku');
     Route::get('pendapatanku/{id}', [ChartUserController::class, 'index'])->name('pendapatanku');
-    Route::get('/get-payment-data', [PaymentDataController::class, 'getPaymentData'])->name('get-payment-data');
+    Route::get('get-payment-data/{id}', [PaymentDataController::class, 'getPaymentData'])->name('get-payment-data');
     Route::get('/konserku/search', [KonserController::class, 'searchKonserku'])->name('konserku.search');
     Route::resource('/buatkonser', KonserController::class);
     Route::resource('orders', OrderController::class);

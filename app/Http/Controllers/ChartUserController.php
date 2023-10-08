@@ -12,26 +12,45 @@ use Illuminate\Support\Facades\DB;
 
 class ChartUserController extends Controller
 {
-    public function index($id)
+    public function index($konser_id)
     {
-        $konser = Konser::find($id);
-        $user_id = $konser->user_id;
-        
-        $dailyIncomeData = TransactionHistory::select(DB::raw('DATE(transaction_time) as date'), DB::raw('count(*) as count'))
-            ->groupBy('date')
+        $paymentTypeData = TransactionHistory::select('payment_type', DB::raw('count(*) as count'))
+            ->whereHas('order', function ($query) use ($konser_id) {
+                $query->where('konser_id', $konser_id);
+            })
+            ->groupBy('payment_type')
             ->get();
 
-        $categoryIncomeData = Order::select('kategori_tiket', DB::raw('sum(harga_satuan) as total'))
-            ->groupBy('kategori_tiket')
-            ->get();
+        $dailyIncomeData = TransactionHistory::select(
+            DB::raw('DATE(transaction_time) as date'),
+            DB::raw('sum(gross_amount) as total') // Menghitung total pendapatan harian
+        )
+        ->whereHas('order', function ($query) use ($konser_id) {
+            $query->where('konser_id', $konser_id);
+        })
+        ->groupBy('date')
+        ->get();
 
-        $monthlyIncomeData = TransactionHistory::select(DB::raw('DATE_FORMAT(transaction_time, "%Y-%m") as month'), DB::raw('sum(gross_amount) as total'))
-            ->groupBy('month')
-            ->get();
+    $categoryIncomeData = Order::select('kategori_tiket', DB::raw('sum(harga_satuan) as total'))
+        ->where('konser_id', $konser_id)
+        ->groupBy('kategori_tiket')
+        ->get();
+
+    $monthlyIncomeData = TransactionHistory::select(DB::raw('DATE_FORMAT(transaction_time, "%Y-%m") as month'), DB::raw('sum(gross_amount) as total'))
+        ->whereHas('order', function ($query) use ($konser_id) {
+            $query->where('konser_id', $konser_id);
+        })
+        ->groupBy('month')
+        ->get();
 
         $dailyData = [
             'labels' => $dailyIncomeData->pluck('date')->toArray(),
-            'totals' => $dailyIncomeData->pluck('count')->toArray(),
+            'totals' => $dailyIncomeData->pluck('total')->toArray(),
+        ];
+
+        $paymentType = [
+            'labels' => $paymentTypeData->pluck('payment_type')->toArray(),
+            'totals' => $paymentTypeData->pluck('count')->toArray(),
         ];
 
         $categoryData = [
@@ -72,13 +91,12 @@ class ChartUserController extends Controller
             })->toArray(),
             'totals' => $monthlyIncomeData->pluck('total')->toArray(),
         ];
-
         return view('User_page.pendapatanku', [
-            'user' => $user_id,
-            'konser' => $konser,
+            'konser_id' => $konser_id,
             'dailyData' => $dailyData,
             'categoryData' => $categoryData,
             'monthlyData' => $monthlyData,
+            'paymentType' => $paymentType,
         ]);
     }
 }

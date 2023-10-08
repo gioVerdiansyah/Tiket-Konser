@@ -349,208 +349,230 @@ demo = {
       }
     };
 
-    var ctx = document.getElementById("chartLinePurple").getContext("2d");
+    // var ctx = document.getElementById("chartLinePurple").getContext("2d");
 
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    // var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
-    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
-    gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+    // gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+    // gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    // gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
 
-    var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
-      datasets: [{
-        label: "Data",
-        fill: true,
-        backgroundColor: gradientStroke,
-        borderColor: '#d048b6',
-        borderWidth: 2,
-        borderDash: [],
-        borderDashOffset: 0.0,
-        pointBackgroundColor: '#d048b6',
-        pointBorderColor: 'rgba(255,255,255,0)',
-        pointHoverBackgroundColor: '#d048b6',
-        pointBorderWidth: 20,
-        pointHoverRadius: 4,
-        pointHoverBorderWidth: 15,
-        pointRadius: 4,
-        data: [180, 100, 70, 80, 120, 80],
-      }]
-    };
+    // var data = {
+    //   labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+    //   datasets: [{
+    //     label: "Data",
+    //     fill: true,
+    //     backgroundColor: gradientStroke,
+    //     borderColor: '#d048b6',
+    //     borderWidth: 2,
+    //     borderDash: [],
+    //     borderDashOffset: 0.0,
+    //     pointBackgroundColor: '#d048b6',
+    //     pointBorderColor: 'rgba(255,255,255,0)',
+    //     pointHoverBackgroundColor: '#d048b6',
+    //     pointBorderWidth: 20,
+    //     pointHoverRadius: 4,
+    //     pointHoverBorderWidth: 15,
+    //     pointRadius: 4,
+    //     data: [180, 100, 70, 80, 120, 80],
+    //   }]
+    // };
 
-    var myChart = new Chart(ctx, {
-      type: 'line',
-      data: data,
-      options: gradientChartOptionsConfigurationWithTooltipPurple
-    });
+    // var myChart = new Chart(ctx, {
+    //   type: 'line',
+    //   data: data,
+    //   options: gradientChartOptionsConfigurationWithTooltipPurple
+    // });
 
 
-    var ctxGreen = document.getElementById("chartLineGreen").getContext("2d");
+    // var ctxGreen = document.getElementById("chartLineGreen").getContext("2d");
 
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    // var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
-    gradientStroke.addColorStop(1, 'rgba(66,134,121,0.15)');
-    gradientStroke.addColorStop(0.4, 'rgba(66,134,121,0.0)'); //green colors
-    gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
+    // gradientStroke.addColorStop(1, 'rgba(66,134,121,0.15)');
+    // gradientStroke.addColorStop(0.4, 'rgba(66,134,121,0.0)'); //green colors
+    // gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
 
-    var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
-      datasets: [{
-        label: "My First dataset",
-        fill: true,
-        backgroundColor: gradientStroke,
-        borderColor: '#00d6b4',
-        borderWidth: 2,
-        borderDash: [],
-        borderDashOffset: 0.0,
-        pointBackgroundColor: '#00d6b4',
-        pointBorderColor: 'rgba(255,255,255,0)',
-        pointHoverBackgroundColor: '#00d6b4',
-        pointBorderWidth: 20,
-        pointHoverRadius: 4,
-        pointHoverBorderWidth: 15,
-        pointRadius: 4,
-        data: [90, 27, 60, 12, 80],
-      }]
-    };
+    // var data = {
+    //   labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
+    //   datasets: [{
+    //     label: "My First dataset",
+    //     fill: true,
+    //     backgroundColor: gradientStroke,
+    //     borderColor: '#00d6b4',
+    //     borderWidth: 2,
+    //     borderDash: [],
+    //     borderDashOffset: 0.0,
+    //     pointBackgroundColor: '#00d6b4',
+    //     pointBorderColor: 'rgba(255,255,255,0)',
+    //     pointHoverBackgroundColor: '#00d6b4',
+    //     pointBorderWidth: 20,
+    //     pointHoverRadius: 4,
+    //     pointHoverBorderWidth: 15,
+    //     pointRadius: 4,
+    //     data: [90, 27, 60, 12, 80],
+    //   }]
+    // };
 
-    var myChart = new Chart(ctxGreen, {
-      type: 'line',
-      data: data,
-      options: gradientChartOptionsConfigurationWithTooltipGreen
+    // var myChart = new Chart(ctxGreen, {
+    //   type: 'line',
+    //   data: data,
+    //   options: gradientChartOptionsConfigurationWithTooltipGreen
 
-    });
+    // });
 
 
     var chart_labels = []; // Variabel untuk menyimpan label kategori tiket
-var categoryIncomeData = []; // Variabel untuk menyimpan data total pendapatan berdasarkan kategori
-var monthlyIncomeData = []; // Variabel untuk menyimpan data total pendapatan bulanan
-var currentChartType = 'category'; // Variabel untuk melacak tipe grafik saat ini
-
-// Ambil elemen canvas grafik
-var ctx = document.getElementById("chartBig1").getContext('2d');
-
-var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
-gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
-gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
-
-var config = {
-  type: 'line', // Menggunakan tipe grafik line
-  data: {
-    labels: chart_labels,
-    datasets: [{
-      label: "Total Pendapatan per Kategori", // Label dataset
-      fill: true,
-      backgroundColor: gradientStroke,
-      hoverBackgroundColor: gradientStroke,
-      borderColor: '#d346b1',
-      borderWidth: 2,
-      borderDash: [],
-      borderDashOffset: 0.0,
-      data: categoryIncomeData, // Menggunakan data total pendapatan berdasarkan kategori
-    }]
-  },
-  options: gradientChartOptionsConfigurationWithTooltipPurple
-};
-
-var myChartData = new Chart(ctx, config);
-
-// Menggunakan AJAX untuk mengambil data total pendapatan per kategori tiket dari server
-function fetchData() {
-  $.ajax({
-    url: 'http://127.0.0.1:8000/get-payment-data', // Sesuaikan dengan URL yang sesuai
-    method: 'GET',
-    success: function(data) {
-      // Update data dari respons server
-      categoryIncomeData = data.categoryData.totals; 
-      chart_labels = data.categoryData.labels; 
-      monthlyIncomeData = data.monthlyData.totals;
-      monthlyLabels = data.monthlyData.labels;
-
-      // Periksa tipe grafik saat ini dan update dataset sesuai
-      if (currentChartType === 'category') {
-        myChartData.data.labels = chart_labels;
-        myChartData.data.datasets[0].data = categoryIncomeData;
-      } else if (currentChartType === 'monthly') {
-        myChartData.data.labels = monthlyLabels;
-        myChartData.data.datasets[0].data = monthlyIncomeData;
-        myChartData.data.datasets[0].label = "Total Pendapatan Bulanan";
-      }
-
-      myChartData.update();
-    },
-    error: function(error) {
-      console.error('Error:', error);
-    }
-  });
-}
-
-// Panggil fetchData() untuk mengambil data saat halaman pertama dimuat
-fetchData();
-
-// Event handler untuk tombol ID #1 (Bulanan)
-$("#1").click(function() {
-  // Periksa apakah data bulanan sudah diambil
-  if (monthlyIncomeData.length > 0) {
-    // Mengubah tipe grafik dan konfigurasi dataset menjadi data pendapatan bulanan
-    myChartData.config.type = 'line';
-    myChartData.config.data.datasets[0].label = "Total Pendapatan Bulanan";
-    myChartData.config.data.datasets[0].backgroundColor = 'transparent';
-    myChartData.config.data.datasets[0].borderColor = '#d346b1';
-    myChartData.config.data.datasets[0].pointBackgroundColor = '#d346b1';
-    myChartData.config.data.datasets[0].pointHoverBackgroundColor = '#d346b1';
-    myChartData.config.data.datasets[0].pointBorderColor = 'rgba(255,255,255,0)';
-    myChartData.config.data.datasets[0].data = monthlyIncomeData;
-    myChartData.config.data.labels = monthlyLabels;
-    myChartData.update();
+    var categoryIncomeData = []; // Variabel untuk menyimpan data total pendapatan berdasarkan kategori
+    var monthlyIncomeData = []; // Variabel untuk menyimpan data total pendapatan bulanan
+    var currentChartType = 'category'; // Variabel untuk melacak tipe grafik saat ini
     
-    currentChartType = 'monthly'; // Memperbarui tipe grafik saat ini
-  } else {
-    console.error('Data bulanan belum tersedia.'); // Menampilkan pesan kesalahan jika data bulanan belum diambil
+    // Ambil elemen canvas grafik
+    var ctx = document.getElementById("chartBig1").getContext('2d');
+    
+    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
+    gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+    
+    var config = {
+      type: 'line', // Menggunakan tipe grafik line
+      data: {
+        labels: chart_labels,
+        datasets: [{
+          label: "Total Pendapatan per Kategori", // Label dataset
+          fill: true,
+          backgroundColor: gradientStroke,
+          hoverBackgroundColor: gradientStroke,
+          borderColor: '#d346b1',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          data: categoryIncomeData, // Menggunakan data total pendapatan berdasarkan kategori
+        }]
+      },
+      options: gradientChartOptionsConfigurationWithTooltipPurple
+    };
+    
+    var myChartData = new Chart(ctx, config);
+
+    function getQueryParam(name) {
+      var urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
   }
-});
-
-// Event handler untuk tombol ID #0 (Kategori)
-$("#0").click(function() {
-  // Mengubah tipe grafik dan konfigurasi dataset menjadi data pendapatan kategori
-  myChartData.config.type = 'line';
-  myChartData.config.data.datasets[0].label = "Total Pendapatan per Kategori";
-  myChartData.config.data.datasets[0].backgroundColor = gradientStroke;
-  myChartData.config.data.datasets[0].borderColor = '#d346b1';
-  myChartData.config.data.datasets[0].pointBackgroundColor = '#d346b1';
-  myChartData.config.data.datasets[0].pointHoverBackgroundColor = '#d346b1';
-  myChartData.config.data.datasets[0].pointBorderColor = 'rgba(255,255,255,0)';
-  myChartData.config.data.datasets[0].data = categoryIncomeData;
-  myChartData.config.data.labels = chart_labels;
-  myChartData.update();
-
-  currentChartType = 'category';
-});
-
-
-
-
-    function fetchDataFromServer() {
-      console.log('Mengambil data dari server...');
+  getQueryParam()
     
+    // Menggunakan AJAX untuk mengambil data total pendapatan per kategori tiket dari server
+    function fetchData() {
+      var currentUrl = window.location.href;
+  
+  // Memisahkan URL dengan karakter slash (/)
+  var urlSegments = currentUrl.split('/');
+
+  // Menemukan posisi indeks "pendapatanku" dalam URL
+  var pendapatankuIndex = urlSegments.indexOf("pendapatanku");
+
+  // Mengambil konser_id yang berada setelah segmen "pendapatanku"
+  if (pendapatankuIndex !== -1 && pendapatankuIndex < urlSegments.length - 1) {
+    var konserId = urlSegments[pendapatankuIndex + 1];
+    console.log("konser_id:", konserId);
+    console.log('Mengambil data dari server...')
+
+    // Selanjutnya, Anda dapat menggunakan konserId sesuai kebutuhan Anda.
+  } 
+
       $.ajax({
-        url: 'http://127.0.0.1:8000/get-payment-data',
+        url: `http://127.0.0.1:8000/get-payment-data/${konserId}`, // Sesuaikan dengan URL yang sesuai
         method: 'GET',
-        dataType: 'json',
-        success: function (response) {
-          console.log('Data yang diterima dari server:', response);
+        success: function(data) {
+          console.log('Data yang diterima dari server:', data);
+          // Update data dari respons server
+          categoryIncomeData = data.categoryData.totals; 
+          chart_labels = data.categoryData.labels; 
+          monthlyIncomeData = data.monthlyData.totals;
+          monthlyLabels = data.monthlyData.labels;
     
-          var labels = response.labels;
-          var data = response.data;
+          // Periksa tipe grafik saat ini dan update dataset sesuai
+          if (currentChartType === 'category') {
+            myChartData.data.labels = chart_labels;
+            myChartData.data.datasets[0].data = categoryIncomeData;
+          } else if (currentChartType === 'monthly') {
+            myChartData.data.labels = monthlyLabels;
+            myChartData.data.datasets[0].data = monthlyIncomeData;
+            myChartData.data.datasets[0].label = "Total Pendapatan Bulanan";
+          }
     
-          createChart(labels, data);
+          myChartData.update();
         },
-        error: function (error) {
-          console.error('Error fetching data:', JSON.stringify(error));
+        error: function(error) {
+          console.error('Error:', error);
         }
       });
     }
+    
+    // Panggil fetchData() untuk mengambil data saat halaman pertama dimuat
+    fetchData();
+    
+    // Event handler untuk tombol ID #1 (Bulanan)
+    $("#1").click(function() {
+      // Periksa apakah data bulanan sudah diambil
+      if (monthlyIncomeData.length > 0) {
+        // Mengubah tipe grafik dan konfigurasi dataset menjadi data pendapatan bulanan
+        myChartData.config.type = 'line';
+        myChartData.config.data.datasets[0].label = "Total Pendapatan Bulanan";
+        myChartData.config.data.datasets[0].backgroundColor = 'transparent';
+        myChartData.config.data.datasets[0].borderColor = '#d346b1';
+        myChartData.config.data.datasets[0].pointBackgroundColor = '#d346b1';
+        myChartData.config.data.datasets[0].pointHoverBackgroundColor = '#d346b1';
+        myChartData.config.data.datasets[0].pointBorderColor = 'rgba(255,255,255,0)';
+        myChartData.config.data.datasets[0].data = monthlyIncomeData;
+        myChartData.config.data.labels = monthlyLabels;
+        myChartData.update();
+        
+        currentChartType = 'monthly'; // Memperbarui tipe grafik saat ini
+      } else {
+        console.error('Data bulanan belum tersedia.'); // Menampilkan pesan kesalahan jika data bulanan belum diambil
+      }
+    });
+    
+    // Event handler untuk tombol ID #0 (Kategori)
+    $("#0").click(function() {
+      // Mengubah tipe grafik dan konfigurasi dataset menjadi data pendapatan kategori
+      myChartData.config.type = 'line';
+      myChartData.config.data.datasets[0].label = "Total Pendapatan per Kategori";
+      myChartData.config.data.datasets[0].backgroundColor = gradientStroke;
+      myChartData.config.data.datasets[0].borderColor = '#d346b1';
+      myChartData.config.data.datasets[0].pointBackgroundColor = '#d346b1';
+      myChartData.config.data.datasets[0].pointHoverBackgroundColor = '#d346b1';
+      myChartData.config.data.datasets[0].pointBorderColor = 'rgba(255,255,255,0)';
+      myChartData.config.data.datasets[0].data = categoryIncomeData;
+      myChartData.config.data.labels = chart_labels;
+      myChartData.update();
+    
+      currentChartType = 'category';
+    });
+
+    // function fetchDataFromServer() {
+      
+    //   console.log('Mengambil data dari server...');
+    
+    //   $.ajax({
+    //     url: 'http://127.0.0.1:8000/get-payment-data/${konserId}',
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     success: function (response) {
+    //       console.log('Data yang diterima dari server:', response);
+    
+    //       var labels = response.labels;
+    //       var data = response.data;
+    
+    //       createChart(labels, data);
+    //     },
+    //     error: function (error) {
+    //       console.error('Error fetching data:', JSON.stringify(error));
+    //     }
+    //   });
+    // }
 
     function createChart(labels, data) {
       var ctx = document.getElementById("CountryChart").getContext("2d");
@@ -585,7 +607,7 @@ $("#0").click(function() {
     }
     
     // Panggil fungsi untuk mengambil data dari server dan membuat grafik
-    fetchDataFromServer();
+    // fetchDataFromServer();
   },
 
   initGoogleMaps: function() {

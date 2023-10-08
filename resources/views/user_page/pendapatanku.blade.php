@@ -7,7 +7,7 @@
             <div class="card-header ">
                 <div class="row">
                     <div class="col-sm-6 text-left">
-                        <h5 class="card-category">Total Pendapatan</h5>
+                        <h5 class="card-category font-weight-bold">Total Pendapatan</h5>
                         <h2 class="card-title text-dark">Tiket Konser</h2>
                     </div>
                     <div class="col-sm-6">
@@ -41,12 +41,11 @@
                 <div class="chart-area">
                     <canvas id="chartBig1"></canvas>
                     <script type="text/javascript">
-                
                         var categoryLabels = @json($categoryData['labels']);
                         var categoryTotals = @json($categoryData['totals']);
                 
                         var monthlyLabels = @json($monthlyData['labels']);
-                        var monthlyTotals = @json($monthlyData['totals']);
+                        var \ = @json($monthlyData['totals']);
                     </script>
                 </div>
             </div>
@@ -54,7 +53,27 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-4">
+    {{-- <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 ml-3">
+                            Pendapatan (Bulanan)
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <p class="text-dark ml-3">Rp. {{ number_format($monthlyData['totals'][0]) }}</p>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
+    {{-- <div class="col-lg-4">
         <div class="card card-chart">
             <div class="card-header">
                 <h5 class="card-category">Total Shipments</h5>
@@ -66,27 +85,88 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-lg-4">
         <div class="card card-chart">
             <div class="card-header">
-                <h5 class="card-category">Metode Pembayaran</h5>
-                <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 3,500€</h3>
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                    Pendapatan (Bulanan)
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                    <p class="text-dark font-weight-bold">Rp. {{ number_format(end($monthlyData['totals'])) }}</p>
+                </div>
+                <h3 class="card-category font-weight-bold">Metode Pembayaran</h3>
+                {{-- <h3 class="card-title text-dark"><i class="tim-icons icon-delivery-fast text-info"></i>Tiket Konser</h3> --}}
             </div>
             <div class="card-body">
                 <div class="chart-area">
                     <canvas id="CountryChart"></canvas>
-                    {{-- <script type="text/javascript">
+                     {{-- <script type="text/javascript">
                         var paymentData = {
                             labels: @json($labels),
                             data: @json($data)
                         };
                     </script> --}}
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        function updateChart(labels, data) {
+                        var ctx = document.getElementById("CountryChart").getContext("2d");
+
+                        // Buat atau perbarui grafik menggunakan data baru
+                        if (window.myChart) {
+                            window.myChart.data.labels = labels;
+                            window.myChart.data.datasets[0].data = data;
+                            window.myChart.update(); // Perbarui grafik yang ada
+                        } else {
+                            // Buat grafik baru jika belum ada
+                            var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+                            gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
+                            gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
+                            gradientStroke.addColorStop(0, 'rgba(29,140,248,0)');
+
+                            window.myChart = new Chart(ctx, {
+                                type: 'bar',
+                                responsive: true,
+                                legend: {
+                                    display: false
+                                },
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: "Metode Pembayaran ",
+                                        fill: true,
+                                        backgroundColor: gradientStroke,
+                                        hoverBackgroundColor: gradientStroke,
+                                        borderColor: '#1f8ef1',
+                                        borderWidth: 2,
+                                        borderDash: [],
+                                        borderDashOffset: 0.0,
+                                        data: data,
+                                    }]
+                                },
+                                options: gradientBarChartConfiguration
+                            });
+                        }
+                    }
+
+                    // Ambil data dari endpoint 'get-payment-data'
+                    fetch('{{ route('get-payment-data', ['id' => $konser_id]) }}')
+                        .then(response => response.json())
+                        .then(data => {
+                            // Ekstrak data dari respons
+                            var labels = data.paymentType.labels;
+                            var totals = data.paymentType.totals;
+
+                            // Perbarui grafik dengan data yang diambil
+                            updateChart(labels, totals);
+                        })
+                        .catch(error => console.error('Error fetching data:', error));
+                    </script>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    {{-- <div class="col-lg-4">
         <div class="card card-chart">
             <div class="card-header">
                 <h5 class="card-category">Completed Tasks</h5>
@@ -98,9 +178,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
-<div class="row">
+{{-- <div class="row">
     <div class="col-lg-6 col-md-12">
         <div class="card card-tasks">
             <div class="card-header ">
@@ -382,7 +462,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
 
 @push('js')
