@@ -63,6 +63,7 @@ class OrderController extends Controller
         ]);
 
         $konser = Konser::findOrFail($request->konser_id);
+        $tiket = $konser->tiket[0];
         $jumlahTiketDibeli = Order::where('user_id', Auth::user()->id)
             ->where('konser_id', $konser->id)
             ->whereIn('payment_status', [1, 2])
@@ -85,10 +86,21 @@ class OrderController extends Controller
             ]);
         }
 
+        $tiketku = Tiket::where('id', $tiket->id)->firstOrFail();
+        $tiketku->jumlah_tiket -= $request->jumlah;
+        $tiketku->save();
+
+        if (!$tiket->jumlah_tiket) {
+            return back()->with('message', [
+                'icon' => 'error',
+                'title' => "Gagal",
+                'text' => "Gagal karena stock sudah habis!"
+            ]);
+        }
+
         $order = new Order;
         $order->user_id = Auth::user()->id;
         $konserId = $request->konser_id;
-        $kategoriTiket = $request->kategori_tiket;
         $konser = Konser::with('tiket')->where('id', $konserId)->firstOrFail();
         $tiket = $konser->tiket[0];
         $order->konser_id = $request->konser_id;
@@ -189,6 +201,11 @@ class OrderController extends Controller
             ]);
         }
 
+        $konser = Konser::findOrFail($order->konser_id);
+        $tiket = Tiket::findOrFail($konser->id);
+        $tiket->jumlah_tiket += $order->jumlah;
+        $tiket->save();
+
         $order->delete();
         return back()->with('message', [
             'title' => "Berhasil!",
@@ -210,8 +227,6 @@ class OrderController extends Controller
                 $order->save();
                 return response()->json(['message' => "Pembayaran gagal karena stock sudah habis!"], 422);
             }
-            $tiket->jumlah_tiket -= intval($order->jumlah);
-            $tiket->save();
         } elseif ($request->status_code == 407) {
             $order->payment_status = 3;
             $order->save();

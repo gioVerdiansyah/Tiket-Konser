@@ -201,20 +201,22 @@
                     alt="Banner konser">
             </div>
             <div class="col-6 text-left" style="margin-top:10%;">
-                <form @if (!$konser->deleted_at) action="{{ route('orders.store') }}" method="POST" @endif>
+                <form @if (!$konser->deleted_at && $tiket->jumlah_tiket) action="{{ route('orders.store') }}" method="POST" @endif>
                     @csrf
                     <input type="hidden" name="konser_id" value="{{ $konser->id }}">
                     <h3 class="fw-bold" style="margin-bottom: 0.4%;">{{ $konser->nama_konser }}</h3>
                     <h5 class="fw-bold" id="harga" style="margin-bottom: 1%;">Rp.
                         {{ number_format($tiket->harga1, 0, ',', '.') }}</h5>
-                    @if (isset($konser->deskripsi))
-                        <p>{{ $konser->deskripsi }}</p>
-                    @else
-                        <p style="margin-bottom: 3%;">Penjual tidak menambahkan deskripsi...</p>
-                    @endif
 
-                    @if (!$konser->deleted_at)
-                        <p style="margin-bottom: 1%">Stok : {{ $tiket->jumlah_tiket }}</p>
+                    @if (!$konser->deleted_at && $tiket->jumlah_tiket)
+                        <p style="margin-bottom: 1%">
+                            Stok :
+                            @if ($tiket->jumlah_tiket)
+                                {{ $tiket->jumlah_tiket }}
+                            @else
+                                <span style="color: red">Sold Out!</span>
+                            @endif
+                        </p>
 
                         <input type="radio" id="lang-1" name="price" value="{{ $tiket->harga1 }}" class="radio"
                             checked>
@@ -280,7 +282,13 @@
                 @if ($konser->deleted_at)
                     <div class="aku">
                         <i class="material-icons" style="font-size: 30px; padding:1rem;">warning</i>
-                        <d class="warning">Konser telah kadaluarsa</d>
+                        <p class="warning">Konser telah kadaluarsa</p>
+                    </div>
+                @endif
+                @if ($tiket->jumlah_tiket == 0)
+                    <div class="aku">
+                        <i class="material-icons" style="font-size: 30px; padding:1rem;">warning</i>
+                        <p class="warning">Stock tiket sudah habis!</p>
                     </div>
                 @endif
             </div>

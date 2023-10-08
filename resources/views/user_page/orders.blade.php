@@ -96,13 +96,13 @@
 
 
 
-    </div>
-    </div>
-    </div>
-@empty
-    <li class="list-group-item" style="position: relative; min-height: 60vh;">
-        <p class="my-3 text-center">Belum memesan tiket apapun...</p>
-    </li>
+                </div>
+            </div>
+        </div>
+    @empty
+        <li class="list-group-item" style="position: relative; min-height: 60vh;">
+            <p class="my-3 text-center">Belum memesan tiket apapun...</p>
+        </li>
     @endforelse
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
     </script>
@@ -132,13 +132,10 @@
                             });
                         },
                         error: function(xhr, status, error) {
-                            console.log(xhr)
-                            console.log(status)
-                            console.log(error)
                             Swal.fire({
                                 icon: "error",
                                 title: "Gagal",
-                                text: "Terjadi kesalahan saat mengirim data.",
+                                text: "Gagal karena: " + xhr.responseJSON.message,
                                 allowOutsideClick: true,
                                 allowEscapeKey: false,
                             });

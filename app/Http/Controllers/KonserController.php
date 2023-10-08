@@ -310,7 +310,7 @@ class KonserController extends Controller
         if ($konser->isDirty()) {
             $konser->save();
             $konser->tiket()->save($tiket);
-            return back()->with('message', [
+            return to_route('konserku')->with('message', [
                 'title' => "Berhasil",
                 "text" => "Berhasil memperbarui konser!"
             ]);
