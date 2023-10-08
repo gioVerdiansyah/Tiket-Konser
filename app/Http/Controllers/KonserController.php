@@ -8,6 +8,7 @@ use App\Models\Konser;
 use App\Models\Kategori;
 use App\Models\Order;
 use App\Models\Tiket;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -48,6 +49,17 @@ class KonserController extends Controller
         $konser->user_id = Auth::user()->id;
         $konser->nama_konser = $request->nama_konser;
         $konser->nama_penyelenggara = $request->filled('nama_penyelenggara') ? $request->nama_penyelenggara : Auth::user()->name;
+
+        if ($request->tanggal_konser === Carbon::now('Asia/Jakarta')->toDateString()) {
+            if (Carbon::now('Asia/Jakarta')->gt(Carbon::parse($request->waktu_mulai))) {
+                return back()->with('message', [
+                    'icon' => "error",
+                    'title' => "Gagal!",
+                    'text' => "Gagal karena waktu mulai tidak boleh kurang dari waktu sekarang"
+                ]);
+            }
+        }
+
         $konser->tanggal_konser = $request->tanggal_konser;
         $konser->alamat = $request->alamat;
         $konser->tempat = $request->tempat;
@@ -134,24 +146,25 @@ class KonserController extends Controller
     }
     public function search(Request $request)
     {
-        $konsers = Konser::with('tiket')->where('nama_konser', 'like', '%' . $request->search . '%')
-            ->orWhereHas('tiket', function ($query) use ($request) {
-                $query->where(function ($subQuery) use ($request) {
-                    $subQuery->whereRaw('CAST(harga1 AS SIGNED) >= ?', [intval($request->harga_min)]);
-                })->where(function ($subQuery) use ($request) {
-                    $subQuery->whereRaw('CAST(harga1 AS SIGNED) <= ?', [intval($request->harga_max)]);
-                });
-            });
+        $konsers = Konser::with('tiket');
+        if (!empty($request->search)) {
+            $konsers->where('nama_konser', 'like', '%' . $request->search . '%');
+        }
+
+        $konsers->whereHas('tiket', function ($query) use ($request) {
+            $query->whereRaw('CAST(harga1 AS SIGNED) >= ?', [intval($request->harga_min)])
+                ->whereRaw('CAST(harga1 AS SIGNED) <= ?', [intval($request->harga_max)]);
+        });
+
         if (!empty($request->kategori)) {
             $konsers->whereIn('kategori_id', $request->kategori);
         }
 
         $konsers = $konsers->paginate(9);
-
-        // Mengembalikan tampilan dengan hasil pencarian ke view
         $kategoris = Kategori::all();
         return view('user_page.konser', compact('konsers', 'kategoris'));
     }
+
     // verdi
     public function detailTiket($id)
     {

@@ -184,17 +184,6 @@
 
     {{-- Content Start --}}
     <div class="container py-2">
-        <section class="breadcrumb-option" style="padding-left: 0%; padding-top:0.5rem;">
-            <div class="container" style="padding: 0%;">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="breadcrumb__linkss:hover">
-                            <a class="nac-link" href="{{ route('konser') }}">Kembali</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         <div class="row">
             <div class="col-6 text-center">
                 <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}" class="img-fluid rounded-4"
@@ -612,11 +601,15 @@
                             commentElement.remove();
                             if (lastValue == 1) {
                                 $('#comment-list-container').prepend(
-                                    '<p id="first-comment">Belum ada komentar, jadilah orang pertama yang berkomentar</p>'
+                                    @if (!$konser->deleted_at)
+                                        '<p id="first-comment">Belum ada komentar, jadilah orang pertama yang berkomentar</p>'
+                                    @else
+                                        '<p>Anda sudah tidak bisa memberi ulasan karena konser telah kadaluarsa</p>'
+                                    @endif
                                 );
                             }
                         } else {
-                            Swal.fire('Error!', `Gagal menghapus komentar`, 'error');
+                            Swal.fire('Error!', `Gagal karena: ${data.error}`, 'error');
                         }
                     },
                     error: function() {
@@ -655,18 +648,12 @@
     {{-- END iframe --}}
     {{-- click kategori tiket harga auto berubah --}}
     <script>
-        // Dapatkan semua input radio dengan nama "lang"
         var radioInputs = document.querySelectorAll('input[name="price"]');
-
-        // Dapatkan elemen h5 dengan id "harga"
         var hargaElement = document.getElementById('harga');
 
-        // Tambahkan event listener pada setiap input radio
         radioInputs.forEach(function(input) {
             input.addEventListener('change', function() {
-                // Periksa apakah input radio ini yang sedang dipilih
                 if (input.checked) {
-                    // Setel nilai elemen h5 "harga" sesuai dengan nilai input radio yang dipilih
                     hargaElement.textContent = "Rp. " + formatRupiah(input.value);
                 }
             });
@@ -689,22 +676,13 @@
         }
     </script>
     <script>
-        // Memilih semua input radio harga
         const radioHarga = document.querySelectorAll('[name="price"]');
 
-        // Memantau perubahan pada input radio harga
         radioHarga.forEach((radio) => {
             radio.addEventListener('change', function() {
-                // Mendapatkan id dari input radio yang terpilih
                 const selectedId = this.id;
-
-                // Mendapatkan id dari input kategori tiket yang sesuai dengan input radio yang terpilih
                 const kategoriId = 'kategori-' + selectedId;
-
-                // Mendapatkan input kategori tiket yang sesuai
                 const kategoriInput = document.getElementById(kategoriId);
-
-                // Mengatur status input kategori tiket sesuai dengan input radio yang terpilih
                 kategoriInput.checked = this.checked;
             });
         });
@@ -714,7 +692,7 @@
 
     {{-- Custom JS for Counter --}}
     <script>
-        let warningShown = false; // Variabel untuk melacak apakah pesan peringatan sudah ditampilkan
+        let warningShown = false;
 
         $('#plus').click(function(e) {
             e.preventDefault();
@@ -727,8 +705,8 @@
                     var newParagraph = $('<p></p>');
                     newParagraph.text('Peringatan: Anda hanya dapat memesan 5 tiket.');
                     newParagraph.addClass('text-danger');
-                    $('#countparent').after(newParagraph); // Menambahkan pesan setelah elemen dengan id "count"
-                    warningShown = true; // Setel ke true agar pesan hanya muncul sekali
+                    $('#countparent').after(newParagraph);
+                    warningShown = true;
                 }
             }
         });
@@ -740,11 +718,9 @@
             if (i > 1) {
                 $('#count').val(i - 1);
             }
-
-            // Sembunyikan pesan peringatan jika ada
             if (warningShown) {
                 $('.text-danger').remove();
-                warningShown = false; // Setel kembali ke false saat mengurangi jumlah tiket
+                warningShown = false;
             }
         });
     </script>

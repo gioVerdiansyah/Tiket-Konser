@@ -121,19 +121,22 @@
                                 <div class="card">
                                     <div class="card-heading" style=" display:flex;  justify-content: space-between">
                                         <a data-toggle="collapse" data-target="#collapseThree">Harga</a>
-                                        <i data-toggle="collapse" data-target="#collapseThree" class="material-icons" style="justify-items: center">keyboard_arrow_down</i>
+                                        <i data-toggle="collapse" data-target="#collapseThree" class="material-icons"
+                                            style="justify-items: center">keyboard_arrow_down</i>
                                     </div>
                                     <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
-
+                                            @php
+                                                $max_harga = \App\Models\Tiket::orderBy('harga1', 'asc')->first()->harga1;
+                                            @endphp
                                             <div class="middle">
                                                 <div class="multi-range-slider my-2">
                                                     <input type="range" id="input_left" name="harga_min"
-                                                        class="range_slider" min="0" max="1000000" value="250000"
-                                                        onmousemove="left_slider(this.value)">
+                                                        class="range_slider" min="0" max="{{ $max_harga }}"
+                                                        value="0" onmousemove="left_slider(this.value)">
                                                     <input type="range" id="input_right" class="range_slider"
-                                                        name="harga_max" min="0" max="1000000" value="750000"
-                                                        onmousemove="right_slider(this.value)">
+                                                        name="harga_max" min="0" max="{{ $max_harga }}"
+                                                        value="{{ $max_harga }}" onmousemove="right_slider(this.value)">
                                                     <div class="slider">
                                                         <div class="track"></div>
                                                         <div class="range"></div>
@@ -143,8 +146,8 @@
                                                     </div>
                                                 </div>
                                                 <div id="multi_range">
-                                                    <span id="left_value">Rp 250.000</span><span> ~ </span><span
-                                                        id="right_value">Rp 750.000</span>
+                                                    <span id="left_value">Rp 0</span><span> ~ </span><span
+                                                        id="right_value">@currency($max_harga)</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,7 +158,8 @@
                                 <div class="card">
                                     <div class="card-heading" style=" display:flex;  justify-content: space-between">
                                         <a data-toggle="collapse" data-target="#collapseOne">Kategori</a>
-                                        <i  data-toggle="collapse" data-target="#collapseOne" class="material-icons" style="justify-items: center">keyboard_arrow_down</i>
+                                        <i data-toggle="collapse" data-target="#collapseOne" class="material-icons"
+                                            style="justify-items: center">keyboard_arrow_down</i>
                                     </div>
                                     <div id="collapseOne" class="collapse " data-parent="#accordionExample">
 
@@ -245,7 +249,7 @@
                                         <h5>
                                             @currency ($konser->tiket[0]->harga1)
                                             @if ($konser->deleted_at)
-                                            <span class="text-warning float-end">Kadaluarsa</span>
+                                                <span class="text-warning float-end">Kadaluarsa</span>
                                             @endif
                                         </h5>
                                     </div>
@@ -301,40 +305,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-    </script>
-    <script>
-        $(document).ready(function(e) {
-            $('.range_slider').on('change', function() {
-                let left_value = $('#input_left').val();
-                let right_value = $('#input_right').val();
-                // alert(left_value+right_value);
-                $.ajax({
-                    {{--  url:"{{ route('search.products') }}",  --}}
-                    method: "GET",
-                    data: {
-                        left_value: left_value,
-                        right_value: right_value
-                    },
-                    success: function(res) {
-                        $('.search-result').html(res);
-                    }
-                });
-            });
-
-            $('#sort_by').on('change', function() {
-                let sort_by = $('#sort_by').val();
-                $.ajax({
-                    {{--  url:"{{ route('sort.by') }}",  --}}
-                    method: "GET",
-                    data: {
-                        sort_by: sort_by
-                    },
-                    success: function(res) {
-                        $('.search-result').html(res);
-                    }
-                });
-            });
-        })
     </script>
 
     <script>
