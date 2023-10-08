@@ -1,5 +1,25 @@
 @extends('layouts.master')
 @section('content')
+    <style>
+        .card-body{
+            overflow: auto;
+        }
+        th{
+            font-family: "Nunito Sans", sans-serif;
+            font-size: 100%;
+        }
+        td{
+            font-family: "Nunito Sans", sans-serif;
+            font-size: 100%;
+            background-color: #fff;
+        }
+        tr{
+            font-family: "Nunito Sans", sans-serif;
+            background-color: #fff;
+            width: 100%;
+        }
+    </style>
+
     @forelse ($orders as $order)
         <style>
             .card {
@@ -9,10 +29,10 @@
                 justify-content: center;
             }
         </style>
-        <div class="container">
-            <div class="card mt-4 mb-3">
+        <div class="container" style="display:flex; flex-wrap:wrap; gap:20px ">
+            <div class="card mt-4 mb-3" >
                 <div class="card-body">
-                    <h3><i class="fa fa-shopping-cart"></i>{{ $order->konser->nama_konser }}</h3>
+                    <h3 style="font-size: 1.2rem; font-weight:700; font-family:Nunito Sans, sans-serif;"><i class="fa fa-shopping-cart"></i>{{ $order->konser->nama_konser }}</h3>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -40,7 +60,8 @@
                             <!-- Kode yang akan ditampilkan jika $orders kosong -->
 
                             <tr>
-                                <td colspan="5" align="right"><strong>Total Harga :</strong></td>
+                                <td colspan="5" align="right
+                                "><strong>Total Harga :</strong></td>
                                 <td align="left"><strong>@currency($order->harga_satuan * $order->jumlah)</strong></td>
                             </tr>
                             <tr>
@@ -73,13 +94,7 @@
                         </tbody>
                     </table>
 
-                    {{-- <form method="post" action="proses_upload" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <input type="hidden" name="pesanan_id" value="{{ $pesanan->id }}">
-                <!-- tambahkan elemen input untuk file gambar -->
-                <input class="form-control mb-2" type="file" id="image" name="bukti_pembayaran">
-                <input type="submit" value="Upload" class="btn btn-primary">
-            </form> --}}
+
 
     </div>
     </div>
