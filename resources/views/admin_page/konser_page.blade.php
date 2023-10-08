@@ -6,12 +6,14 @@
             background: #f7f5f2;
             font-family: 'Roboto', sans-serif;
         }
-        .pagination li.page-item {
-            border-radius: 10px; /* Ganti nilai sesuai dengan radius yang Anda inginkan */
-        }
-        .pagination li.page-item.active{
 
+        .pagination li.page-item {
+            border-radius: 10px;
+            /* Ganti nilai sesuai dengan radius yang Anda inginkan */
         }
+
+        .pagination li.page-item.active {}
+
         .table-responsive {
             margin: 30px 0;
             box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
@@ -97,11 +99,16 @@
         table.table tr td {
             border-color: #e9e9e9;
         }
+
         .table td {
-            max-width: 200px; /* Batasi lebar maksimum sel */
-            white-space: nowrap; /* Hindari pemutaran teks */
-            overflow: hidden; /* Sembunyikan teks yang berlebihan */
-            text-overflow: ellipsis; /* Tambahkan elipsis (...) jika teks terlalu panjang */
+            max-width: 200px;
+            /* Batasi lebar maksimum sel */
+            white-space: nowrap;
+            /* Hindari pemutaran teks */
+            overflow: hidden;
+            /* Sembunyikan teks yang berlebihan */
+            text-overflow: ellipsis;
+            /* Tambahkan elipsis (...) jika teks terlalu panjang */
         }
 
         table.table th i {
@@ -182,7 +189,14 @@
                         <div class="col-sm-6">
                             <h2>Daftar <b>Konser</b></h2>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 d-flex flex-col">
+                            <div class="input-group-addon">
+                                <select class="form-control" id="filterOption">
+                                    <option value="semua">Semua Konser</option>
+                                    <option value="belum_kadaluarsa">Belum Kadaluarsa</option>
+                                    <option value="kadaluarsa">Kadaluarsa</option>
+                                </select>
+                            </div>
                             <div class="search-box">
                                 <div class="input-group">
                                     <input type="text" id="search" class="form-control" placeholder="Cari disini">
@@ -190,6 +204,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <table class="table table-striped">
@@ -205,8 +220,11 @@
                     </thead>
                     <tbody>
                         @foreach ($konsers as $konser)
-                            <tr>
-                                <td style="vertical-align:middle;">{{ $konser->nama_konser }}</td>
+                            <tr
+                                @if (!$konser->deleted_at) data-status="belum_kadaluarsa" @else data-status="kadaluarsa" @endif>
+                                <td style="vertical-align:middle;@if ($konser->deleted_at) color:orange; @endif"
+                                    @if ($konser->deleted_at) title="Konser telah kadaluarsa" @endif>
+                                    {{ $konser->nama_konser }}</td>
                                 <td><img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}"
                                         style="width: 130px; height:135px; border-radius:10px;"></td>
                                 <td style="vertical-align:middle;">{{ $konser->nama_penyelenggara }}</td>
@@ -218,17 +236,20 @@
                                             class="delete p-0 rounded btn-primary" title="detail" data-toggle="tooltip">
                                             <i class="bi bi-eye-fill m-1"></i>
                                         </a>
-                                        <form action="{{ route('konser_page.destroy') }}" id="delete-form" method="POST"
-                                            onsubmit="
+                                        @if (!$konser->deleted_at)
+                                            <form action="{{ route('konser_page.destroy') }}" id="delete-form"
+                                                method="POST"
+                                                onsubmit="
                                                      event.preventDefault();
                                                      alasan()
                                                     ">
-                                            @method('DELETE')
-                                            @csrf
-                                            <input type="hidden" name="konser_id" value="{{ $konser->id }}">
-                                            <button type="submit" class="btn py-0 px-1 btn-danger"><i
-                                                    class="bi bi-trash-fill"></i></button>
-                                        </form>
+                                                @method('DELETE')
+                                                @csrf
+                                                <input type="hidden" name="konser_id" value="{{ $konser->id }}">
+                                                <button type="submit" class="btn py-0 px-1 btn-danger"><i
+                                                        class="bi bi-trash-fill"></i></button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -245,8 +266,7 @@
                     </li>
                 @else
                     <li class="page-item">
-                        <a class="page-link" href="{{ $konsers->previousPageUrl() }}"
-                            rel="prev">Previous</a>
+                        <a class="page-link" href="{{ $konsers->previousPageUrl() }}" rel="prev">Previous</a>
                     </li>
                 @endif
 
@@ -258,8 +278,7 @@
 
                 @if ($konsers->hasMorePages())
                     <li class="page-item">
-                        <a class="page-link" href="{{ $konsers->nextPageUrl() }}"
-                            rel="next">Next</a>
+                        <a class="page-link" href="{{ $konsers->nextPageUrl() }}" rel="next">Next</a>
                     </li>
                 @else
                     <li class="page-item disabled">
@@ -270,6 +289,29 @@
         </nav>
     </div>
     </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterOption = document.getElementById('filterOption');
+            const tableRows = document.querySelectorAll('tbody tr');
+
+            function updateTableRows() {
+                const selectedOption = filterOption.value;
+
+                tableRows.forEach(row => {
+                    const rowStatus = row.getAttribute('data-status');
+
+                    if (selectedOption === 'semua' || rowStatus === selectedOption) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+            updateTableRows();
+            filterOption.addEventListener('change', updateTableRows);
+        });
+    </script>
+
     <script>
         const deleteForm = document.getElementById('delete-form');
 
