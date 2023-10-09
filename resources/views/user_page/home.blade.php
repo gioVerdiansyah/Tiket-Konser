@@ -139,7 +139,7 @@
             @forelse ($konser as $row)
                 <div class="col-3 concert-card">
                     <a href="{{ route('detail_konser', $row->id) }}">
-                        <img width="100%" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}"
+                        <img width="250" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}"
                             alt="" class="mb-4" style="border-radius:5%;">
                     </a>
                     <h3 class="fw-bold">{{ $row->nama_konser }}</h3>
@@ -162,7 +162,7 @@
             @forelse ($hotConcerts as $row)
                 <div class="col-3 concert-card">
                     <a href="{{ route('detail_konser', $row->id) }}">
-                        <img width="100%" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}"
+                        <img width="250" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}"
                             alt="" class="mb-4" style="border-radius: 5%;">
                     </a>
                     <h3 class="fw-bold">{{ $row->nama_konser }}</h3>
