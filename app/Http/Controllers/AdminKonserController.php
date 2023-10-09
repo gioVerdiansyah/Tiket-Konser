@@ -46,7 +46,11 @@ class AdminKonserController extends Controller
 
     public function commentDestroy($id)
     {
-        $komen = Comment::with('konser')->where('id', $id)->firstOrFail();
+        $komen = Comment::with([
+            'konser' => function ($query) {
+                $query->withTrashed();
+            }
+        ])->where('id', $id)->firstOrFail();
 
         $notif = new Notifications;
         $notif->nama_konser = "Komentar " . $komen->konser->nama_konser;
