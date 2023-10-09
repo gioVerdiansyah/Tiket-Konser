@@ -161,12 +161,12 @@
                                         <i data-toggle="collapse" data-target="#collapseOne" class="material-icons"
                                             style="justify-items: center">keyboard_arrow_down</i>
                                     </div>
-                                    <div id="collapseOne" class="collapse " data-parent="#accordionExample">
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
 
                                         @isset($kategoris)
                                             <div class="card-body">
                                                 <div class="shop__sidebar__categories">
-                                                    <ul class="nice-scroll" style="padding:0%;">
+                                                    <ul class="nice-scroll" style="padding:0%; ">
                                                         @forelse ($kategoris as $i => $kategori)
                                                             <li>
                                                                 @for ($j = 0; $j < 2; $j++)
@@ -287,6 +287,8 @@
 
     <script src="{{ asset('malefashion') }}/js/jquery-3.3.1.min.js"></script>
     <script src="{{ asset('malefashion') }}/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="path/to/nicescroll.js"></script>
     <script src="{{ asset('malefashion') }}/js/jquery.nice-select.min.js"></script>
     <script src="{{ asset('malefashion') }}/js/jquery.nicescroll.min.js"></script>
     <script src="{{ asset('malefashion') }}/js/jquery.magnific-popup.min.js"></script>

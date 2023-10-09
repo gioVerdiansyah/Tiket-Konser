@@ -336,7 +336,7 @@
                     reasonInput.setAttribute('name', 'alasan_hapus');
                     reasonInput.value = result.value;
 
-                    const deleteForm = document.getElementById('delete-form-' + id);
+                    const deleteForm = document.getElementById('delete-form' + id);
                     deleteForm.appendChild(reasonInput);
 
                     deleteForm.submit();
