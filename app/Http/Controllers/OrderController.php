@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Konser;
+use App\Models\Notifications;
 use App\Models\Order;
 use App\Models\Tiket;
 use App\Models\TransactionHistory;
@@ -18,17 +19,36 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('konser')->where('user_id', Auth::user()->id)->where('payment_status', 1)->get();
+        $orders = Order::with([
+            'konser' => function ($query) {
+                $query->withTrashed();
+            }
+        ])->where('user_id', Auth::user()->id)->where('payment_status', 1)->get();
 
         foreach ($orders as $order) {
-            $snapToken = $order->snap_token;
-            if (empty($snapToken)) {
+            if (!$order->konser->deleted_at) {
+                $snapToken = $order->snap_token;
+                if (empty($snapToken)) {
 
-                $midtrans = new CreateSnapTokenService($order);
-                $snapToken = $midtrans->getSnapToken();
+                    $midtrans = new CreateSnapTokenService($order);
+                    $snapToken = $midtrans->getSnapToken();
 
-                $order->snap_token = $snapToken;
-                $order->save();
+                    $order->snap_token = $snapToken;
+                    $order->save();
+                }
+            } else {
+                $notif = new Notifications;
+                $notif->nama_konser = $order->konser->nama_konser;
+                $notif->user_id = $order->user_id;
+                $notif->fillin = "Notifikasi hapus order karena konser telah kadaluarsa";
+                $notif->save();
+
+                Order::where('id', $order->id)->delete();
+                $orders = Order::with([
+                    'konser' => function ($query) {
+                        $query->withTrashed();
+                    }
+                ])->where('user_id', Auth::user()->id)->where('payment_status', 1)->get();
             }
         }
 
