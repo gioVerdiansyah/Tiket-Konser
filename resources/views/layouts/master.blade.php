@@ -145,14 +145,14 @@
                     <div class="navbar-nav ml-auto" style="flex-direction:inherit;">
                         <ul class="navbar-nav" style="flex-direction: row; ">
                             <li class="nav-item d-flex align-items-center me-3">
-                                <a style="margin-top: -38px" class="nav-link" href="{{ route('orders.index') }}"><i class="bi bi-basket fs-4"></i>
+                                <a style="position: relative;" class="nav-link" href="{{ route('orders.index') }}"><i class="bi bi-basket fs-4"></i>
                                     @php
                                         $cart = \App\Models\Order::where('user_id', Auth::user()->id)
                                             ->where('payment_status', 1)
                                             ->count();
                                     @endphp
                                     @if ($cart > 0)
-                                        <div class="notice cart" style="position: relative; margin-top: -70px">
+                                        <div class="notice cart" style="position: absolute; top: 0px">
                                             {{ $cart }}
                                         </div>
                                     @endif
