@@ -9,7 +9,9 @@
         <link rel="stylesheet" href="{{ asset('css/tiketku.css') }}">
     </head>
     @php
-        $orderku = \App\Models\Order::with(['konser', 'konser.tiket', 'konser.user', 'transactionHistory'])
+        $orderku = \App\Models\Order::with(['konser' => function($query){
+            $query->withTrashed();
+        }, 'konser.tiket', 'konser.user', 'transactionHistory'])
             ->where('user_id', Auth::user()->id)
             ->where('payment_status', '!=', 1)
             ->get();
@@ -74,6 +76,7 @@
                             position: relative;
                             margin: 25px;
                             border: 1px dashed #aaa;
+                            background-color: white;
                         }
 
                         .holes-lower:before,
@@ -147,6 +150,7 @@
                         }
 
                         .serial {
+                            background-color: white;
                             padding: 50px;
                         }
 
@@ -211,7 +215,6 @@
                                 <td>{{ $orders->konser->waktu_mulai }}</td>
                             </tr>
                         </table>
-                        <p class="m-0"><i class="bi bi-geo-alt-fill"></i> {{ $orders->konser->alamat }}</p>
                     </div>
                     <div class="holes-lower"></div>
                     <div class="serial">

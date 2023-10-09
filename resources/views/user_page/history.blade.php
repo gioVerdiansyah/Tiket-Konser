@@ -381,6 +381,7 @@
                 $i = 1;
             @endphp
             @forelse ($orders as $i => $order)
+            {{-- @dd($order) --}}
                 <div class="card">
 
                     <div class="card-full">

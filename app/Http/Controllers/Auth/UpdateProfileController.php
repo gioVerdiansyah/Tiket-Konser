@@ -22,7 +22,9 @@ class UpdateProfileController extends Controller
 
     public function history()
     {
-        $orders = Order::with(['konser', 'konser.tiket', 'transactionHistory'])->where('user_id', Auth::user()->id)->where('payment_status', '!=', 1)->get();
+        $orders = Order::with(['konser' => function($query){
+            $query->withTrashed();
+        }, 'konser.tiket', 'transactionHistory'])->where('user_id', Auth::user()->id)->where('payment_status', '!=', 1)->get();
         return view('user_page.history', compact('orders'));
     }
     public function test()
