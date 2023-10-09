@@ -1,6 +1,5 @@
 @extends('layouts.admin', ['title' => 'List Konser'])
 @section('content')
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         body {
             color: #566787;
@@ -201,8 +200,8 @@
                             </div>
                             <div class="search-box">
                                 <div class="input-group">
-                                    <input type="text" id="search" class="form-control" style="border: solid 1px #b5b6b9" placeholder="Cari disini">
-                                    <span class="input-group-addon"><i class="material-icons">search</i></span>
+                                    <input type="text" id="search" class="form-control" placeholder="Cari disini">
+                                    <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
                                 </div>
                             </div>
                         </div>
@@ -221,40 +220,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($konsers as $konser)
-                        <tr
-                            @if (!$konser->deleted_at) data-status="belum_kadaluarsa" @else data-status="kadaluarsa" @endif>
-                            <td style="vertical-align:middle;@if ($konser->deleted_at) color:orange; @endif"
-                                @if ($konser->deleted_at) title="Konser telah kadaluarsa" @endif>
-                                {{ $konser->nama_konser }}</td>
-                            <td><img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}"
-                                    style="width: 130px; height:135px; border-radius:10px;"></td>
-                            <td style="vertical-align:middle;">{{ $konser->nama_penyelenggara }}</td>
-                            <td style="vertical-align:middle;">{{ $konser->alamat }}</td>
-                            <td style="vertical-align:middle;">{{ $konser->tempat }}</td>
-                            <td style="padding-left: 6px; vertical-align:middle;">
-                                <div class="d-flex">
-                                    <a href="{{ route('konser_page.detail', $konser->id) }}"
-                                        class="delete p-0 rounded btn-primary" title="detail" data-toggle="tooltip">
-                                        <i class="bi bi-eye-fill m-1"></i>
-                                    </a>
-                                    @if (!$konser->deleted_at)
-                                        <form action="{{ route('konser_page.destroy') }}" id="delete-form-{{ $konser->id }}"
-                                            method="POST"
-                                            onsubmit="
-                                                 event.preventDefault();
-                                                 alasan('{{ $konser->id }}')
-                                                ">
-                                            @method('DELETE')
-                                            @csrf
-                                            <input type="hidden" name="konser_id" value="{{ $konser->id }}">
-                                            <button type="submit" class="btn py-0 px-1 btn-danger"><i
-                                                    class="bi bi-trash-fill"></i></button>
-                                        </form>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach ($konsers as $i => $konser)
+                            <tr
+                                @if (!$konser->deleted_at) data-status="belum_kadaluarsa" @else data-status="kadaluarsa" @endif>
+                                <td style="vertical-align:middle;@if ($konser->deleted_at) color:orange; @endif"
+                                    @if ($konser->deleted_at) title="Konser telah kadaluarsa" @endif>
+                                    {{ $konser->nama_konser }}</td>
+                                <td><img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}"
+                                        style="width: 130px; height:135px; border-radius:10px;"></td>
+                                <td style="vertical-align:middle;">{{ $konser->nama_penyelenggara }}</td>
+                                <td style="vertical-align:middle;">{{ $konser->alamat }}</td>
+                                <td style="vertical-align:middle;">{{ $konser->tempat }}</td>
+                                <td style="padding-left: 6px; vertical-align:middle;">
+                                    <div class="d-flex">
+                                        <a href="{{ route('konser_page.detail', $konser->id) }}"
+                                            class="delete p-0 rounded btn-primary" title="detail" data-toggle="tooltip">
+                                            <i class="bi bi-eye-fill m-1"></i>
+                                        </a>
+                                        @if (!$konser->deleted_at)
+                                            <form action="{{ route('konser_page.destroy', $konser->id) }}"
+                                                id="delete-form{{ ++$i }}" method="POST"
+                                                onsubmit="
+                                                     event.preventDefault();
+                                                     alasan({{ $i }})
+                                                    ">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn py-0 px-1 btn-danger"><i
+                                                        class="bi bi-trash-fill"></i></button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
                         @endforeach
 
                     </tbody>
@@ -316,9 +314,8 @@
     </script>
 
     <script>
-        const deleteForm = document.getElementById('delete-form');
-
         function alasan(id) {
+            const deleteForm = document.getElementById('delete-form' + id);
             Swal.fire({
                 title: 'Konfirmasi Hapus Konser',
                 input: 'text',
@@ -346,7 +343,6 @@
                 }
             });
         }
-
     </script>
 
     </html>

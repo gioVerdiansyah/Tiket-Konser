@@ -26,9 +26,9 @@ class AdminKonserController extends Controller
 
         return view('admin_page.detail-tiket', compact('konser', 'tiket', 'jumlahKomentar'));
     }
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $konser = Konser::where('id', $request->konser_id)->firstOrFail();
+        $konser = Konser::with('user')->where('id', $id)->firstOrFail();
         $konserName = $konser->nama_konser;
 
         $notif = new Notifications;
@@ -37,7 +37,7 @@ class AdminKonserController extends Controller
         $notif->fillin = $request->alasan_hapus;
         $notif->save();
 
-        $konser->delete();
+        // $konser->delete();
         return back()->with('message', [
             'title' => "Berhasil!",
             'text' => "Berhasil menghapus konser $konserName dengan alasan {$request->alasan_hapus}"

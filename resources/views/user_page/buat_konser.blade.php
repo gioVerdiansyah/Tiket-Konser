@@ -130,24 +130,27 @@
              margin-top: 10px;
              border-radius: 5px;
          }
-         .sah{
-            max-width: 190px;
-            margin-left: 6rem;
+
+         .sah {
+             max-width: 190px;
+             margin-left: 6rem;
          }
+
          @media screen and (max-width: 476px) {
              .card {
                  width: 100%;
              }
          }
 
-         @media(max-width: 406px){
-            .sah{
-                margin-left: 0%;
-                margin-right: auto;
-            }
-            .ma{
-                margin-right: auto;
-            }
+         @media(max-width: 406px) {
+             .sah {
+                 margin-left: 0%;
+                 margin-right: auto;
+             }
+
+             .ma {
+                 margin-right: auto;
+             }
          }
      </style>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -273,7 +276,8 @@
                                                  <div class="mb-0">
                                                      <label for="" class="form-label">Tanggal Konser</label>
                                                      <input name="tanggal_konser" class="form-control form-control-solid"
-                                                         placeholder="Pilih Tanggal" id="kt_datepicker_3" />
+                                                         placeholder="Pilih Tanggal" id="kt_datepicker_3"
+                                                         value="{{ old('tanggal_konser') }}">
                                                  </div>
                                              </div>
                                              <div class="modal-footer">
@@ -408,7 +412,6 @@
                                                  class="btn btn-secondary mb-3"><i class="bi bi-plus-square"></i> Kategori
                                                  Tiket</button>
 
-                                             
                                              <div id="tempatInputKategoriHarga">
                                                  <!-- Input kategori tiket akan ditambahkan di sini -->
                                                  <!-- Input harga akan ditambahkan di sini -->
