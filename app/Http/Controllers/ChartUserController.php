@@ -25,23 +25,23 @@ class ChartUserController extends Controller
             DB::raw('DATE(transaction_time) as date'),
             DB::raw('sum(gross_amount) as total') // Menghitung total pendapatan harian
         )
-        ->whereHas('order', function ($query) use ($konser_id) {
-            $query->where('konser_id', $konser_id);
-        })
-        ->groupBy('date')
-        ->get();
+            ->whereHas('order', function ($query) use ($konser_id) {
+                $query->where('konser_id', $konser_id);
+            })
+            ->groupBy('date')
+            ->get();
 
-    $categoryIncomeData = Order::select('kategori_tiket', DB::raw('sum(harga_satuan) as total'))
-        ->where('konser_id', $konser_id)
-        ->groupBy('kategori_tiket')
-        ->get();
+        $categoryIncomeData = Order::select('kategori_tiket', DB::raw('sum(harga_satuan) as total'))
+            ->where('konser_id', $konser_id)
+            ->groupBy('kategori_tiket')
+            ->get();
 
-    $monthlyIncomeData = TransactionHistory::select(DB::raw('DATE_FORMAT(transaction_time, "%Y-%m") as month'), DB::raw('sum(gross_amount) as total'))
-        ->whereHas('order', function ($query) use ($konser_id) {
-            $query->where('konser_id', $konser_id);
-        })
-        ->groupBy('month')
-        ->get();
+        $monthlyIncomeData = TransactionHistory::select(DB::raw('DATE_FORMAT(transaction_time, "%Y-%m") as month'), DB::raw('sum(gross_amount) as total'))
+            ->whereHas('order', function ($query) use ($konser_id) {
+                $query->where('konser_id', $konser_id);
+            })
+            ->groupBy('month')
+            ->get();
 
         $dailyData = [
             'labels' => $dailyIncomeData->pluck('date')->toArray(),
@@ -80,8 +80,18 @@ class ChartUserController extends Controller
         $monthlyData['labels'] = array_reverse($allMonths);
 
         $monthLabels = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December',
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
         ];
 
         $monthlyData = [
@@ -91,7 +101,9 @@ class ChartUserController extends Controller
             })->toArray(),
             'totals' => $monthlyIncomeData->pluck('total')->toArray(),
         ];
+        $nama_konser = Konser::where('id', $konser_id)->firstOrFail()->nama_konser;
         return view('User_page.pendapatanku', [
+            'nama_konser' => $nama_konser,
             'konser_id' => $konser_id,
             'dailyData' => $dailyData,
             'categoryData' => $categoryData,

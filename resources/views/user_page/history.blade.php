@@ -14,8 +14,6 @@
                 font-size: 14px;
             }
 
-
-
             h6.card-title {
                 margin-top: 14px;
                 text-align: left;
@@ -570,7 +568,6 @@
             </div>
         @endif
     @empty
-        <p class="text-center">Tidak ada data...</p>
     @endforelse
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
