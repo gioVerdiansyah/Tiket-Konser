@@ -29,6 +29,13 @@ class CommentController extends Controller
         }
 
         $konser = Konser::findOrFail($id);
+        $jumlahKomentar = Comment::where('user_id', Auth::user()->id)
+            ->where('konser_id', $konser->id)
+            ->count();
+
+        if ($jumlahKomentar >= 5) {
+            return response()->json(['error' => ['Anda telah mencapai batas komentar yang diizinkan 5 komentar.']]);
+        }
 
         $comment = new Comment;
         $comment->user_id = Auth::user()->id;
