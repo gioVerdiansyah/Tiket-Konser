@@ -28,7 +28,7 @@ class PaymentDataController extends Controller
         ->groupBy('date')
         ->get();
 
-    $categoryIncomeData = Order::select('kategori_tiket', DB::raw('sum(harga_satuan) as total'))
+    $categoryIncomeData = Order::select('kategori_tiket', DB::raw('sum(harga_satuan * jumlah) as total'))
         ->where('konser_id', $konser_id)
         ->groupBy('kategori_tiket')
         ->get();

@@ -119,6 +119,77 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-4">
+            <div class="card card-chart">
+                <div class="card-header">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Pendapatan Perhari
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <p class="text-dark font-weight-bold">Rp. {{ number_format(end($dailyData['totals'])) }}</p>
+                    </div>
+                    <h3 class="card-category font-weight-bold">Metode Pembayaran</h3>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="DailyChart"></canvas>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <script>
+                            function createDailyChart(labels, data) {
+                                var ctx = document.getElementById("DailyChart").getContext("2d");
+                        
+                                // Buat atau perbarui grafik menggunakan data baru
+                                if (window.dailyChart) {
+                                    window.dailyChart.data.labels = labels;
+                                    window.dailyChart.data.datasets[0].data = data;
+                                    window.dailyChart.update(); // Perbarui grafik yang ada
+                                } else {
+                                    // Buat grafik baru jika belum ada
+                                    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+                                    gradientStroke.addColorStop(1, 'rgba(46, 204, 113, 0.2)');
+                                    gradientStroke.addColorStop(0.4, 'rgba(46, 204, 113, 0.0)');
+                                    gradientStroke.addColorStop(0, 'rgba(46, 204, 113, 0)');
+                        
+                                    window.dailyChart = new Chart(ctx, {
+                                        type: 'bar',
+                                        responsive: true,
+                                        legend: {
+                                            display: false
+                                        },
+                                        data: {
+                                            labels: labels,
+                                            datasets: [{
+                                                label: "Pembelian Tiket Per Hari",
+                                                fill: true,
+                                                backgroundColor: gradientStroke,
+                                                hoverBackgroundColor: gradientStroke,
+                                                borderColor: '#005B41',
+                                                borderWidth: 2,
+                                                borderDash: [],
+                                                borderDashOffset: 0.0,
+                                                data: data,
+                                            }]
+                                        },
+                                        // options: gradientBarChartConfiguration
+                                    });
+                                }
+                            }
+                        
+                            // Ambil data dari controller atau endpoint yang sesuai
+                            var dailyData = {!! json_encode($dailyData) !!};
+                        
+                            // Ekstrak data dari respons (jika diperlukan)
+                            var labels = dailyData.labels;
+                            var totals = dailyData.totals;
+                        
+                            // Buat grafik pembelian tiket per hari
+                            createDailyChart(labels, totals);
+                        </script>                        
+                    </div>
+                </div>
+            </div>
+        </div>
     @endsection
 
     @push('js')

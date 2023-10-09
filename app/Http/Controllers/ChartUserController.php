@@ -23,7 +23,8 @@ class ChartUserController extends Controller
 
         $dailyIncomeData = TransactionHistory::select(
             DB::raw('DATE(transaction_time) as date'),
-            DB::raw('sum(gross_amount) as total') // Menghitung total pendapatan harian
+            DB::raw('sum(gross_amount) as total'), // Menghitung total pendapatan harian
+            DB::raw('count(*) as ticket_count') // Menghitung jumlah tiket terjual harian   
         )
             ->whereHas('order', function ($query) use ($konser_id) {
                 $query->where('konser_id', $konser_id);
@@ -31,7 +32,26 @@ class ChartUserController extends Controller
             ->groupBy('date')
             ->get();
 
-        $categoryIncomeData = Order::select('kategori_tiket', DB::raw('sum(harga_satuan) as total'))
+        $dailyTicketCountData = Order::select(
+            DB::raw('DATE(created_at) as date'),
+            DB::raw('count(*) as ticket_count') // Menghitung jumlah tiket terjual harian   
+        )
+            ->where('konser_id', $konser_id)
+            ->groupBy('date')
+            ->get();            
+
+            $endDate = Carbon::now();
+            $startDate = $endDate->copy()->subDays(7); // Ganti dengan rentang tanggal yang sesuai
+
+            $dateRange = collect();
+            $currentDate = $startDate->copy();
+
+            while ($currentDate->lte($endDate)) {
+                $dateRange->push($currentDate->format('Y-m-d'));
+                $currentDate->addDay();
+            }
+
+        $categoryIncomeData = Order::select('kategori_tiket', DB::raw('sum(harga_satuan * jumlah) as total'))
             ->where('konser_id', $konser_id)
             ->groupBy('kategori_tiket')
             ->get();
@@ -44,8 +64,15 @@ class ChartUserController extends Controller
             ->get();
 
         $dailyData = [
-            'labels' => $dailyIncomeData->pluck('date')->toArray(),
-            'totals' => $dailyIncomeData->pluck('total')->toArray(),
+            'labels' => $dateRange->toArray(),
+            'totals' => $dateRange->map(function ($date) use ($dailyIncomeData) {
+                $found = $dailyIncomeData->where('date', $date)->first();
+                return $found ? $found->total : 0;
+            })->toArray(),
+            'ticket_count' => $dateRange->map(function ($date) use ($dailyIncomeData) {
+                $found = $dailyIncomeData->where('date', $date)->first();
+                return $found ? $found->ticket_count : 0;
+            })->toArray(),
         ];
 
         $paymentType = [

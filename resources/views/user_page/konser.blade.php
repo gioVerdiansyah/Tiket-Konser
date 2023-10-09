@@ -235,7 +235,7 @@
                                             style="width: 100%; max-height: 300px; border-bottom: solid 1px #d4d4d4;">
                                         <ul class="product__hover">
                                             <li><a href="{{ route('detail_konser', $konser->id) }}"><img
-                                                        src="img/icon/detail-removebg-preview.png"
+                                                        src="{{ asset('img/icon/detail-removebg-preview.png') }}"
                                                         style="border-radius: 5px;" alt><span>Detail</span></a>
                                             </li>
                                         </ul>
