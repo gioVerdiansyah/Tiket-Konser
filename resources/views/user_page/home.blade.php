@@ -193,8 +193,7 @@
             }
         </style>
         <div class="row py-5">
-            @forelse ($hotConcerts as $row)
-                @forelse ($row->comment as $cell)
+                @forelse ($komen as $cell)
                     <div class="col" data-aos="fade-up" data-aos-delay="500">
                         <div class="card mb-3 d-flex flex-row align-items-center rounded-4">
                             <div class="p-3">
@@ -211,10 +210,8 @@
                         </div>
                     </div>
                 @empty
-                @endforelse
-            @empty
                 <p>Jadilah orang pertama yang memberi ulasan</p>
-            @endforelse
+                @endforelse
         </div>
     </div>
     </div>

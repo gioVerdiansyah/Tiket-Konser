@@ -251,7 +251,7 @@
                                     <i class="bi bi-dash-lg"></i>
                                 </button>
                                 <input type="number" id="count" name="jumlah" class="form-control tengah"
-                                    max="{{ $tiket->jumlah_tiket }}" value="1"
+                                    max="5" value="1"
                                     style="width: 50px; padding: 10px 5px;">
                                 <button type="button" id="plus" class="plus">
                                     <i class="bi bi-plus-lg"></i>

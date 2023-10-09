@@ -159,7 +159,7 @@
                                                     <li>
                                                         <form action="{{ route('buatkonser.destroy', $konser->id) }}"
                                                             id="delete_konser" method="POST"
-                                                            onclick="
+                                                            onclick="   
                                                         return confirmSubmit(event, '{{ $konser->nama_konser }}')
                                                     ">
                                                             @csrf

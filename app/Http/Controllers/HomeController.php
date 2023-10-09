@@ -29,7 +29,11 @@ class HomeController extends Controller
             ->orderByDesc('orders_count')
             ->take(4)
             ->get();
-
-        return view('user_page.home', compact('konser', 'hotConcerts'));
+            $komen = [];
+            foreach ($hotConcerts as $row) {
+                $komen = array_merge_recursive($komen, $row->comment->toArray());
+            }
+            
+        return view('user_page.home', compact('konser', 'hotConcerts', 'komen'));
     }
 }
