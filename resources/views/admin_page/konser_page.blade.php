@@ -192,16 +192,12 @@
                         </div>
                         <div class="col-sm-6 d-flex flex-col" style="justify-content: space-between;">
                             <div class="input-group" style="margin-right: 10px;">
-                                <select class="form-control" id="filterOption">
+                                <select class="form-select" id="filterOption">
                                     <option value="semua">Semua Konser</option>
                                     <option value="belum_kadaluarsa">Belum Kadaluarsa</option>
                                     <option value="kadaluarsa">Kadaluarsa</option>
                                 </select>
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="material-icons" id="filterOption">keyboard_arrow_down</i>
-                                    </span>
-                                </div>
+
                             </div>
                             <div class="search-box">
                                 <div class="input-group">
