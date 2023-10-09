@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Konser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -29,11 +30,9 @@ class HomeController extends Controller
             ->orderByDesc('orders_count')
             ->take(4)
             ->get();
-            $komen = [];
-            foreach ($hotConcerts as $row) {
-                $komen = array_merge_recursive($komen, $row->comment->toArray());
-            }
-            
+
+            $komen = Comment::with('konser')->latest()->get();
+
         return view('user_page.home', compact('konser', 'hotConcerts', 'komen'));
     }
 }
