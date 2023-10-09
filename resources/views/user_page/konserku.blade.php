@@ -150,8 +150,8 @@
                                                                     alt><span>Detail</span></a></li>
                                                         <li> --}}
                                                     <li><a onclick="detail('{{ $konser->id }}')"><img
-                                                                src="img/icon/edit.png" style="border-radius: 5px;"
-                                                                alt><span>Detail</span></a></li>
+                                                                src="img/icon/line-chart.png" style="width:40px;cursor:pointer;border-radius: 5px;"
+                                                                alt><span>Grafik</span></a></li>
                                                     <li>
                                                     <li><a href="{{ route('buatkonser.edit', $konser->id) }}"><img
                                                                 src="img/icon/edit.png" style="border-radius: 5px;"

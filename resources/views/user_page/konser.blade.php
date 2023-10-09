@@ -127,7 +127,7 @@
                                     <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             @php
-                                                $max_harga = \App\Models\Tiket::orderBy('harga1', 'desc')->first()->harga1;
+                                                $max_harga = \App\Models\Tiket::orderByRaw('CAST(harga1 AS DECIMAL(10, 2)) DESC')->first()->harga1;
                                             @endphp
                                             <div class="middle">
                                                 <div class="multi-range-slider my-2">

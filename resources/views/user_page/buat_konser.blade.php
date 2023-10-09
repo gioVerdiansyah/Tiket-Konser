@@ -408,7 +408,7 @@
                                                  class="btn btn-secondary mb-3"><i class="bi bi-plus-square"></i> Kategori
                                                  Tiket</button>
 
-                                             <!-- Tempat untuk menambahkan input -->
+                                             
                                              <div id="tempatInputKategoriHarga">
                                                  <!-- Input kategori tiket akan ditambahkan di sini -->
                                                  <!-- Input harga akan ditambahkan di sini -->

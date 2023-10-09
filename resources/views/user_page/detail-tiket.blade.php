@@ -33,8 +33,7 @@
             /* atau flex-start */
             text-align: start;
             /* atau left */
-            gap: 10px;
-            padding-top: 2rem;
+            gap: 20px;
         }
 
         .warning {
@@ -302,7 +301,18 @@
                         <h4 class="fw-bold left-align">DETAIL KONSER</h4>
                         <p class="left-align" style="color: #000000;"> {{ $konser->nama_konser }}</p>
                         @if (isset($konser->deskripsi))
-                            <p class="left-align">{{ $konser->deskripsi }}</p>
+                            <!-- Tampilkan deskripsi dengan batasan karakter -->
+                            <p class="left-align deskripsi-pendek" id="deskripsi-pendek">
+                                {{ Str::limit($konser->deskripsi, 500) }}
+                            </p>
+                            <!-- Tampilkan deskripsi lengkap -->
+                            <p class="left-align deskripsi-lengkap" id="deskripsi-lengkap" style="display: none;">
+                                {{ $konser->deskripsi }}
+                            </p>
+                            <!-- Tombol "Read More" -->
+                            @if (strlen($konser->deskripsi) > 500)
+                                <a href="#" id="read-more-btn" class="text-dark text-decoration-none">Selengkapnya</a>
+                            @endif
                         @else
                             <p>Penjual tidak menambahkan deskripsi...</p>
                         @endif
@@ -713,6 +723,22 @@
                 $('.text-danger').remove();
                 warningShown = false;
             }
+        });
+    </script>
+    {{-- End --}}
+
+    {{-- Read More --}}
+    <script>
+        $(document).ready(function () {
+            // Saat tombol "Read More" diklik
+            $('#read-more-btn').click(function (e) {
+                e.preventDefault();
+                $('.deskripsi-pendek').toggle();
+                $('.deskripsi-lengkap').toggle();
+                $(this).text(function (i, text) {
+                    return text === 'Selengkapnya' ? 'Lebih sedikit' : 'Selengkapnya';
+                });
+            });
         });
     </script>
     {{-- End --}}

@@ -43,7 +43,7 @@ class StoreKonserRequest extends FormRequest
             'harga4' => 'nullable|integer|min:3000',
             'harga5' => 'nullable|integer|min:3000',
             'jumlahtiket' => 'required|integer|min:10',
-            'deskripsi' => 'nullable|string|min:5|max:300',
+            'deskripsi' => 'nullable|string|min:5|max:2000',
             'banner' => 'required|image|max:20480',
             'photo_penyelenggara' => 'nullable|image|max:20480',
             'denah_konser' => 'nullable|image|max:20480',
