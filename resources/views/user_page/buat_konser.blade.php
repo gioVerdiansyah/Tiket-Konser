@@ -130,11 +130,24 @@
              margin-top: 10px;
              border-radius: 5px;
          }
-
+         .sah{
+            max-width: 190px;
+            margin-left: 6rem;
+         }
          @media screen and (max-width: 476px) {
              .card {
                  width: 100%;
              }
+         }
+
+         @media(max-width: 406px){
+            .sah{
+                margin-left: 0%;
+                margin-right: auto;
+            }
+            .ma{
+                margin-right: auto;
+            }
          }
      </style>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
@@ -198,7 +211,7 @@
                          <div class="card-body">
                              <div class="left-column" style="margin-right: 50px">
                                  <h5 class="card-title">Diselenggarakan oleh</h5>
-                                 <div style="display: flex; align-items: center;margin-top: 25px;">
+                                 <div style="display: flex; align-items: center;margin-top: 25px; margin-bottom:10px;">
                                      <!-- Tambahkan elemen input file yang tersembunyi -->
                                      <input type="file" id="profileImageInput" name="photo_penyelenggara"
                                          style="display: none;">
@@ -222,7 +235,7 @@
                                  </div>
                              </div>
 
-                             <div class="left-center">
+                             <div class="left-center ma" style="margin-bottom:8px;">
                                  <h5 class="card-title">Tanggal dan Waktu</h5>
                                  <!-- Button trigger modal -->
                                  <div class="py-3">
@@ -274,7 +287,7 @@
 
                              </div>
 
-                             <div class="left-right" style="max-width: 190px;margin-left: 100px;">
+                             <div class="left-right sah">
                                  <h5 class="card-title">Lokasi</h5>
                                  <div class="py-3">
                                      <a id="selectedLocation" href="#" class="text-decoration-none"
