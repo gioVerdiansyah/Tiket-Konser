@@ -263,7 +263,7 @@
                     {{--  paginate  --}}
                     <div class="row mt-3">
                         <div class="paginate">
-                            {{ $konsers->links() }}
+                            {{ $konsers->appends(request()->query())->links() }}
                         </div>
                     </div>
                 </div>

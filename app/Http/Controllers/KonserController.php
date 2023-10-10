@@ -141,7 +141,7 @@ class KonserController extends Controller
                     ->orWhere('nama_konser', 'like', '%' . $search->search . '%');
             })
             ->withTrashed()
-            ->paginate(12);
+            ->paginate(1);
         return view('user_page.konserku', compact('konserku'));
     }
     public function search(Request $request)
@@ -161,6 +161,9 @@ class KonserController extends Controller
         }
 
         $konsers = $konsers->paginate(9);
+
+        // Tambahkan parameter pencarian ke tautan paginasi
+        $konsers->appends($request->query());
         $kategoris = Kategori::all();
         return view('user_page.konser', compact('konsers', 'kategoris'));
     }
