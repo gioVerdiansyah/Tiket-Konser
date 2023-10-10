@@ -11,7 +11,7 @@ class AdminKonserController extends Controller
 {
     public function index()
     {
-        $konsers = Konser::withTrashed()->paginate(5);
+        $konsers = Konser::withTrashed()->paginate(2);
         return view('admin_page.konser_page', compact('konsers'));
     }
     public function detail($id)
@@ -26,6 +26,22 @@ class AdminKonserController extends Controller
 
         return view('admin_page.detail-tiket', compact('konser', 'tiket', 'jumlahKomentar'));
     }
+
+    public function search(Request $request)
+{
+    $search = $request->input('search');
+
+    $konsers = Konser::withTrashed()
+        ->where(function ($query) use ($search) {
+            $query->where('nama_konser', 'like', '%' . $search . '%')
+                ->orWhere('alamat', 'like', '%' . $search . '%');
+        })
+        ->paginate(2)
+        ->appends(['search' => $search]); // Menambahkan parameter pencarian ke URL
+
+    return view('admin_page.konser_page', compact('konsers'));
+}
+
     public function destroy(Request $request, $id)
     {
         $konser = Konser::with('user')->where('id', $id)->firstOrFail();

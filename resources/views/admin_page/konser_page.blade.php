@@ -160,27 +160,7 @@
             size: 10px;
         }
     </style>
-    <script>
-        $(document).ready(function() {
-            // Activate tooltips
-            $('[data-toggle="tooltip"]').tooltip();
 
-            // Filter table rows based on searched term
-            $("#search").on("keyup", function() {
-                var term = $(this).val().toLowerCase();
-                $("table tbody tr").each(function() {
-                    $row = $(this);
-                    var name = $row.find("td").text().toLowerCase();
-                    console.log(name);
-                    if (name.search(term) < 0) {
-                        $row.hide();
-                    } else {
-                        $row.show();
-                    }
-                });
-            });
-        });
-    </script>
     <div class="container-lg">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -200,11 +180,17 @@
                             </div>
                             <div class="search-box">
                                 <div class="input-group">
-                                    <input type="text" id="search" class="form-control" placeholder="Cari disini">
-                                    <span class="input-group-addon" style="padding: 3px"><i class="bi bi-search"></i></span>
+                                    <form action="{{ route('konser_page.search') }}" method="GET">
+                                        <div class="form-group d-flex">
+                                            <input type="text" id="search-input" class="form-control" name="search"
+                                                placeholder="Cari menurut ID Pesanan atau Email Pelanggan">
+                                            <button type="submit" class="btn btn-primary ml-2">Cari</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+
 
                     </div>
                 </div>

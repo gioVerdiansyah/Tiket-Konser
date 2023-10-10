@@ -24,7 +24,7 @@ class KonserController extends Controller
     public function index()
     {
         $kategoris = Kategori::all();
-        $konsers = Konser::with('tiket')->withTrashed()->paginate(10);
+        $konsers = Konser::with('tiket')->withTrashed()->paginate(9);
         return view('user_page.konser', compact('konsers', 'kategoris'));
     }
 

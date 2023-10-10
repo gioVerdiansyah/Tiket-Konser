@@ -68,6 +68,8 @@ Route::middleware(['CekLogin', 'CekRole:admin'])->group(function () {
     })->name('pembelian');
 
     Route::get('/konser_page', [AdminKonserController::class, 'index'])->name('konser_page');
+    Route::get('/konser_page/search', [AdminKonserController::class, 'search'])->name('konser_page.search');
+
     Route::get('/konser_page/detail/{id}', [AdminKonserController::class, 'detail'])->name('konser_page.detail');
     Route::delete('/konser_page/destroy/{id}', [AdminKonserController::class, 'destroy'])->name('konser_page.destroy');
     Route::delete('/konser_page/comment/destroy/{id}', [AdminKonserController::class, 'commentDestroy'])->name('konser_page.comment.destroy');
