@@ -412,9 +412,35 @@
                                                  class="btn btn-secondary mb-3"><i class="bi bi-plus-square"></i> Kategori
                                                  Tiket</button>
 
+                                             <!-- Tempat untuk menambahkan input -->
                                              <div id="tempatInputKategoriHarga">
-                                                 <!-- Input kategori tiket akan ditambahkan di sini -->
-                                                 <!-- Input harga akan ditambahkan di sini -->
+                                                 @if (old('kategoritiket1'))
+                                                     @for ($i = 1; $i <= 5; $i++)
+                                                         @php
+                                                             $kategoriName = "kategoritiket{$i}";
+                                                             $hargaName = "harga{$i}";
+                                                             $kategoriValue = old($kategoriName, $tiket->$kategoriName ?? '');
+                                                             $hargaValue = old($hargaName, $tiket->$hargaName ?? '');
+                                                         @endphp
+
+                                                         @if (old($kategoriName))
+                                                             <div class="mb-3">
+                                                                 <input name="{{ $kategoriName }}"
+                                                                     class="form-control form-control-solid mb-3"
+                                                                     placeholder="Kategori Tiket {{ $i }}"
+                                                                     value="{{ $kategoriValue }}">
+                                                                 <input name="{{ $hargaName }}"
+                                                                     class="form-control form-control-solid mb-1"
+                                                                     placeholder="Harga" value="{{ $hargaValue }}">
+                                                                 @if (!empty($kategoriValue) && !empty($hargaValue))
+                                                                     <a href="javascript:void(0);"
+                                                                         class="remove_button btn btn-danger btn-sm ml-2"><i
+                                                                             class="bi bi-trash"></i></a>
+                                                                 @endif
+                                                             </div>
+                                                         @endif
+                                                     @endfor
+                                                 @endif
                                              </div>
 
                                              <div class="mb-4">
@@ -747,10 +773,11 @@
      <!-- BTN TAMBAH FORM -->
      <script>
          $(document).ready(function() {
-             var maxField = 5; //Input fields increment limitation
-             var addButton = $('#btnTambahKategoriTiket'); //Add button selector
-             var wrapper = $('#tempatInputKategoriHarga'); //Input field wrapper
-             var x = 1; //Initial field counter is 1
+             var maxField = 5; // Input fields increment limitation
+             var addButton = $('#btnTambahKategoriTiket'); // Add button selector
+             var wrapper = $('#tempatInputKategoriHarga'); // Input field wrapper
+             var x = $('input[name^="kategoritiket"]')
+             .length; // Initial field counter based on existing "old" elements
 
              // Function to renumber input fields
              function renumberFields() {
@@ -767,10 +794,10 @@
              // Once add button is clicked
              $(addButton).click(function() {
                  // Check maximum number of input fields
-                 if (x <= maxField) {
+                 if (x < maxField) {
                      x++; // Increase field counter
                      var fieldHTML =
-                         `<div class="mb-3"><input name="kategoritiket${(x - 1)}" class="form-control form-control-solid mb-3" placeholder="Kategori Tiket ${(x - 1)}"><input name="harga${(x - 1)}" class="form-control form-control-solid mb-1" placeholder="Harga"><a href="javascript:void(0);" class="remove_button btn btn-danger btn-sm ml-2"><i class="bi bi-trash"></i></a></div>`;
+                         `<div class="mb-3"><input name="kategoritiket${x}" class="form-control form-control-solid mb-3" placeholder="Kategori Tiket ${x}"><input name="harga${x}" class="form-control form-control-solid mb-1" placeholder="Harga"><a href="javascript:void(0);" class="remove_button btn btn-danger btn-sm ml-2"><i class="bi bi-trash"></i></a></div>`;
                      $(wrapper).append(fieldHTML); // Add field html
                  } else {
                      Swal.fire({
