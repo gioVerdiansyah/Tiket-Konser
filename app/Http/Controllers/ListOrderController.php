@@ -10,14 +10,14 @@ class ListOrderController extends Controller
 {
     public function ListKonser(Request $request)
     {
-        $orders = Order::with('transactionHistory')->where('payment_status', 2)->paginate(10);
+        $orders = Order::with('transactionHistory')->where('payment_status', 2)->paginate(1);
 
         return view('admin_page.list-order', compact('orders'));
     }
 
     public function destroy($id)
     {
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
 
         if ($order) {
             $order->delete();
@@ -45,7 +45,7 @@ class ListOrderController extends Controller
             });
 
         // Menggunakan paginate() untuk mengambil data dengan pembagian halaman
-        $orders = $query->paginate(10);
+        $orders = $query->paginate(1);
 
         return view('admin_page.list-order', compact('orders'));
     }

@@ -134,13 +134,13 @@
                                                             <p><strong>Email Pelanggan:</strong>
                                                                 {{ $order->user->email }}</p>
                                                             <p><strong>Jumlah:</strong>
-                                                                {{ $order->jumlah}}</p>
-                                                             <p><strong>Harga:</strong>
-                                                             @currency($order->harga_satuan)</p>
+                                                                {{ $order->jumlah }}</p>
+                                                            <p><strong>Harga:</strong>
+                                                                @currency($order->harga_satuan)</p>
                                                             <p><strong>Biaya Admin:</strong>
-                                                             @currency($order->harga_satuan * $order->jumlah * (5 / 100))</p>
-                                                             <p><strong>Total Harga:</strong>
-                                                             @currency($order->total_price)</p>
+                                                                @currency($order->harga_satuan * $order->jumlah * (5 / 100))</p>
+                                                            <p><strong>Total Harga:</strong>
+                                                                @currency($order->total_price)</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -158,21 +158,19 @@
                                         </li>
                                     @else
                                         <li class="page-item">
-                                            <a class="page-link" href="{{ $orders->previousPageUrl() }}"
-                                                rel="prev">Previous</a>
+                                            <a class="page-link" href="{{ $orders->previousPageUrl() }}@if(request()->has('search'))&search={{ request('search') }}@endif" rel="prev">Previous</a>
                                         </li>
                                     @endif
 
                                     @for ($i = 1; $i <= $orders->lastPage(); $i++)
                                         <li class="page-item {{ $orders->currentPage() == $i ? 'active' : '' }}">
-                                            <a class="page-link" href="{{ $orders->url($i) }}">{{ $i }}</a>
+                                            <a class="page-link" href="{{ $orders->url($i) }}@if(request()->has('search'))&search={{ request('search') }}@endif">{{ $i }}</a>
                                         </li>
                                     @endfor
 
                                     @if ($orders->hasMorePages())
                                         <li class="page-item">
-                                            <a class="page-link" href="{{ $orders->nextPageUrl() }}"
-                                                rel="next">Next</a>
+                                            <a class="page-link" href="{{ $orders->nextPageUrl() }}@if(request()->has('search'))&search={{ request('search') }}@endif" rel="next">Next</a>
                                         </li>
                                     @else
                                         <li class="page-item disabled">
