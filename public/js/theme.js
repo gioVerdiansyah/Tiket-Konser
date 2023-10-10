@@ -422,135 +422,138 @@ demo = {
     // });
 
 
-    var chart_labels = []; // Variabel untuk menyimpan label kategori tiket
-    var categoryIncomeData = []; // Variabel untuk menyimpan data total pendapatan berdasarkan kategori
-    var monthlyIncomeData = []; // Variabel untuk menyimpan data total pendapatan bulanan
-    var currentChartType = 'category'; // Variabel untuk melacak tipe grafik saat ini
-    
-    // Ambil elemen canvas grafik
-    var ctx = document.getElementById("chartBig1").getContext('2d');
-    
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
-    gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
-    
-    var config = {
-      type: 'line', // Menggunakan tipe grafik line
-      data: {
-        labels: chart_labels,
-        datasets: [{
-          label: "Total Pendapatan per Kategori", // Label dataset
-          fill: true,
-          backgroundColor: gradientStroke,
-          hoverBackgroundColor: gradientStroke,
-          borderColor: '#d346b1',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          data: categoryIncomeData, // Menggunakan data total pendapatan berdasarkan kategori
-        }]
-      },
-      options: gradientChartOptionsConfigurationWithTooltipPurple
-    };
-    
-    var myChartData = new Chart(ctx, config);
+    var chart_labels = [];
+            var categoryIncomeData = [];
+            var monthlyIncomeData = [];
+            var currentChartType = 'category';
 
-    function getQueryParam(name) {
-      var urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
-  }
-  getQueryParam()
-    
-    // Menggunakan AJAX untuk mengambil data total pendapatan per kategori tiket dari server
-    function fetchData() {
-      var currentUrl = window.location.href;
-  
-  // Memisahkan URL dengan karakter slash (/)
-  var urlSegments = currentUrl.split('/');
+            var ctx = document.getElementById("chartBig1").getContext('2d');
 
-  // Menemukan posisi indeks "pendapatanku" dalam URL
-  var pendapatankuIndex = urlSegments.indexOf("pendapatanku");
+            var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+            gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
+            gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+            gradientStroke.addColorStop(0, 'rgba(119,52,169,0)');
 
-  // Mengambil konser_id yang berada setelah segmen "pendapatanku"
-  if (pendapatankuIndex !== -1 && pendapatankuIndex < urlSegments.length - 1) {
-    var konserId = urlSegments[pendapatankuIndex + 1];
-    console.log("konser_id:", konserId);
-    console.log('Mengambil data dari server...')
+            var config = {
+                type: 'line',
+                data: {
+                    labels: chart_labels,
+                    datasets: [{
+                        label: "Total Pendapatan per Kategori",
+                        fill: true,
+                        backgroundColor: gradientStroke,
+                        hoverBackgroundColor: gradientStroke,
+                        borderColor: '#d346b1',
+                        borderWidth: 2,
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        data: categoryIncomeData,
+                    }]
+                },
+                options: gradientChartOptionsConfigurationWithTooltipPurple
+            };
 
-    // Selanjutnya, Anda dapat menggunakan konserId sesuai kebutuhan Anda.
-  } 
+            var myChartData = new Chart(ctx, config);
 
-      $.ajax({
-        url: `http://127.0.0.1:8000/get-payment-data/${konserId}`, // Sesuaikan dengan URL yang sesuai
-        method: 'GET',
-        success: function(data) {
-          console.log('Data yang diterima dari server:', data);
-          // Update data dari respons server
-          categoryIncomeData = data.categoryData.totals; 
-          chart_labels = data.categoryData.labels; 
-          monthlyIncomeData = data.monthlyData.totals;
-          monthlyLabels = data.monthlyData.labels;
-    
-          // Periksa tipe grafik saat ini dan update dataset sesuai
-          if (currentChartType === 'category') {
-            myChartData.data.labels = chart_labels;
-            myChartData.data.datasets[0].data = categoryIncomeData;
-          } else if (currentChartType === 'monthly') {
-            myChartData.data.labels = monthlyLabels;
-            myChartData.data.datasets[0].data = monthlyIncomeData;
-            myChartData.data.datasets[0].label = "Total Pendapatan Bulanan";
-          }
-    
-          myChartData.update();
-        },
-        error: function(error) {
-          console.error('Error:', error);
-        }
-      });
-    }
-    
-    // Panggil fetchData() untuk mengambil data saat halaman pertama dimuat
-    fetchData();
-    
-    // Event handler untuk tombol ID #1 (Bulanan)
-    $("#1").click(function() {
-      // Periksa apakah data bulanan sudah diambil
-      if (monthlyIncomeData.length > 0) {
-        // Mengubah tipe grafik dan konfigurasi dataset menjadi data pendapatan bulanan
-        myChartData.config.type = 'line';
-        myChartData.config.data.datasets[0].label = "Total Pendapatan Bulanan";
-        myChartData.config.data.datasets[0].backgroundColor = 'transparent';
-        myChartData.config.data.datasets[0].borderColor = '#d346b1';
-        myChartData.config.data.datasets[0].pointBackgroundColor = '#d346b1';
-        myChartData.config.data.datasets[0].pointHoverBackgroundColor = '#d346b1';
-        myChartData.config.data.datasets[0].pointBorderColor = 'rgba(255,255,255,0)';
-        myChartData.config.data.datasets[0].data = monthlyIncomeData;
-        myChartData.config.data.labels = monthlyLabels;
-        myChartData.update();
-        
-        currentChartType = 'monthly'; // Memperbarui tipe grafik saat ini
-      } else {
-        console.error('Data bulanan belum tersedia.'); // Menampilkan pesan kesalahan jika data bulanan belum diambil
-      }
-    });
-    
-    // Event handler untuk tombol ID #0 (Kategori)
-    $("#0").click(function() {
-      // Mengubah tipe grafik dan konfigurasi dataset menjadi data pendapatan kategori
-      myChartData.config.type = 'line';
-      myChartData.config.data.datasets[0].label = "Total Pendapatan per Kategori";
-      myChartData.config.data.datasets[0].backgroundColor = gradientStroke;
-      myChartData.config.data.datasets[0].borderColor = '#d346b1';
-      myChartData.config.data.datasets[0].pointBackgroundColor = '#d346b1';
-      myChartData.config.data.datasets[0].pointHoverBackgroundColor = '#d346b1';
-      myChartData.config.data.datasets[0].pointBorderColor = 'rgba(255,255,255,0)';
-      myChartData.config.data.datasets[0].data = categoryIncomeData;
-      myChartData.config.data.labels = chart_labels;
-      myChartData.update();
-    
-      currentChartType = 'category';
-    });
+            function getQueryParam(name) {
+                var urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+            function fetchData() {
+                var currentUrl = window.location.href;
+
+                var urlSegments = currentUrl.split('/');
+                var pendapatankuIndex = urlSegments.indexOf("pendapatanku");
+
+                if (pendapatankuIndex !== -1 && pendapatankuIndex < urlSegments.length - 1) {
+                    var konserId = urlSegments[pendapatankuIndex + 1];
+                    console.log("konser_id:", konserId);
+                    console.log('Mengambil data dari server...')
+                } 
+
+                $.ajax({
+                  url: `http://127.0.0.1:8000/get-payment-data/${konserId}`,
+                  method: 'GET',
+                  success: function(data) {
+                      console.log('Data yang diterima dari server:', data);
+                      categoryIncomeData = data.categoryData.totals; 
+                      chart_labels = data.categoryData.labels; 
+                      monthlyIncomeData = data.monthlyData.totals;
+                      monthlyLabels = data.monthlyData.labels;
+                       
+                      if (currentChartType === 'category') {
+                          myChartData.data.labels = chart_labels;
+                          myChartData.data.datasets[0].data = categoryIncomeData;
+                      } else if (currentChartType === 'monthly') {
+                          myChartData.data.labels = monthlyLabels;
+                          myChartData.data.datasets[0].data = monthlyIncomeData;
+                          myChartData.data.datasets[0].label = "Total Pendapatan Bulanan";
+                      }
+              
+                      myChartData.update();
+              
+                      // Periksa apakah ada data
+                      var hasData = (currentChartType === 'category' && categoryIncomeData.length > 0) ||
+                          (currentChartType === 'monthly' && monthlyIncomeData.length > 0);
+              
+                      if (!hasData) {
+                          document.getElementById("noDataMessage").innerText = 'Tidak ada data.';
+                          document.getElementById("noDataMessage").style.display = 'block';
+              
+                          // Sembunyikan canvas jika tidak ada data
+                          ctx.canvas.style.display = 'none';
+                      } else {
+                          document.getElementById("noDataMessage").style.display = 'none';
+              
+                          // Tampilkan canvas jika ada data
+                          ctx.canvas.style.display = 'block';
+                      }
+                  },
+                  error: function(error) {
+                      console.error('Error:', error);
+                      document.getElementById("noDataMessage").innerText = 'Terjadi kesalahan saat mengambil data.';
+                      document.getElementById("noDataMessage").style.display = 'block';
+              
+                      // Sembunyikan canvas jika terjadi kesalahan saat mengambil data
+                      ctx.canvas.style.display = 'none';
+                  }
+              });
+            }
+
+            fetchData();
+
+            $("#1").click(function() {
+                if (monthlyIncomeData.length > 0) {
+                    myChartData.config.type = 'line';
+                    myChartData.config.data.datasets[0].label = "Total Pendapatan Bulanan";
+                    myChartData.config.data.datasets[0].backgroundColor = 'transparent';
+                    myChartData.config.data.datasets[0].borderColor = '#d346b1';
+                    myChartData.config.data.datasets[0].pointBackgroundColor = '#d346b1';
+                    myChartData.config.data.datasets[0].pointHoverBackgroundColor = '#d346b1';
+                    myChartData.config.data.datasets[0].pointBorderColor = 'rgba(255,255,255,0)';
+                    myChartData.config.data.datasets[0].data = monthlyIncomeData;
+                    myChartData.config.data.labels = monthlyLabels;
+                    myChartData.update();
+                    currentChartType = 'monthly';
+                } else {
+                    console.error('Data bulanan belum tersedia.');
+                }
+            });
+
+            $("#0").click(function() {
+                myChartData.config.type = 'line';
+                myChartData.config.data.datasets[0].label = "Total Pendapatan per Kategori";
+                myChartData.config.data.datasets[0].backgroundColor = gradientStroke;
+                myChartData.config.data.datasets[0].borderColor = '#d346b1';
+                myChartData.config.data.datasets[0].pointBackgroundColor = '#d346b1';
+                myChartData.config.data.datasets[0].pointHoverBackgroundColor = '#d346b1';
+                myChartData.config.data.datasets[0].pointBorderColor = 'rgba(255,255,255,0)';
+                myChartData.config.data.datasets[0].data = categoryIncomeData;
+                myChartData.config.data.labels = chart_labels;
+                myChartData.update();
+                currentChartType = 'category';
+            });
 
     // function fetchDataFromServer() {
       
@@ -605,6 +608,7 @@ demo = {
         options: gradientBarChartConfiguration
       });
     }
+    
     
     // Panggil fungsi untuk mengambil data dari server dan membuat grafik
     // fetchDataFromServer();

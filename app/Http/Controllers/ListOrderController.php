@@ -10,7 +10,9 @@ class ListOrderController extends Controller
 {
     public function ListKonser(Request $request)
     {
-        $orders = Order::with('transactionHistory')->where('payment_status', 2)->paginate(1);
+        $orders = Order::with(['transactionHistory', 'konser' => function($query){
+            $query->withTrashed();
+        }])->where('payment_status', 2)->paginate(10);
 
         return view('admin_page.list-order', compact('orders'));
     }
@@ -36,7 +38,9 @@ class ListOrderController extends Controller
     {
         $search = $request->input('search');
 
-        $query = Order::where('payment_status', 2)
+        $query = Order::with(['transactionHistory', 'konser' => function($query){
+            $query->withTrashed();
+        }])->where('payment_status', 2)
             ->where(function ($query) use ($search) {
                 $query->where('number', 'like', '%' . $search . '%')
                     ->orWhereHas('user', function ($userQuery) use ($search) {
@@ -45,7 +49,7 @@ class ListOrderController extends Controller
             });
 
         // Menggunakan paginate() untuk mengambil data dengan pembagian halaman
-        $orders = $query->paginate(1);
+        $orders = $query->paginate(10);
 
         return view('admin_page.list-order', compact('orders'));
     }

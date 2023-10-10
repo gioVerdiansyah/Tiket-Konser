@@ -11,7 +11,7 @@ class AdminKonserController extends Controller
 {
     public function index()
     {
-        $konsers = Konser::withTrashed()->paginate(10);
+        $konsers = Konser::withTrashed()->paginate(5);
         return view('admin_page.konser_page', compact('konsers'));
     }
     public function detail($id)
