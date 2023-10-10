@@ -121,6 +121,8 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <!-- Isi modal sesuai dengan data order -->
+                                                            <p><strong>Dari Konser:</strong>
+                                                                {{ $order->konser->nama_konser }}</p>
                                                             <p><strong>Payment Type:</strong>
                                                                 {{ $order->transactionHistory[0]->payment_type }}</p>
                                                             <p><strong>Tanggal dan Waktu:</strong>
