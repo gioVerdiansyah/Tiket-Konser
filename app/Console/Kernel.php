@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('concerts:cleanup')->everyMinute();
+        $schedule->command('concerts:delete')->everyMinute();
     }
 
     /**
