@@ -16,12 +16,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $konser = Konser::with('tiket')->orderBy('created_at', 'desc')->take(4)->get();
-        $hotConcerts = Konser::with([
-            'comment' => function ($query) {
-                $query->take(4);
-            }
-        ])
+        $konser = Konser::with('tiket')->whereHas('tiket', function ($query) {
+            $query->where('jumlah_tiket', '>', 0);
+        })->orderBy('created_at', 'desc')->take(4)->get();
+        $hotConcerts = Konser::whereHas('tiket', function ($query) {
+            $query->where('jumlah_tiket', '>', 0);
+        })
             ->withCount([
                 'uniqueOrderCount as orders_count' => function ($query) {
                     $query->selectRaw('count(distinct user_id)');
@@ -31,7 +31,7 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-            $komen = Comment::with('konser')->latest()->get();
+        $komen = Comment::with('konser')->latest()->limit(4)->get();
 
         return view('user_page.home', compact('konser', 'hotConcerts', 'komen'));
     }
