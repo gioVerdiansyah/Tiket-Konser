@@ -121,7 +121,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <!-- Isi modal sesuai dengan data order -->
-                                                            <p><strong>Dari Konser:</strong>
+                                                            <p><strong>Konser:</strong>
                                                                 {{ $order->konser->nama_konser }}</p>
                                                             <p><strong>Payment Type:</strong>
                                                                 {{ $order->transactionHistory[0]->payment_type }}</p>
@@ -133,11 +133,14 @@
                                                                 {{ $order->user->name }}</p>
                                                             <p><strong>Email Pelanggan:</strong>
                                                                 {{ $order->user->email }}</p>
-                                                            <p><strong>Jumlah:</strong> @currency($order->total_price)</p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close</button>
+                                                            <p><strong>Jumlah:</strong>
+                                                                {{ $order->jumlah}}</p>
+                                                             <p><strong>Harga:</strong>
+                                                             @currency($order->harga_satuan)</p>
+                                                            <p><strong>Biaya Admin:</strong>
+                                                             @currency($order->harga_satuan * $order->jumlah * (5 / 100))</p>
+                                                             <p><strong>Total Harga:</strong>
+                                                             @currency($order->total_price)</p>
                                                         </div>
                                                     </div>
                                                 </div>
