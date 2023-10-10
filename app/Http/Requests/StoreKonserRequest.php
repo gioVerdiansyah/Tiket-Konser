@@ -29,7 +29,21 @@ class StoreKonserRequest extends FormRequest
             'lat' => 'required|numeric',
             'lon' => 'required|numeric',
             'tempat' => 'required|string|min:5|max:255',
-            'waktu_mulai' => 'required|date_format:H:i',
+            'waktu_mulai' => [
+                'required',
+                'date_format:H:i',
+                function ($attribute, $value, $fail) {
+                    $waktuMulai = \Carbon\Carbon::parse($value);
+                    $waktuSekarang = \Carbon\Carbon::now();
+
+                    if ($waktuMulai->greaterThanOrEqualTo(request()->input('waktu_selesai'))) {
+                        $fail('Waktu mulai harus sebelum waktu selesai.');
+                    }
+                    if ($waktuMulai->lessThan($waktuSekarang)) {
+                        $fail('Waktu mulai tidak boleh kurang dari waktu sekarang.');
+                    }
+                },
+            ],
             'waktu_selesai' => 'required|date_format:H:i',
             'kategori' => 'required|exists:kategoris,id',
             'kategoritiket1' => 'required|string|min:1',
