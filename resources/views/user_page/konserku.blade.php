@@ -141,7 +141,7 @@
                                         <div class="product__item__pic">
                                             <a href="{{ route('detail_konser', $konser->id) }}">
                                                 <img src="{{ asset('storage/image/konser/banner/' . $konser->banner) }}"
-                                                    style="width: 100%; max-height: 300px;  border-bottom: solid 1px #d4d4d4;">
+                                                    style="width: 100%; max-height: 250px; min-height:200px; border-bottom: solid 1px #d4d4d4;">
                                             </a>
                                             @if (!$konser->deleted_at)
                                                 <ul class="product__hover">
@@ -159,7 +159,7 @@
                                                     <li>
                                                         <form action="{{ route('buatkonser.destroy', $konser->id) }}"
                                                             id="delete_konser" method="POST"
-                                                            onclick="   
+                                                            onclick="
                                                         return confirmSubmit(event, '{{ $konser->nama_konser }}')
                                                     ">
                                                             @csrf
@@ -211,7 +211,7 @@
                         $.ajax({
                             url: url2,
                             method: 'GET',
-                            data: { konser_id: konser_id }, 
+                            data: { konser_id: konser_id },
                             success: function(response2) {
                                 console.log('Response from URL 2:', response2);
                                 window.location.href = url1;
