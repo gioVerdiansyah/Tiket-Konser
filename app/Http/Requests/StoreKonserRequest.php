@@ -36,14 +36,32 @@ class StoreKonserRequest extends FormRequest
                     $waktuMulai = \Carbon\Carbon::parse($value);
                     $waktuSekarang = \Carbon\Carbon::now();
 
-                    if ($waktuMulai->greaterThanOrEqualTo(request()->input('waktu_selesai'))) {
-                        $fail('Waktu mulai harus sebelum waktu selesai.');
-                    }
-                    if ($waktuMulai->lessThan($waktuSekarang)) {
-                        $fail('Waktu mulai tidak boleh kurang dari waktu sekarang.');
+                    if (strpos(request()->input('tanggal_konser'), ' to ') !== false) {
+                        $tanggalSelesai = \Carbon\Carbon::parse(explode(' to ', request()->input('tanggal_konser'))[1]);
+
+                        if ($tanggalSelesai->gte($waktuSekarang)) {
+                            if ($tanggalSelesai == $waktuSekarang->format('Y-m-d')) {
+                                if ($waktuMulai->lessThan($waktuSekarang)) {
+                                    $fail('Waktu mulai tidak boleh kurang dari waktu sekarang.');
+                                }
+                            }
+                            if ($waktuMulai->greaterThanOrEqualTo(request()->input('waktu_selesai'))) {
+                                $fail('Waktu mulai harus sebelum waktu selesai.');
+                            }
+                        }
+                    } else {
+                        if (request()->input('tanggal_konser') == $waktuSekarang->format('Y-m-d')) {
+                            if ($waktuMulai->lessThan($waktuSekarang)) {
+                                $fail('Waktu mulai tidak boleh kurang dari waktu sekarang.');
+                            }
+                        }
+                        if ($waktuMulai->greaterThanOrEqualTo(request()->input('waktu_selesai'))) {
+                            $fail('Waktu mulai harus sebelum waktu selesai.');
+                        }
                     }
                 },
             ],
+
             'waktu_selesai' => 'required|date_format:H:i',
             'kategori' => 'required|exists:kategoris,id',
             'kategoritiket1' => 'required|string|min:1',
