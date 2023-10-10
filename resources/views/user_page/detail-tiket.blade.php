@@ -394,8 +394,10 @@
                                 <div class="comment d-flex align-items-start">
                                     <div class="user-info">
                                         <div class="d-flex flex-row align-items-center">
-                                            <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
-                                                alt="Foto Profil Verdi" width="40">
+                                            <div style="border-radius: 50%; height:55px; width:55px;">
+                                                <img src="{{ asset('storage/image/photo-user/' . $comment->user->pp) }}"
+                                                alt="Foto Profil Verdi" width="40" style="width: 100%; height: 100%; border-radius:50%">
+                                            </div>
                                             <div class="d-flex flex-column text-start ms-3">
                                                 <p class="mb-0"><strong>{{ $comment->user->name }}</strong></p>
                                                 <p>{{ \Carbon\Carbon::parse($comment->created_at)->translatedFormat('d M Y') }}

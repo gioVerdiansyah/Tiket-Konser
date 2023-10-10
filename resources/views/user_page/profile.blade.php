@@ -1,5 +1,13 @@
 @extends('layouts.nav_profile')
 @section('content')
+        {{--  <style>
+            .profile-image {
+                width: 70%; /* Gambar akan mengisi wadah secara proporsional */
+                object-fit: cover; /* Mengatur gambar untuk mengisi wadah dengan menjaga aspek rasio */
+                object-position: center center; /* Posisi gambar di tengah-tengah wadah */
+                border-radius: 50%; /* Untuk membuat gambar bundar seperti wadah */
+            }
+        </style>  --}}
     <div class="container-fluid mt-3">
         <form action="{{ route('updateProfile', '') }}/{{ $data_user->id }}" method="POST" enctype="multipart/form-data"
             class="form-horizontal">
@@ -8,8 +16,10 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card d-flex align-items-center p-2 h-100">
-                        <img src="{{ asset('storage/image/photo-user/' . $data_user->pp) }}"
-                            class="profile-image card-img-top rounded" alt="Profile" id="photo-profile">
+                        <div  style="border-radius: 100%; height:150px; width:155px;">
+                            <img src="{{ asset('storage/image/photo-user/' . $data_user->pp) }}"
+                            class="profile-image card-img-top" alt="Profile" id="photo-profile" style="width: 100%; height: 100%; border-radius:50%;">
+                        </div>
                         <div class="card-body text-center">
                             <h5 class="card-title">{{ $data_user->name }}</h5>
                             @error('pp')

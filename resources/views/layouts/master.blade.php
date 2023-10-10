@@ -238,11 +238,13 @@
                                 @endforelse
 
                             </ul>
-                            <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+
+                                <a  style="border-radius: 50%; height:55px; width:55px;" class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}" alt="Photo user"
-                                    srcset="">
+                                srcset="" style="width: 100%; height: 100%;">
                             </a>
+
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                                 <li><a class="dropdown-item" href="{{ route('profileUser') }}">Profil Saya</a></li>
                                 <li>
