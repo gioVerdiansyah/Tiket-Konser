@@ -201,7 +201,7 @@
                             <div class="search-box">
                                 <div class="input-group">
                                     <input type="text" id="search" class="form-control" placeholder="Cari disini">
-                                    <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+                                    <span class="input-group-addon" style="padding: 3px"><i class="bi bi-search"></i></span>
                                 </div>
                             </div>
                         </div>

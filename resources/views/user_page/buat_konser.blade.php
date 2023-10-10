@@ -132,7 +132,7 @@
          }
 
          .sah {
-             max-width: 190px;
+             max-width: 145px;
              margin-left: 6rem;
          }
 

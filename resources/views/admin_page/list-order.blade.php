@@ -125,7 +125,7 @@
                                                                 {{ $order->transactionHistory[0]->payment_type }}</p>
                                                             <p><strong>Tanggal dan Waktu:</strong>
                                                                 {{ $order->created_at }}</p>
-                                                            <p><strong>UUID:</strong>
+                                                            <p><strong>ID Pesanan:</strong>
                                                                 {{ $order->transactionHistory[0]->transaction_id }}</p>
                                                             <p><strong>Nama Pelanggan:</strong>
                                                                 {{ $order->user->name }}</p>
