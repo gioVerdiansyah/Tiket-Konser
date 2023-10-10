@@ -25,7 +25,13 @@ class CommentController extends Controller
 
         if ($validator->fails()) {
             $errors = $validator->errors()->all();
-            return response()->json(['error' => $errors]);
+            $errorMessage = implode(', ', $errors);
+
+            return back()->with('message', [
+                'icon' => 'error',
+                'title' => "Gagal!",
+                'text' => $errorMessage
+            ]);
         }
 
         $konser = Konser::findOrFail($id);
@@ -34,7 +40,11 @@ class CommentController extends Controller
             ->count();
 
         if ($jumlahKomentar >= 5) {
-            return response()->json(['error' => ['Anda telah mencapai batas komentar yang diizinkan 5 komentar.']]);
+            return back()->with('message', [
+                'icon' => 'error',
+                'title' => "Gagal!",
+                'text' => "Anda telah mencapai batas komentar yang diizinkan 5 komentar."
+            ]);
         }
 
         $comment = new Comment;
@@ -43,7 +53,10 @@ class CommentController extends Controller
         $comment->fillin = $request->input('fillin');
         $comment->save();
 
-        return response()->json(['message' => 'Komentar berhasil di post']);
+        return back()->with('message', [
+            'title' => "Berhasil!",
+            'text' => "Berhasil memposting komentar"
+        ]);
     }
 
     public function destroy($id)
@@ -53,6 +66,9 @@ class CommentController extends Controller
             return response()->json(['error' => 'Jangan mencoba menghapus komentar orang lain!']);
         }
         $comment->delete();
-        return response()->json(['message' => 'Komentar berhasil di hapus']);
+        return back()->with('message', [
+            'title' => "Berhasil!",
+            'text' => "Berhasil menghapus komentar"
+        ]);
     }
 }

@@ -251,8 +251,7 @@
                                     <i class="bi bi-dash-lg"></i>
                                 </button>
                                 <input type="number" id="count" name="jumlah" class="form-control tengah"
-                                    max="5" value="1"
-                                    style="width: 50px; padding: 10px 5px;">
+                                    max="5" value="1" style="width: 50px; padding: 10px 5px;">
                                 <button type="button" id="plus" class="plus">
                                     <i class="bi bi-plus-lg"></i>
                                 </button>
@@ -311,7 +310,8 @@
                             </p>
                             <!-- Tombol "Read More" -->
                             @if (strlen($konser->deskripsi) > 500)
-                                <a href="#" id="read-more-btn" class="text-dark text-decoration-none">Selengkapnya</a>
+                                <a href="#" id="read-more-btn"
+                                    class="text-dark text-decoration-none">Selengkapnya</a>
                             @endif
                         @else
                             <p>Penjual tidak menambahkan deskripsi...</p>
@@ -367,6 +367,7 @@
                                 <div class="comment-form">
                                     <form id="comment-form" action="{{ route('comment', $konser->id) }}" method="POST"
                                         class="d-flex flex-column">
+                                        @csrf
                                         <input type="hidden" name="komen_id"
                                             value="{{ \App\Models\Comment::max('id') + 1 }}">
                                         <div class="form-group">
@@ -413,11 +414,10 @@
                                                         <div class="komenku dropdown-menu dropdown-menu-end"
                                                             aria-labelledby="profileDropdown"
                                                             id="comment-list{{ $i }}">
-                                                            <form
-                                                                onsubmit="
-                                                                    event.preventDefault();
-                                                                    deleteComment({{ $comment->id }}, {{ $i }});
-                                                                ">
+                                                            <form action="{{ route('delete-comment', $comment->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
                                                                 <button type="submit" class="dropdown-item">Hapus</button>
                                                             </form>
                                                         </div>
@@ -497,134 +497,6 @@
             </div>
         </div>
     </div>
-    <script>
-        const form = document.getElementById('comment-form');
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error(response.statusText);
-                }
-
-                const data = await response.json();
-                console.log(data);
-                if (data && data.message) {
-                    if (data && data.message) {
-                        var lastValue = parseInt($('#jumlah_komen span').text());
-                        $('#jumlah_komen span').text(lastValue + 1);
-                        const lastCommentIndex = $('#comment-list-container .comment-list').length + 1;
-                        const now = new Date();
-                        const tanggal = now.toLocaleDateString('id-ID', {
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric',
-                        });
-
-                        if (lastValue == 0) {
-                            $('#first-comment').remove();
-                        }
-
-                        const newComment = `
-                            <div class="comment-list mt-4" id="comment-list${lastCommentIndex}">
-                                <div class="comment d-flex align-items-start">
-                                    <div class="user-info">
-                                        <div class="d-flex flex-row align-items-center">
-                                            @auth
-                                        <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}"
-                                            alt="Foto Profil Verdi" width="40">
-                                            @endauth
-                                        <div class="d-flex flex-column text-start ms-3">
-                                            @auth
-                                            <p class="mb-0"><strong>{{ Auth::user()->name }}</strong></p>
-                                            <p>${tanggal}</p>
-                                            @endauth
-                                        </div>
-                                                <div class="nav-item dropdown">
-                                                    <a class="nav-link" href="#" id="profileDropdown" role="button"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="bi bi-three-dots-vertical ms-3"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-end"
-                                                        aria-labelledby="profileDropdown">
-                                                        <form onsubmit="
-                                                                    event.preventDefault();
-                                                                    deleteComment(${formData.get('komen_id')}, ${lastCommentIndex});
-                                                                ">
-                                                            <button type="submit" class="dropdown-item">Hapus</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                    </div>
-                                        <div class="text-start">
-                                            <p>${formData.get('fillin')}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        $('#comment-list-container').prepend(newComment);
-                        form.reset();
-                    }
-
-                } else if (data && data.error) {
-                    console.log(data.error);
-                    Swal.fire('Kesalahan!', data.error[0], 'error');
-                }
-            } catch (error) {
-                console.log(error);
-                Swal.fire('Kesalahan!', `Request gagal: ${error.message}`, 'error');
-            }
-        });
-
-        function deleteComment(id, listId) {
-            const commentElement = $('#comment-list' + listId);
-            try {
-                $.ajax({
-                    type: 'DELETE',
-                    url: `{{ route('delete-comment', '') }}/${id}`,
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        var lastValue = parseInt($('#jumlah_komen span').text());
-                        $('#jumlah_komen span').text(lastValue - 1);
-                        if (data.message) {
-                            commentElement.remove();
-                            if (lastValue == 1) {
-                                $('#comment-list-container').prepend(
-                                    @if (!$konser->deleted_at)
-                                        '<p id="first-comment">Belum ada komentar, jadilah orang pertama yang berkomentar</p>'
-                                    @else
-                                        '<p>Anda sudah tidak bisa memberi ulasan karena konser telah kadaluarsa</p>'
-                                    @endif
-                                );
-                            }
-                        } else {
-                            Swal.fire('Error!', `Gagal karena: ${data.error}`, 'error');
-                        }
-                    },
-                    error: function() {
-                        Swal.fire('Kesalahan!', `Request gagal, coba refresh halaman untuk menghapusnya`,
-                            'error');
-                    }
-                });
-            } catch (error) {
-                Swal.fire('Kesalahan!', `Request gagal: ${error.message}`, 'error');
-            }
-        }
-    </script>
     {{-- iframe --}}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -731,13 +603,13 @@
 
     {{-- Read More --}}
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Saat tombol "Read More" diklik
-            $('#read-more-btn').click(function (e) {
+            $('#read-more-btn').click(function(e) {
                 e.preventDefault();
                 $('.deskripsi-pendek').toggle();
                 $('.deskripsi-lengkap').toggle();
-                $(this).text(function (i, text) {
+                $(this).text(function(i, text) {
                     return text === 'Selengkapnya' ? 'Lebih sedikit' : 'Selengkapnya';
                 });
             });
