@@ -110,7 +110,8 @@
                     <div class="shop__sidebar">
                         <div class="shop__sidebar__search">
                             <form action="{{ route('konser.search') }}" method="get">
-                                <input type="text" name="search" placeholder="Search...">
+                                <input type="text" name="search" placeholder="Search..."
+                                    value="{{ request()->input('search') }}">
                                 <button type="submit"><span class="icon_search"></span></button>
                         </div>
 
@@ -133,21 +134,24 @@
                                                 <div class="multi-range-slider my-2">
                                                     <input type="range" id="input_left" name="harga_min"
                                                         class="range_slider" min="0" max="{{ $max_harga }}"
-                                                        value="0" onmousemove="left_slider(this.value)">
-                                                    <input type="range" id="input_right" class="range_slider"
-                                                        name="harga_max" min="0" max="{{ $max_harga }}"
-                                                        value="{{ $max_harga }}" onmousemove="right_slider(this.value)">
+                                                        value="{{ request()->input('harga_min', 0) }}"
+                                                        onmousemove="left_slider(this.value)">
+                                                    <input type="range" data-range="" id="input_right"
+                                                        class="range_slider" name="harga_max" min="0"
+                                                        max="{{ $max_harga }}"
+                                                        value="{{ request()->input('harga_max', $max_harga) }}"
+                                                        onmousemove="right_slider(this.value)">
+
                                                     <div class="slider">
                                                         <div class="track"></div>
                                                         <div class="range"></div>
                                                         <div class="thumb left"></div>
                                                         <div class="thumb right"></div>
-
                                                     </div>
                                                 </div>
                                                 <div id="multi_range">
-                                                    <span id="left_value">Rp 0</span><span> ~ </span><span
-                                                        id="right_value">@currency($max_harga)</span>
+                                                    <span id="left_value">@currency(request()->input('harga_min', 0))</span><span> ~ </span><span
+                                                        id="right_value">@currency(request()->input('harga_max', $max_harga))</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -175,20 +179,24 @@
                                                                         $kategoriItem = $kategoris[$index] ?? null;
                                                                     @endphp
                                                                     @if ($kategoriItem)
+                                                                        @php
+                                                                            $isChecked = in_array($kategoriItem->id, request('kategori', []));
+                                                                        @endphp
                                                                         <label for="kategori{{ $index }}" role="button"
                                                                             id="label{{ $index }}"
-                                                                            class="p-2 m-2">{{ $kategoriItem->nama_kategori }}</label>
+                                                                            class="p-2 m-2 {{ $isChecked ? 'bg-secondary rounded text-white' : '' }}">{{ $kategoriItem->nama_kategori }}</label>
                                                                         <input type="checkbox" name="kategori[]"
                                                                             id="kategori{{ $index }}"
                                                                             value="{{ $kategoriItem->id }}"
                                                                             onchange="onchangeInputCheckbox('{{ $index }}')"
-                                                                            hidden>
+                                                                            hidden {{ $isChecked ? 'checked' : '' }}>
                                                                     @endif
                                                                 @endfor
                                                             </li>
                                                         @empty
                                                             <p>Tidak ada kategori yang tersedia</p>
                                                         @endforelse
+
                                                     </ul>
                                                 </div>
                                             </div>
@@ -263,7 +271,7 @@
                     {{--  paginate  --}}
                     <div class="row mt-3">
                         <div class="paginate">
-                            {{ $konsers->links() }}
+                            {{ $konsers->appends(request()->query())->links() }}
                         </div>
                     </div>
                 </div>
