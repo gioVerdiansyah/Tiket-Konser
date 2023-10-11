@@ -2,6 +2,7 @@
 @section('content')
     <style>
         .card-body{
+            padding: 40px 20px;
             overflow: auto;
         }
         th{

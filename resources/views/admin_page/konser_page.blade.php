@@ -183,7 +183,7 @@
                                     <form action="{{ route('konser_page.search') }}" method="GET">
                                         <div class="form-group d-flex">
                                             <input type="text" id="search-input" class="form-control" name="search"
-                                                placeholder="Cari menurut ID Pesanan atau Email Pelanggan">
+                                                placeholder="Cari menurut ID Pesanan atau Email Pelanggan" value="{{ request()->input('search') }}">
                                             <button type="submit" class="btn btn-primary ml-2">Cari</button>
                                         </div>
                                     </form>
