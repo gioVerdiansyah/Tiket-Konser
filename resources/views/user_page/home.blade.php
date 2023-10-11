@@ -27,11 +27,13 @@
             flex: auto;
         }
 
+
         @media(max-width:988px) {
             .col-3 {
                 width: 100%;
             }
         }
+
 
         @media(min-width: 637px) {
             .img-fluid {
@@ -198,8 +200,10 @@
                     <div class="col" data-aos="fade-up" data-aos-delay="500">
                         <div class="card mb-3 d-flex flex-row align-items-center rounded-4">
                             <div class="p-3">
+                                <div style="  border-radius:100%; height:55px; width:55px;">
                                 <img src="{{ asset('storage/image/photo-user/' . $cell->user->pp) }}" class="rounded-circle"
-                                    alt="Komentar 1" width="100">
+                                alt="Komentar 1" width="100"  style="width: 100%; height: 100%; border-radius:50%;">
+                            </div>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ $cell->user->name }}</h5>
