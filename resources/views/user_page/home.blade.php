@@ -27,11 +27,13 @@
             flex: auto;
         }
 
+
         @media(max-width:988px) {
             .col-3 {
                 width: 100%;
             }
         }
+
 
         @media(min-width: 637px) {
             .img-fluid {
@@ -192,22 +194,28 @@
                 font-size: 13px;
             }
         </style>
-        <div class="row py-5">
+        <div class="row py-5" style="display: block">
             @forelse ($komen as $cell)
                 @if ($cell->konser)
                     <div class="col" data-aos="fade-up" data-aos-delay="500">
-                        <div class="card mb-3 d-flex flex-row align-items-center rounded-4">
-                            <div class="p-3">
-                                <img src="{{ asset('storage/image/photo-user/' . $cell->user->pp) }}" class="rounded-circle"
-                                    alt="Komentar 1" width="100">
+                        <div class="card mb-3 d-flex flex-column align-items-start rounded-4">
+                            <div class="p-3" style="display: flex; ">
+                                <div style="  border-radius:100%; height:55px; width:55px; margin-right: 10px;">
+                                    <img src="{{ asset('storage/image/photo-user/' . $cell->user->pp) }}" class="rounded-circle"
+                                    alt="Komentar 1" width="100"  style="width: 100%; height: 100%; border-radius:50%;">
+                                </div>
+                                <div style="display:flex; align-items:center; justify-content:center;">
+                                    <h5 class="card-title" style="text-align:center;" >{{ $cell->user->name }}</h5>
+                                </div>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">{{ $cell->user->name }}</h5>
-                                <p class="card-text">{{ $cell->fillin }}</p>
+                                <div style="flex-grow: 1;">
+                                    <p class="card-text" style=" overflow: hidden;">{{ $cell->fillin }}</p>
+                                </div>
+                                <p class="dari-konser">Dari konser: <a
+                                        href="{{ route('detail_konser', $cell->konser->id) }}">{{ $cell->konser->nama_konser }}</a>
+                                </p>
                             </div>
-                            <p class="dari-konser">Dari konser: <a
-                                    href="{{ route('detail_konser', $cell->konser->id) }}">{{ $cell->konser->nama_konser }}</a>
-                            </p>
                         </div>
                     </div>
                 @endif

@@ -80,12 +80,21 @@
                 position: relative;
                 display: inline-block;
             }
+            .pp_profile{
+                border-radius:50%;
+                height:55px;
+                width:55px;
+            }
 
             .dropdown-content {}
 
             @media(max-width:991px) {
                 .navbar-expand-lg .navbar-nav .dropdown-menu {
                     position: absolute;
+                }
+                .pp_profile{
+                    width: 45px;
+                    height: 61px;
                 }
             }
         </style>
@@ -239,7 +248,7 @@
 
                             </ul>
 
-                                <a  style="border-radius: 50%; height:55px; width:55px;" class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown"
+                                <a  class="nav-link pp_profile" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}" alt="Photo user"
                                 srcset="" style="width: 100%; height: 100%;">
