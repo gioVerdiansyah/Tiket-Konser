@@ -28,11 +28,13 @@
         }
 
 
+
         @media(max-width:988px) {
             .col-3 {
                 width: 100%;
             }
         }
+
 
 
         @media(min-width: 637px) {
@@ -194,7 +196,7 @@
                 font-size: 13px;
             }
         </style>
-        <div class="row py-5">
+        <div class="row py-5" style="display: block">
             @forelse ($komen as $cell)
                 @if ($cell->konser)
                     <div class="col" data-aos="fade-up" data-aos-delay="500">
@@ -206,12 +208,13 @@
                             </div>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">{{ $cell->user->name }}</h5>
-                                <p class="card-text">{{ $cell->fillin }}</p>
+                                <div style="flex-grow: 1;">
+                                    <p class="card-text" style=" overflow: hidden;">{{ $cell->fillin }}</p>
+                                </div>
+                                <p class="dari-konser">Dari konser: <a
+                                        href="{{ route('detail_konser', $cell->konser->id) }}">{{ $cell->konser->nama_konser }}</a>
+                                </p>
                             </div>
-                            <p class="dari-konser">Dari konser: <a
-                                    href="{{ route('detail_konser', $cell->konser->id) }}">{{ $cell->konser->nama_konser }}</a>
-                            </p>
                         </div>
                     </div>
                 @endif
