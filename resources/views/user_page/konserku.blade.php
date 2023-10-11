@@ -10,12 +10,12 @@
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         {{--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">  --}}
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ secure_asset('css/style.css') }}">
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
             rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/font-awesome.min.css" type="text/css">
-        <link rel="stylesheet" href="{{ asset('malefashion') }}/css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="{{ secure_asset('malefashion') }}/css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="{{ secure_asset('malefashion') }}/css/elegant-icons.css" type="text/css">
         <style>
             .paginate ul {
                 justify-content: center;

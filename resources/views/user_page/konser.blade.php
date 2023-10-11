@@ -4,12 +4,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="path-to-bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ secure_asset('path-to-bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/style.css') }}">
+<link rel="stylesheet" href="{{ secure_asset('malefashion/css/font-awesome.min.css') }}" type="text/css">
+<link rel="stylesheet" href="{{ secure_asset('malefashion/css/elegant-icons.css') }}" type="text/css">
 
-    <link rel="stylesheet" href="{{ asset('malefashion') }}/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('malefashion') }}/css/elegant-icons.css" type="text/css">
     <style>
         .shop__left {
             padding-bottom: 8px;
@@ -293,22 +293,22 @@
         }
     </script>
 
-    <script src="{{ asset('malefashion') }}/js/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('malefashion') }}/js/bootstrap.min.js"></script>
+    <script src="{{ secure_asset('malefashion') }}/js/jquery-3.3.1.min.js"></script>
+    <script src="{{ secure_asset('malefashion') }}/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="path/to/nicescroll.js"></script>
-    <script src="{{ asset('malefashion') }}/js/jquery.nice-select.min.js"></script>
-    <script src="{{ asset('malefashion') }}/js/jquery.nicescroll.min.js"></script>
-    <script src="{{ asset('malefashion') }}/js/jquery.magnific-popup.min.js"></script>
-    <script src="{{ asset('malefashion') }}/js/jquery.countdown.min.js"></script>
-    <script src="{{ asset('malefashion') }}/js/jquery.slicknav.js"></script>
-    <script src="{{ asset('malefashion') }}/js/mixitup.min.js"></script>
-    <script src="{{ asset('malefashion') }}/js/owl.carousel.min.js"></script>
-    <script src="{{ asset('malefashion') }}/js/main.js"></script>
+    <script src="{{ secure_asset('malefashion') }}/js/jquery.nice-select.min.js"></script>
+    <script src="{{ secure_asset('malefashion') }}/js/jquery.nicescroll.min.js"></script>
+    <script src="{{ secure_asset('malefashion') }}/js/jquery.magnific-popup.min.js"></script>
+    <script src="{{ secure_asset('malefashion') }}/js/jquery.countdown.min.js"></script>
+    <script src="{{ secure_asset('malefashion') }}/js/jquery.slicknav.js"></script>
+    <script src="{{ secure_asset('malefashion') }}/js/mixitup.min.js"></script>
+    <script src="{{ secure_asset('malefashion') }}/js/owl.carousel.min.js"></script>
+    <script src="{{ secure_asset('malefashion') }}/js/main.js"></script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ secure_asset('js/script.js') }}"></script>
     <script>
         $.ajaxSetup({
             headers: {

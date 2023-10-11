@@ -16,7 +16,6 @@ const [minPrice, maxPrice] = [parseInt(input_left.min), parseInt(input_left.max)
 const set_left_value = () => {
     const _this = input_left;
     const percent = ((_this.value - minPrice) / (maxPrice - minPrice)) * 100;
-    console.log(percent);
     thumb_left.style.left = percent + "%";
     range.style.left = percent + "%";
 };
@@ -25,7 +24,6 @@ const set_left_value = () => {
 const set_right_value = () => {
     const _this = input_right;
     const percent = ((_this.value - minPrice) / (maxPrice - minPrice)) * 100;
-    console.log(percent);
     thumb_right.style.right = 100 - percent + "%";
     range.style.right = 100 - percent + "%";
 };

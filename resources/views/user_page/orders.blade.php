@@ -117,7 +117,7 @@
                     console.log(result)
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('sendTrans') }}",
+                        url: "https://3228-118-99-112-6.ngrok-free.app/orders/trans",
                         data: result,
                         beforeSend: function(xhr) {
                             xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
@@ -156,7 +156,7 @@
                     }
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('sendTrans') }}",
+                        url: "{{ secure_url(route('sendTrans')) }}",
                         data: result,
                         beforeSend: function(xhr) {
                             xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');

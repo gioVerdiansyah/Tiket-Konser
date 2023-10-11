@@ -117,7 +117,7 @@
         {{-- <link href="{{ asset('/css/nucleo-icons.css') }}" rel="stylesheet" /> --}}
         <!-- CSS -->
         {{-- <link href="{{ asset('/css/black-dashboard.css?v=1.0.0') }}" rel="stylesheet" /> --}}
-        <link href="{{ asset('/css/theme.css') }}" rel="stylesheet" />
+        <link href="{{ secure_asset('/css/theme.css') }}" rel="stylesheet" />
     </head>
 
     <body>
@@ -250,7 +250,7 @@
 
                                 <a  class="nav-link pp_profile" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                <img src="{{ asset('storage/image/photo-user/' . Auth::user()->pp) }}" alt="Photo user"
+                                <img src="{{ secure_asset('storage/image/photo-user/' . Auth::user()->pp) }}" alt="Photo user"
                                 srcset="" style="width: 100%; height: 100%;">
                             </a>
 
@@ -312,6 +312,40 @@
                     <div class="col mb-3">
                         <h5>Peta Situs</h5>
                         <ul class="nav flex-column">
+                            @guest
+                                    @if (Route::has('login'))
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        </li>
+                                    @endif
+
+                                    @if (Route::has('register'))
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        </li>
+                                    @endif
+                                @else
+                                    <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                                            role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false" v-pre>
+                                            {{ Auth::user()->name }}
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </li>
+                                @endguest
                             <li class="nav-item mb-2"><a href="#"
                                     class="nav-link p-0 text-body-secondary text-start">Beranda</a></li>
                             <li class="nav-item mb-2"><a href="{{ route('konser') }}"
@@ -359,13 +393,13 @@
         {{-- Footer End --}}
 
         {{-- <script src="{{ asset('/js/core/jquery.min.js') }}"></script> --}}
-        <script src="{{ asset('/js/core/popper.min.js') }}"></script>
-        <script src="{{ asset('/js/core/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
-        <script src="{{ asset('/js/plugins/bootstrap-notify.js') }}"></script>
+        <script src="{{ secure_asset('/js/core/popper.min.js') }}"></script>
+        <script src="{{ secure_asset('/js/core/bootstrap.min.js') }}"></script>
+        <script src="{{ secure_asset('/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
+        <script src="{{ secure_asset('/js/plugins/bootstrap-notify.js') }}"></script>
 
-        <script src="{{ asset('/js/black-dashboard.min.js?v=1.0.0') }}"></script>
-        <script src="{{ asset('/js/theme.js') }}"></script>
+        <script src="{{ secure_asset('/js/black-dashboard.min.js?v=1.0.0') }}"></script>
+        <script src="{{ secure_asset('/js/theme.js') }}"></script>
         <script>
             function deleteNotif(button, id) {
                 $.ajax({

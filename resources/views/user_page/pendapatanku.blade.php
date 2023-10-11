@@ -1,5 +1,5 @@
 @extends('layouts.master')
-<link href="{{ asset('/css/black-dashboard.css?v=1.0.0') }}" rel="stylesheet" />
+<link href="{{ secure_asset('/css/black-dashboard.css?v=1.0.0') }}" rel="stylesheet" />
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -232,7 +232,7 @@
     @endsection
 
     @push('js')
-        <script src="{{ asset('/js/plugins/chartjs.min.js') }}"></script>
+        <script src="{{ secure_asset('/js/plugins/chartjs.min.js') }}"></script>
         <script>
             $(document).ready(function() {
                 demo.initDashboardPageCharts();

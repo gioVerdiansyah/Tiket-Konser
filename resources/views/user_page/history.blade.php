@@ -388,7 +388,7 @@
                         <div class="row no-gutters">
                             <div class="col-md-4 ">
                                 <!-- Mengubah ukuran kolom gambar -->
-                                <img src="{{ asset('storage/image/konser/banner/' . $order->konser->banner) }}"
+                                <img src="{{ secure_asset('storage/image/konser/banner/' . $order->konser->banner) }}"
                                     class="card-img custom-img" alt="Placeholder Image" height="200 px;" width="110">
                             </div>
                             <div class="col-md-8">
@@ -580,7 +580,7 @@
             var ticketId = 'ticket' + id;
 
             $.ajax({
-                url: `{{ route('tiketku') }}#ticket${id}`,
+                url: `https://3228-118-99-112-6.ngrok-free.app/tiketku?ticketId=ticket${id}`,
                 method: 'GET',
                 data: {
                     ticketId: ticketId

@@ -95,8 +95,8 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="{{ asset('images/homepage/jumbotron.png') }}" class="d-block w-100" alt="">
-                <div class="carousel-caption" style="top: 20%; left: 100px; right: auto; text-align: left;">
-                    <h1 class="text-black fw-bold" style="max-width: 600px">Temukan Keseruan dengan menonton konser!</h1>
+                <div class="carousel-caption" style="top: 15%; left: 40px; right: auto; text-align: left;">
+                    <h1 class="text-black fw-bold" style="max-width: 600px;">Temukan Keseruan dengan menonton konser!</h1>
                     <a href="{{ route('konser') }}" class="btn btn-dark rounded-5">Pesan Sekarang</a>
                 </div>
             </div>

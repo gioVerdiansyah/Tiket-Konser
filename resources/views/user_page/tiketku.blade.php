@@ -181,7 +181,7 @@
                         <p class="movie-title">{{ $orders->konser->nama_konser }}</p>
                     </div>
                     <div class="poster">
-                        <img src="{{ asset('storage/image/konser/banner/' . $orders->konser->banner) }}"
+                        <img src="{{ secure_asset('storage/image/konser/banner/' . $orders->konser->banner) }}"
                             alt="Photo konser" />
                     </div>
                     <div class="info">

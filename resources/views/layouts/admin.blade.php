@@ -12,7 +12,7 @@
         <title>SB Admin 2 - Dashboard</title>
 
         <!-- Custom fonts for this template-->
-        <link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ secure_asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -23,7 +23,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!-- Custom styles for this template-->
-        <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
+        <link href="{{ secure_asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     </head>
 
@@ -104,21 +104,21 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
         </script>
-        <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ secure_asset('admin/vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ secure_asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
         <!-- Core plugin JavaScript-->
-        <script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+        <script src="{{ secure_asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
         <!-- Custom scripts for all pages-->
-        <script src="{{ asset('admin/js/sb-admin-2.min.js') }}"></script>
+        <script src="{{ secure_asset('admin/js/sb-admin-2.min.js') }}"></script>
 
         <!-- Page level plugins -->
-        <script src="{{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
+        <script src="{{ secure_asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
 
         <!-- Page level custom scripts -->
-        <script src="{{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
-        <script src="{{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
+        <script src="{{ secure_asset('admin/js/demo/chart-area-demo.js') }}"></script>
+        <script src="{{ secure_asset('admin/js/demo/chart-pie-demo.js') }}"></script>
 
         @if (session('message'))
             <script>
