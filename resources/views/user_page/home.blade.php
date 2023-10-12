@@ -11,6 +11,35 @@
             width: 100%;
         }
 
+        .card-container {
+    width: 100%;
+    overflow-x: auto; /* Mengaktifkan scrolling horizontal */
+    white-space: nowrap; /* Mencegah card turun ke bawah */
+    display: flex;
+    justify-content: center;
+}
+
+.concert-card {
+    width: 250px; /* Lebar satu card */
+    margin-right: 29px; /* Jarak antara card */
+    flex: 0 0 auto; /* Tidak akan meregang */
+}
+
+.card-container::after {
+    content: "";
+    width: 15px;
+}
+
+@media (max-width: 767px) {
+    .card-container {
+        justify-content: flex-start; /* Set it to 'flex-start' for mobile to align to the left */
+        padding-left: 10px; /* Add some left padding to prevent cutoff on the left */
+    }
+}
+
+
+
+
         b {
             background-color: currentColor;
             display: block;
@@ -138,13 +167,12 @@
 
     {{-- Card Konser Terbaru Start --}}
     <div class="container bg-white text-center" data-aos="fade-up" data-aos-delay="300">
-        <h1 class="fw-bold pt-5 ">Konser Terbaru</h1>
-        <div class="row py-5">
+        <h1 class="fw-bold pt-5 mb-5">Konser Terbaru</h1>
+        <div class="card-container">
             @forelse ($konser as $row)
-                <div class="col-3 concert-card">
+                <div class="concert-card">
                     <a href="{{ route('detail_konser', $row->id) }}">
-                        <img width="250" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}"
-                            alt="" class="mb-4" style="border-radius:5%;">
+                        <img width="250" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}" alt="" class="mb-4" style="border-radius:5%;">
                     </a>
                     <h3 class="fw-bold">{{ $row->nama_konser }}</h3>
                     @foreach ($row->tiket as $tiket)
@@ -161,13 +189,12 @@
 
     {{-- Card Sedang Hot Start --}}
     <div class="container bg-white text-center" data-aos="fade-up" data-aos-delay="300">
-        <h1 class="fw-bold pt-5">Sedang Hot</h1>
-        <div class="row py-5">
+        <h1 class="fw-bold pt-5 mb-5">Sedang Hot</h1>
+        <div class="card-container">
             @forelse ($hotConcerts as $row)
-                <div class="col-3 concert-card">
+                <div class="concert-card">
                     <a href="{{ route('detail_konser', $row->id) }}">
-                        <img width="250" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}"
-                            alt="" class="mb-4" style="border-radius: 5%;">
+                        <img width="250" height="267" src="{{ asset('storage/image/konser/banner/' . $row->banner) }}" alt="" class="mb-4" style="border-radius: 5%;">
                     </a>
                     <h3 class="fw-bold">{{ $row->nama_konser }}</h3>
                     @foreach ($row->tiket as $tiket)
@@ -178,7 +205,6 @@
                 <p>Belum ada konser yang populer...</p>
             @endforelse
         </div>
-    </div>
     </div>
     <hr>
     {{-- Card Sedang Hot End --}}

@@ -580,7 +580,7 @@
             var ticketId = 'ticket' + id;
 
             $.ajax({
-                url: `https://3228-118-99-112-6.ngrok-free.app/tiketku?ticketId=ticket${id}`,
+                url: `https://ca7a-182-1-113-78.ngrok-free.app/tiketku?ticketId=ticket${id}`,
                 method: 'GET',
                 data: {
                     ticketId: ticketId

@@ -117,7 +117,7 @@
                     console.log(result)
                     $.ajax({
                         type: "POST",
-                        url: "https://3228-118-99-112-6.ngrok-free.app/orders/trans",
+                        url: "https://ca7a-182-1-113-78.ngrok-free.app/orders/trans",
                         data: result,
                         beforeSend: function(xhr) {
                             xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
